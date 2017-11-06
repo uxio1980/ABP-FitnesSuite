@@ -218,6 +218,12 @@ $language = $i18n->getLanguage();
                       <div class="text-item"><?= i18n("Users")?></div>
                     </a>
                   </li>
+                  <li class="nav-item">
+                    <a href="index.php?controller=public_info&amp;action=index">
+                      <img src="resources/icons/ic_group_black_24px.svg" alt="Public_Info icon"/>
+                      <div class="text-item"><?= i18n("Public info")?></div>
+                    </a>
+                  </li>
                 <?php endif ?>
                 <div class="customHr">.</div>
               <?php endif ?>
