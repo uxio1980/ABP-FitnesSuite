@@ -1,0 +1,9 @@
+.metadata/*
+.recommenders/*
+**/.classpath
+**/.settings/*
+**/*.xml
+**/*.txt
+/.metadata/
+/.recommenders/
+**/VERSIONES/
