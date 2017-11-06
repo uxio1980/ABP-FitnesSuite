@@ -991,6 +991,111 @@ header{
   cursor: pointer;
 }
 
+/************** MAIN CONTENT LIST ************/
+
+.content-title {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+#content-list {
+  font-family: 'Lato';
+  display: flex;
+  flex-basis: 100%;
+  flex-direction: column;
+}
+
+#content-list a:link {
+  text-decoration: none;
+}
+
+#content-list strong {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-family: 'Lato';
+  font-size: 1.3em;
+  color: #5c5c5c;
+}
+
+#content-list form input[type=submit] {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  padding: 20px;
+  outline: 0;
+  background: #db4437;
+  border: 0;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-self: flex-end;
+}
+
+#content-list input[type=button] {
+  margin-top: 10px;
+  margin-left: 30px;
+  margin-bottom: 10px;
+  padding: 15px;
+  outline: 0;
+  background: #db4437;
+  border: 0;
+  color: white;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-self: flex-end;
+}
+
+#table-content {
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+}
+
+#table-content tr{
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  color: #5c5c5c;
+}
+
+#table-content tr strong{
+  font-size: 1em;
+}
+
+
+#table-content tr:hover {
+  color: #333333;
+  background: #e2e2e2;
+}
+
+#table-content .table-row-content td {
+  margin: 0;
+  padding-top: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 15px;
+  border-left: ;
+  border-bottom: 1pt solid #dedede;
+
+}
+
+.form #table-content .table-row-content .checkbox-input input {
+  margin:0;
+  width: 30px;
+  padding-top: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1pt solid #dedede;
+}
+
 /*******************    CONTACT FORM  ************************/
 .contact-form strong {
   padding-top: 10px;
