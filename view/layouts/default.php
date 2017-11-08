@@ -184,7 +184,7 @@ $language = $i18n->getLanguage();
             <li class="nav-item">
               <a href="index.php?controller=users&amp;action=profile&amp;login=<?= $currentuser ?>" method="POST">
                 <img src="resources/icons/profile_icon.svg" alt="Profile icon"/>
-                <div class="text-item"><?= i18n("Profile")?></div></a>
+                <div class="text-item"><?= i18n("My profile")?></div></a>
               </li>
               <?php if (($typeuser)==usertype::Athlete):?>
                 <li class="nav-item">

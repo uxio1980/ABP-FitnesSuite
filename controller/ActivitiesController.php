@@ -55,7 +55,7 @@ class ActivitiesController extends BaseController {
       $this->view->render("activities", "index_admin");
     } else {
       $this->view->render("activities", "index");
-    } 
+    }
   }
 
   /**
@@ -291,57 +291,37 @@ class ActivitiesController extends BaseController {
   }
 
   /**
-  * Action to delete a post
+  * Action to delete an activity
   *
   * This action should only be called via HTTP POST
   *
-  * The expected HTTP parameters are:
-  * <ul>
-  * <li>id: Id of the post (via HTTP POST)</li>
-  * </ul>
-  *
-  * The views are:
-  * <ul>
-  * <li>posts/index: If post was successfully deleted (via redirect)</li>
-  * </ul>
   * @throws Exception if no id was provided
   * @throws Exception if no user is in session
-  * @throws Exception if there is not any post with the provided id
-  * @throws Exception if the author of the post to be deleted is not the current user
+  * @throws Exception if there is not any user with the provided id
   * @return void
   */
   public function delete() {
-    if (!isset($_REQUEST["idactivity"])) {
-      throw new Exception("idactivity is mandatory");
-    }
     if (!isset($this->currentUser)) {
-      throw new Exception("Not in session. Editing activitys requires login");
+      throw new Exception("Not in session. Editing users requires login");
+    }
+    if ($this->currentUser->getUser_type()!=usertype::Administrator){
+      throw new Exception("Not valid user. Editing activity requires Administrator");
     }
 
-    // Get the activity object from the database
+    // Get the user object from the database
     $idactivity = $_REQUEST["idactivity"];
     $activity = $this->activityMapper->findById($idactivity);
-  
-    // Does the activity exist?
+
+    // Does the user exist?
     if ($activity == NULL) {
       throw new Exception("no such activity with id: ".$idactivity);
     }
-    var_dump($activity->getName()); 
-    if (isset($_POST["submit"])) {
-        if ($_POST["submit"] == "yes"){
-          // Delete the activity object from the database
-            $this->activityMapper->delete($activity);
-            // POST-REDIRECT-GET
-            // Everything OK, we will redirect the user to the list of artcles
-        }
-        // perform the redirection. More or less:
-        // header("Location: index.php?controller=posts&action=index")
-        // die();
-        $activities = $this->activityMapper->findAll();
-        $this->view->setVariable("activities", $activities);
-        $this->view->redirect("activities", "index_admin");
-    }
-    $this->view->render("activities", "confirm_delete");
+
+    // Delete the user object from the database
+    $this->activityMapper->delete($activity);
+    $this->view->setFlash(sprintf(i18n("Activity \"%s\" successfully deleted."),$activity->getIdactivity()));
+
+    $this->view->redirect("activities", "index");
 
   }
 

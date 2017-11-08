@@ -4,7 +4,8 @@
   array(
     "title" => "FitnesSuite",
     "Home" => "Inicio",
-    "Profile" => "Mi perfil",
+    "My profile" => "Mi perfil",
+    "Profile" => "Perfil",
     "Search" => "Buscar",
     "About us" => "Sobre nosotros",
     "Trainers" => "Entrenadores",
