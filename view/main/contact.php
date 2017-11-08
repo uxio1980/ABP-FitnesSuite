@@ -6,7 +6,7 @@ $view = ViewManager::getInstance();
 
 //$articles = $view->getVariable("articles");
 $currentuser = $view->getVariable("currentusername");
-
+$public_info = $view->getVariable("public_info");
 $view->setVariable("title", "FitnesSuite");
 
 ?>
@@ -52,8 +52,8 @@ $view->setVariable("title", "FitnesSuite");
       <div class="commercial-textbox">
         <p class="commercial-title commercial-title-second"><?= i18n("Contact info")?></p>
         <p class="commercial-description">diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis.</p>
-        <p class="commercial-description">Teléfono de contacto: 555123456</p>
-        <p class="commercial-description">correo electrónico: info@gym.com</p>
+        <p class="commercial-description"><?= i18n("Telephone contact")?>: <?= $public_info->getPhone() ?></p>
+        <p class="commercial-description"><?= i18n("Email")?>: <?= $public_info->getEmail() ?></p>
       </div>
     </li>
   </ul>

@@ -6,7 +6,7 @@ $view = ViewManager::getInstance();
 
 //$articles = $view->getVariable("articles");
 $currentuser = $view->getVariable("currentusername");
-
+$public_info = $view->getVariable("public_info");
 $view->setVariable("title", "FitnesSuite");
 
 ?>
@@ -19,45 +19,54 @@ $view->setVariable("title", "FitnesSuite");
         <!--<p class="commercial-description"></p>-->
       </div>
     </li>
-    <?php $pathTickImage = '/resources/images/tick-blue.png' ?>
+    <?php $pathTickImageBlue = '/resources/images/tick-blue.png' ?>
     <li class="article-box pricing-box">
         <div class="tittle-edit">
-          <p class="article-box-title pricing-box-title">ONE DAY TRAINING</p>
+          <p class="article-box-title pricing-box-title"><?= i18n("ONE DAY TRAINING") ?></p>
         </div>
-        <p class="pricing-price">FREE</p>
-        <p class="article-seller pricing-text"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
-        <p class="article-seller pricing-text"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
-        <p class="article-seller pricing-text"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
-        <p class="article-seller pricing-text"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
-        <p class="article-seller pricing-text"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="pricing-price1"><?= i18n("FREE") ?></p>
+        <p class="article-seller pricing-text"><img src="<?= $pathTickImageBlue ?>" alt="Image tick"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="article-seller pricing-text"><img src="<?= $pathTickImageBlue ?>" alt="Image tick"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="article-seller pricing-text"><img src="<?= $pathTickImageBlue ?>" alt="Image tick"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="article-seller pricing-text"><img src="<?= $pathTickImageBlue ?>" alt="Image tick"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="article-seller pricing-text"><img src="<?= $pathTickImageBlue ?>" alt="Image tick"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
     </li>
-    <li class="article-box pricing-box">
-      <?php $pathimage = '/resources/images/_missing-thumbnail.png' ?>
-      <img src="<?= $pathimage ?>" alt="Image 1">
-      <div class="article-footer">
+    <li class="article-box pricing-box background-color1">
         <div class="tittle-edit">
-          <p class="article-box-title">Nombre</p>
+          <p class="article-box-title pricing-box-title second-color">6 <?= i18n("MONTHS MEMBERSHIP") ?></p>
         </div>
-        <p class="article-seller"><?= i18n("sold by ")?><span>Usuario</span></p>
-        <p class="article-price">20€</p>
-      </div>
+        <div class="pricing-box-price">
+          <p class="pricing-price1 second-color">33</p>
+          <p class="pricing-price2 second-color">.33</p>
+          <p class="pricing-price1 second-color">€</p>
+        </div>
+        <?php $pathTickImageWhite = '/resources/images/tick.png' ?>
+        <p class="article-seller pricing-text second-color"><img src="<?= $pathTickImageWhite ?>" alt="Image tick"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="article-seller pricing-text second-color"><img src="<?= $pathTickImageWhite ?>" alt="Image tick"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="article-seller pricing-text second-color"><img src="<?= $pathTickImageWhite ?>" alt="Image tick"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="article-seller pricing-text second-color"><img src="<?= $pathTickImageWhite ?>" alt="Image tick"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="article-seller pricing-text second-color"><img src="<?= $pathTickImageWhite ?>" alt="Image tick"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
     </li>
-    <li class="article-box pricing-box">
-      <?php $pathimage = '/resources/images/_missing-thumbnail.png' ?>
-      <img src="<?= $pathimage ?>" alt="Image 1">
-      <div class="article-footer">
+    <li class="article-box pricing-box" >
         <div class="tittle-edit">
-          <p class="article-box-title">Nombre</p>
+          <p class="article-box-title pricing-box-title" >12 <?= i18n("MONTHS MEMBERSHIP") ?></p>
         </div>
-        <p class="article-seller"><?= i18n("sold by ")?><span>Usuario</span></p>
-        <p class="article-price">20€</p>
-      </div>
+        <div class="pricing-box-price">
+          <p class="pricing-price1">120</p>
+          <p class="pricing-price2">.00</p>
+          <p class="pricing-price1">€</p>
+        </div>
+        <p class="article-seller pricing-text"><img src="<?= $pathTickImageBlue ?>" alt="Image tick"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="article-seller pricing-text"><img src="<?= $pathTickImageBlue ?>" alt="Image tick"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="article-seller pricing-text"><img src="<?= $pathTickImageBlue ?>" alt="Image tick"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="article-seller pricing-text"><img src="<?= $pathTickImageBlue ?>" alt="Image tick"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="article-seller pricing-text"><img src="<?= $pathTickImageBlue ?>" alt="Image tick"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
     </li>
     <li id="commercial-box" class="commercial-box">
       <div class="commercial-textbox">
         <p class="commercial-title commercial-title-second"><?= i18n("Have a question?")?></p>
         <p class="commercial-description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</p>
-        <p class="commercial-title">555123456</p>
+        <p class="commercial-title"><?= $public_info->getPhone() ?></p>
       </div>
     </li>
   </ul>

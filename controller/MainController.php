@@ -4,6 +4,9 @@
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
 
+require_once(__DIR__."/../model/Public_Info.php");
+require_once(__DIR__."/../model/Public_InfoMapper.php");
+
 /**
 * Class MainController
 *
@@ -13,13 +16,13 @@ require_once(__DIR__."/../controller/BaseController.php");
 */
 class MainController extends BaseController {
 
-  private $articleMapper;
+  private $public_infoMapper;
   private $date;
   private $currentDate;
 
   public function __construct() {
     parent::__construct();
-
+    $this->public_infoMapper = new Public_InfoMapper();
     $this->date = new DateTime();
     $this->currentDate = $this->date->getTimestamp();
   }
@@ -46,6 +49,9 @@ class MainController extends BaseController {
   */
   public function pricing() {
 
+    $public_info = $this->public_infoMapper->findById(0); //Solo tendrá la tupla con id = 0
+    // put the array containing public info object to the view
+    $this->view->setVariable("public_info", $public_info);
     // render the view (/view/main/pricing.php)
     $this->view->render("main", "pricing");
   }
@@ -58,7 +64,9 @@ class MainController extends BaseController {
   *
   */
   public function contact() {
-
+    $public_info = $this->public_infoMapper->findById(0); //Solo tendrá la tupla con id = 0
+    // put the array containing public info object to the view
+    $this->view->setVariable("public_info", $public_info);
     // render the view (/view/main/contact.php)
     $this->view->render("main", "contact");
   }
