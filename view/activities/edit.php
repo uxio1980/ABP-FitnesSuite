@@ -48,13 +48,7 @@
 			<input type="file" name="image[]" multiple accept="image/*">
 			<?= isset($errors["image"])?$errors["image"]:"" ?><br>
 
-      <div class="action">
-        <input name="idactivity" value="<?= $activity->getIdactivity() ?>" hidden="true">
-  			<button type="submit" name="submit"><?= i18n("Modify") ?></button>
-        <a href="index.php?controller=activities&amp;action=delete&amp;idactivity=<?= $activity->getIdactivity() ?>">
-          <?= i18n("Delete") ?>
-        </a>
-      </div>
+			<input type="submit" name="submit" value="<?= i18n("Modify") ?>"/>
       </form>
     </div>
 

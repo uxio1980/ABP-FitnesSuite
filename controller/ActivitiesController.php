@@ -45,14 +45,17 @@ class ActivitiesController extends BaseController {
   * </ul>
   */
   public function index() {
+
     // obtain the data from the database
     $activities = $this->activityMapper->findAll();
 
     // put the array containing Activity object to the view
     $this->view->setVariable("activities", $activities);
-
-    // render the view (/view/activities/index.php)
-    $this->view->render("activities", "index");
+    if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
+      $this->view->render("activities", "index_admin");
+    } else {
+      $this->view->render("activities", "index");
+    } 
   }
 
   /**
@@ -183,7 +186,7 @@ class ActivitiesController extends BaseController {
     $this->view->setVariable("activity", $activity);
 
     // render the view (/view/activitys/add.php)
-    $this->view->render("activitys", "add");
+    $this->view->render("activities", "add");
 
   }
 
@@ -318,18 +321,12 @@ class ActivitiesController extends BaseController {
     // Get the activity object from the database
     $idactivity = $_REQUEST["idactivity"];
     $activity = $this->activityMapper->findById($idactivity);
-    $user = ($activity->getUserLogin()->getLogin());
-    $userSession = ($this->currentUser->getLogin());
+  
     // Does the activity exist?
     if ($activity == NULL) {
       throw new Exception("no such activity with id: ".$idactivity);
     }
-
-    // Check if the activity author is the currentUser (in Session)
-    if ($user != $userSession) {
-      throw new Exception("Activity author is not the logged user");
-    }
-
+    var_dump($activity->getName()); 
     if (isset($_POST["submit"])) {
         if ($_POST["submit"] == "yes"){
           // Delete the activity object from the database
@@ -340,10 +337,11 @@ class ActivitiesController extends BaseController {
         // perform the redirection. More or less:
         // header("Location: index.php?controller=posts&action=index")
         // die();
-        $this->view->redirect("activitys", "listactivitys");
+        $activities = $this->activityMapper->findAll();
+        $this->view->setVariable("activities", $activities);
+        $this->view->redirect("activities", "index_admin");
     }
-    $this->view->setVariable("activity", $activity);
-    $this->view->render("activitys", "confirm_delete");
+    $this->view->render("activities", "confirm_delete");
 
   }
 
