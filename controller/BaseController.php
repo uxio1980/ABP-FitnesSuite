@@ -44,7 +44,7 @@ class BaseController {
 
     if(isset($_SESSION["currentuser"])) {
 
-      $this->currentUser = new User($_SESSION["currentuser"]);
+      $this->currentUser = new User(NULL,$_SESSION["currentuser"]);
       $userprofile =  $this->userMapper->findById($this->currentUser->getLogin());
       //add current user to the view, since some views require it
       $this->view->setVariable("currentusername", $this->currentUser->getLogin());

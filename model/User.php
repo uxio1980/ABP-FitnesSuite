@@ -75,6 +75,7 @@ abstract class athletetype
 
 
 class User {
+  private $id;
   private $login;
   private $password;
   private $name;
@@ -88,9 +89,10 @@ class User {
   private $user_type;
   private $athlete_type;
 
-  public function __construct($login=NULL, $name= NULL,$password=NULL,
+  public function __construct($id=NULL, $login=NULL, $name= NULL,$password=NULL,
   $email=NULL, $description=NULL,$profileImage=NULL, $surname=NULL, $phone=NULL,
   $dni=NULL, $confirm_date=NULL, $user_type=NULL, $athlete_type=NULL) {
+    $this->id = $id;
     $this->login = $login;
     $this->name = $name;
     $this->password = $password;
@@ -103,6 +105,10 @@ class User {
     $this->confirm_date = $confirm_date;
     $this->user_type = $user_type;
     $this->athlete_type = $athlete_type;
+  }
+
+  public function getId() {
+    return $this->id;
   }
 
   public function getLogin() {

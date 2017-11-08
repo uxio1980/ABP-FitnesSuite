@@ -5,7 +5,7 @@
  $view = ViewManager::getInstance();
 
  $articles = $view->getVariable("articles");
- $currentuser = $view->getVariable("currentusername");
+ //$currentuser = $view->getVariable("currentusername");
 
  $view->setVariable("title", "FitnesSuite");
 

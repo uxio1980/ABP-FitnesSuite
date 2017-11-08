@@ -96,7 +96,7 @@ class UsersController extends BaseController {
             if ($this->userMapper->isValidUser($_POST["login"],$_POST["password"])) {
                 $_SESSION["currentuser"]=$_POST["login"];
                 // send user to the restricted area (HTTP 302 code)
-                $this->view->redirect("articles", "index");
+                $this->view->redirect("main", "index");
             } else {
                 $errors = array();
                 $errors["general"] = "Login is not valid";
@@ -106,7 +106,7 @@ class UsersController extends BaseController {
             }
         }
         // render the view (/view/layouts/default.php)
-        $this->view->render("articles", "index");
+        $this->view->render("main", "index");
     }
     /**
     * Action to register

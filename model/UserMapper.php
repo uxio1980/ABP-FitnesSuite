@@ -28,9 +28,9 @@ class UserMapper {
   * @return void $login=NULL, $name= NULL,$password=NULL, $email=NULL, $description=NULL
   */
   public function save($user) {
-    $stmt = $this->db->prepare("INSERT INTO user (login, name, password, email,
+    $stmt = $this->db->prepare("INSERT INTO user (id, login, name, password, email,
       description, profile_image, surname, phone, dni, confirm_date, user_type,
-      athlete_type) values (?,?,?,?,?,?,?,?,?,?,?,?)");
+      athlete_type) values (0,?,?,?,?,?,?,?,?,?,?,?,?)");
       $stmt->execute(array($user->getLogin(), $user->getName(),
       $user->getPassword(), $user->getEmail(), $user->getDescription(),
       $user->getProfileImage(), $user->getSurname(), $user->getPhone(),
@@ -99,7 +99,7 @@ class UserMapper {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($user != null) {
-          return new User($user["login"],$user["name"],$user["password"],
+          return new User($user["id"],$user["login"],$user["name"],$user["password"],
           $user["email"], $user["description"], $user["profile_image"],
           $user["surname"], $user["phone"], $user["dni"], $user["confirm_date"],
           $user["user_type"], $user["athlete_type"]);
@@ -120,20 +120,15 @@ class UserMapper {
         $stmt = $this->db->prepare("SELECT * FROM user WHERE user_type=?");
           $stmt->execute(array(usertype::Trainer));
           $trainers_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-/*
+
           $trainers = array();
 
           foreach ($trainers_db as $trainer) {
-            $usuario = new User($article["user.login"],
-            $article["user.name"],
-            NULL,
-            $article["user.email"],
-            $article["user.description"]
-            );
-            array_push($articles, new Article($article["idarticle"], $article["name"], $article["description"], $article["price"], $article["url_image01"], $article["url_image02"], $article["url_image03"], $usuario));
+            array_push($trainers, new User($trainer["id"],NULL,$trainer["name"],NULL,NULL,
+              NULL,NULL,$trainer["surname"]));
           }
-          */
-          return $trainers_db;
+          
+          return $trainers;
       }
 
       /**
@@ -148,7 +143,7 @@ class UserMapper {
         $users = array();
 
         foreach ($users_db as $user) {
-          array_push($users, new User($user["login"],$user["name"],$user["password"],
+          array_push($users, new User($user["id"],$user["login"],$user["name"],$user["password"],
           $user["email"], $user["description"], $user["profile_image"],
           $user["surname"], $user["phone"], $user["dni"], $user["confirm_date"],
           $user["user_type"], $user["athlete_type"]));

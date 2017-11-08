@@ -11,16 +11,15 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+-- -----------------------------------------------------
+-- Create user and DB
+-- -----------------------------------------------------
 
---
--- Database: `fitnessdb`
---
+CREATE USER IF NOT EXISTS 'fitnessuser'@'localhost'
+  IDENTIFIED BY 'fitnesspass' ;
 CREATE DATABASE IF NOT EXISTS `fitnessdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `fitnessdb`;
+GRANT ALL PRIVILEGES ON `fitnessdb` . * TO 'fitnessuser'@'localhost' ;
+use `fitnessdb` ;
 
 -- --------------------------------------------------------
 
@@ -36,7 +35,8 @@ CREATE TABLE IF NOT EXISTS `activity` (
   `description` varchar(45) NOT NULL,
   `place` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,
-  `seats` int(11) NOT NULL
+  `seats` int(11) NOT NULL,
+  `image` mediumtext
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
