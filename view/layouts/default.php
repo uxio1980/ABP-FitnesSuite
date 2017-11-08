@@ -220,7 +220,7 @@ $language = $i18n->getLanguage();
                   </li>
                   <li class="nav-item">
                     <a href="index.php?controller=public_info&amp;action=index">
-                      <img src="resources/icons/ic_group_black_24px.svg" alt="Public_Info icon"/>
+                      <img src="resources/icons/Public_Info.svg" alt="Public_Info icon"/>
                       <div class="text-item"><?= i18n("Public info")?></div>
                     </a>
                   </li>
