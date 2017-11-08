@@ -56,6 +56,18 @@ class UserMapper {
       }
 
       /**
+       * Deletes an User into the database
+       *
+       * @param User $user The User to be deleted
+       * @throws PDOException if a database error occurs
+       * @return void
+       */
+      public function delete(User $user) {
+        $stmt = $this->db->prepare("DELETE from user WHERE login=?");
+        $stmt->execute(array($user->getLogin()));
+      }
+
+      /**
       * Checks if a given login is already in the database
       *
       * @param string $login the login to check
@@ -127,7 +139,7 @@ class UserMapper {
             array_push($trainers, new User($trainer["id"],NULL,$trainer["name"],NULL,NULL,
               NULL,NULL,$trainer["surname"]));
           }
-          
+
           return $trainers;
       }
 

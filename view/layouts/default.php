@@ -156,18 +156,6 @@ $language = $i18n->getLanguage();
       <nav id="main-navigation">
         <ul class="nav-container">
           <li class="nav-item">
-            <a href="index.php">
-              <img src="resources/icons/ic_home_black_24px.svg" alt="Home icon"/>
-              <div class="text-item"><?= i18n("Home")?></div>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="index.php?controller=main&amp;action=aboutus">
-              <img src="resources/icons/about_24px.svg" alt="About icon"/>
-              <div class="text-item"><?= i18n("About us")?></div>
-            </a>
-          </li>
-          <li class="nav-item">
             <a href="index.php?controller=trainers&amp;action=index">
               <img src="resources/icons/weight.svg" alt="About icon"/>
               <div class="text-item"><?= i18n("Trainers")?></div>
@@ -220,7 +208,7 @@ $language = $i18n->getLanguage();
                   </li>
                   <li class="nav-item">
                     <a href="index.php?controller=public_info&amp;action=index">
-                      <img src="resources/icons/Public_Info.svg" alt="Public_Info icon"/>
+                      <img src="resources/icons/about_24px.svg" alt="Public_Info icon"/>
                       <div class="text-item"><?= i18n("Public info")?></div>
                     </a>
                   </li>

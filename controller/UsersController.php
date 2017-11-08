@@ -252,6 +252,44 @@ class UsersController extends BaseController {
     }
 
     /**
+    * Action to delete a user
+    *
+    * This action should only be called via HTTP POST
+    *
+    * @throws Exception if no id was provided
+    * @throws Exception if no user is in session
+    * @throws Exception if there is not any user with the provided id
+    * @return void
+    */
+    public function delete() {
+      if (!isset($_REQUEST["login"])) {
+        throw new Exception("A user login is mandatory");
+      }
+      if (!isset($this->currentUser)) {
+        throw new Exception("Not in session. Editing users requires login");
+      }
+      if ($this->currentUser->getUser_type()!=usertype::Administrator){
+        throw new Exception("Not valid user. Editing users requires Administrator");
+      }
+
+      // Get the user object from the database
+      $userlogin = $_REQUEST["login"];
+      $user = $this->userMapper->findById($userlogin);
+
+      // Does the user exist?
+      if ($user == NULL) {
+        throw new Exception("no such user with login: ".$userlogin);
+      }
+
+      // Delete the user object from the database
+      $this->userMapper->delete($user);
+      $this->view->setFlash(sprintf(i18n("User \"%s\" successfully deleted."),$user->getLogin()));
+
+      $this->view->redirect("users", "index");
+
+    }
+
+    /**
     * Get the current user information
     */
     public function profile() {
