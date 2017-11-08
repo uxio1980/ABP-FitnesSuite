@@ -19,7 +19,19 @@ $view->setVariable("title", "FitnesSuite");
         <!--<p class="commercial-description"></p>-->
       </div>
     </li>
-    <li class="article-box">
+    <?php $pathTickImage = '/resources/images/tick-blue.png' ?>
+    <li class="article-box pricing-box">
+        <div class="tittle-edit">
+          <p class="article-box-title pricing-box-title">ONE DAY TRAINING</p>
+        </div>
+        <p class="pricing-price">FREE</p>
+        <p class="article-seller pricing-text"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="article-seller pricing-text"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="article-seller pricing-text"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="article-seller pricing-text"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+        <p class="article-seller pricing-text"> Lorem Ipsum dolor sit amet <span>destacado</span></p>
+    </li>
+    <li class="article-box pricing-box">
       <?php $pathimage = '/resources/images/_missing-thumbnail.png' ?>
       <img src="<?= $pathimage ?>" alt="Image 1">
       <div class="article-footer">
@@ -30,18 +42,7 @@ $view->setVariable("title", "FitnesSuite");
         <p class="article-price">20€</p>
       </div>
     </li>
-    <li class="article-box">
-      <?php $pathimage = '/resources/images/_missing-thumbnail.png' ?>
-      <img src="<?= $pathimage ?>" alt="Image 1">
-      <div class="article-footer">
-        <div class="tittle-edit">
-          <p class="article-box-title">Nombre</p>
-        </div>
-        <p class="article-seller"><?= i18n("sold by ")?><span>Usuario</span></p>
-        <p class="article-price">20€</p>
-      </div>
-    </li>
-    <li class="article-box">
+    <li class="article-box pricing-box">
       <?php $pathimage = '/resources/images/_missing-thumbnail.png' ?>
       <img src="<?= $pathimage ?>" alt="Image 1">
       <div class="article-footer">

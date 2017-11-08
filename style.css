@@ -25,7 +25,7 @@ body {
   background: #E8E8E8;
 }
 
-/*************** HEADER ***************/
+/********************************** HEADER ************************************/
 header{
   background: #72d0f4;
   padding: 0;
@@ -75,7 +75,7 @@ header{
   padding-left: 30px;
 }
 
-/************** INPUT SEARCH ********************/
+/****************************** INPUT SEARCH **********************************/
 #header-search{
   display: flex;
   justify-content: center;
@@ -114,7 +114,7 @@ header{
   width: 200px;
 }
 
-/************** LANGUAGE ********************/
+/********************************** LANGUAGE **********************************/
 #dropdown-language-content {
   display: none;
   position: absolute;
@@ -126,7 +126,7 @@ header{
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
-/************** LOGIN ********************/
+/****************************** LOGIN *****************************************/
 #header-login {
   margin-right: 30px;
   font: 1em 'Lato';
@@ -252,7 +252,7 @@ header{
   display: none;
 }
 
-/************** PROFILE LOGIN IMAGE ********************/
+/*************************** PROFILE LOGIN IMAGE ******************************/
 /**div { box-sizing: border-box; }*/
 
 .container-user-circle {
@@ -323,7 +323,7 @@ header{
   text-align: center;
 }
 
-/*************** NAVIGATION ***************/
+/******************************* NAVIGATION ***********************************/
 .customHr {
     width: 95%
     font-size: 1px;
@@ -432,7 +432,7 @@ header{
   color: #5c5c5c;
 }
 
-/*************** MY CHATS **************/
+/********************************** MY CHATS **********************************/
 #MyChatsTopBar {
   display:flex;
   height: 40px;
@@ -451,7 +451,7 @@ header{
   /*color:white;*/
   font: 1.0em 'Lato';
 }
-/*************** CONTENT ***************/
+/******************************* CONTENT **************************************/
 #main-content{
   margin: 0;
   padding-top: 15px;
@@ -470,7 +470,7 @@ header{
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-/*************** Commercial MAIN *******/
+/****************************** Commercial MAIN *******************************/
 
 .commercial-box-index {
   flex-basis: 74%;
@@ -564,7 +564,7 @@ header{
   flex-direction: column;
   text-align: center;
 }
-/*************** ARTICLE ***************/
+/*********************************** ARTICLE **********************************/
 .article-box{
   padding: 0;
   margin: 0px 10px 20px 10px;
@@ -651,7 +651,60 @@ header{
   order: 3;
 }
 
-/***************DESCRIPTION PAGE****************/
+/*****************************   PRICING PAGE *********************************/
+
+.pricing-box{
+  /*background-color: red;*/
+  padding: 15px 10px 15px 10px;
+  /*margin: 0;*/
+  /*background: #72d0f4;*/
+  display: flex;
+  justify-content:flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  /*flex-basis: 100%;*/
+  color: #5c5c5c;
+}
+
+.pricing-price{
+  margin: 0;
+  color: #72d0f4;
+  font: 4em 'Lato';
+  padding: 30px;
+  display: flex;
+  /*order: 3;*/
+}
+
+.tick-image{
+  padding: 0;
+  margin: 0;
+  height: 3px;
+  width: 10%;
+  display: flex;
+  justify-content: flex-start;
+  border-radius: 2px 2px 0px 0px;
+  object-fit: cover; /* Reescalar la imagen */
+  object-position: center; /* Centrar la imagen */
+  /*para hacer no seleccionables los componentes: */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.pricing-box-title{
+  margin: 0 0 10px 0;
+  font: 2em 'Lato';
+  border-radius: 0px 0px 2px 2px;
+  display: flex;
+}
+
+.pricing-text{
+  flex-basis: auto;
+  margin: auto;
+}
+
+/*******************************DESCRIPTION PAGE*******************************/
 
 #main-detail-content{
   margin: 0;
@@ -665,7 +718,7 @@ header{
   order: 3;
 }
 
-/*************** SLIDE SHOW *****************/
+/******************************** SLIDE SHOW **********************************/
 .article-slideshow{
   margin: 0;
   /*padding-left: 15px;*/
@@ -753,8 +806,8 @@ header{
   width:70px;
 }
 
-/************** DETAILS USER/ARTICLE INFO ********/
-/*.article-user: Contenedor que engloba descripci�n del producto, descripci�n del autor y chat*/
+/************************* DETAILS USER/ARTICLE INFO **************************/
+/*.article-user: Contenedor que engloba descripciOn del producto, descripciOn del autor y chat*/
 .article-user{
   margin:   0;
   padding-left: 15px;
@@ -840,7 +893,7 @@ header{
   padding-right:15px;
 }
 
-/******************* FORM MAIN-CONTENT ************************/
+/***************************** FORM MAIN-CONTENT ******************************/
 
 .form {
   margin-left: 100px;
@@ -991,7 +1044,7 @@ header{
   cursor: pointer;
 }
 
-/************** MAIN CONTENT LIST ************/
+/***************************** MAIN CONTENT LIST ******************************/
 
 .content-title {
   display: flex;
@@ -1096,7 +1149,7 @@ header{
   border-bottom: 1pt solid #dedede;
 }
 
-/*******************    CONTACT FORM  ************************/
+/****************************    CONTACT FORM  ********************************/
 .contact-form strong {
   padding-top: 10px;
 }
@@ -1112,7 +1165,7 @@ header{
   flex-direction: row;
   flex-wrap: wrap;
 }
-/*******************    FOOTER DETAIL ************************/
+/*******************************    FOOTER DETAIL *****************************/
 footer{
   order:6;
   position:fixed;
@@ -1307,7 +1360,7 @@ footer{
   border-radius: 50%;
 }
 
-/***************** MY CHATS **********************/
+/******************************* MY CHATS *************************************/
 #listAndChat{
   margin-bottom: 50px;
   display:flex;
@@ -1413,8 +1466,8 @@ footer{
   min-height: 60px;
   /*max-height: 60px;*/
 }
-/*****************************************/
-/************** MEDIA QUERIES ************/
+/******************************************************************************/
+/***************************** MEDIA QUERIES **********************************/
 @media (max-width: 1920px) {
   /************* INDEX *******************/
   .article-container{
