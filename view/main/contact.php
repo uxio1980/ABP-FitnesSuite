@@ -21,7 +21,7 @@ $view->setVariable("title", "FitnesSuite");
     </li>
     <li>
       <div class="form contact-form">
-        <form action="" method="POST" enctype="multipart/form-data">
+        <form action="index.php?controller=main&amp;action=sendmail" method="POST" enctype="multipart/form-data">
           <strong><?= i18n("Send us a message") ?></strong>
           <div class = "group-piece-contact-form">
             <div class="piece-contact-form">
