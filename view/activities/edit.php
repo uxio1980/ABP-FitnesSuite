@@ -45,9 +45,10 @@
 			<?= isset($errors["seats"])?$errors["seats"]:"" ?>
 
 			<label for="name-field"><?= i18n("Image") ?> (<?= i18n("select one image") ?>)</label>
-			<input type="file" name="image[]" multiple accept="image/*">
+			<input type="file" name="images[]" multiple accept="image/*">
 			<?= isset($errors["image"])?$errors["image"]:"" ?><br>
 
+			<input name="idactivity" value="<?= $activity->getIdactivity() ?>" hidden="true">
 			<input type="submit" name="submit" value="<?= i18n("Modify") ?>"/>
       </form>
     </div>
