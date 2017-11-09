@@ -5,7 +5,6 @@
  $view = ViewManager::getInstance();
 
  $activities = $view->getVariable("activities");
-
  $view->setVariable("title", "FitnesSuite");
 
 ?>
@@ -17,18 +16,15 @@
         <!--<p class="commercial-description"></p>-->
       </div>
     </li>
-    <a href="index.php?controller=activities&amp;action=add">Add</a>
     <?php foreach ($activities as $activity): ?>
 	   		<li class="article-box">
-                    <a href="index.php?controller=activities&amp;action=view&amp;idactivity=<?= $activity->getIdactivity() ?>">
-                    <?php if ($activity->getImage()== NULL):
-						$pathimage = '/resources/images/_missing-thumbnail.png' ?>
-					<?php else:
-						$pathimage = file_exists('./resources/images/'.$activity->getImage())  ?
-	                    './resources/images/'.$activity->getImage()
-    	                :'./resources/images/_missing-thumbnail.png' ?>
-					<?php endif ?>
-                    <img src="<?= $pathimage ?>" alt="Image 1"></a>
+          <a href="index.php?controller=activities&amp;action=view&amp;idactivity=<?= $activity->getIdactivity() ?>">
+            <?php if ($activity->getImage() == NULL):
+						  $pathimage = 'resources/images/_missing-thumbnail.png' ?>
+					  <?php else:
+						  $pathimage = json_decode($activity->getImage())[0] ?>
+					  <?php endif ?>
+          <img src="<?= $pathimage ?>" alt="Image 1"></a>
                     <div class="article-footer">
                       <div class="tittle-edit">
                         <p class="article-box-title"><?= $activity->getName() ?></p>

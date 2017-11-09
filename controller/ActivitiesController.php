@@ -89,6 +89,8 @@ class ActivitiesController extends BaseController {
 
     // Recuperar distintas actividades según usuario.
     $activity = $this->activityMapper->findById($activityid);
+    // Recupera el array de rutas a las imágenes.
+    $images = json_decode($activity->getImage());
     $trainer = $this->activityMapper->findTrainerById($activity->getIduser());
 
     if ($activity == NULL) {
@@ -97,6 +99,7 @@ class ActivitiesController extends BaseController {
 
     // put the Activity object to the view
     $this->view->setVariable("activity", $activity);
+    $this->view->setVariable("images", $images);
     $this->view->setVariable("trainer", $trainer);
 
     // render the view (/view/activities/view.php)
@@ -137,6 +140,7 @@ class ActivitiesController extends BaseController {
     }
 
     $activity = new Activity();
+    $trainers = $this->userMapper->findAllTrainers();
 
     if (isset($_POST["submit"])) { // reaching via HTTP Post...
       $i = 0;
@@ -144,15 +148,26 @@ class ActivitiesController extends BaseController {
       $dir_load = 'resources/images/';
 
       // populate the activity object with data form the form
-        $activity->setName($_POST["name"]);
-        $activity->setDescription($_POST["description"]);
-    	  $activity->setPrice($_POST["price"]);
-        $activity->setUrlImage01(($_FILES["images"]["name"][0]?$i++."_".$this->currentDate."_".$_FILES["images"]["name"][0]:NULL));
-    	  $activity->setUrlImage02(($_FILES["images"]["name"][1]?$i++."_".$this->currentDate."_".$_FILES["images"]["name"][1]:NULL));
-    	  $activity->setUrlImage03(($_FILES["images"]["name"][2]?$i."_".$this->currentDate."_".$_FILES["images"]["name"][2]:NULL));
-
-      // The user of the Activity is the currentUser (user in session)
-      $activity->setUserLogin(new  User($this->currentUser->getLogin()));
+      $activity->setIduser($_POST["id_user"]);
+      $activity->setName($_POST["name"]);
+      $activity->setDescription($_POST["description"]);
+      $activity->setPlace($_POST["place"]);
+      $activity->setType($_POST["type"]);
+      $activity->setSeats($_POST["seats"]);
+      // Asigna a la variable image un array con las rutas a todas las imágenes.
+      if(count($_FILES['images']['name']) > 0){
+        $images = array();
+        $tmp = array();
+        for($i=0; $i<count($_FILES['images']['name']); $i++) {
+          $tmpFilePath = $_FILES['images']['tmp_name'][$i];
+          if($tmpFilePath != ""){
+            $filePath = $dir_load . date('d-m-Y-H-i-s').'-'.$_FILES['images']['name'][$i];
+            array_push($images,$filePath);
+            array_push($tmp,$tmpFilePath);
+          }
+        }
+        $activity->setImage(json_encode($images));
+      }
 
       try {
         // validate activity object
@@ -160,11 +175,12 @@ class ActivitiesController extends BaseController {
 
         // save the activity object into the database
         $this->activityMapper->save($activity);
-        $j=0;
 
-        foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
-          $file_load = $dir_load . $j++ ."_" . $this->currentDate . "_" . basename($_FILES['images']['name']["$key"]);
-          move_uploaded_file($_FILES['images']['tmp_name']["$key"], $file_load);
+        if(count($_FILES['images']['name']) > 0){
+          $files = json_decode($activity->getImage());
+          for($i=0; $i<count($files); $i++) {
+            move_uploaded_file($tmp[$i], $files[$i]);
+          }
         }
         // POST-REDIRECT-GET
         // Everything OK, we will redirect the user to the list of posts
@@ -172,7 +188,7 @@ class ActivitiesController extends BaseController {
         // perform the redirection. More or less:
         // header("Location: index.php?controller=activitys&action=index")
         // die();
-        $this->view->redirect("activitys", "index");
+        $this->view->redirect("activities", "index");
 
       }catch(ValidationException $ex) {
         // Get the errors array inside the exepction...
@@ -183,7 +199,7 @@ class ActivitiesController extends BaseController {
     }
 
     // Put the Activity object visible to the view
-    $this->view->setVariable("activity", $activity);
+    $this->view->setVariable("trainers", $trainers);
 
     // render the view (/view/activitys/add.php)
     $this->view->render("activities", "add");
@@ -243,6 +259,7 @@ class ActivitiesController extends BaseController {
       $i = 0;
       //load images in server folder
       $dir_load = 'resources/images/';
+      //dd($activity->getName());
 
       // populate the activity object with data form the form
       $activity->setIduser($_POST["id_user"]);
@@ -251,8 +268,20 @@ class ActivitiesController extends BaseController {
       $activity->setPlace($_POST["place"]);
       $activity->setType($_POST["type"]);
       $activity->setSeats($_POST["seats"]);
-      if($_FILES["image"]["name"][0]){
-        $activity->setImage(($_FILES["image"]["name"][0]?$i++."_".$this->currentDate."_".$_FILES["image"]["name"][0]:NULL));
+      if(count($_FILES['images']['name']) > 0){
+        $images = array();
+        $tmp = array();
+        for($i=0; $i<count($_FILES['images']['name']); $i++) {
+          $tmpFilePath = $_FILES['images']['tmp_name'][$i];
+          if($tmpFilePath != ""){
+            $filePath = $dir_load . date('d-m-Y-H-i-s').'-'.$_FILES['images']['name'][$i];
+            array_push($images,$filePath);
+            array_push($tmp,$tmpFilePath);
+          }
+        }
+        $activity->setImage(json_encode($images));
+      } elseif($activity->getImage() != NULL) { // Falta por implementar.
+        $activity->setImage($activity->getImage());
       }
 
       try {
@@ -261,11 +290,12 @@ class ActivitiesController extends BaseController {
 
         // update the Post object in the database
         $this->activityMapper->update($activity);
-        $j=0;
-
-        foreach ($_FILES['image']['tmp_name'] as $key => $tmp_name) {
-          $file_load = $dir_load . $j++ ."_" . $this->currentDate . "_" . basename($_FILES['image']['name']["$key"]);
-          move_uploaded_file($_FILES['image']['tmp_name']["$key"], $file_load);
+        
+        if(count($_FILES['images']['name']) > 0){
+          $files = json_decode($activity->getImage());
+          for($i=0; $i<count($files); $i++) {
+            move_uploaded_file($tmp[$i], $files[$i]);
+          }
         }
         // POST-REDIRECT-GET
         // Everything OK, we will redirect the user to the list of posts
@@ -318,7 +348,15 @@ class ActivitiesController extends BaseController {
     }
 
     // Delete the user object from the database
+    $images = json_decode($activity->getImage());
     $this->activityMapper->delete($activity);
+
+    if($images != NULL){
+      for($i=0; $i<count($images); $i++) {
+        unlink($images[$i]);
+      }
+    }
+
     $this->view->setFlash(sprintf(i18n("Activity \"%s\" successfully deleted."),$activity->getIdactivity()));
 
     $this->view->redirect("activities", "index");

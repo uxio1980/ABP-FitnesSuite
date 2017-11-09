@@ -29,8 +29,7 @@ class ActivityMapper {
     * if the activity is not found
     */
     public function findById($idactivity){
-        $stmt = $this->db->prepare("SELECT A.*,U.name as 'user.name' 
-            FROM activity A LEFT JOIN user U ON A.id_user=U.id WHERE A.id=?");
+        $stmt = $this->db->prepare("SELECT * FROM activity WHERE id=?");
         $stmt->execute(array($idactivity));
         $activity = $stmt->fetch(PDO::FETCH_ASSOC);
 
