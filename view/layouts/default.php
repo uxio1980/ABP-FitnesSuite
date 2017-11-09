@@ -157,25 +157,25 @@ $language = $i18n->getLanguage();
         <ul class="nav-container">
           <li class="nav-item">
             <a href="index.php?controller=trainers&amp;action=index">
-              <img src="resources/icons/weight.svg" alt="About icon"/>
+              <img src="resources/icons/weight.svg" alt="Trainer icon"/>
               <div class="text-item"><?= i18n("Trainers")?></div>
             </a>
           </li>
           <li class="nav-item">
           <a href="index.php?controller=activities&amp;action=index">
-              <img src="resources/icons/ic_dashboard_black_24px.svg" alt="About icon"/>
-              <div class="text-item"><?= i18n("Classes")?></div>
+              <img src="resources/icons/activities.svg" alt="Activity icon"/>
+              <div class="text-item"><?= i18n("Activities")?></div>
             </a>
           </li>
           <li class="nav-item">
             <a href="index.php?controller=main&amp;action=pricing">
-              <img src="resources/icons/ic_local_atm_black_24px.svg" alt="About icon"/>
+              <img src="resources/icons/ic_local_atm_black_24px.svg" alt="Pricing icon"/>
               <div class="text-item"><?= i18n("Pricing")?></div>
             </a>
           </li>
           <li class="nav-item">
             <a href="index.php?controller=main&amp;action=contact">
-              <img src="resources/icons/ic_contact_phone_black_24px.svg" alt="About icon"/>
+              <img src="resources/icons/ic_contact_phone_black_24px.svg" alt="Contact icon"/>
               <div class="text-item"><?= i18n("Contact")?></div>
             </a>
           </li>
@@ -186,7 +186,7 @@ $language = $i18n->getLanguage();
                 <img src="resources/icons/profile_icon.svg" alt="Profile icon"/>
                 <div class="text-item"><?= i18n("My profile")?></div></a>
               </li>
-              <?php if (($typeuser)==usertype::Athlete):?>
+              <?php if (($typeuser)==usertype::AthleteTDU || ($typeuser)==usertype::AthletePEF ):?>
                 <li class="nav-item">
                   <a href="index.php">
                     <img src="resources/icons/ic_schedule_black_24px.svg" alt="Routine icon"/>

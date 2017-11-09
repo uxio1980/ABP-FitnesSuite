@@ -5,7 +5,8 @@ abstract class usertype
 {
     const Administrator = 1;
     const Trainer = 2;
-    const Athlete = 3;
+    const AthleteTDU = 3;
+    const AthletePEF = 4;
 
     function get_AllNames(){
       $utypeClass = new ReflectionClass('usertype');
@@ -36,43 +37,6 @@ abstract class usertype
       return $const;
       }
 }
-
-abstract class athletetype
-{
-    const TDU = 1;
-    const PEF = 2;
-
-    function get_AllNames(){
-      $utypeClass = new ReflectionClass('athletetype');
-      $constants = $utypeClass->getConstants();
-      return $constants;
-    }
-
-    function getName($idnumber){
-      $utypeClass = new ReflectionClass('athletetype');
-      $constants = $utypeClass->getConstants();
-      $constName = null;
-      foreach ( $constants as $name => $value ) {
-          if ( $value == $idnumber )  {
-              $constName = $name;
-              break;
-          }
-      }
-      return $constName;
-    }
-
-    function getSize(){
-      $utypeClass = new ReflectionClass('athletetype');
-      $constants = $utypeClass->getConstants();
-      $const = 0;
-      foreach ( $constants as $name => $value ) {
-          $const = $const + 1;
-          }
-      return $const;
-      }
-
-}
-
 
 class User {
   private $id;
@@ -87,11 +51,10 @@ class User {
   private $description;
   private $profileImage;
   private $user_type;
-  private $athlete_type;
 
   public function __construct($id=NULL, $login=NULL, $name= NULL,$password=NULL,
   $email=NULL, $description=NULL,$profileImage=NULL, $surname=NULL, $phone=NULL,
-  $dni=NULL, $confirm_date=NULL, $user_type=NULL, $athlete_type=NULL) {
+  $dni=NULL, $confirm_date=NULL, $user_type=NULL) {
     $this->id = $id;
     $this->login = $login;
     $this->name = $name;
@@ -104,7 +67,6 @@ class User {
     $this->dni = $dni;
     $this->confirm_date = $confirm_date;
     $this->user_type = $user_type;
-    $this->athlete_type = $athlete_type;
   }
 
   public function getId() {
@@ -155,10 +117,6 @@ class User {
     return $this->user_type;
   }
 
-  public function getAthlete_type() {
-    return $this->athlete_type;
-  }
-
   public function setLogin($login) {
     $this->login = $login;
   }
@@ -201,10 +159,6 @@ class User {
 
   public function setUser_type($user_type) {
     $this->user_type = $user_type;
-  }
-
-  public function setAthlete_type($athlete_type) {
-    $this->athlete_type = $athlete_type;
   }
 
   /**
@@ -255,9 +209,6 @@ class User {
     }
     if (strlen($this->phone) >0 && !is_numeric($this->phone)){
       $errors["phone"] = "You must write a valid phone number";
-    }
-    if ($this->user_type == usertype::Athlete && ($this->athlete_type < 1 || $this->athlete_type > athletetype::getSize())){
-      $errors["athlete_type"] = "You must select an athlete type";
     }
     try{
       $this->checkIsValidForRegister();
