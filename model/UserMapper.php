@@ -29,12 +29,11 @@ class UserMapper {
   */
   public function save($user) {
     $stmt = $this->db->prepare("INSERT INTO user (id, login, name, password, email,
-      description, profile_image, surname, phone, dni, confirm_date, user_type,
-      athlete_type) values (0,?,?,?,?,?,?,?,?,?,?,?,?)");
+      description, profile_image, surname, phone, dni, confirm_date, user_type) values (0,?,?,?,?,?,?,?,?,?,?,?)");
       $stmt->execute(array($user->getLogin(), $user->getName(),
       $user->getPassword(), $user->getEmail(), $user->getDescription(),
       $user->getProfileImage(), $user->getSurname(), $user->getPhone(),
-      $user->getDni(), $user->getConfirm_date(), $user->getUser_type(), $user->getAthlete_type()));
+      $user->getDni(), $user->getConfirm_date(), $user->getUser_type()));
     }
 
     /**
@@ -47,11 +46,11 @@ class UserMapper {
     public function update(User $user) {
       $stmt = $this->db->prepare("UPDATE user set login=?, name=?,
         password=?, email=?, description=?, profile_image=?, surname=?, phone=?,
-        dni=?, confirm_date=?, user_type=?, athlete_type=? where login=?");
+        dni=?, confirm_date=?, user_type=? where login=?");
         $stmt->execute(array($user->getLogin(), $user->getName(), $user->getPassword(),
         $user->getEmail(), $user->getDescription(), $user->getProfileImage(),
         $user->getSurname(), $user->getPhone(), $user->getDni(),
-        $user->getConfirm_date(), $user->getUser_type(), $user->getAthlete_type(),
+        $user->getConfirm_date(), $user->getUser_type(),
         $user->getLogin()));
       }
 
@@ -114,7 +113,7 @@ class UserMapper {
           return new User($user["id"],$user["login"],$user["name"],$user["password"],
           $user["email"], $user["description"], $user["profile_image"],
           $user["surname"], $user["phone"], $user["dni"], $user["confirm_date"],
-          $user["user_type"], $user["athlete_type"]);
+          $user["user_type"]);
         } else {
           return NULL;
         }
@@ -158,7 +157,7 @@ class UserMapper {
           array_push($users, new User($user["id"],$user["login"],$user["name"],$user["password"],
           $user["email"], $user["description"], $user["profile_image"],
           $user["surname"], $user["phone"], $user["dni"], $user["confirm_date"],
-          $user["user_type"], $user["athlete_type"]));
+          $user["user_type"]));
         }
         return $users;
     }

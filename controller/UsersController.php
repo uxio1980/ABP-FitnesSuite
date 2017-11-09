@@ -145,7 +145,7 @@ class UsersController extends BaseController {
             $user->setName($_POST["name"]);
             $user->setPassword($_POST["password"]);
             $user->setEmail($_POST["email"]);
-            $user->setUser_type("Deportista");
+            $user->setUser_type(usertype::AthleteTDU);
             try{
                 $user->checkIsValidForRegister(); // if it fails, ValidationException
 
@@ -215,11 +215,7 @@ class UsersController extends BaseController {
         $user->setPhone($_POST["phone"]);
         $user->setDni($_POST["dni"]);
         $user->setUser_type($_POST["user_type"]);
-        if ($user->getUser_type()==usertype::Athlete){
-          $user->setAthlete_type($_POST["athlete_type"]);
-        }else{
-          $user->setAthlete_type(0);
-        }
+
 
         // Change image just if the user loads a new image profiles
         if ($_FILES["image"]["name"] != NULL) {

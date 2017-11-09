@@ -33,13 +33,11 @@ class BaseController {
   private $userMapper;
 
   public function __construct() {
-
     $this->view = ViewManager::getInstance();
     $this->i18n = I18n::getInstance();
     $this->userMapper = new UserMapper();
     // get the current user and put it to the view
-    if (session_status() == PHP_SESSION_NONE) {
-	session_start();
+    if (session_status() == PHP_SESSION_NONE) {	session_start();
     }
 
     if(isset($_SESSION["currentuser"])) {

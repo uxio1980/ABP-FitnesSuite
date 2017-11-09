@@ -11,6 +11,7 @@
     "Trainers" => "Entrenadores",
     "Our trainers" => "Nuestros entrenadores",
     "Classes" => "Clases",
+    "Activities" => "Actividades",
     "Phone" => "Teléfono",
     "Pricing" => "Precios",
     "Pricing and plans" => "Precios y planes",
