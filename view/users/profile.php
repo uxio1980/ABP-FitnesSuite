@@ -43,10 +43,6 @@
       <label for="login-field"><?= i18n("User type")?></label>
       <span class="field"> <?= i18n(usertype::getName($user->getUser_type())) ?></span>
 
-      <?php if ($user->getUser_type()==usertype::Athlete): ?>
-        <label for="login-field"><?= i18n("Athlete type")?></label>
-        <span class="field"> <?= i18n(athletetype::getName($user->getAthlete_type())) ?></span>
-      <?php endif ?>
   </div>
 </main>
 <script src="js/index.js"></script>
