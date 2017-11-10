@@ -68,7 +68,7 @@ class Activity_scheduleController extends BaseController {
     $activity_schedules = $this->activity_scheduleMapper->searchAll($id_activity);
     // put the array containing Article object to the view
     $this->view->setVariable("activity_schedules", $activity_schedules);
-    $this->view->setVariable("activity_name", $activity->getName());
+    $this->view->setVariable("activity", $activity);
     // render the view (/view/activity_schedules/index.php)
     $this->view->render("activity_schedules", "index");
   }
@@ -160,10 +160,23 @@ class Activity_scheduleController extends BaseController {
   */
   public function add() {
     if (!isset($this->currentUser)) {
-      throw new Exception("Not in session. Adding articles requires login");
+      throw new Exception("Not in session. Adding activity schedules requires login");
     }
 
-    $article = new Article();
+    if ($this->currentUser->getUser_type()!=usertype::Administrator) {
+      throw new Exception("Adding activity schedules requires Administrator");
+    }
+
+    if (!isset($_GET["id_activity"])) {
+      throw new Exception("id_activity is mandatory");
+    }
+    $id_activity = $_GET["id_activity"];
+    $activity = $this->activityMapper->findById($id_activity);
+    // Does the activity exist?
+    if ($activity == NULL) {
+      throw new Exception("no such activity with id: ".$id_activity);
+    }
+    $activity_schedule = new Activity_schedule();
 
     if (isset($_POST["submit"])) { // reaching via HTTP Post...
       $i = 0;
@@ -199,7 +212,7 @@ class Activity_scheduleController extends BaseController {
         // perform the redirection. More or less:
         // header("Location: index.php?controller=articles&action=index")
         // die();
-        $this->view->redirect("articles", "index");
+        $this->view->redirect("activity_schedules", "index");
 
       }catch(ValidationException $ex) {
         // Get the errors array inside the exepction...
@@ -210,10 +223,10 @@ class Activity_scheduleController extends BaseController {
     }
 
     // Put the Article object visible to the view
-    $this->view->setVariable("article", $article);
+    $this->view->setVariable("activity", $activity);
 
-    // render the view (/view/articles/add.php)
-    $this->view->render("articles", "add");
+    // render the view (/view/activity_schedules/add.php)
+    $this->view->render("activity_schedules", "add");
 
   }
 
@@ -256,7 +269,10 @@ class Activity_scheduleController extends BaseController {
     if (!isset($this->currentUser)) {
       throw new Exception("Not in session. Editing articles requires login");
     }
-
+    if (!isset($_GET["id_activity"])) {
+      throw new Exception("id_activity is mandatory");
+    }
+    $id_activity = $_GET["id_activity"];
 
     // Get the article object from the database
     $idarticle = $_REQUEST["idarticle"];

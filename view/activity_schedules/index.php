@@ -3,7 +3,7 @@
 
 require_once(__DIR__."/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
-$activity_name = $view->getVariable("activity_name");
+$activity = $view->getVariable("activity");
 $activity_schedules = $view->getVariable("activity_schedules");
 //$currentuser = $view->getVariable("currentusername");
 $view->setVariable("title", "FitnesSuite");
@@ -11,8 +11,8 @@ $view->setVariable("title", "FitnesSuite");
 <main id="main-content">
   <div id="content-list">
     <div class="content-title">
-      <strong><?= i18n("Activity Schedules for ")?> <?= $activity_name ?></strong><br>
-      <a href="index.php?controller=activity_schedule&amp;action=add"><input type='button' value=<?= i18n("New")?> /></a>
+      <strong><?= i18n("Activity Schedules for ")?> <?= $activity->getName() ?></strong><br>
+      <a href="index.php?controller=activity_schedule&amp;action=add&amp;id_activity=<?= $activity->getIdactivity() ?>"><input type='button' value=<?= i18n("New")?> /></a>
     </div>
     <table id="table-content">
       <tr class="table-row-content">
