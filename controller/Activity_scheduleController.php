@@ -3,8 +3,8 @@
 
 require_once(__DIR__."/../model/Activity_schedule.php");
 require_once(__DIR__."/../model/Activity_scheduleMapper.php");
-require_once(__DIR__."/../model/User.php");
-
+require_once(__DIR__."/../model/Activity.php");
+require_once(__DIR__."/../model/ActivityMapper.php");
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
 
@@ -24,6 +24,7 @@ class Activity_scheduleController extends BaseController {
   * @var Activity_scheduleMapper
   */
   private $activity_scheduleMapper;
+  private $activityMapper;
   private $date;
   private $currentDate;
 
@@ -31,6 +32,7 @@ class Activity_scheduleController extends BaseController {
     parent::__construct();
 
     $this->activity_scheduleMapper = new Activity_scheduleMapper();
+    $this->activityMapper = new ActivityMapper();
     $this->date = new DateTime();
     $this->currentDate = $this->date->getTimestamp();
   }
@@ -47,6 +49,10 @@ class Activity_scheduleController extends BaseController {
   * </ul>
   */
   public function index() {
+    if (!isset($_GET["idactivity"])) {
+      throw new Exception("id_activity is mandatory");
+    }
+    $id_activity = $_GET["idactivity"];
     //var_dump(1);
     //exit();
     // obtain the data from the database
@@ -58,10 +64,11 @@ class Activity_scheduleController extends BaseController {
       $articles = $this->articleMapper->findAll();
     }
     */
-    $activity_schedules = $this->activity_scheduleMapper->findAll();
+    $activity = $this->activityMapper->findById($id_activity);
+    $activity_schedules = $this->activity_scheduleMapper->searchAll($id_activity);
     // put the array containing Article object to the view
     $this->view->setVariable("activity_schedules", $activity_schedules);
-
+    $this->view->setVariable("activity_name", $activity->getName());
     // render the view (/view/activity_schedules/index.php)
     $this->view->render("activity_schedules", "index");
   }
@@ -369,42 +376,40 @@ class Activity_scheduleController extends BaseController {
   * @return void
   */
   public function delete() {
-    if (!isset($_REQUEST["idarticle"])) {
-      throw new Exception("idarticle is mandatory");
+    if (!isset($_REQUEST["id_activity_schedule"])) {
+      throw new Exception("id_activity_schedule is mandatory");
     }
     if (!isset($this->currentUser)) {
-      throw new Exception("Not in session. Editing articles requires login");
+      throw new Exception("Not in session. Editing id_activity_schedule requires login");
     }
 
-    // Get the article object from the database
-    $idarticle = $_REQUEST["idarticle"];
-    $article = $this->articleMapper->findById($idarticle);
-    $user = ($article->getUserLogin()->getLogin());
-    $userSession = ($this->currentUser->getLogin());
-    // Does the article exist?
-    if ($article == NULL) {
-      throw new Exception("no such article with id: ".$idarticle);
-    }
+    // Get the id_activity_schedule object from the database
+    $id_activity_schedule = $_REQUEST["id_activity_schedule"];
+    $activity_schedule = $this->activity_scheduleMapper->findById($id_activity_schedule);
 
-    // Check if the article author is the currentUser (in Session)
-    if ($user != $userSession) {
-      throw new Exception("Article author is not the logged user");
+    // Does the activity_schedule exist?
+    if ($activity_schedule == NULL) {
+      throw new Exception("no such activity_schedule with id: ".$id_activity_schedule);
     }
+    $id_activity = $activity_schedule->getId_activity();
+    $user_type = ($this->currentUser->getUser_type());
+    // Check if the the currentUser (in Session) is Administrator
+    if ($user_type != usertype::Administrator) {
+      throw new Exception("current user is not Administrator");
+    }
+    // Delete the activity_schedule object from the database
+    $this->activity_scheduleMapper->delete($activity_schedule);
 
-    if (isset($_POST["submit"])) {
-        if ($_POST["submit"] == "yes"){
-          // Delete the article object from the database
-            $this->articleMapper->delete($article);
-            // POST-REDIRECT-GET
-            // Everything OK, we will redirect the user to the list of artcles
-        }
-        // perform the redirection. More or less:
-        // header("Location: index.php?controller=posts&action=index")
-        // die();
-        $this->view->redirect("articles", "listarticles");
-    }
-    $this->view->setVariable("article", $article);
-    $this->view->render("articles", "confirm_delete");
+    // POST-REDIRECT-GET
+    // Everything OK, we will redirect the user to the list of artcles
+
+    // perform the redirection. More or less:
+    // header("Location: index.php?controller=$id_activity_schedule&action=index")
+    // die();
+    $this->view->redirect("activity_schedule", "index", "idactivity=".$id_activity);
+
+    //$this->view->setVariable("article", $article);
+    //$this->view->render("articles", "confirm_delete");
 
   }
 

@@ -1,8 +1,7 @@
 <?php
 
 require_once(__DIR__."/../core/PDOConnection.php");
-
-
+require_once(__DIR__."/../model/Activity_schedule.php");
 /**
 * Class UserMapper
 *
@@ -42,7 +41,7 @@ class Activity_scheduleMapper {
     * @throws PDOException if a database error occurs
     * @return void
     */
-    public function update(User $activity_schedule) {
+    public function update(Activity_schedule $activity_schedule) {
       $stmt = $this->db->prepare("UPDATE activity_schedule set id_activity=?, 'date'=?,
         start_hour=?, end_hour=? where id=?");
         $stmt->execute(array($user->getId_activity(), $user->getDate(),
@@ -56,28 +55,26 @@ class Activity_scheduleMapper {
        * @throws PDOException if a database error occurs
        * @return void
        */
-      public function delete(User $activity_schedule) {
+      public function delete(Activity_schedule $activity_schedule) {
         $stmt = $this->db->prepare("DELETE from activity_schedule WHERE id=?");
-        $stmt->execute(array($user->getId()));
+        $stmt->execute(array($activity_schedule->getId()));
       }
 
       /**
-      * Loads a User from the database given its id
+      * Loads a Activity_schedule from the database given its id
       *
       * @throws PDOException if a database error occurs
-      * @return User The User instances. NULL
-      * if the User is not found
+      * @return Activity_schedule The Activity_schedule instances. NULL
+      * if the Activity_schedule is not found
       */
-      public function findById($userlogin){
-        $stmt = $this->db->prepare("SELECT * FROM user WHERE login=?");
-        $stmt->execute(array($userlogin));
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if($user != null) {
-          return new User($user["id"],$user["login"],$user["name"],$user["password"],
-          $user["email"], $user["description"], $user["profile_image"],
-          $user["surname"], $user["phone"], $user["dni"], $user["confirm_date"],
-          $user["user_type"]);
+      public function findById($id_activity){
+        $stmt = $this->db->prepare("SELECT * FROM activity_schedule WHERE id=?");
+        $stmt->execute(array($id_activity));
+        $activity_schedule = $stmt->fetch(PDO::FETCH_ASSOC);
+        if($activity_schedule != null) {
+          return new Activity_schedule($activity_schedule["id"],
+          $activity_schedule["id_activity"], $activity_schedule["date"],
+          $activity_schedule["start_hour"], $activity_schedule["end_hour"]);
         } else {
           return NULL;
         }
@@ -95,10 +92,37 @@ class Activity_scheduleMapper {
         $activity_schedules = array();
 
         foreach ($activity_schedules_db as $activity_schedule) {
-          array_push($activity_schedules, new User($activity_schedules["id"],
+          array_push($activity_schedules, new Activity_schedule($activity_schedules["id"],
           $activity_schedules["id_activity"], $activity_schedules["date"],
           $activity_schedules["start_hour"], $activity_schedules["end_hour"]));
         }
         return $activity_schedules;
+    }
+
+    /**
+    * Retrieves activity_schedules
+    *
+    *
+    * @throws PDOException if a database error occurs
+    * @return mixed Array of activity_schedule instances
+    */
+    public function searchAll($value) {
+      $stmt = $this->db->prepare("SELECT * FROM activity_schedule WHERE id_activity= :search");
+      $stmt->execute(array($value));
+        $activity_schedules_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      $activity_schedules = array();
+
+        foreach ($activity_schedules_db as $activity_schedule) {
+          $a_s = new Activity_schedule($activity_schedule["id"],
+          $activity_schedule["id_activity"],
+          $activity_schedule["date"],
+          $activity_schedule["start_hour"],
+          $activity_schedule["end_hour"]
+        );
+        array_push($activity_schedules, $a_s);
+      }
+
+      return $activity_schedules;
     }
 }

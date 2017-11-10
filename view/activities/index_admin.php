@@ -35,6 +35,7 @@
           <td><a href="index.php?controller=activities&amp;action=edit&amp;idactivity=<?= $activity->getIdactivity() ?>">
             <img src="resources/icons/edit_icon.svg" alt="Edit" /></a>
           </td>
+          <td><a href="index.php?controller=activity_schedule&amp;action=index&amp;idactivity=<?= $activity->getIdactivity() ?>">
             <img src="resources/icons/ic_schedule_24px.svg" alt="Edit" /></a>
           </td>
           <td><a class="confirmation" href="index.php?controller=activities&amp;action=delete&amp;idactivity=<?= $activity->getIdactivity() ?>">
