@@ -32,6 +32,9 @@
           <td><a href="index.php?controller=activities&amp;action=edit&amp;idactivity=<?= $activity->getIdactivity() ?>">
             <img src="resources/icons/edit_icon.svg" alt="Edit" /></a>
           </td>
+          <td><a href="index.php?controller=activity_resources&amp;action=index&amp;idactivity=<?= $activity->getIdactivity() ?>">
+            <img src="resources/icons/manage_res.svg" alt="Edit" /></a>
+          </td>
           <td><a class="confirmation" href="index.php?controller=activities&amp;action=delete&amp;idactivity=<?= $activity->getIdactivity() ?>">
             <img src="resources/icons/delete_icon.svg" alt="Delete"/></a>
           </td>
