@@ -24,307 +24,254 @@ use `fitnessdb` ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `activity`
+-- Estructura de tabla para la tabla `activity`
 --
 
-DROP TABLE IF EXISTS `activity`;
 CREATE TABLE IF NOT EXISTS `activity` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
   `description` varchar(45) NOT NULL,
   `place` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,
   `seats` int(11) NOT NULL,
-  `image` mediumtext
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `image` mediumtext,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `activity`
+-- Volcado de datos para la tabla `activity`
 --
 
-TRUNCATE TABLE `activity`;
---
--- Dumping data for table `activity`
---
-
-INSERT DELAYED IGNORE INTO `activity` (`id`, `id_user`, `name`, `description`, `place`, `type`, `seats`) VALUES
-(0, 0, '', '', '', '', 0),
-(1, NULL, 'Zumba', 'Descripcion de ZUMBA', 'Gimnasio', 'tipo', 50),
-(2, NULL, 'Aerobic', 'Descripcion de AEROBIC', 'no se', 'nose', 50);
+INSERT INTO `activity` (`id`, `id_user`, `name`, `description`, `place`, `type`, `seats`, `image`) VALUES
+(1, 3, 'Zumba', 'Descripcion de ZUMBA', 'Gimnasio', 'tipo 3', 49, NULL),
+(23, 2, 'aaaa', 'aaaaa', 'aaa', 'aaa', 45, '[\"resources\\/images\\/09-11-2017-21-10-47-Captura de pantalla de 2017-11-07 16-56-42.png\"]');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `activity_resource`
+-- Estructura de tabla para la tabla `activity_resource`
 --
 
-DROP TABLE IF EXISTS `activity_resource`;
 CREATE TABLE IF NOT EXISTS `activity_resource` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_activity` int(11) DEFAULT NULL,
-  `id_resource` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_resource` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_activity` (`id_activity`),
+  KEY `id_resource` (`id_resource`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `activity_resource`
+-- Volcado de datos para la tabla `activity_resource`
 --
 
-TRUNCATE TABLE `activity_resource`;
---
--- Dumping data for table `activity_resource`
---
-
-INSERT DELAYED IGNORE INTO `activity_resource` (`id`, `id_activity`, `id_resource`) VALUES
-(0, 0, 0);
+INSERT INTO `activity_resource` (`id`, `id_activity`, `id_resource`, `quantity`) VALUES
+(1, 1, 2, 12),
+(26, 1, 4, 20);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `activity_schedule`
+-- Estructura de tabla para la tabla `activity_schedule`
 --
 
-DROP TABLE IF EXISTS `activity_schedule`;
 CREATE TABLE IF NOT EXISTS `activity_schedule` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_activity` int(11) DEFAULT NULL,
   `date` date NOT NULL,
   `start_hour` time NOT NULL,
-  `end_hour` time NOT NULL
+  `end_hour` time NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_activity` (`id_activity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Truncate table before insert `activity_schedule`
---
-
-TRUNCATE TABLE `activity_schedule`;
---
--- Dumping data for table `activity_schedule`
---
-
-INSERT DELAYED IGNORE INTO `activity_schedule` (`id`, `id_activity`, `date`, `start_hour`, `end_hour`) VALUES
-(0, 0, '0000-00-00', '00:00:00', '00:00:00');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `assistance`
+-- Estructura de tabla para la tabla `assistance`
 --
 
-DROP TABLE IF EXISTS `assistance`;
 CREATE TABLE IF NOT EXISTS `assistance` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_userActivity` int(11) DEFAULT NULL,
   `date` datetime NOT NULL,
-  `assist` tinyint(1) NOT NULL
+  `assist` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_userActivity` (`id_userActivity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Truncate table before insert `assistance`
---
-
-TRUNCATE TABLE `assistance`;
---
--- Dumping data for table `assistance`
---
-
-INSERT DELAYED IGNORE INTO `assistance` (`id`, `id_userActivity`, `date`, `assist`) VALUES
-(0, 0, '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `exercise`
+-- Estructura de tabla para la tabla `exercise`
 --
 
-DROP TABLE IF EXISTS `exercise`;
 CREATE TABLE IF NOT EXISTS `exercise` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
   `description` mediumtext NOT NULL,
   `type` varchar(45) NOT NULL,
   `image` mediumtext,
-  `video` mediumtext
+  `video` mediumtext,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `exercise`
+-- Volcado de datos para la tabla `exercise`
 --
 
-TRUNCATE TABLE `exercise`;
---
--- Dumping data for table `exercise`
---
-
-INSERT DELAYED IGNORE INTO `exercise` (`id`, `id_user`, `name`, `description`, `type`, `image`, `video`) VALUES
+INSERT INTO `exercise` (`id`, `id_user`, `name`, `description`, `type`, `image`, `video`) VALUES
 (0, 0, '', '', '', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `exercise_table`
+-- Estructura de tabla para la tabla `exercise_table`
 --
 
-DROP TABLE IF EXISTS `exercise_table`;
 CREATE TABLE IF NOT EXISTS `exercise_table` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_exercise` int(11) DEFAULT NULL,
-  `id_workout` int(11) DEFAULT NULL
+  `id_workout` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_exercise` (`id_exercise`),
+  KEY `id_workout` (`id_workout`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `exercise_table`
+-- Volcado de datos para la tabla `exercise_table`
 --
 
-TRUNCATE TABLE `exercise_table`;
---
--- Dumping data for table `exercise_table`
---
-
-INSERT DELAYED IGNORE INTO `exercise_table` (`id`, `id_exercise`, `id_workout`) VALUES
+INSERT INTO `exercise_table` (`id`, `id_exercise`, `id_workout`) VALUES
 (0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notification`
+-- Estructura de tabla para la tabla `notification`
 --
 
-DROP TABLE IF EXISTS `notification`;
 CREATE TABLE IF NOT EXISTS `notification` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
   `date` datetime NOT NULL,
   `title` varchar(45) NOT NULL,
-  `content` mediumtext NOT NULL
+  `content` mediumtext NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `notification`
+-- Volcado de datos para la tabla `notification`
 --
 
-TRUNCATE TABLE `notification`;
---
--- Dumping data for table `notification`
---
-
-INSERT DELAYED IGNORE INTO `notification` (`id`, `id_user`, `date`, `title`, `content`) VALUES
+INSERT INTO `notification` (`id`, `id_user`, `date`, `title`, `content`) VALUES
 (0, 0, '0000-00-00 00:00:00', '', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `notification_user`
+-- Estructura de tabla para la tabla `notification_user`
 --
 
-DROP TABLE IF EXISTS `notification_user`;
 CREATE TABLE IF NOT EXISTS `notification_user` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
-  `id_notification` int(11) DEFAULT NULL
+  `id_notification` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`),
+  KEY `id_notification` (`id_notification`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `notification_user`
+-- Volcado de datos para la tabla `notification_user`
 --
 
-TRUNCATE TABLE `notification_user`;
---
--- Dumping data for table `notification_user`
---
-
-INSERT DELAYED IGNORE INTO `notification_user` (`id`, `id_user`, `id_notification`) VALUES
+INSERT INTO `notification_user` (`id`, `id_user`, `id_notification`) VALUES
 (0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `public_info`
+-- Estructura de tabla para la tabla `public_info`
 --
 
-DROP TABLE IF EXISTS `public_info`;
 CREATE TABLE IF NOT EXISTS `public_info` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `phone` int(11) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `address` varchar(100) NOT NULL
+  `address` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `public_info`
+-- Volcado de datos para la tabla `public_info`
 --
 
-TRUNCATE TABLE `public_info`;
---
--- Dumping data for table `public_info`
---
-
-INSERT DELAYED IGNORE INTO `public_info` (`id`, `phone`, `email`, `address`) VALUES
+INSERT INTO `public_info` (`id`, `phone`, `email`, `address`) VALUES
 (0, 0, '', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `resource`
+-- Estructura de tabla para la tabla `resource`
 --
 
-DROP TABLE IF EXISTS `resource`;
 CREATE TABLE IF NOT EXISTS `resource` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `description` mediumtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `description` mediumtext NOT NULL,
+  `quantity` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `resource`
+-- Volcado de datos para la tabla `resource`
 --
 
-TRUNCATE TABLE `resource`;
---
--- Dumping data for table `resource`
---
-
-INSERT DELAYED IGNORE INTO `resource` (`id`, `name`, `description`) VALUES
-(0, '', '');
+INSERT INTO `resource` (`id`, `name`, `description`, `quantity`) VALUES
+(2, 'Res 2', 'fdg', 14),
+(3, 'Res3', 'dsaf', 15),
+(4, 'res4', 'dvgfdbfdb', 20);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `session`
+-- Estructura de tabla para la tabla `session`
 --
 
-DROP TABLE IF EXISTS `session`;
 CREATE TABLE IF NOT EXISTS `session` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
   `id_table` int(11) DEFAULT NULL,
   `date` datetime NOT NULL,
   `duration` time NOT NULL,
-  `comment` mediumtext
+  `comment` mediumtext,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`),
+  KEY `id_table` (`id_table`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `session`
+-- Volcado de datos para la tabla `session`
 --
 
-TRUNCATE TABLE `session`;
---
--- Dumping data for table `session`
---
-
-INSERT DELAYED IGNORE INTO `session` (`id`, `id_user`, `id_table`, `date`, `duration`, `comment`) VALUES
+INSERT INTO `session` (`id`, `id_user`, `id_table`, `date`, `duration`, `comment`) VALUES
 (0, 0, 0, '0000-00-00 00:00:00', '00:00:00', '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Estructura de tabla para la tabla `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
   `name` varchar(100) NOT NULL,
@@ -335,356 +282,162 @@ CREATE TABLE IF NOT EXISTS `user` (
   `confirm_date` datetime DEFAULT NULL,
   `description` varchar(400) DEFAULT NULL,
   `profile_image` varchar(50) DEFAULT NULL,
-  `user_type` tinyint(11) unsigned NOT NULL,
-  `athlete_type` tinyint(3) unsigned DEFAULT NULL
+  `user_type` tinyint(11) UNSIGNED NOT NULL,
+  `athlete_type` tinyint(3) UNSIGNED DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `user`
+-- Volcado de datos para la tabla `user`
 --
 
-TRUNCATE TABLE `user`;
---
--- Dumping data for table `user`
---
-
-INSERT DELAYED IGNORE INTO `user` (`id`, `login`, `password`, `name`, `surname`, `email`, `phone`, `dni`, `confirm_date`, `description`, `profile_image`, `user_type`, `athlete_type`) VALUES
+INSERT INTO `user` (`id`, `login`, `password`, `name`, `surname`, `email`, `phone`, `dni`, `confirm_date`, `description`, `profile_image`, `user_type`, `athlete_type`) VALUES
 (0, 'user', 'usuario', 'Usuario', 'Apel', 'email@correo.com', 649556060, '53111974A', NULL, 'Descripción del usuario.\r\n', '1509576497_1.jpg', 1, 1),
 (1, 'user2', 'usuario2', 'Usuario segundo', '', 'mail@mail.com', 0, '', NULL, 'desc2s', NULL, 3, NULL),
-(2, 'user3', 'usuario3', 'Usuario Tercero', '', 'mail@mail.com', 0, '', NULL, 'u3.', NULL, 3, 1),
+(2, 'user3', 'usuario3', 'Usuario Tercero', '', 'mail@mail.com', 0, '', NULL, 'u3.', NULL, 2, 0),
 (3, 'user4', 'usuario4', 'usuario Cuarto', 'Apel', 'mail@mail.com', NULL, NULL, NULL, 'd42', '1509668373_4.jpg', 2, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_activity`
+-- Estructura de tabla para la tabla `user_activity`
 --
 
-DROP TABLE IF EXISTS `user_activity`;
 CREATE TABLE IF NOT EXISTS `user_activity` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
-  `id_activity` int(11) DEFAULT NULL
+  `id_activity` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`),
+  KEY `id_activity` (`id_activity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Truncate table before insert `user_activity`
---
-
-TRUNCATE TABLE `user_activity`;
---
--- Dumping data for table `user_activity`
---
-
-INSERT DELAYED IGNORE INTO `user_activity` (`id`, `id_user`, `id_activity`) VALUES
-(0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_table`
+-- Estructura de tabla para la tabla `user_table`
 --
 
-DROP TABLE IF EXISTS `user_table`;
 CREATE TABLE IF NOT EXISTS `user_table` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_workout` int(11) DEFAULT NULL,
-  `id_user` int(11) DEFAULT NULL
+  `id_user` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`),
+  KEY `id_workout` (`id_workout`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `user_table`
+-- Volcado de datos para la tabla `user_table`
 --
 
-TRUNCATE TABLE `user_table`;
---
--- Dumping data for table `user_table`
---
-
-INSERT DELAYED IGNORE INTO `user_table` (`id`, `id_workout`, `id_user`) VALUES
+INSERT INTO `user_table` (`id`, `id_workout`, `id_user`) VALUES
 (0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `workout_table`
+-- Estructura de tabla para la tabla `workout_table`
 --
 
-DROP TABLE IF EXISTS `workout_table`;
 CREATE TABLE IF NOT EXISTS `workout_table` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user` int(11) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,
-  `description` mediumtext NOT NULL
+  `description` mediumtext NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_user` (`id_user`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `workout_table`
+-- Volcado de datos para la tabla `workout_table`
 --
 
-TRUNCATE TABLE `workout_table`;
---
--- Dumping data for table `workout_table`
---
-
-INSERT DELAYED IGNORE INTO `workout_table` (`id`, `id_user`, `name`, `type`, `description`) VALUES
+INSERT INTO `workout_table` (`id`, `id_user`, `name`, `type`, `description`) VALUES
 (0, 0, '', '', '');
 
 --
--- Indexes for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Indexes for table `activity`
+-- Filtros para la tabla `activity`
 --
 ALTER TABLE `activity`
- ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`);
+  ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Indexes for table `activity_resource`
+-- Filtros para la tabla `activity_resource`
 --
 ALTER TABLE `activity_resource`
- ADD PRIMARY KEY (`id`), ADD KEY `id_activity` (`id_activity`), ADD KEY `id_resource` (`id_resource`);
+  ADD CONSTRAINT `activity_resource_ibfk_1` FOREIGN KEY (`id_activity`) REFERENCES `activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `activity_resource_ibfk_2` FOREIGN KEY (`id_resource`) REFERENCES `resource` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Indexes for table `activity_schedule`
+-- Filtros para la tabla `activity_schedule`
 --
 ALTER TABLE `activity_schedule`
- ADD PRIMARY KEY (`id`), ADD KEY `id_activity` (`id_activity`);
+  ADD CONSTRAINT `activity_schedule_ibfk_1` FOREIGN KEY (`id_activity`) REFERENCES `activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Indexes for table `assistance`
+-- Filtros para la tabla `assistance`
 --
 ALTER TABLE `assistance`
- ADD PRIMARY KEY (`id`), ADD KEY `id_userActivity` (`id_userActivity`);
+  ADD CONSTRAINT `assistance_ibfk_1` FOREIGN KEY (`id_userActivity`) REFERENCES `user_activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Indexes for table `exercise`
+-- Filtros para la tabla `exercise`
 --
 ALTER TABLE `exercise`
- ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`);
+  ADD CONSTRAINT `exercise_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Indexes for table `exercise_table`
+-- Filtros para la tabla `exercise_table`
 --
 ALTER TABLE `exercise_table`
- ADD PRIMARY KEY (`id`), ADD KEY `id_exercise` (`id_exercise`), ADD KEY `id_workout` (`id_workout`);
+  ADD CONSTRAINT `exercise_table_ibfk_1` FOREIGN KEY (`id_exercise`) REFERENCES `exercise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `exercise_table_ibfk_2` FOREIGN KEY (`id_workout`) REFERENCES `workout_table` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Indexes for table `notification`
+-- Filtros para la tabla `notification`
 --
 ALTER TABLE `notification`
- ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`);
+  ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Indexes for table `notification_user`
+-- Filtros para la tabla `notification_user`
 --
 ALTER TABLE `notification_user`
- ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`), ADD KEY `id_notification` (`id_notification`);
+  ADD CONSTRAINT `notification_user_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notification_user_ibfk_2` FOREIGN KEY (`id_notification`) REFERENCES `notification` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Indexes for table `public_info`
---
-ALTER TABLE `public_info`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `resource`
---
-ALTER TABLE `resource`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `session`
+-- Filtros para la tabla `session`
 --
 ALTER TABLE `session`
- ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`), ADD KEY `id_table` (`id_table`);
+  ADD CONSTRAINT `session_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `session_ibfk_2` FOREIGN KEY (`id_table`) REFERENCES `user_table` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Indexes for table `user`
---
-ALTER TABLE `user`
- ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `user_activity`
+-- Filtros para la tabla `user_activity`
 --
 ALTER TABLE `user_activity`
- ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`), ADD KEY `id_activity` (`id_activity`);
+  ADD CONSTRAINT `user_activity_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_activity_ibfk_2` FOREIGN KEY (`id_activity`) REFERENCES `activity_schedule` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Indexes for table `user_table`
+-- Filtros para la tabla `user_table`
 --
 ALTER TABLE `user_table`
- ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`), ADD KEY `id_workout` (`id_workout`);
+  ADD CONSTRAINT `user_table_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_table_ibfk_2` FOREIGN KEY (`id_workout`) REFERENCES `workout_table` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Indexes for table `workout_table`
+-- Filtros para la tabla `workout_table`
 --
 ALTER TABLE `workout_table`
- ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `activity`
---
-ALTER TABLE `activity`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `activity_resource`
---
-ALTER TABLE `activity_resource`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `activity_schedule`
---
-ALTER TABLE `activity_schedule`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `assistance`
---
-ALTER TABLE `assistance`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `exercise`
---
-ALTER TABLE `exercise`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `exercise_table`
---
-ALTER TABLE `exercise_table`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `notification`
---
-ALTER TABLE `notification`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `notification_user`
---
-ALTER TABLE `notification_user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `public_info`
---
-ALTER TABLE `public_info`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `resource`
---
-ALTER TABLE `resource`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `session`
---
-ALTER TABLE `session`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `user_activity`
---
-ALTER TABLE `user_activity`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `user_table`
---
-ALTER TABLE `user_table`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `workout_table`
---
-ALTER TABLE `workout_table`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `activity`
---
-ALTER TABLE `activity`
-ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- Constraints for table `activity_resource`
---
-ALTER TABLE `activity_resource`
-ADD CONSTRAINT `activity_resource_ibfk_1` FOREIGN KEY (`id_activity`) REFERENCES `activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `activity_resource_ibfk_2` FOREIGN KEY (`id_resource`) REFERENCES `resource` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `activity_schedule`
---
-ALTER TABLE `activity_schedule`
-ADD CONSTRAINT `activity_schedule_ibfk_1` FOREIGN KEY (`id_activity`) REFERENCES `activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `assistance`
---
-ALTER TABLE `assistance`
-ADD CONSTRAINT `assistance_ibfk_1` FOREIGN KEY (`id_userActivity`) REFERENCES `user_activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `exercise`
---
-ALTER TABLE `exercise`
-ADD CONSTRAINT `exercise_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- Constraints for table `exercise_table`
---
-ALTER TABLE `exercise_table`
-ADD CONSTRAINT `exercise_table_ibfk_1` FOREIGN KEY (`id_exercise`) REFERENCES `exercise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `exercise_table_ibfk_2` FOREIGN KEY (`id_workout`) REFERENCES `workout_table` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `notification`
---
-ALTER TABLE `notification`
-ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- Constraints for table `notification_user`
---
-ALTER TABLE `notification_user`
-ADD CONSTRAINT `notification_user_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `notification_user_ibfk_2` FOREIGN KEY (`id_notification`) REFERENCES `notification` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `session`
---
-ALTER TABLE `session`
-ADD CONSTRAINT `session_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `session_ibfk_2` FOREIGN KEY (`id_table`) REFERENCES `user_table` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `user_activity`
---
-ALTER TABLE `user_activity`
-ADD CONSTRAINT `user_activity_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `user_activity_ibfk_2` FOREIGN KEY (`id_activity`) REFERENCES `activity_schedule` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `user_table`
---
-ALTER TABLE `user_table`
-ADD CONSTRAINT `user_table_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT `user_table_ibfk_2` FOREIGN KEY (`id_workout`) REFERENCES `workout_table` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `workout_table`
---
-ALTER TABLE `workout_table`
-ADD CONSTRAINT `workout_table_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `workout_table_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
