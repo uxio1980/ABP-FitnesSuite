@@ -28,7 +28,8 @@
             <label for="form-field"><?= i18n("Trainer") ?></label>
 			<select name="id_user">
 				<?php foreach ($trainers as $trainer): ?>
-				<option <?=($activity->getIduser()==$trainer->getId())?'selected="selected"':''?> value="<?= $trainer->getId()?>"><?= $trainer->getName()?></option>
+				<option <?=($activity->getIduser()==$trainer->getId())?'selected="selected"':''?> 
+					value="<?= $trainer->getId()?>"><?= $trainer->getName()?></option>
 				<?php endforeach; ?>
 			</select>
 

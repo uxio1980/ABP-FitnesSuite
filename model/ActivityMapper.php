@@ -113,4 +113,5 @@ class ActivityMapper {
             $trainer = $stmt->fetch(PDO::FETCH_ASSOC);
             return $trainer["surname"].", ".$trainer["name"];
     }
+
 }

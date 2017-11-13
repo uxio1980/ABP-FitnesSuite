@@ -5,6 +5,10 @@ require_once(__DIR__."/../model/Activity.php");
 require_once(__DIR__."/../model/ActivityMapper.php");
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
+require_once(__DIR__."/../model/Resource.php");
+require_once(__DIR__."/../model/ResourceMapper.php");
+require_once(__DIR__."/../model/Activity_resource.php");
+require_once(__DIR__."/../model/Activity_resourceMapper.php");
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
 
@@ -25,12 +29,16 @@ class ActivitiesController extends BaseController {
   */
   private $userMapper;
   private $activityMapper;
+  private $resourceMapper;
+  private $activity_resourceMapper;
 
   public function __construct() {
     parent::__construct();
 
     $this->activityMapper = new ActivityMapper();
     $this->userMapper = new UserMapper();
+    $this->resourceMapper = new ResourceMapper();
+    $this->activity_resourceMapper = new Activity_resourceMapper();
   }
 
   /**
@@ -141,6 +149,7 @@ class ActivitiesController extends BaseController {
 
     $activity = new Activity();
     $trainers = $this->userMapper->findAllTrainers();
+    $resources = $this->resourceMapper->findAll();
 
     if (isset($_POST["submit"])) { // reaching via HTTP Post...
       $i = 0;
@@ -200,6 +209,7 @@ class ActivitiesController extends BaseController {
 
     // Put the Activity object visible to the view
     $this->view->setVariable("trainers", $trainers);
+    $this->view->setVariable("resources", $resources);
 
     // render the view (/view/activitys/add.php)
     $this->view->render("activities", "add");
@@ -259,7 +269,6 @@ class ActivitiesController extends BaseController {
       $i = 0;
       //load images in server folder
       $dir_load = 'resources/images/';
-      //dd($activity->getName());
 
       // populate the activity object with data form the form
       $activity->setIduser($_POST["id_user"]);
@@ -268,6 +277,7 @@ class ActivitiesController extends BaseController {
       $activity->setPlace($_POST["place"]);
       $activity->setType($_POST["type"]);
       $activity->setSeats($_POST["seats"]);
+      // Sube las nuevas imágenes.
       if(count($_FILES['images']['name']) > 0){
         $images = array();
         $tmp = array();
@@ -278,9 +288,15 @@ class ActivitiesController extends BaseController {
             array_push($images,$filePath);
             array_push($tmp,$tmpFilePath);
           }
+        }// Borra las imágenes anteriores.
+        $img = json_decode($activity->getImage());
+        for($i=0; $i<count($img); $i++) {
+          unlink($img[$i]);
         }
         $activity->setImage(json_encode($images));
-      } elseif($activity->getImage() != NULL) { // Falta por implementar.
+        // Si no se edita mantiene las imágenes actuales.
+      } elseif(!is_null($activity->getImage())) { 
+        
         $activity->setImage($activity->getImage());
       }
 
