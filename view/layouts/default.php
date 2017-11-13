@@ -7,6 +7,7 @@ $view = ViewManager::getInstance();
 $currentuser = $view->getVariable("currentusername");
 $typeuser = $view->getVariable("typeuser");
 $imageUser = $view->getVariable("imageUser");
+$notification = $view->getVariable("notification");
 $loginerrors = $view->getVariable("loginerrors");
 $registererrors = $view->getVariable("register");
 $i18n = I18n::getInstance();
@@ -66,26 +67,30 @@ $language = $i18n->getLanguage();
         </div>
       </div>
       <?php if (isset($currentuser)):?>
-        <!-- ******* Profile MESSAGE BUTTON  ************************  -->
+        <!-- ******* Profile ALERT BUTTON  ************************  -->
         <button id="alert-button">
           <div class="container-user-circle">
-            <div class="circle kitten" style="background-image: url('resources/icons/ic_notifications_none_black_24px.svg');">
-              <div class="aligner">
-                <!-- text inside the icon -->
-              </div>
+            <?php if (isset($notification)):?>
+                <div class="circle kitten notificationYes" style="background-image: url('resources/icons/ic_notifications_black_24px.svg');">
+            <?php else:?>
+                <div class="circle kitten" style="background-image: url('resources/icons/ic_notifications_none_black_24px.svg');">
+            <?php endif ?>
+            <div class="aligner">
+              <!-- text inside the icon -->
+            </div>
             </div>
           </div>
         </button>
-        <!-- ******* Profile MESSAGE BUTTON  ************************  -->
+        <!-- ******* Profile MESSAGE BUTTON  ************************
         <button id="message-button">
           <div class="container-user-circle">
             <div class="circle kitten" style="background-image: url('resources/icons/ic_mail_black_24px.svg');">
               <div class="aligner">
-                <!-- text inside the icon -->
               </div>
             </div>
           </div>
         </button>
+        -->
         <!-- ******* Profile image    -->
         <?php if ($imageUser != NULL): ?>
           <?php $ruta="resources/profiles/". $imageUser?>
@@ -208,8 +213,20 @@ $language = $i18n->getLanguage();
                   </li>
                   <li class="nav-item">
                     <a href="index.php?controller=users&amp;action=index">
-                      <img src="resources/icons/ic_group_black_24px.svg" alt="MyStatistics icon"/>
+                      <img src="resources/icons/ic_group_black_24px.svg" alt="Users icon"/>
                       <div class="text-item"><?= i18n("Users")?></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="index.php?controller=activities&amp;action=index">
+                      <img src="resources/icons/activities.svg" alt="Activities icon"/>
+                      <div class="text-item"><?= i18n("Activities")?></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="index.php?controller=notification&amp;action=index">
+                      <img src="resources/icons/ic_notifications_black_24px.svg" alt="Activities icon"/>
+                      <div class="text-item"><?= i18n("Notifications")?></div>
                     </a>
                   </li>
                   <li class="nav-item">
