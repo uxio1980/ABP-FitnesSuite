@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 06, 2017 at 01:54 AM
+-- Generation Time: Nov 13, 2017 at 09:03 PM
 -- Server version: 5.5.39
 -- PHP Version: 5.4.33
 
@@ -11,15 +11,16 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
--- -----------------------------------------------------
--- Create user and DB
--- -----------------------------------------------------
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
-CREATE USER IF NOT EXISTS 'fitnessuser'@'localhost'
-  IDENTIFIED BY 'fitnesspass' ;
+--
+-- Database: `fitnessdb`
+--
 CREATE DATABASE IF NOT EXISTS `fitnessdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-GRANT ALL PRIVILEGES ON `fitnessdb` . * TO 'fitnessuser'@'localhost' ;
-use `fitnessdb` ;
+USE `fitnessdb`;
 
 -- --------------------------------------------------------
 
@@ -35,9 +36,14 @@ CREATE TABLE IF NOT EXISTS `activity` (
   `description` varchar(45) NOT NULL,
   `place` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,
-  `seats` int(11) NOT NULL,
-  `image` mediumtext
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `seats` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONS FOR TABLE `activity`:
+--   `id_user`
+--       `user` -> `id`
+--
 
 --
 -- Truncate table before insert `activity`
@@ -48,10 +54,10 @@ TRUNCATE TABLE `activity`;
 -- Dumping data for table `activity`
 --
 
-INSERT DELAYED IGNORE INTO `activity` (`id`, `id_user`, `name`, `description`, `place`, `type`, `seats`) VALUES
-(0, 0, '', '', '', '', 0),
-(1, NULL, 'Zumba', 'Descripcion de ZUMBA', 'Gimnasio', 'tipo', 50),
-(2, NULL, 'Aerobic', 'Descripcion de AEROBIC', 'no se', 'nose', 50);
+INSERT INTO `activity` (`id`, `id_user`, `name`, `description`, `place`, `type`, `seats`) VALUES
+(2, NULL, 'Aerobic', 'Descripcion de AEROBIC', 'no se', 'nose', 50),
+(5, 1, 'Fitness', 'descripcion de fitnes', 'qwe', 'grupal', 25),
+(6, 1, 'Tono', 'Abdominales, flexiones', 'gimnasio', 'grupal', 30);
 
 -- --------------------------------------------------------
 
@@ -67,17 +73,18 @@ CREATE TABLE IF NOT EXISTS `activity_resource` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- RELATIONS FOR TABLE `activity_resource`:
+--   `id_activity`
+--       `activity` -> `id`
+--   `id_resource`
+--       `resource` -> `id`
+--
+
+--
 -- Truncate table before insert `activity_resource`
 --
 
 TRUNCATE TABLE `activity_resource`;
---
--- Dumping data for table `activity_resource`
---
-
-INSERT DELAYED IGNORE INTO `activity_resource` (`id`, `id_activity`, `id_resource`) VALUES
-(0, 0, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -91,7 +98,13 @@ CREATE TABLE IF NOT EXISTS `activity_schedule` (
   `date` date NOT NULL,
   `start_hour` time NOT NULL,
   `end_hour` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2904 DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONS FOR TABLE `activity_schedule`:
+--   `id_activity`
+--       `activity` -> `id`
+--
 
 --
 -- Truncate table before insert `activity_schedule`
@@ -102,8 +115,13 @@ TRUNCATE TABLE `activity_schedule`;
 -- Dumping data for table `activity_schedule`
 --
 
-INSERT DELAYED IGNORE INTO `activity_schedule` (`id`, `id_activity`, `date`, `start_hour`, `end_hour`) VALUES
-(0, 0, '0000-00-00', '00:00:00', '00:00:00');
+INSERT INTO `activity_schedule` (`id`, `id_activity`, `date`, `start_hour`, `end_hour`) VALUES
+(2898, 5, '2017-11-13', '19:04:00', '20:04:00'),
+(2899, 5, '2017-11-20', '19:04:00', '20:04:00'),
+(2900, 5, '2017-11-27', '19:04:00', '20:04:00'),
+(2901, 2, '2017-11-13', '09:05:00', '11:05:00'),
+(2902, 2, '2017-11-20', '09:05:00', '11:05:00'),
+(2903, 2, '2017-11-27', '09:05:00', '11:05:00');
 
 -- --------------------------------------------------------
 
@@ -120,17 +138,16 @@ CREATE TABLE IF NOT EXISTS `assistance` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- RELATIONS FOR TABLE `assistance`:
+--   `id_userActivity`
+--       `user_activity` -> `id`
+--
+
+--
 -- Truncate table before insert `assistance`
 --
 
 TRUNCATE TABLE `assistance`;
---
--- Dumping data for table `assistance`
---
-
-INSERT DELAYED IGNORE INTO `assistance` (`id`, `id_userActivity`, `date`, `assist`) VALUES
-(0, 0, '0000-00-00 00:00:00', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -149,6 +166,12 @@ CREATE TABLE IF NOT EXISTS `exercise` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- RELATIONS FOR TABLE `exercise`:
+--   `id_user`
+--       `user` -> `id`
+--
+
+--
 -- Truncate table before insert `exercise`
 --
 
@@ -157,7 +180,7 @@ TRUNCATE TABLE `exercise`;
 -- Dumping data for table `exercise`
 --
 
-INSERT DELAYED IGNORE INTO `exercise` (`id`, `id_user`, `name`, `description`, `type`, `image`, `video`) VALUES
+INSERT INTO `exercise` (`id`, `id_user`, `name`, `description`, `type`, `image`, `video`) VALUES
 (0, 0, '', '', '', '', '');
 
 -- --------------------------------------------------------
@@ -174,6 +197,14 @@ CREATE TABLE IF NOT EXISTS `exercise_table` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- RELATIONS FOR TABLE `exercise_table`:
+--   `id_exercise`
+--       `exercise` -> `id`
+--   `id_workout`
+--       `workout_table` -> `id`
+--
+
+--
 -- Truncate table before insert `exercise_table`
 --
 
@@ -182,7 +213,7 @@ TRUNCATE TABLE `exercise_table`;
 -- Dumping data for table `exercise_table`
 --
 
-INSERT DELAYED IGNORE INTO `exercise_table` (`id`, `id_exercise`, `id_workout`) VALUES
+INSERT INTO `exercise_table` (`id`, `id_exercise`, `id_workout`) VALUES
 (0, 0, 0);
 
 -- --------------------------------------------------------
@@ -198,7 +229,13 @@ CREATE TABLE IF NOT EXISTS `notification` (
   `date` datetime NOT NULL,
   `title` varchar(45) NOT NULL,
   `content` mediumtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONS FOR TABLE `notification`:
+--   `id_user`
+--       `user` -> `id`
+--
 
 --
 -- Truncate table before insert `notification`
@@ -209,8 +246,8 @@ TRUNCATE TABLE `notification`;
 -- Dumping data for table `notification`
 --
 
-INSERT DELAYED IGNORE INTO `notification` (`id`, `id_user`, `date`, `title`, `content`) VALUES
-(0, 0, '0000-00-00 00:00:00', '', '');
+INSERT INTO `notification` (`id`, `id_user`, `date`, `title`, `content`) VALUES
+(1, 0, '2017-12-14 00:00:00', 'sadf', 'sadfsadfas');
 
 -- --------------------------------------------------------
 
@@ -222,8 +259,17 @@ DROP TABLE IF EXISTS `notification_user`;
 CREATE TABLE IF NOT EXISTS `notification_user` (
 `id` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
-  `id_notification` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `id_notification` int(11) DEFAULT NULL,
+  `viewed` date DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- RELATIONS FOR TABLE `notification_user`:
+--   `id_user`
+--       `user` -> `id`
+--   `id_notification`
+--       `notification` -> `id`
+--
 
 --
 -- Truncate table before insert `notification_user`
@@ -234,8 +280,8 @@ TRUNCATE TABLE `notification_user`;
 -- Dumping data for table `notification_user`
 --
 
-INSERT DELAYED IGNORE INTO `notification_user` (`id`, `id_user`, `id_notification`) VALUES
-(0, 0, 0);
+INSERT INTO `notification_user` (`id`, `id_user`, `id_notification`, `viewed`) VALUES
+(1, 0, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -260,8 +306,8 @@ TRUNCATE TABLE `public_info`;
 -- Dumping data for table `public_info`
 --
 
-INSERT DELAYED IGNORE INTO `public_info` (`id`, `phone`, `email`, `address`) VALUES
-(0, 0, '', '');
+INSERT INTO `public_info` (`id`, `phone`, `email`, `address`) VALUES
+(0, 649556062, 'uxio.gf@gmail.com', 'direccion za');
 
 -- --------------------------------------------------------
 
@@ -285,7 +331,7 @@ TRUNCATE TABLE `resource`;
 -- Dumping data for table `resource`
 --
 
-INSERT DELAYED IGNORE INTO `resource` (`id`, `name`, `description`) VALUES
+INSERT INTO `resource` (`id`, `name`, `description`) VALUES
 (0, '', '');
 
 -- --------------------------------------------------------
@@ -305,6 +351,14 @@ CREATE TABLE IF NOT EXISTS `session` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- RELATIONS FOR TABLE `session`:
+--   `id_user`
+--       `user` -> `id`
+--   `id_table`
+--       `user_table` -> `id`
+--
+
+--
 -- Truncate table before insert `session`
 --
 
@@ -313,7 +367,7 @@ TRUNCATE TABLE `session`;
 -- Dumping data for table `session`
 --
 
-INSERT DELAYED IGNORE INTO `session` (`id`, `id_user`, `id_table`, `date`, `duration`, `comment`) VALUES
+INSERT INTO `session` (`id`, `id_user`, `id_table`, `date`, `duration`, `comment`) VALUES
 (0, 0, 0, '0000-00-00 00:00:00', '00:00:00', '');
 
 -- --------------------------------------------------------
@@ -337,7 +391,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `profile_image` varchar(50) DEFAULT NULL,
   `user_type` tinyint(11) unsigned NOT NULL,
   `athlete_type` tinyint(3) unsigned DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Truncate table before insert `user`
@@ -348,11 +402,10 @@ TRUNCATE TABLE `user`;
 -- Dumping data for table `user`
 --
 
-INSERT DELAYED IGNORE INTO `user` (`id`, `login`, `password`, `name`, `surname`, `email`, `phone`, `dni`, `confirm_date`, `description`, `profile_image`, `user_type`, `athlete_type`) VALUES
-(0, 'user', 'usuario', 'Usuario', 'Apel', 'email@correo.com', 649556060, '53111974A', NULL, 'Descripción del usuario.\r\n', '1509576497_1.jpg', 1, 1),
-(1, 'user2', 'usuario2', 'Usuario segundo', '', 'mail@mail.com', 0, '', NULL, 'desc2s', NULL, 3, NULL),
-(2, 'user3', 'usuario3', 'Usuario Tercero', '', 'mail@mail.com', 0, '', NULL, 'u3.', NULL, 3, 1),
-(3, 'user4', 'usuario4', 'usuario Cuarto', 'Apel', 'mail@mail.com', NULL, NULL, NULL, 'd42', '1509668373_4.jpg', 2, 0);
+INSERT INTO `user` (`id`, `login`, `password`, `name`, `surname`, `email`, `phone`, `dni`, `confirm_date`, `description`, `profile_image`, `user_type`, `athlete_type`) VALUES
+(0, 'user', 'usuario', 'Usuario', 'Apel', 'email@correo.com', 649556060, '53111974A', NULL, 'Descripción del usuario.\r\n', '1509576497_1.jpg', 1, 0),
+(1, 'user2', 'usuario2', 'Usuario segundo', '', 'mail@mail.com', 23, '', NULL, 'desc2s', NULL, 2, 0),
+(2, 'user3', 'usuario3', 'Usuario Tercero', '', 'mail@mail.com', 4, '', NULL, 'u3.', NULL, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -368,17 +421,18 @@ CREATE TABLE IF NOT EXISTS `user_activity` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- RELATIONS FOR TABLE `user_activity`:
+--   `id_user`
+--       `user` -> `id`
+--   `id_activity`
+--       `activity_schedule` -> `id`
+--
+
+--
 -- Truncate table before insert `user_activity`
 --
 
 TRUNCATE TABLE `user_activity`;
---
--- Dumping data for table `user_activity`
---
-
-INSERT DELAYED IGNORE INTO `user_activity` (`id`, `id_user`, `id_activity`) VALUES
-(0, 0, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -393,6 +447,14 @@ CREATE TABLE IF NOT EXISTS `user_table` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- RELATIONS FOR TABLE `user_table`:
+--   `id_user`
+--       `user` -> `id`
+--   `id_workout`
+--       `workout_table` -> `id`
+--
+
+--
 -- Truncate table before insert `user_table`
 --
 
@@ -401,7 +463,7 @@ TRUNCATE TABLE `user_table`;
 -- Dumping data for table `user_table`
 --
 
-INSERT DELAYED IGNORE INTO `user_table` (`id`, `id_workout`, `id_user`) VALUES
+INSERT INTO `user_table` (`id`, `id_workout`, `id_user`) VALUES
 (0, 0, 0);
 
 -- --------------------------------------------------------
@@ -420,6 +482,12 @@ CREATE TABLE IF NOT EXISTS `workout_table` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- RELATIONS FOR TABLE `workout_table`:
+--   `id_user`
+--       `user` -> `id`
+--
+
+--
 -- Truncate table before insert `workout_table`
 --
 
@@ -428,7 +496,7 @@ TRUNCATE TABLE `workout_table`;
 -- Dumping data for table `workout_table`
 --
 
-INSERT DELAYED IGNORE INTO `workout_table` (`id`, `id_user`, `name`, `type`, `description`) VALUES
+INSERT INTO `workout_table` (`id`, `id_user`, `name`, `type`, `description`) VALUES
 (0, 0, '', '', '');
 
 --
@@ -533,7 +601,7 @@ ALTER TABLE `workout_table`
 -- AUTO_INCREMENT for table `activity`
 --
 ALTER TABLE `activity`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `activity_resource`
 --
@@ -543,7 +611,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `activity_schedule`
 --
 ALTER TABLE `activity_schedule`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2904;
 --
 -- AUTO_INCREMENT for table `assistance`
 --
@@ -563,12 +631,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `notification_user`
 --
 ALTER TABLE `notification_user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `public_info`
 --
@@ -588,7 +656,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_activity`
 --
