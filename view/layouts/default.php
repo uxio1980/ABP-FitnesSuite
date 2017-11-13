@@ -200,6 +200,12 @@ $language = $i18n->getLanguage();
                   </li>
                 <?php endif ?>
                 <?php if (($typeuser)==usertype::Administrator):?>
+                <li class="nav-item">
+                    <a href="index.php?controller=resources&amp;action=index">
+                      <img src="resources/icons/ic_group_black_24px.svg" alt="MyStatistics icon"/>
+                      <div class="text-item"><?= i18n("Resources")?></div>
+                    </a>
+                  </li>
                   <li class="nav-item">
                     <a href="index.php?controller=users&amp;action=index">
                       <img src="resources/icons/ic_group_black_24px.svg" alt="MyStatistics icon"/>

@@ -48,7 +48,7 @@ class ArticlesController extends BaseController {
   */
   public function index() {
     // obtain the data from the database
-  /*  if (isset($_GET["search"])) {
+    /*  if (isset($_GET["search"])) {
       $search = $_GET["search"];
       $articles = $this->articleMapper->searchAll($search);
     }else
@@ -59,7 +59,7 @@ class ArticlesController extends BaseController {
 
     // put the array containing Article object to the view
     $this->view->setVariable("articles", $articles);
-*/
+    */
     // render the view (/view/articles/index.php)
     $this->view->render("articles", "index");
   }
