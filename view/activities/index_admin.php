@@ -38,7 +38,7 @@
           </td>
 
           <td><a href="index.php?controller=activity_schedule&amp;action=index&amp;idactivity=<?= $activity->getIdactivity() ?>">
-            <img src="resources/icons/ic_schedule_24px.svg" alt="Edit" /></a>
+            <img src="resources/icons/ic_schedule_24px.svg" alt="Schedules" /></a>
           </td>
           <td><a class="notify" href="index.php?controller=activity_schedule&amp;action=index&amp;idactivity=<?= $activity->getIdactivity() ?>">
             <img src="resources/icons/ic_add_notification_24px.svg" alt="Notify" /></a>

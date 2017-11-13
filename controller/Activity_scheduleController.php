@@ -179,40 +179,36 @@ class Activity_scheduleController extends BaseController {
     $activity_schedule = new Activity_schedule();
 
     if (isset($_POST["submit"])) { // reaching via HTTP Post...
-      $i = 0;
-      //load images in server folder
-      $dir_load = 'resources/images/';
 
       // populate the article object with data form the form
-        $article->setName($_POST["name"]);
-        $article->setDescription($_POST["description"]);
-    	  $article->setPrice($_POST["price"]);
-        $article->setUrlImage01(($_FILES["images"]["name"][0]?$i++."_".$this->currentDate."_".$_FILES["images"]["name"][0]:NULL));
-    	  $article->setUrlImage02(($_FILES["images"]["name"][1]?$i++."_".$this->currentDate."_".$_FILES["images"]["name"][1]:NULL));
-    	  $article->setUrlImage03(($_FILES["images"]["name"][2]?$i."_".$this->currentDate."_".$_FILES["images"]["name"][2]:NULL));
-
-      // The user of the Article is the currentUser (user in session)
-      $article->setUserLogin(new  User($this->currentUser->getLogin()));
+        $activity_schedule->setActivity($activity);
+        $activity_schedule->setDate($_POST["startdate"]);
+        $activity_schedule->setStart_hour($_POST["start"]);
+    	  $activity_schedule->setEnd_hour($_POST["end"]);
+        $activity_schedule->setDuration($_POST["enddate"]);
 
       try {
         // validate article object
-        $article->checkIsValidForCreate(); // if it fails, ValidationException
+        $activity_schedule->checkIsValidForCreate(); // if it fails, ValidationException
 
-        // save the article object into the database
-        $this->articleMapper->save($article);
-        $j=0;
 
-        foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
-          $file_load = $dir_load . $j++ ."_" . $this->currentDate . "_" . basename($_FILES['images']['name']["$key"]);
-          move_uploaded_file($_FILES['images']['tmp_name']["$key"], $file_load);
+        // save the activity schedule object into the database
+        while ($activity_schedule->getDate() < $activity_schedule->getDuration()){
+          var_dump($activity_schedule->getDate());
+          $this->activity_scheduleMapper->save($activity_schedule);
+          $date = $activity_schedule->getDate();
+          $date = strtotime($date);
+          $date = strtotime("+7 day", $date);
+          $activity_schedule->setDate(date('Y-m-d',$date));
         }
+
         // POST-REDIRECT-GET
         // Everything OK, we will redirect the user to the list of posts
 
         // perform the redirection. More or less:
         // header("Location: index.php?controller=articles&action=index")
         // die();
-        $this->view->redirect("activity_schedules", "index");
+        $this->view->redirect("activity_schedule", "index", "idactivity=".$activity_schedule->getActivity()->getIdactivity());
 
       }catch(ValidationException $ex) {
         // Get the errors array inside the exepction...
@@ -262,99 +258,42 @@ class Activity_scheduleController extends BaseController {
   * @return void
   */
   public function edit() {
-    if (!isset($_REQUEST["idarticle"])) {
-      throw new Exception("A article id is mandatory");
+    if (!isset($_REQUEST["activity_schedule"])) {
+      throw new Exception("An activity schedule id is mandatory");
     }
 
     if (!isset($this->currentUser)) {
       throw new Exception("Not in session. Editing articles requires login");
     }
-    if (!isset($_GET["id_activity"])) {
-      throw new Exception("id_activity is mandatory");
-    }
-    $id_activity = $_GET["id_activity"];
 
-    // Get the article object from the database
-    $idarticle = $_REQUEST["idarticle"];
-    $article = $this->articleMapper->findById($idarticle);
-    $user = ($article->getUserLogin()->getLogin());
-    $userSession = ($this->currentUser->getLogin());
+    // Get the activity_schedule object from the database
+    $idactivity_schedule = $_REQUEST["activity_schedule"];
+    $activity_schedule = $this->activity_scheduleMapper->findById($idactivity_schedule);
+
     // Does the article exist?
-    if ($article == NULL) {
-      throw new Exception("no such article with id: ".$idarticle);
+    if ($activity_schedule == NULL) {
+      throw new Exception("no such activity schedule with id: ".$idactivity_schedule);
     }
-
-    // Check if the article author is the currentUser (in Session)
-    if ($user != $userSession) {
-      throw new Exception("logged user is not the author of the article id ".$idarticle);
-   }
 
     if (isset($_POST["submit"])) { // reaching via HTTP Post...
-      $i = 0;
-      //load images in server folder
-      $dir_load = 'resources/images/';
-
-      // populate the article object with data form the form
-        $article->setName($_POST["name"]);
-        $article->setDescription($_POST["description"]);
-    	  $article->setPrice($_POST["price"]);
-        if($_FILES["images"]["name"][0] && $_FILES["images"]["name"][1]!=NULL && $_FILES["images"]["name"][2]!=NULL){
-            $article->setUrlImage01(($_FILES["images"]["name"][0]?$i++."_".$this->currentDate."_".$_FILES["images"]["name"][0]:NULL));
-            $article->setUrlImage02(($_FILES["images"]["name"][1]?$i++."_".$this->currentDate."_".$_FILES["images"]["name"][1]:NULL));
-            $article->setUrlImage03(($_FILES["images"]["name"][2]?$i."_".$this->currentDate."_".$_FILES["images"]["name"][2]:NULL));
-          }else{
-            if($_FILES["images"]["name"][0] && $_FILES["images"]["name"][1] && $article->getUrlImage01()!=NULL){
-              $article->setUrlImage01($article->getUrlImage01());
-              $article->setUrlImage02(($_FILES["images"]["name"][0]?$i++."_".$this->currentDate."_".$_FILES["images"]["name"][0]:NULL));
-              $article->setUrlImage03(($_FILES["images"]["name"][1]?$i."_".$this->currentDate."_".$_FILES["images"]["name"][1]:NULL));
-            }else{
-              if($_FILES["images"]["name"][0] && $_FILES["images"]["name"][1] && $article->getUrlImage01()==NULL){
-                $article->setUrlImage01(($_FILES["images"]["name"][0]?$i++."_".$this->currentDate."_".$_FILES["images"]["name"][0]:NULL));
-                $article->setUrlImage02(($_FILES["images"]["name"][1]?$i."_".$this->currentDate."_".$_FILES["images"]["name"][1]:NULL));
-              }else{
-                if($_FILES["images"]["name"][0] && $article->getUrlImage01()==NULL){
-                  $article->setUrlImage01(($_FILES["images"]["name"][0]?$i."_".$this->currentDate."_".$_FILES["images"]["name"][0]:NULL));
-                }else{
-                  if($_FILES["images"]["name"][0] && $article->getUrlImage01()!=NULL && $article->getUrlImage02()==NULL ){
-                    $article->setUrlImage01($article->getUrlImage01());
-                    $article->setUrlImage02(($_FILES["images"]["name"][0]?$i."_".$this->currentDate."_".$_FILES["images"]["name"][0]:NULL));
-                  }else{
-                    if($_FILES["images"]["name"][0] && $article->getUrlImage01()!=NULL && $article->getUrlImage02()!=NULL ){
-                      $article->setUrlImage01($article->getUrlImage01());
-                      $article->setUrlImage02($article->getUrlImage02());
-                      $article->setUrlImage03(($_FILES["images"]["name"][0]?$i."_".$this->currentDate."_".$_FILES["images"]["name"][0]:NULL));
-                    }else{
-                      $article->setUrlImage01($article->getUrlImage01());
-                      $article->setUrlImage02($article->getUrlImage02());
-                      $article->setUrlImage03($article->getUrlImage03());
-                  }
-                }
-              }
-            }
-          }
-        }
-
-      // The user of the Article is the currentUser (user in session)
-      $article->setUserLogin(new  User($this->currentUser->getLogin()));
-
       try {
+
+        // populate the public info object with data form
+        $activity_schedule->setDate($_POST["date"]);
+        $activity_schedule->setStart_hour($_POST["start"]);
+        $activity_schedule->setEnd_hour($_POST["end"]);
+
         // validate Post object
-        $article->checkIsValidForUpdate(); // if it fails, ValidationException
-
+        $activity_schedule->checkIsValidForUpdate(); // if it fails, ValidationException
         // update the Post object in the database
-        $this->articleMapper->update($article);
-        $j=0;
+        $this->activity_scheduleMapper->update($activity_schedule);
 
-        foreach ($_FILES['images']['tmp_name'] as $key => $tmp_name) {
-          $file_load = $dir_load . $j++ ."_" . $this->currentDate . "_" . basename($_FILES['images']['name']["$key"]);
-          move_uploaded_file($_FILES['images']['tmp_name']["$key"], $file_load);
-        }
         // POST-REDIRECT-GET
         // Everything OK, we will redirect the user to the list of posts
         // perform the redirection. More or less:
         // header("Location: index.php?controller=posts&action=index")
         // die();
-        $this->view->redirect("articles", "index");
+        $this->view->redirect("activity_schedule", "index", "idactivity=".$activity_schedule->getActivity()->getIdactivity());
 
       }catch(ValidationException $ex) {
         // Get the errors array inside the exepction...
@@ -365,10 +304,10 @@ class Activity_scheduleController extends BaseController {
     }
 
     // Put the Post object visible to the view
-    $this->view->setVariable("article", $article);
+    $this->view->setVariable("activity_schedule", $activity_schedule);
 
     // render the view (/view/articles/add.php)
-    $this->view->render("articles", "edit");
+    $this->view->render("activity_schedules", "edit");
   }
 
   /**
@@ -407,7 +346,7 @@ class Activity_scheduleController extends BaseController {
     if ($activity_schedule == NULL) {
       throw new Exception("no such activity_schedule with id: ".$id_activity_schedule);
     }
-    $id_activity = $activity_schedule->getId_activity();
+    $id_activity = $activity_schedule->getActivity()->getIdactivity();
     $user_type = ($this->currentUser->getUser_type());
     // Check if the the currentUser (in Session) is Administrator
     if ($user_type != usertype::Administrator) {

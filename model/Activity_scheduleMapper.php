@@ -2,6 +2,7 @@
 
 require_once(__DIR__."/../core/PDOConnection.php");
 require_once(__DIR__."/../model/Activity_schedule.php");
+require_once(__DIR__."/../model/Activity.php");
 /**
 * Class UserMapper
 *
@@ -26,10 +27,10 @@ class Activity_scheduleMapper {
   * @throws PDOException if a database error occurs
   * @return void $login=NULL, $name= NULL,$password=NULL, $email=NULL, $description=NULL
   */
-  public function save($activity_schedule) {
+  public function save(Activity_schedule $activity_schedule) {
     $stmt = $this->db->prepare("INSERT INTO activity_schedule (id, id_activity,
-      'date', start_hour, end_hour) values (0,?,?,?,?)");
-      $stmt->execute(array($activity_schedule->getId_activity(),
+      date, start_hour, end_hour) values (0,?,?,?,?)");
+      $stmt->execute(array($activity_schedule->getActivity()->getIdActivity(),
       $activity_schedule->getDate(), $activity_schedule->getStart_hour(),
       $activity_schedule->getEnd_hour()));
     }
@@ -42,10 +43,12 @@ class Activity_scheduleMapper {
     * @return void
     */
     public function update(Activity_schedule $activity_schedule) {
-      $stmt = $this->db->prepare("UPDATE activity_schedule set id_activity=?, 'date'=?,
+
+      $stmt = $this->db->prepare("UPDATE activity_schedule set id_activity=?, date=?,
         start_hour=?, end_hour=? where id=?");
-        $stmt->execute(array($user->getId_activity(), $user->getDate(),
-        $user->getStart_hour(), $user->getEnd_hour(), $user->getId()));
+        $n = $stmt->execute(array($activity_schedule->getActivity()->getIdActivity(), $activity_schedule->getDate(),
+        $activity_schedule->getStart_hour(), $activity_schedule->getEnd_hour(), $activity_schedule->getId()));
+
       }
 
       /**
@@ -68,12 +71,14 @@ class Activity_scheduleMapper {
       * if the Activity_schedule is not found
       */
       public function findById($id_activity){
-        $stmt = $this->db->prepare("SELECT * FROM activity_schedule WHERE id=?");
+
+        $stmt = $this->db->prepare("SELECT A_S.id as idA_S, A.id as idA, A_S.*, A.*  FROM activity_schedule A_S LEFT JOIN activity A ON A_S.id_activity=A.id WHERE A_S.id=?");
         $stmt->execute(array($id_activity));
         $activity_schedule = $stmt->fetch(PDO::FETCH_ASSOC);
         if($activity_schedule != null) {
-          return new Activity_schedule($activity_schedule["id"],
-          $activity_schedule["id_activity"], $activity_schedule["date"],
+          $activity = new Activity($activity_schedule["idA"], $activity_schedule["id_user"], $activity_schedule["name"], $activity_schedule["description"], $activity_schedule["place"], $activity_schedule["type"], $activity_schedule["seats"]);
+          return new Activity_schedule($activity_schedule["idA_S"],
+          $activity, $activity_schedule["date"],
           $activity_schedule["start_hour"], $activity_schedule["end_hour"]);
         } else {
           return NULL;
@@ -107,15 +112,21 @@ class Activity_scheduleMapper {
     * @return mixed Array of activity_schedule instances
     */
     public function searchAll($value) {
-      $stmt = $this->db->prepare("SELECT * FROM activity_schedule WHERE id_activity= :search");
+      $stmt = $this->db->prepare("SELECT A_S.id as idA_S, A.id as idA, A_S.*, A.*  FROM activity_schedule A_S LEFT JOIN activity A ON A_S.id_activity=A.id WHERE id_activity=:search");
+      //$stmt = $this->db->query("SELECT * FROM activity_schedule");
       $stmt->execute(array($value));
         $activity_schedules_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       $activity_schedules = array();
 
         foreach ($activity_schedules_db as $activity_schedule) {
-          $a_s = new Activity_schedule($activity_schedule["id"],
-          $activity_schedule["id_activity"],
+          $activity = new Activity($activity_schedule["id_activity"],
+          $activity_schedule["id_user"], $activity_schedule["name"],
+          $activity_schedule["description"], $activity_schedule["place"],
+          $activity_schedule["type"], $activity_schedule["seats"]);
+
+          $a_s = new Activity_schedule($activity_schedule["idA_S"],
+          $activity,
           $activity_schedule["date"],
           $activity_schedule["start_hour"],
           $activity_schedule["end_hour"]

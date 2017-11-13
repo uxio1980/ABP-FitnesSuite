@@ -23,7 +23,7 @@ $view->setVariable("title", "FitnesSuite");
         <td><strong><?= i18n("Delete")?></strong></td>
       <?php foreach ($activity_schedules as $activity_schedule): ?>
         <tr class="table-row-content"
-          data-href="index.php?controller=activity_schedule&amp;action=edit&amp;activity_schedule=<?= $activity_schedule->getId() ?>">
+          data-href="index.php?controller=activity_schedule&amp;action=add&amp;activity_schedule=<?= $activity_schedule->getId() ?>">
           <td><?= $activity_schedule->getDate() ?></td>
           <td><?= $activity_schedule->getStart_hour() ?></td>
           <td><?= $activity_schedule->getEnd_hour() ?></td>
