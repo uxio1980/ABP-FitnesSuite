@@ -35,9 +35,11 @@ $language = $i18n->getLanguage();
       <a id="icon-burger" href="index.php">
         <img src="resources/icons/ic_menu.svg" alt="Menu icon"/>
       </a>
+        <img id="start-logo" src="resources/icons/start-logo.png" alt="Menu icon"/>
       <a id="text-logo" href="index.php">
         <h1>FitnesSuite</h1>
       </a>
+        <img id="end-logo" src="resources/icons/end-logo.png" alt="Menu icon"/>
     </div>
     <div id="header-search">
       <form id="form-search" action="index.php?controller=articles&amp;action=search" method="GET">

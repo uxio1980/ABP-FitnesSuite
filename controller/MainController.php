@@ -10,6 +10,9 @@ require_once(__DIR__."/../model/Public_InfoMapper.php");
 require_once(__DIR__."/../model/Notification_user.php");
 require_once(__DIR__."/../model/Notification_userMapper.php");
 
+require_once(__DIR__."/../model/Activity.php");
+require_once(__DIR__."/../model/ActivityMapper.php");
+
 
 /**
 * Class MainController
@@ -21,12 +24,14 @@ require_once(__DIR__."/../model/Notification_userMapper.php");
 class MainController extends BaseController {
 
   private $public_infoMapper;
+  private $activityMapper;
   private $date;
   private $currentDate;
 
   public function __construct() {
     parent::__construct();
     $this->public_infoMapper = new Public_InfoMapper();
+    $this->activityMapper = new ActivityMapper();
     $this->date = new DateTime();
     $this->currentDate = $this->date->getTimestamp();
   }
@@ -50,7 +55,10 @@ class MainController extends BaseController {
 }
 
 */
-// put the array containing Article object to the view
+// put the array containing Activities object to the view
+$activities = $this->activityMapper->findAll();
+$this->view->setVariable("activities", $activities);
+
 $notification=NULL;
 $this->view->setVariable("notification", $notification);
 
