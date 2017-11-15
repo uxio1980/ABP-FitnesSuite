@@ -13,8 +13,8 @@ html, body{
 }
 
 :root {
-    --main-color:#72d0f4; /* Color principal de la página */
-    --second-color:white; /* Color principal de la página */
+  --main-color:#72d0f4; /* Color principal de la página */
+  --second-color:white; /* Color principal de la página */
 }
 
 body {
@@ -77,7 +77,15 @@ header{
 #header-menu-logo a , h1{
   font-family: Lemon;
   font-size: 24px;
-  padding-left: 30px;
+  /*padding-left: 30px;*/
+}
+
+#start-logo{
+ padding-left: 30px;
+ padding-right: 5px;
+}
+#end-logo{
+ padding-left: 5px;
 }
 
 /****************************** INPUT SEARCH **********************************/
@@ -124,7 +132,7 @@ header{
   display: none;
   position: absolute;
   top:45px;
-  right:133px;
+  right:77px;
   background-color: #f9f9f9;
   min-width: 210px;
   max-width: 210px;
@@ -280,13 +288,18 @@ header{
   margin: 0.5em;
 }
 
+
 #alert-button .circle {
-  border: 4px solid #ff0000;
+  /*border: 4px solid #ff0000;*/
   background-color: var(--main-color);
   width: 20px;
   height: 20px;
   border-radius: 1000px;
   margin: 0.5em;
+}
+
+.notificationYes {
+  border: 4px solid #ff0000;
 }
 
 #message-button .circle {
@@ -330,14 +343,14 @@ header{
 
 /******************************* NAVIGATION ***********************************/
 .customHr {
-    width: 95%
-    font-size: 1px;
-    color: rgba(0, 0, 0, 0);
-    line-height: 1px;
+  width: 95%
+  font-size: 1px;
+  color: rgba(0, 0, 0, 0);
+  line-height: 1px;
 
-    background-color: grey;
-    margin-top: -6px;
-    margin-bottom: 10px;
+  background-color: grey;
+  margin-top: -6px;
+  margin-bottom: 10px;
 }
 
 #main-navigation{
@@ -538,6 +551,13 @@ header{
   align-self: center;
 }
 
+.commercial-textbox2-index {
+  /*background:white;*/
+  /*padding:15px;*/
+  align-self: center;
+  width: inherit;
+}
+
 .commercial-textbox {
   /*background:white;*/
   /*padding:15px;*/
@@ -569,6 +589,104 @@ header{
   flex-direction: column;
   text-align: center;
 }
+
+.color-main{
+  color:var(--main-color);/* #5c5c5c;  /*color:#484848;*/
+}
+/*********************************** CLASSES LIST **********************************/
+
+i.clock{
+  width: 20px;
+  height: 20px;
+  background: url(resources/icons/img-sprite.png) no-repeat -15px -78px;
+  float: left;
+}
+.timetable-icon{
+  height: 30px;
+  width: 30px;
+  float: left;
+  background: url(resources/icons/img-sprite.png) -44px -73px;
+}
+.sendto {
+  height: 30px;
+  width: 30px;
+  float: left;
+  background: url(resources/icons/img-sprite.png) -84px -74px;
+}
+
+.likeit {
+  height: 30px;
+  width: 30px;
+  float: left;
+  background: url(resources/icons/img-sprite.png) -118px -75px;
+}
+
+.share {
+  height: 30px;
+  width: 30px;
+  float: left;
+    background: url(resources/icons/img-sprite.png) -152px -74px;
+}
+/*********************************** MAIN PAGE **********************************/
+
+.list-classes-box {
+  /*flex-basis: 75.5%;*/
+  /*padding: 0px;*/
+  /*margin: 0px 10px 20px 10px;*/
+  /*width: 100%;*/
+  /*box-shadow: 0px 1px 2px #A0A0A0;*/
+  display: flex;
+  flex-direction: column;
+  /*background: white;*/
+  transition: 0.3s ease;
+  /*para hacer no seleccionables los componentes: */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.classes-box{
+  text-transform: uppercase;
+  padding: 0px;
+  margin: 0px 10px 20px 10px;
+  min-width: 300px;
+  max-width: 700px;
+  min-height: 343px;
+  box-shadow: 0px 1px 2px #A0A0A0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /*background: white;*/
+  transition: 0.3s ease;
+  background-color: var(--main-color);
+}
+
+#list {
+  /*width: 100%;*/
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  list-style: none;
+  padding-left: 0px;
+
+}
+#sublist{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 250px;
+  padding: 20px;
+  align-items: center;
+  /*margin: 0px 10px 20px 10px;*/
+  /*box-shadow: 0px 1px 2px #A0A0A0;*/
+  margin: 0px 10px 15px 10px;
+  box-shadow: 0px 1px 0px #A0A0A0;
+}
+
 /*********************************** ARTICLE **********************************/
 .article-box{
   padding: 0;
@@ -672,7 +790,7 @@ header{
 }
 
 .pricing-box-price{
-    display: flex;
+  display: flex;
 }
 
 .pricing-price1{
@@ -1204,9 +1322,9 @@ header{
 }
 
 .piece-contact-form {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
 .group-piece-contact-form {
@@ -1409,6 +1527,20 @@ footer{
   border-radius: 50%;
 }
 
+/******************************* NOTIFICATIONS  *******************************/
+.filter-box-notifications{
+  display: flex;
+  flex-flow: column;
+  flex-wrap: wrap;
+
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 15px;
+}
+.filter-box-notifications form {
+  font: 1em 'Lato';
+  color: #5c5c5c;
+}
 /******************************* MY CHATS *************************************/
 #listAndChat{
   margin-bottom: 50px;

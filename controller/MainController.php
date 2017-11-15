@@ -7,6 +7,13 @@ require_once(__DIR__."/../controller/BaseController.php");
 require_once(__DIR__."/../model/Public_Info.php");
 require_once(__DIR__."/../model/Public_InfoMapper.php");
 
+require_once(__DIR__."/../model/Notification_user.php");
+require_once(__DIR__."/../model/Notification_userMapper.php");
+
+require_once(__DIR__."/../model/Activity.php");
+require_once(__DIR__."/../model/ActivityMapper.php");
+
+
 /**
 * Class MainController
 *
@@ -17,12 +24,14 @@ require_once(__DIR__."/../model/Public_InfoMapper.php");
 class MainController extends BaseController {
 
   private $public_infoMapper;
+  private $activityMapper;
   private $date;
   private $currentDate;
 
   public function __construct() {
     parent::__construct();
     $this->public_infoMapper = new Public_InfoMapper();
+    $this->activityMapper = new ActivityMapper();
     $this->date = new DateTime();
     $this->currentDate = $this->date->getTimestamp();
   }
@@ -45,11 +54,15 @@ class MainController extends BaseController {
   $articles = $this->articleMapper->findAll();
 }
 
-
-// put the array containing Article object to the view
-$this->view->setVariable("articles", $articles);
 */
-// render the view (/view/articles/index.php)
+// put the array containing Activities object to the view
+$activities = $this->activityMapper->findAll();
+$this->view->setVariable("activities", $activities);
+
+$notification=NULL;
+$this->view->setVariable("notification", $notification);
+
+// render the view (/view/main/index.php)
 $this->view->render("main", "index");
 }
 /**
@@ -126,7 +139,7 @@ public function sendmail() {
         $this->view->redirect("main", "contact");
       }
     }catch(Exception $ex) {
-        throw new Exception("Error sending mail");
+      throw new Exception("Error sending mail");
       // Get the errors array inside the exepction...
       $errors = $ex->getErrors();
       // And put it to the view as "errors" variable
