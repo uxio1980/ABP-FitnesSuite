@@ -146,7 +146,7 @@ WHERE nu.id_user=? AND N.date > NOW() AND (NU.viewed IS NULL)");
         U.name as 'user.name', U.email as 'user.email',
         U.description as 'user.description'
         FROM notification N LEFT JOIN user U ON N.id_user = U.id
-        WHERE n.date < NOW()");
+        WHERE N.date < NOW()");
       $notification_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
       $notifications = array();
 
@@ -174,7 +174,7 @@ WHERE nu.id_user=? AND N.date > NOW() AND (NU.viewed IS NULL)");
       U.name as 'user.name', U.email as 'user.email',
       U.description as 'user.description'
       FROM notification N LEFT JOIN user U ON N.id_user = U.id
-      WHERE n.date > NOW()");
+      WHERE N.date > NOW()");
     $notification_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $notifications = array();
 

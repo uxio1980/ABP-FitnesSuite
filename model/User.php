@@ -1,8 +1,7 @@
 <?php
 require_once(__DIR__."/../core/ValidationException.php");
 
-abstract class usertype
-{
+abstract class usertype{
     const Administrator = 1;
     const Trainer = 2;
     const AthleteTDU = 3;
