@@ -111,8 +111,11 @@ class ActivitiesController extends BaseController {
     $this->view->setVariable("trainer", $trainer);
 
     // render the view (/view/activities/view.php)
-    $this->view->render("activities", "view");
-
+    if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
+      $this->view->render("activities", "view");
+    } else {
+      $this->view->render("activities", "view");
+    }  
   }
 
   /**
@@ -277,8 +280,12 @@ class ActivitiesController extends BaseController {
       $activity->setPlace($_POST["place"]);
       $activity->setType($_POST["type"]);
       $activity->setSeats($_POST["seats"]);
-      // Sube las nuevas imágenes.
-      if(count($_FILES['images']['name']) > 0){
+
+      // Si no se edita mantiene las imágenes actuales.
+      if($_FILES['images']['name'][0] == ""){
+        $activity->setImage($activity->getImage());
+      }// Sube las nuevas imágenes. 
+      elseif(count($_FILES['images']['name']) > 0){
         $images = array();
         $tmp = array();
         for($i=0; $i<count($_FILES['images']['name']); $i++) {
@@ -288,16 +295,15 @@ class ActivitiesController extends BaseController {
             array_push($images,$filePath);
             array_push($tmp,$tmpFilePath);
           }
-        }// Borra las imágenes anteriores.
+        }
         $img = json_decode($activity->getImage());
         for($i=0; $i<count($img); $i++) {
           unlink($img[$i]);
         }
         $activity->setImage(json_encode($images));
-        // Si no se edita mantiene las imágenes actuales.
-      } elseif(!is_null($activity->getImage())) { 
         
-        $activity->setImage($activity->getImage());
+      } else {
+        $activity->setImage(NULL);
       }
 
       try {
