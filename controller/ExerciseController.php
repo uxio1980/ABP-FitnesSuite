@@ -2,17 +2,17 @@
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../core/I18n.php");
 
-require_once(__DIR__."/../model/Public_Info.php");
-require_once(__DIR__."/../model/Public_InfoMapper.php");
+require_once(__DIR__."/../model/Exercise.php");
+require_once(__DIR__."/../model/ExerciseMapper.php");
 
 require_once(__DIR__."/../controller/BaseController.php");
 /**
-* Class Public_InfoController
+* Class ExerciseController
 *
-* Controller to make a CRUD for public info
+* Controller to make a CRUD for Eexercise
 *
 */
-class Public_InfoController extends BaseController {
+class ExerciseController extends BaseController {
 
     /**
     * Reference to the public_infoMapper to interact
@@ -20,13 +20,13 @@ class Public_InfoController extends BaseController {
     *
     * @var Public_Info
     */
-    private $public_infoMapper;
+    private $exerciseMapper;
     private $date;
     private $currentDate;
 
     public function __construct() {
         parent::__construct();
-        $this->public_infoMapper = new Public_InfoMapper();
+        $this->exerciseMapper = new ExerciseMapper();
         $this->view->setLayout("default");
         $this->date = new DateTime();
         $this->currentDate = $this->date->getTimestamp();
@@ -40,27 +40,19 @@ class Public_InfoController extends BaseController {
     *
     */
     public function index() {
-      if (!isset($this->currentUser)) {
-        throw new Exception("Not in session. Listing public info requires login");
-      }
+        if (!isset($this->currentUser)) {
+            //throw new Exception("Not in session. Listing public info requires login");
+        }
 
-      /*
-      // To enable Search input in public info
-      // obtain the data from the database
-      if (isset($_GET["search"])) {
-        $search = $_GET["search"];
-        $public_infos = $this->public_infoMapper->searchAll($search);
-      }else
-      {
-        $public_infos = $this->public_infoMapper->findAll();
-      }
-      */
-      $public_info = $this->public_infoMapper->findById(0); //Solo tendrá la tupla con id = 0
-      // put the array containing public info object to the view
-      $this->view->setVariable("public_info", $public_info);
+        $exercises = $this->exerciseMapper->findAll();
+        $this->view->setVariable("exercises", $exercises);
 
-      // render the view (/view/public_info/index.php)
-      $this->view->render("public_info", "index");
+        if (isset($this->currentUser) && ($this->currentUser->getUser_type() == usertype::Administrator ||
+                                          $this->currentUser->getUser_type() == usertype::Trainer)){
+            $this->view->render("activities", "index_admin-trainer");
+        } else {
+            $this->view->render("activities", "index");
+        }
     }
 
     /**
