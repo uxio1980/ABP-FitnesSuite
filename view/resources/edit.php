@@ -17,11 +17,11 @@
 		 enctype="multipart/form-data">
 			<strong><?= i18n("Modify resource") ?></strong>
 			<label for="form-field"><?= i18n("Name") ?></label>
-			<input type="text" name="name" value="<?= $resource->getName() ?>" minlength="2" maxlength="50" required >
+			<input type="text" name="name" value="<?= $resource->getName() ?>" minlength="2" maxlength="45" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ ]+" title="Formato incorrecto" required >
 			<?= isset($errors["name"])?$errors["name"]:"" ?>
 
 			<label for="name-field"><?= i18n("Description") ?></label>
-			<textarea name="description" rows="4" cols="50"><?=$resource->getDescription() ?></textarea>
+			<textarea name="description" rows="4" cols="50" required><?=$resource->getDescription() ?></textarea>
 			<?= isset($errors["description"])?$errors["description"]:"" ?><br>
 
             <label for="form-field"><?= i18n("Quantity") ?></label>

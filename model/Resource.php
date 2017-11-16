@@ -56,12 +56,6 @@ class Resource {
    */    
   public function checkIsValidForCreate() {
       $errors = array();
-      if (strlen(trim($this->name)) == 0 ) {
-	$errors["name"] = "name is mandatory";
-      }
-      if (strlen(trim($this->description)) == 0 ) {
-	$errors["description"] = "description is mandatory";
-      }
       
       if (sizeof($errors) > 0){
 	throw new ValidationException($errors, "resource is not valid");
