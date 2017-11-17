@@ -145,7 +145,10 @@ class Activity_scheduleMapper {
     * @return mixed Array of activity_schedule instances
     */
     public function search2NextEvents($value) {
-      $stmt = $this->db->query("SELECT A_S.id as asId, A_S.*, A.* FROM activity_schedule A_S LEFT JOIN activity A ON A_S.id_activity=A.id WHERE A_S.date >= NOW() AND A_S.start_hour >= NOW() LIMIT 2");
+      $stmt = $this->db->query("SELECT A_S.id as asId, A_S.*, A.*
+        FROM activity_schedule A_S
+        LEFT JOIN activity A ON A_S.id_activity=A.id
+        WHERE STR_TO_DATE(CONCAT(DATE_FORMAT(A_S.date, '%Y-%m-%d'), A_S.start_hour), '%Y-%m-%d %H:%i:%s') >=NOW() LIMIT 2");
       $activity_schedules_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       $activity_schedules = array();
