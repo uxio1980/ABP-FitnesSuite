@@ -194,15 +194,16 @@ $language = $i18n->getLanguage();
                 <div class="text-item"><?= i18n("My profile")?></div></a>
               </li>
               <?php if (($typeuser)==usertype::AthleteTDU || ($typeuser)==usertype::AthletePEF ):?>
-                <li class="nav-item">
-                  <a href="index.php">
-                    <img src="resources/icons/ic_schedule_black_24px.svg" alt="Routine icon"/>
-                    <div class="text-item"><?= i18n("Routines")?></div></a>
-                  </li>
                   <li class="nav-item">
                     <a href="index.php?controller=articles&amp;action=add">
-                      <img src="resources/icons/ic_library_add_black_24px.svg" alt="Upload product icon"/>
+                      <img src="resources/icons/manage_res.svg" alt="Upload product icon"/>
                       <div class="text-item"><?= i18n("Upload product")?></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="index.php?controller=sessions&amp;action=index">
+                      <img src="resources/icons/sessions_icon.svg" alt="Session icon"/>
+                      <div class="text-item"><?= i18n("Sessions")?></div>
                     </a>
                   </li>
                 <?php endif ?>

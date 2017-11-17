@@ -39,6 +39,7 @@
     "Routines" => "Rutinas",
     "Address" => "Dirección",
     "New" => "Nuevo",
+    "Sessions" => "Sesiones",
     "by %s" => "por %s",
     "Public info" => "Info pública",
     "Name" => "Nombre",
