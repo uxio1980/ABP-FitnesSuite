@@ -600,6 +600,11 @@ header{
   text-align: center;
 }
 
+.commercial-description a{
+  text-decoration: none;
+  color:green;
+}
+
 .commercial-description input[type=button] {
   margin-top: 20px;
   margin-left: 3px;
