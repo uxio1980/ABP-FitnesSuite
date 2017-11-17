@@ -66,16 +66,21 @@ $view->setVariable("title", "FitnesSuite");
         <?php foreach ($next_events as $next_event): ?>
             <div class="next-event-box">
               <div class="tittle-edit next-event-date">
-                <p class="article-box-title"><?= $next_event->getDate() ?></p>
+                <p class="article-box-title commercial-description second-color"><?= date("j M, Y", strtotime($next_event->getDate())) ?></p>
+                <?php if ($next_event->getActivity()->getImage() == NULL):
+    						  $pathimage = 'resources/images/_missing-thumbnail.png' ?>
+    					  <?php else:
+    						  $pathimage = json_decode($next_event->getActivity()->getImage())[0] ?>
+    					  <?php endif ?>
+                <img src="<?= $pathimage ?>" alt="Image 1">
               </div>
-              <?php if ($next_event->getActivity()->getImage() == NULL):
-  						  $pathimage = 'resources/images/_missing-thumbnail.png' ?>
-  					  <?php else:
-  						  $pathimage = json_decode($next_event->getActivity()->getImage())[0] ?>
-  					  <?php endif ?>
-            <img src="<?= $pathimage ?>" alt="Image 1">
-            <p class="article-seller"><span><?= $next_event->getStart_hour() ?>-<?= $next_event->getStart_hour() ?></span></p>
-            <p class="article-seller"><span><?= $next_event->getActivity()->getName() ?></span></p>
+              <div>
+                <p class="commercial-description red-color"><span><?= date( 'g:ia' ,strtotime($next_event->getStart_hour())) ?>-<?= date('g:ia', strtotime($next_event->getEnd_hour())) ?></span></p>
+                <p class="commercial-description uppercase second-color"><span><?= $next_event->getActivity()->getName() ?></span></p>
+                <div class="commercial-description">
+                  <a href="index.php?controller=Reservation&amp;action=add"><input type='button' value=<?= i18n("Reservation")?> /></a>
+                </div>
+            </div>
           </div>
           <?php endforeach; ?>
       </li>

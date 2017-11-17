@@ -40,6 +40,7 @@
     "Address" => "Dirección",
     "New" => "Nuevo",
     "Sessions" => "Sesiones",
+    "Reservation" => "Reservar",
     "by %s" => "por %s",
     "Public info" => "Info pública",
     "Name" => "Nombre",
