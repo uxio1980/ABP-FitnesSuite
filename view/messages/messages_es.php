@@ -107,6 +107,9 @@
     "Athlete type" => "Tipo de depostista",
     "Administrator" => "Administrador",
     "Trainer" => "Entrenador",
-    "Athlete" => "Deportista"
+    "Athlete" => "Deportista",
+	  "Athlets" => "Deportistas",
+	  "Asign Table" => "Asignar Tabla",
+	  "View Tables" => "Ver Tablas"
   )
 ?>

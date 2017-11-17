@@ -50,15 +50,22 @@ class UsersController extends BaseController {
         $users = $this->userMapper->searchAll($search);
       }else
       {
-        $users = $this->userMapper->findAll();
+          if ($this->currentUser->getUser_type() == usertype::Administrator){
+              $users = $this->userMapper->findAll();
+          } else {
+              $users = $this->userMapper->findAllAthlets();
+          }
       }
-
 
       // put the array containing Article object to the view
       $this->view->setVariable("allusers", $users);
 
       // render the view (/view/articles/index.php)
-      $this->view->render("users", "index");
+        if ($this->currentUser->getUser_type() == usertype::Administrator){
+            $this->view->render("users", "index");
+        } else {
+            $this->view->render("users", "index_trainer");
+        }
     }
 
     /**

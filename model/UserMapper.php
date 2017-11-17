@@ -120,12 +120,11 @@ class UserMapper {
       }
 
       /**
-      * Retrieves all articles
+      * Retrieves all trainers
       *
-      * Note: chatlines are not added to the Article instances
       *
       * @throws PDOException if a database error occurs
-      * @return mixed Array of Article instances
+      * @return mixed Array of User trainers instances
       */
       public function findAllTrainers() {
         $stmt = $this->db->prepare("SELECT * FROM user WHERE user_type=?");
@@ -141,6 +140,29 @@ class UserMapper {
 
           return $trainers;
       }
+
+    /**
+     * Retrieves all trainers
+     *
+     *
+     * @throws PDOException if a database error occurs
+     * @return mixed Array of User trainers instances
+     */
+    public function findAllAthlets() {
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE user_type=? or user_type=?");
+        $stmt->execute(array(usertype::AthleteTDU,usertype::AthletePEF));
+        $athlets_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $athlets = array();
+
+        foreach ($athlets_db as $athlet) {
+            array_push($athlets, new User($athlet["id"],$athlet["login"],$athlet["name"],NULL,
+                $athlet["email"], $athlet["description"], $athlet["profile_image"],
+                $athlet["surname"], $athlet["phone"], $athlet["dni"], $athlet["confirm_date"],
+                $athlet["user_type"]));
+        }
+        return $athlets;
+    }
 
       /**
        * Retrieves all users
