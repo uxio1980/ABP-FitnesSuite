@@ -12,8 +12,8 @@
   <div id="content-list">
     <div class="content-title">
       <strong><?= i18n("Resources")?></strong><br>
-      <a href="index.php?controller=resources&amp;action=add_resource"><input type='button' value=<?= i18n("New resource")?> /></a>
-      <a href="index.php?controller=resources&amp;action=add_place"><input type='button' value=<?= i18n("New place")?> /></a>
+      <a href="index.php?controller=resources&amp;action=add_resource"><input type='button' value="<?= i18n("New resource")?>" /></a>
+      <a href="index.php?controller=resources&amp;action=add_place"><input type='button' value="<?= i18n("New place")?>" /></a>
     </div>
     <table id="table-content">
       <tr class="table-row-content">
