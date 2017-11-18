@@ -78,8 +78,8 @@ class Activity_resourceMapper {
     // Devuelve los recursos que todavía no se han asignado a la actividad.
     public function findResourcesActivity($idactivity){
         $stmt = $this->db->prepare("SELECT * FROM resource WHERE id NOT IN 
-            (SELECT id_resource FROM activity_resource WHERE id_activity=?)");
-        $stmt->execute(array($idactivity));
+            (SELECT id_resource FROM activity_resource WHERE id_activity=?) AND type=?");
+        $stmt->execute(array($idactivity,resourcetype::Resource));
         $resources_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $resources = array();
 

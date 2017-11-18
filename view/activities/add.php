@@ -5,6 +5,7 @@
  $view = ViewManager::getInstance();
 
  $trainers = $view->getVariable("trainers");
+ $places = $view->getVariable("places");
  $errors = $view->getVariable("errors");
 
  $view->setVariable("title", "Edit Activity");
@@ -31,13 +32,12 @@
 				<?php endforeach; ?>
 			</select>
 
-            <label for="form-field"><?= i18n("Place") ?></label>
-			<input type="text" name="place" minlength="2" maxlength="45" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ0-9 ]+" title="Formato incorrecto" required >
-			<?= isset($errors["place"])?$errors["place"]:"" ?>
-
-            <label for="form-field"><?= i18n("Type") ?></label>
-			<input type="text" name="type" minlength="2" maxlength="45" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ0-9 ]+" title="Formato incorrecto" required >
-			<?= isset($errors["type"])?$errors["type"]:"" ?>
+			<label for="form-field"><?= i18n("Place") ?></label>
+			<select name="place">
+				<?php foreach ($places as $place): ?>
+				<option value="<?= $place->getIdresource()?>"><?= $place->getName()?></option>
+				<?php endforeach; ?>
+			</select>
 
             <label for="form-field"><?= i18n("Seats") ?></label>
 			<input type="number" min="1" name="seats" required>

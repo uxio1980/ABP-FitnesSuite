@@ -6,19 +6,19 @@
 
  $errors = $view->getVariable("errors");
 
- $view->setVariable("title", "Edit Activity");
+ $view->setVariable("title", "Add resource");
 
 ?>
 
 <main id="main-content">
 	<div class="form">
-	   <form action="index.php?controller=resources&amp;action=add" method="POST"
+	   <form action="index.php?controller=resources&amp;action=add_resource" method="POST"
 		 enctype="multipart/form-data">
 
 			<strong><?= i18n("Add resource") ?></strong>
 
 			<label for="form-field"><?= i18n("Name") ?></label>
-			<input type="text" name="name" minlength="2" maxlength="45" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ ]+" title="Formato incorrecto" required >
+			<input type="text" name="name" minlength="2" maxlength="45" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ0-9 ]+" title="Formato incorrecto" required >
 			<?= isset($errors["name"])?$errors["name"]:"" ?>
 
 			<label for="name-field"><?= i18n("Description") ?></label>

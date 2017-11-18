@@ -110,7 +110,7 @@
     "Athlete" => "Deportista",
     "Add activity" => "Añadir actividad",
     "Modify activity" => "Modificar actividad",
-    "Place" => "Lugar",
+    "Place" => "Instalación",
     "Seats" => "Plazas",
     "Image" => "Imagen",
     "Add" => "Añadir",
@@ -122,5 +122,8 @@
     "Quantity" => "Cantidad",
     "Modify resource" => "Modificar recurso",
     "Add resource" => "Añadir recurso",
+    "Add place" => "Añadir instalación",
+    "New resource" => "Nuevo recurso",
+    "New place" => "Nueva instalación",
   )
 ?>

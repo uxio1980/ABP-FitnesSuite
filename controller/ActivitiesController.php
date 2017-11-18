@@ -97,6 +97,7 @@ class ActivitiesController extends BaseController {
 
     // Recuperar distintas actividades según usuario.
     $activity = $this->activityMapper->findById($activityid);
+    $place = $this->resourceMapper->findById($activity->getPlace());
     // Recupera el array de rutas a las imágenes.
     $images = json_decode($activity->getImage());
     $trainer = $this->activityMapper->findTrainerById($activity->getIduser());
@@ -109,6 +110,7 @@ class ActivitiesController extends BaseController {
     $this->view->setVariable("activity", $activity);
     $this->view->setVariable("images", $images);
     $this->view->setVariable("trainer", $trainer);
+    $this->view->setVariable("place", $place);
 
     // render the view (/view/activities/view.php)
     if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
@@ -152,7 +154,7 @@ class ActivitiesController extends BaseController {
 
     $activity = new Activity();
     $trainers = $this->userMapper->findAllTrainers();
-    $resources = $this->resourceMapper->findAll();
+    $places = $this->resourceMapper->findAllPlaces();
 
     if (isset($_POST["submit"])) { // reaching via HTTP Post...
       $i = 0;
@@ -164,7 +166,6 @@ class ActivitiesController extends BaseController {
       $activity->setName($_POST["name"]);
       $activity->setDescription($_POST["description"]);
       $activity->setPlace($_POST["place"]);
-      $activity->setType($_POST["type"]);
       $activity->setSeats($_POST["seats"]);
       // Asigna a la variable image un array con las rutas a todas las imágenes.
       if(count($_FILES['images']['name']) > 0){
@@ -212,7 +213,7 @@ class ActivitiesController extends BaseController {
 
     // Put the Activity object visible to the view
     $this->view->setVariable("trainers", $trainers);
-    $this->view->setVariable("resources", $resources);
+    $this->view->setVariable("places", $places);
 
     // render the view (/view/activitys/add.php)
     $this->view->render("activities", "add");
@@ -263,6 +264,7 @@ class ActivitiesController extends BaseController {
     $idactivity = $_REQUEST["idactivity"];
     $activity = $this->activityMapper->findById($idactivity);
     $trainers = $this->userMapper->findAllTrainers();
+    $places = $this->resourceMapper->findAllPlaces();
     // Does the activity exist?
     if ($activity == NULL) {
       throw new Exception("no such activity with id: ".$idactivity);
@@ -278,7 +280,6 @@ class ActivitiesController extends BaseController {
       $activity->setName($_POST["name"]);
       $activity->setDescription($_POST["description"]);
       $activity->setPlace($_POST["place"]);
-      $activity->setType($_POST["type"]);
       $activity->setSeats($_POST["seats"]);
 
       // Si no se edita mantiene las imágenes actuales.
@@ -336,6 +337,7 @@ class ActivitiesController extends BaseController {
 
     // Put the Post object visible to the view
     $this->view->setVariable("activity", $activity);
+    $this->view->setVariable("places", $places);
     $this->view->setVariable("trainers", $trainers);
 
     // render the view (/view/activitys/add.php)
