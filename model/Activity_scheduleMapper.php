@@ -136,4 +136,37 @@ class Activity_scheduleMapper {
 
       return $activity_schedules;
     }
+
+    /**
+    * Retrieves activity_schedules
+    *
+    *
+    * @throws PDOException if a database error occurs
+    * @return mixed Array of activity_schedule instances
+    */
+    public function search2NextEvents($value) {
+      $stmt = $this->db->query("SELECT A_S.id as asId, A_S.*, A.*
+        FROM activity_schedule A_S
+        LEFT JOIN activity A ON A_S.id_activity=A.id
+        WHERE STR_TO_DATE(CONCAT(DATE_FORMAT(A_S.date, '%Y-%m-%d'), A_S.start_hour), '%Y-%m-%d %H:%i:%s') >=NOW() LIMIT 2");
+      $activity_schedules_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      $activity_schedules = array();
+
+        foreach ($activity_schedules_db as $activity_schedule) {
+          $activity = new Activity($activity_schedule["id_activity"],
+          $activity_schedule["id_user"], $activity_schedule["name"],
+          $activity_schedule["description"], $activity_schedule["place"],
+          $activity_schedule["type"], $activity_schedule["seats"], $activity_schedule["image"]);
+          $a_s = new Activity_schedule($activity_schedule["asId"],
+          $activity,
+          $activity_schedule["date"],
+          $activity_schedule["start_hour"],
+          $activity_schedule["end_hour"]
+        );
+        array_push($activity_schedules, $a_s);
+      }
+
+      return $activity_schedules;
+    }
 }

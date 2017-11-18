@@ -13,6 +13,8 @@ require_once(__DIR__."/../model/Notification_userMapper.php");
 require_once(__DIR__."/../model/Activity.php");
 require_once(__DIR__."/../model/ActivityMapper.php");
 
+require_once(__DIR__."/../model/Activity_schedule.php");
+require_once(__DIR__."/../model/Activity_scheduleMapper.php");
 
 /**
 * Class MainController
@@ -25,6 +27,7 @@ class MainController extends BaseController {
 
   private $public_infoMapper;
   private $activityMapper;
+  private $activity_schedule;
   private $date;
   private $currentDate;
 
@@ -32,6 +35,7 @@ class MainController extends BaseController {
     parent::__construct();
     $this->public_infoMapper = new Public_InfoMapper();
     $this->activityMapper = new ActivityMapper();
+    $this->activity_scheduleMapper = new Activity_scheduleMapper();
     $this->date = new DateTime();
     $this->currentDate = $this->date->getTimestamp();
   }
@@ -58,7 +62,13 @@ class MainController extends BaseController {
 // put the array containing Activities object to the view
 $activities = $this->activityMapper->findAll();
 $this->view->setVariable("activities", $activities);
+$next_events = $this->activity_scheduleMapper->search2NextEvents();
+$imagesNextEvents  = array();
+  foreach ($next_events as $next_event) {
 
+  
+  }
+$this->view->setVariable("next_events", $next_events);
 $notification=NULL;
 $this->view->setVariable("notification", $notification);
 
