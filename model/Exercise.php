@@ -111,13 +111,13 @@ class Exercise {
         $errors = array();
 
         if (strlen($this->name) < 5) {
-            $errors["Ivalid-Name"] = "You must to add a name with more than 5 characters";
+            $errors["Invalid-Name"] = "You must to add a name with more than 5 characters";
         }
         if (strlen($this->description) <= 0) {
-            $errors["Ivalid-Description"] = "You must to describe the exercise";
+            $errors["Invalid-Description"] = "You must to describe the exercise";
         }
         try{
-          $this->checkIsValidForRegister();
+          $this->checkIsValidForCreate();
         }catch(ValidationException $ex) {
           foreach ($ex->getErrors() as $key=>$error) {
             $errors[$key] = $error;

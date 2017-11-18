@@ -43,9 +43,9 @@ class ExerciseMapper {
     * @return void
     */
     public function update(Exercise $exercise) {
-      $stmt = $this->db->prepare("UPDATE exercise set description=?, type=?,
-        image=?, video=? where id=?");
-        $stmt->execute(array($exercise->getDescription(), $exercise->getType(),
+        $stmt = $this->db->prepare("UPDATE exercise set id=?, id_user=?, name=?, description=?, type=?,
+                                                      image=?, video=? where id=?");
+        $stmt->execute(array($exercise->getId(), $exercise->getId_User(), $exercise->getName(), $exercise->getDescription(), $exercise->getType(),
         $exercise->getImage(), $exercise->getVideo(), $exercise->getId()));
       }
 
@@ -70,7 +70,7 @@ class ExerciseMapper {
       }
 
       /**
-       * Retrieves all exercises
+       * Retrieves all exercise
        *
        * @throws PDOException if a database error occurs
        * @return mixed Array of public infos instances

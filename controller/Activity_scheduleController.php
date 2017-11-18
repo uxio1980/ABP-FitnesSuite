@@ -184,7 +184,7 @@ class Activity_scheduleController extends BaseController {
         $activity_schedule->setActivity($activity);
         $activity_schedule->setDate($_POST["startdate"]);
         $activity_schedule->setStart_hour($_POST["start"]);
-    	  $activity_schedule->setEnd_hour($_POST["end"]);
+        $activity_schedule->setEnd_hour($_POST["end"]);
         $activity_schedule->setDuration($_POST["enddate"]);
 
       try {
