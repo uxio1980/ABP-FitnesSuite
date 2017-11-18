@@ -110,7 +110,7 @@ class ExerciseController extends BaseController {
                 $exercise->setImage(json_encode($images));
             }
 
-            $exercise.setVideo($_POST["video"]);
+            $exercise->setVideo($_POST["video"]);
 
             try {
                 // validate exercise object
@@ -172,7 +172,7 @@ class ExerciseController extends BaseController {
             $exercise->setId_User($this->currentUser->getId());
             $exercise->setName($_POST["name"]);
             $exercise->setDescription($_POST["description"]);
-            $exercise->seType($_POST["type"]);
+            $exercise->setType($_POST["type"]);
 
             // Sube las nuevas imágenes.
             if(count($_FILES['images']['name']) > 0){

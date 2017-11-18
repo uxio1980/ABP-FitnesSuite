@@ -88,10 +88,10 @@ class Exercise {
     public function checkIsValidForCreate() {
         $errors = array();
         if (strlen($this->name) < 5) {
-          $errors["Ivalid-Name"] = "You must to add a name with more than 5 characters";
+          $errors["name"] = "You must to add a name with more than 5 characters";
         }
         if (strlen($this->description) <= 0) {
-            $errors["Ivalid-Description"] = "You must to describe the exercise";
+            $errors["description"] = "You must to describe the exercise";
         }
         if (sizeof($errors)>0){
           throw new ValidationException($errors, "Current Exercise Instance is not valid");
@@ -111,10 +111,10 @@ class Exercise {
         $errors = array();
 
         if (strlen($this->name) < 5) {
-            $errors["Invalid-Name"] = "You must to add a name with more than 5 characters";
+            $errors["name"] = "You must to add a name with more than 5 characters";
         }
         if (strlen($this->description) <= 0) {
-            $errors["Invalid-Description"] = "You must to describe the exercise";
+            $errors["description"] = "You must to describe the exercise";
         }
         try{
           $this->checkIsValidForCreate();

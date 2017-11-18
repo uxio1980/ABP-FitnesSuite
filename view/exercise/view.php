@@ -30,18 +30,23 @@
         </div>
 
 		<div class="article-user">
-			<div class="article-description">
-        <div class="article-title">
-          <div class="article-name">
-            <p><?= $exercise->getName()?></p>
-          </div>
+        <div class="article-description">
+            <div class="article-title">
+              <div class="article-name">
+                <p><?= $exercise->getName()?></p>
+              </div>
+            </div>
+            <p class="article-detail"><?= $exercise->getDescription()?>
+            </p><?= i18n("Type")?>: <p class="article-detail"><?= $exercise->getType()?>
+            </p><?= i18n("Aded_by")?>: <p class="article-detail"><?= $exercise->getId_User() ?></p>
         </div>
-            <p class="article-detail"><?= $exercise->getDescription()?></p>
-            <?= i18n("Type")?>: <p class="article-detail"><?= $exercise->getType()?></p>
-            <?= i18n("Aded_by")?>: <p class="article-detail"><?= $exercise->getId_User() ?></p>
-            <?= i18n("Video")?>: <p class="article-detail"><?= $exercise->getVideo()?></p>
-        </div>
+            <div>
+                <iframe width="640" height="360" src="https://www.youtube.com/watch?v=TyHvyGVs42U" frameborder="0" allowfullscreen></iframe>
+
+                <?= i18n("Video")?>: <p class="article-detail"><?= $exercise->getVideo()?></p>
+            </div>
     </div>
+
 </article>
 
 <footer>
