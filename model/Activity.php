@@ -104,7 +104,7 @@ class Activity {
       }
       
       if (sizeof($errors) > 0){
-	throw new ValidationException($errors, "activity is not valid");
+          throw new ValidationException($errors, "activity is not valid");
       }
   }
 

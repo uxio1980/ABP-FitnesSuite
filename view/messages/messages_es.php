@@ -107,6 +107,9 @@
     "Athlete type" => "Tipo de depostista",
     "Administrator" => "Administrador",
     "Trainer" => "Entrenador",
-    "Athlete" => "Deportista"
+    "Athlete" => "Deportista",
+    "Exercise"=> "Ejercicio",
+    "Exercises"=> "Ejercicios",
+
   )
 ?>

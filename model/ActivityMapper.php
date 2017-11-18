@@ -18,7 +18,7 @@ class ActivityMapper {
     private $db;
 
     public function __construct() {
-    $this->db = PDOConnection::getInstance();
+        $this->db = PDOConnection::getInstance();
     }
 
     /**
