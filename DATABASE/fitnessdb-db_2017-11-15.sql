@@ -50,14 +50,14 @@ TRUNCATE TABLE `activity`;
 --
 
 INSERT INTO `activity` (`id`, `id_user`, `name`, `description`, `place`, `type`, `seats`, `image`) VALUES
-(1, 3, 'Cardio ', 'Descripcion de ZUMBA', 'Gimnasio', 'tipo 3', 49, '[]'),
-(23, 2, 'Spinning', 'aaaaa', 'aaa', 'aaa', 45, '[]'),
-(24, 2, 'Pilates', 'asd', '123', '123', 12, '[]'),
-(25, 2, 'Boxing', 'asd', '324', '123', 123, '[]'),
-(26, 2, 'Aerobics', 'asd', '12', '123', 123, '[]'),
-(27, 2, 'Kik Boxing', '23', '123', '123', 123, '[]'),
-(28, 2, 'Crossfit', '23', '123', '123', 123, '[]'),
-(29, 2, 'Yoga', 'asd', '1q23', '123', 123, '[]');
+(1, 3, 'Cardio ', 'Descripcion de ZUMBA', 5, 49, NULL),
+(23, 2, 'Spinning', 'aaaaa', 5, 45, NULL),
+(24, 2, 'Pilates', 'asd', 5, 12, NULL),
+(25, 2, 'Boxing', 'asd', 6, 123, NULL),
+(26, 2, 'Aerobics', 'asd', 6, 123, NULL),
+(27, 2, 'Kik Boxing', '23', 6, 123, NULL),
+(28, 2, 'Crossfit', '23', 5, 123, NULL),
+(29, 2, 'Yoga', 'asd', 5, 123, NULL);
 
 -- --------------------------------------------------------
 

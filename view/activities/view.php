@@ -6,6 +6,7 @@
  $activity = $view->getVariable("activity");
  $images = $view->getVariable("images");
  $trainer = $view->getVariable("trainer");
+ $place = $view->getVariable("place");
  $errors = $view->getVariable("errors");
 
  $view->setVariable("title", $activity->getName());
@@ -37,9 +38,8 @@
           </div>
         </div>
             <p class="article-detail"><?= $activity->getDescription()?></p>
-            <?= i18n("Place")?>: <p class="article-detail"><?= $activity->getPlace()?></p>
+            <?= i18n("Place")?>: <p class="article-detail"><?= $place->getName() ?></p>
             <?= i18n("Trainer")?>: <p class="article-detail"><?= $trainer ?></p>
-            <?= i18n("Type")?>: <p class="article-detail"><?= $activity->getType()?></p>
             <?= i18n("Seats")?>: <p class="article-detail"><?= $activity->getSeats()?></p>
         </div>
     </div>
