@@ -142,6 +142,10 @@
     "New resource" => "Nuevo recurso",
     "New place" => "Nueva instalación",
     "Exercise"=> "Ejercicio",
-    "Exercises"=> "Ejercicios"
+    "Exercises"=> "Ejercicios",
+	  "Athlets" => "Deportistas",
+	  "Asign Table" => "Asignar Tabla",
+	  "View Tables" => "Ver Tablas",
+	  "Pending" => "Pendientes"
   )
 ?>
