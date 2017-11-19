@@ -18,7 +18,7 @@ class ActivityMapper {
     private $db;
 
     public function __construct() {
-    $this->db = PDOConnection::getInstance();
+        $this->db = PDOConnection::getInstance();
     }
 
     /**
@@ -35,7 +35,7 @@ class ActivityMapper {
 
         if($activity != null) {
             return new activity($activity["id"],$activity["id_user"],$activity["name"],$activity["description"], 
-            $activity["place"], $activity["type"],$activity["seats"], $activity["image"]);
+            $activity["place"],$activity["seats"], $activity["image"]);
         } else {
             return NULL;
         }
@@ -54,7 +54,7 @@ class ActivityMapper {
 
         foreach ($activities_db as $activity) {
             array_push($activities, new activity($activity["id"],$activity["id_user"],$activity["name"],
-            $activity["description"], $activity["place"], $activity["type"],$activity["seats"],$activity["image"]));
+            $activity["description"], $activity["place"],$activity["seats"],$activity["image"]));
         }
         return $activities;
     }
@@ -68,9 +68,9 @@ class ActivityMapper {
     */
     public function save($activity) {
     $stmt = $this->db->prepare("INSERT INTO activity (id, id_user, name, description, place,
-        type, seats, image) values (0,?,?,?,?,?,?,?)");
+        seats, image) values (0,?,?,?,?,?,?)");
         $stmt->execute(array($activity->getIduser(),$activity->getName(),$activity->getDescription(),
-        $activity->getPlace(),$activity->getType(),$activity->getSeats(),$activity->getImage()));
+        $activity->getPlace(),$activity->getSeats(),$activity->getImage()));
     }
 
     /**
@@ -82,9 +82,9 @@ class ActivityMapper {
     */
     public function update(Activity $activity) {
         $stmt = $this->db->prepare("UPDATE activity set id=?, id_user=?,
-            name=?, description=?, place=?, type=?, seats=?, image=? where id=?");
+            name=?, description=?, place=?, seats=?, image=? where id=?");
             $stmt->execute(array($activity->getIdactivity(), $activity->getIduser(), $activity->getName(),
-            $activity->getDescription(), $activity->getPlace(), $activity->getType(),
+            $activity->getDescription(), $activity->getPlace(),
             $activity->getSeats(), $activity->getImage(), $activity->getIdactivity()));
     }
 

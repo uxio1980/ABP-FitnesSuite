@@ -17,11 +17,9 @@
     <table id="table-content">
       <tr class="table-row-content">
         <td><strong><?= i18n("Name")?></strong></td>
-        <td><strong><?= i18n("Description")?></strong></td>
-        <td><strong><?= i18n("Place")?></strong></td>
-        <td><strong><?= i18n("Type")?></strong></td>
-        <td><strong><?= i18n("Seats")?></strong></td>
+        <td><strong><?= i18n("View")?></strong></td>
         <td><strong><?= i18n("Edit")?></strong></td>
+        <td><strong><?= i18n("Manage resources")?></strong></td>
         <td><strong><?= i18n("Schedules")?></strong></td>
         <td><strong><?= i18n("Notify")?></strong></td>
         <td><strong><?= i18n("Delete")?></strong></td>
@@ -29,12 +27,14 @@
         <tr class="table-row-content"
           data-href="index.php?controller=activities&amp;action=edit&amp;idactivity=<?= $activity->getIdactivity() ?>">
           <td><?= $activity->getName() ?></td>
-          <td><?= $activity->getDescription() ?></td>
-          <td><?= $activity->getPlace() ?></td>
-          <td><?= $activity->getType() ?></td>
-          <td><?= $activity->getSeats() ?></td>
+          <td><a href="index.php?controller=activities&amp;action=view&amp;idactivity=<?= $activity->getIdactivity() ?>">
+            <img src="resources/icons/ic_visibility_black_24px.svg" alt="View" /></a>
+          </td>
           <td><a href="index.php?controller=activities&amp;action=edit&amp;idactivity=<?= $activity->getIdactivity() ?>">
             <img src="resources/icons/edit_icon.svg" alt="Edit" /></a>
+          </td>
+          <td><a href="index.php?controller=activity_resources&amp;action=index&amp;idactivity=<?= $activity->getIdactivity() ?>">
+            <img src="resources/icons/manage_res.svg" alt="Resources" /></a>
           </td>
           <td><a href="index.php?controller=activity_schedule&amp;action=index&amp;idactivity=<?= $activity->getIdactivity() ?>">
             <img src="resources/icons/ic_schedule_24px.svg" alt="Schedules" /></a>

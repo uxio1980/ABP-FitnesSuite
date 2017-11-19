@@ -3,13 +3,12 @@
  require_once(__DIR__."/../../core/ViewManager.php");
  $view = ViewManager::getInstance();
 
- $activity = $view->getVariable("activity");
+ $exercise = $view->getVariable("exercise");
  $images = $view->getVariable("images");
- $trainer = $view->getVariable("trainer");
- $place = $view->getVariable("place");
+ $videos = $view->getVariable("videos");
  $errors = $view->getVariable("errors");
 
- $view->setVariable("title", $activity->getName());
+ $view->setVariable("title", $exercise->getName());
 
 ?>
 <article id="main-detail-content">
@@ -31,18 +30,23 @@
         </div>
 
 		<div class="article-user">
-			<div class="article-description">
-        <div class="article-title">
-          <div class="article-name">
-            <p><?= $activity->getName()?></p>
-          </div>
+        <div class="article-description">
+            <div class="article-title">
+              <div class="article-name">
+                <p><?= $exercise->getName()?></p>
+              </div>
+            </div>
+            <p class="article-detail"><?= $exercise->getDescription()?>
+            </p><?= i18n("Type")?>: <p class="article-detail"><?= $exercise->getType()?>
+            </p><?= i18n("Aded_by")?>: <p class="article-detail"><?= $exercise->getId_User() ?></p>
         </div>
-            <p class="article-detail"><?= $activity->getDescription()?></p>
-            <?= i18n("Place")?>: <p class="article-detail"><?= $place->getName() ?></p>
-            <?= i18n("Trainer")?>: <p class="article-detail"><?= $trainer ?></p>
-            <?= i18n("Seats")?>: <p class="article-detail"><?= $activity->getSeats()?></p>
-        </div>
+            <div>
+                <iframe width="640" height="360" src="https://www.youtube.com/watch?v=TyHvyGVs42U" frameborder="0" allowfullscreen></iframe>
+
+                <?= i18n("Video")?>: <p class="article-detail"><?= $exercise->getVideo()?></p>
+            </div>
     </div>
+
 </article>
 
 <footer>

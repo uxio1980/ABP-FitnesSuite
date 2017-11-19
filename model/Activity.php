@@ -9,18 +9,16 @@ class Activity {
   private $iduser; 
   private $name;   
   private $description;   
-  private $place;   
-  private $type;  
+  private $place;    
   private $seats;  
   private $image;
   
-  public function __construct($idactivity=NULL, $iduser=NULL, $name=NULL, $description=NULL, $place=NULL, $type=NULL, $seats=NULL, $image=NULL) {
+  public function __construct($idactivity=NULL, $iduser=NULL, $name=NULL, $description=NULL, $place=NULL, $seats=NULL, $image=NULL) {
     $this->idactivity = $idactivity;
     $this->iduser = $iduser;
     $this->name = $name;
     $this->description = $description;
     $this->place = $place;
-    $this->type = $type;
     $this->seats = $seats;
     $this->image = $image;
   }
@@ -61,14 +59,6 @@ class Activity {
     $this->place = $place;
   }
  
-  public function getType() {
-    return $this->type;
-  }
-   
-  public function setType($type) {
-    $this->type = $type;
-  }
- 
   public function getSeats() {
     return $this->seats;
   }
@@ -96,15 +86,9 @@ class Activity {
    */    
   public function checkIsValidForCreate() {
       $errors = array();
-      if (strlen(trim($this->name)) == 0 ) {
-	$errors["name"] = "name is mandatory";
-      }
-      if (strlen(trim($this->description)) == 0 ) {
-	$errors["description"] = "description is mandatory";
-      }
       
       if (sizeof($errors) > 0){
-	throw new ValidationException($errors, "activity is not valid");
+          throw new ValidationException($errors, "activity is not valid");
       }
   }
 

@@ -4,6 +4,7 @@
  require_once(__DIR__."/../../core/ViewManager.php");
  $view = ViewManager::getInstance();
 
+ $idactivity = $view->getVariable("idactivity");
  $activity_resources = $view->getVariable("activity_resources");
  $view->setVariable("title", "FitnesSuite");
 
@@ -12,7 +13,7 @@
   <div id="content-list">
     <div class="content-title">
       <strong><?= i18n("Manage resources")?></strong><br>
-      <a href="index.php?controller=activity_resources&amp;action=add&amp;idactivity=<?= $activity_resources[0]->getIdactivity() ?>"><input type='button' value=<?= i18n("New")?> /></a>
+      <a href="index.php?controller=activity_resources&amp;action=add&amp;idactivity=<?= $idactivity ?>"><input type='button' value=<?= i18n("New")?> /></a>
     </div>
     <table id="table-content">
       <tr class="table-row-content">

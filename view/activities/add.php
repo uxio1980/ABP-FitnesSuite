@@ -5,6 +5,7 @@
  $view = ViewManager::getInstance();
 
  $trainers = $view->getVariable("trainers");
+ $places = $view->getVariable("places");
  $errors = $view->getVariable("errors");
 
  $view->setVariable("title", "Edit Activity");
@@ -17,11 +18,11 @@
 		 enctype="multipart/form-data">
 			<strong><?= i18n("Add activity") ?></strong>
 			<label for="form-field"><?= i18n("Name") ?></label>
-			<input type="text" name="name" minlength="2" maxlength="50" required >
+			<input type="text" name="name" minlength="2" maxlength="45" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ ]+" title="Formato incorrecto" required >
 			<?= isset($errors["name"])?$errors["name"]:"" ?>
 
 			<label for="name-field"><?= i18n("Description") ?></label>
-			<textarea name="description" rows="4" cols="50"></textarea>
+			<textarea name="description" rows="4" cols="50" required></textarea>
 			<?= isset($errors["description"])?$errors["description"]:"" ?><br>
 
             <label for="form-field"><?= i18n("Trainer") ?></label>
@@ -31,19 +32,18 @@
 				<?php endforeach; ?>
 			</select>
 
-            <label for="form-field"><?= i18n("Place") ?></label>
-			<input type="text" name="place" minlength="2" maxlength="50" required >
-			<?= isset($errors["place"])?$errors["place"]:"" ?>
-
-            <label for="form-field"><?= i18n("Type") ?></label>
-			<input type="text" name="type" minlength="2" maxlength="50" required >
-			<?= isset($errors["type"])?$errors["type"]:"" ?>
+			<label for="form-field"><?= i18n("Place") ?></label>
+			<select name="place">
+				<?php foreach ($places as $place): ?>
+				<option value="<?= $place->getIdresource()?>"><?= $place->getName()?></option>
+				<?php endforeach; ?>
+			</select>
 
             <label for="form-field"><?= i18n("Seats") ?></label>
 			<input type="number" min="1" name="seats" required>
 			<?= isset($errors["seats"])?$errors["seats"]:"" ?>
 
-			<label for="name-field"><?= i18n("Image") ?> (<?= i18n("select one image") ?>)</label>
+			<label for="name-field"><?= i18n("Images") ?> (<?= i18n("select one image") ?>)</label>
 			<input type="file" name="images[]" multiple accept="image/*">
 			<?= isset($errors["images"])?$errors["images"]:"" ?><br>
 
