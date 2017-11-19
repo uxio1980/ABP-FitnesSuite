@@ -144,7 +144,7 @@ class Activity_scheduleMapper {
     * @throws PDOException if a database error occurs
     * @return mixed Array of activity_schedule instances
     */
-    public function search2NextEvents($value) {
+    public function search2NextEvents() {
       $stmt = $this->db->query("SELECT A_S.id as asId, A_S.*, A.*
         FROM activity_schedule A_S
         LEFT JOIN activity A ON A_S.id_activity=A.id

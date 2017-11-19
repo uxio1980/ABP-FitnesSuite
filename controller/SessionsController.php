@@ -191,4 +191,86 @@ class SessionsController extends BaseController {
       $this->view->redirect("sessions", "index");
 
     }
+
+    /**
+    * Action to add a new session
+    *
+    * When called via GET, it shows the add form
+    * When called via POST, it adds the session to the
+    * database
+    *
+    * The expected HTTP parameters are:
+    * <ul>
+    * <li>title: Title of the session (via HTTP POST)</li>
+    * <li>content: Content of the session (via HTTP POST)</li>
+    * </ul>
+    *
+    * The views are:
+    * <ul>
+    * <li>sessions/add: If this action is reached via HTTP GET (via include)</li>
+    * <li>sessions/index: If session was successfully added (via redirect)</li>
+    * <li>sessions/add: If validation fails (via include). Includes these view variables:</li>
+    * <ul>
+    *  <li>session: The current session instance, empty or
+    *  being added (but not validated)</li>
+    *  <li>errors: Array including per-field validation errors</li>
+    * </ul>
+    * </ul>
+    * @throws Exception if no user is in session
+    * @return void
+    */
+    public function add() {
+      if (!isset($this->currentUser)) {
+        throw new Exception("Not in session. Adding sessions requires login");
+      }
+
+      $session = new Session();
+
+      if (isset($_POST["submit"])) { // reaching via HTTP Post...
+
+        // populate the article object with data form the form
+          $activity_schedule->setActivity($activity);
+          $activity_schedule->setDate($_POST["startdate"]);
+          $activity_schedule->setStart_hour($_POST["start"]);
+          $activity_schedule->setEnd_hour($_POST["end"]);
+          $activity_schedule->setDuration($_POST["enddate"]);
+
+        try {
+          // validate article object
+          $activity_schedule->checkIsValidForCreate(); // if it fails, ValidationException
+
+
+          // save the activity schedule object into the database
+          while ($activity_schedule->getDate() < $activity_schedule->getDuration()){
+            var_dump($activity_schedule->getDate());
+            $this->activity_scheduleMapper->save($activity_schedule);
+            $date = $activity_schedule->getDate();
+            $date = strtotime($date);
+            $date = strtotime("+7 day", $date);
+            $activity_schedule->setDate(date('Y-m-d',$date));
+          }
+
+          // POST-REDIRECT-GET
+          // Everything OK, we will redirect the user to the list of posts
+
+          // perform the redirection. More or less:
+          // header("Location: index.php?controller=articles&action=index")
+          // die();
+          $this->view->redirect("activity_schedule", "index", "idactivity=".$activity_schedule->getActivity()->getIdactivity());
+
+        }catch(ValidationException $ex) {
+          // Get the errors array inside the exepction...
+          $errors = $ex->getErrors();
+          // And put it to the view as "errors" variable
+          $this->view->setVariable("errors", $errors);
+        }
+      }
+
+      // Put the Session object visible to the view
+      $this->view->setVariable("activity", $activity);
+
+      // render the view (/view/activity_schedules/add.php)
+      $this->view->render("activity_schedules", "add");
+
+    }
   }
