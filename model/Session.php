@@ -14,8 +14,8 @@ class Session {
     $this->user = $user;
     $this->user_table = $user_table;
     $this->date = $date;
-    $this->duration -> $duration;
-    $this->comment -> $comment;
+    $this->duration = $duration;
+    $this->comment = $comment;
   }
 
   public function getId() {
@@ -92,7 +92,6 @@ class Session {
    */
   public function checkIsValidForUpdate() {
     $errors = array();
-
     try{
       $this->checkIsValidForCreate();
     }catch(ValidationException $ex) {

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 15, 2017 at 07:49 AM
+-- Generation Time: Nov 19, 2017 at 05:58 PM
 -- Server version: 5.5.39
 -- PHP Version: 5.4.33
 
@@ -34,23 +34,17 @@ CREATE TABLE IF NOT EXISTS `activity` (
   `id_user` int(11) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
   `description` varchar(45) NOT NULL,
-  `place` varchar(45) NOT NULL,
-  `type` varchar(45) NOT NULL,
+  `place` int(11) DEFAULT NULL,
   `seats` int(11) NOT NULL,
   `image` mediumtext
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `activity`
---
-
-TRUNCATE TABLE `activity`;
---
 -- Dumping data for table `activity`
 --
 
-INSERT INTO `activity` (`id`, `id_user`, `name`, `description`, `place`, `type`, `seats`, `image`) VALUES
-(1, 3, 'Cardio ', 'Descripcion de ZUMBA', 5, 49, NULL),
+INSERT INTO `activity` (`id`, `id_user`, `name`, `description`, `place`, `seats`, `image`) VALUES
+(1, 3, 'Cardio ', 'Descripcion de Cardio', 5, 49, '["resources\\/images\\/19-11-2017-17-56-21-2_1509558843_pic5.jpg"]'),
 (23, 2, 'Spinning', 'aaaaa', 5, 45, NULL),
 (24, 2, 'Pilates', 'asd', 5, 12, NULL),
 (25, 2, 'Boxing', 'asd', 6, 123, NULL),
@@ -71,20 +65,14 @@ CREATE TABLE IF NOT EXISTS `activity_resource` (
   `id_activity` int(11) DEFAULT NULL,
   `id_resource` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `activity_resource`
---
-
-TRUNCATE TABLE `activity_resource`;
 --
 -- Dumping data for table `activity_resource`
 --
 
 INSERT INTO `activity_resource` (`id`, `id_activity`, `id_resource`, `quantity`) VALUES
-(1, 1, 2, 12),
-(26, 1, 4, 20);
+(27, 1, 2, 12);
 
 -- --------------------------------------------------------
 
@@ -102,18 +90,13 @@ CREATE TABLE IF NOT EXISTS `activity_schedule` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `activity_schedule`
---
-
-TRUNCATE TABLE `activity_schedule`;
---
 -- Dumping data for table `activity_schedule`
 --
 
 INSERT INTO `activity_schedule` (`id`, `id_activity`, `date`, `start_hour`, `end_hour`) VALUES
-(1, 1, '2017-11-13', '16:00:00', '18:00:00'),
-(2, 1, '2017-11-20', '16:00:00', '18:00:00'),
-(3, 1, '2017-11-27', '16:00:00', '18:00:00');
+(1, 1, '2017-11-17', '12:00:00', '14:00:00'),
+(2, 1, '2017-11-24', '12:00:00', '14:00:00'),
+(3, 1, '2017-12-01', '12:00:00', '14:00:00');
 
 -- --------------------------------------------------------
 
@@ -129,11 +112,6 @@ CREATE TABLE IF NOT EXISTS `assistance` (
   `assist` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `assistance`
---
-
-TRUNCATE TABLE `assistance`;
 -- --------------------------------------------------------
 
 --
@@ -151,11 +129,6 @@ CREATE TABLE IF NOT EXISTS `exercise` (
   `video` mediumtext
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `exercise`
---
-
-TRUNCATE TABLE `exercise`;
 --
 -- Dumping data for table `exercise`
 --
@@ -177,11 +150,6 @@ CREATE TABLE IF NOT EXISTS `exercise_table` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Truncate table before insert `exercise_table`
---
-
-TRUNCATE TABLE `exercise_table`;
---
 -- Dumping data for table `exercise_table`
 --
 
@@ -201,19 +169,14 @@ CREATE TABLE IF NOT EXISTS `notification` (
   `date` datetime NOT NULL,
   `title` varchar(45) NOT NULL,
   `content` mediumtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `notification`
---
-
-TRUNCATE TABLE `notification`;
 --
 -- Dumping data for table `notification`
 --
 
 INSERT INTO `notification` (`id`, `id_user`, `date`, `title`, `content`) VALUES
-(0, 0, '0000-00-00 00:00:00', '', '');
+(1, 1, '2017-11-16 00:00:00', 'Clase cancelada', 'aaaaa');
 
 -- --------------------------------------------------------
 
@@ -227,19 +190,14 @@ CREATE TABLE IF NOT EXISTS `notification_user` (
   `id_user` int(11) DEFAULT NULL,
   `id_notification` int(11) DEFAULT NULL,
   `viewed` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `notification_user`
---
-
-TRUNCATE TABLE `notification_user`;
 --
 -- Dumping data for table `notification_user`
 --
 
 INSERT INTO `notification_user` (`id`, `id_user`, `id_notification`, `viewed`) VALUES
-(0, 0, 0, NULL);
+(1, 1, 1, '2017-11-16');
 
 -- --------------------------------------------------------
 
@@ -255,11 +213,6 @@ CREATE TABLE IF NOT EXISTS `public_info` (
   `address` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `public_info`
---
-
-TRUNCATE TABLE `public_info`;
 --
 -- Dumping data for table `public_info`
 --
@@ -278,22 +231,20 @@ CREATE TABLE IF NOT EXISTS `resource` (
 `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
   `description` mediumtext NOT NULL,
-  `quantity` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `quantity` int(11) NOT NULL,
+  `type` tinyint(4) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `resource`
---
-
-TRUNCATE TABLE `resource`;
 --
 -- Dumping data for table `resource`
 --
 
-INSERT INTO `resource` (`id`, `name`, `description`, `quantity`) VALUES
-(2, 'Res 2', 'fdg', 14),
-(3, 'Res3', 'dsaf', 15),
-(4, 'res4', 'dvgfdbfdb', 20);
+INSERT INTO `resource` (`id`, `name`, `description`, `quantity`, `type`) VALUES
+(2, 'Res 2', 'fdg', 14, 1),
+(3, 'Res3', 'dsaf', 16, 1),
+(4, 'res4', 'dvgfdbfdb', 20, 1),
+(5, 'Sala 1', 'sala', 1, 2),
+(6, 'Sala 2', 'sala 2', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -309,19 +260,16 @@ CREATE TABLE IF NOT EXISTS `session` (
   `date` datetime NOT NULL,
   `duration` time NOT NULL,
   `comment` mediumtext
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `session`
---
-
-TRUNCATE TABLE `session`;
 --
 -- Dumping data for table `session`
 --
 
 INSERT INTO `session` (`id`, `id_user`, `id_table`, `date`, `duration`, `comment`) VALUES
-(0, 0, 0, '0000-00-00 00:00:00', '00:00:00', '');
+(3, 1, 0, '2017-11-19 12:00:00', '01:00:00', 'comentario'),
+(4, 1, 0, '2017-11-20 00:00:00', '02:00:00', NULL),
+(5, 1, 2, '2017-11-02 00:00:00', '09:00:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -344,13 +292,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `profile_image` varchar(50) DEFAULT NULL,
   `user_type` tinyint(11) unsigned NOT NULL,
   `athlete_type` tinyint(3) unsigned DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `user`
---
-
-TRUNCATE TABLE `user`;
 --
 -- Dumping data for table `user`
 --
@@ -359,7 +302,8 @@ INSERT INTO `user` (`id`, `login`, `password`, `name`, `surname`, `email`, `phon
 (0, 'user', 'usuario', 'Usuario', 'Apel', 'email@correo.com', 649556060, '53111974A', NULL, 'Descripción del usuario.\r\n', '1509576497_1.jpg', 1, 1),
 (1, 'user2', 'usuario2', 'Usuario segundo', '', 'mail@mail.com', 0, '', NULL, 'desc2s', NULL, 3, NULL),
 (2, 'user3', 'usuario3', 'Usuario Tercero', '', 'mail@mail.com', 0, '', NULL, 'u3.', NULL, 2, 0),
-(3, 'user4', 'usuario4', 'usuario Cuarto', 'Apel', 'mail@mail.com', 0, '', NULL, 'd42', '1509668373_4.jpg', 2, 0);
+(3, 'user4', 'usuario4', 'usuario Cuarto', 'Apel', 'mail@mail.com', 0, '', NULL, 'd42', '1509668373_4.jpg', 2, 0),
+(4, 'user5', 'usuario5', 'Usuario5', 'ApelUser5', 'main@user5.com', 555123456, '54123987D', '2017-11-17 00:00:00', 'desc', NULL, 4, NULL);
 
 -- --------------------------------------------------------
 
@@ -374,11 +318,6 @@ CREATE TABLE IF NOT EXISTS `user_activity` (
   `id_activity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `user_activity`
---
-
-TRUNCATE TABLE `user_activity`;
 -- --------------------------------------------------------
 
 --
@@ -390,19 +329,16 @@ CREATE TABLE IF NOT EXISTS `user_table` (
 `id` int(11) NOT NULL,
   `id_workout` int(11) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `user_table`
---
-
-TRUNCATE TABLE `user_table`;
 --
 -- Dumping data for table `user_table`
 --
 
 INSERT INTO `user_table` (`id`, `id_workout`, `id_user`) VALUES
-(0, 0, 0);
+(0, 0, 1),
+(1, 1, 4),
+(2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -417,19 +353,15 @@ CREATE TABLE IF NOT EXISTS `workout_table` (
   `name` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,
   `description` mediumtext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
---
--- Truncate table before insert `workout_table`
---
-
-TRUNCATE TABLE `workout_table`;
 --
 -- Dumping data for table `workout_table`
 --
 
 INSERT INTO `workout_table` (`id`, `id_user`, `name`, `type`, `description`) VALUES
-(0, 0, '', '', '');
+(0, 0, 'nombre WT', 'tipo', 'safda'),
+(1, 4, 'Tabla 2', 'sdfw', 'wefsdff');
 
 --
 -- Indexes for dumped tables
@@ -439,7 +371,7 @@ INSERT INTO `workout_table` (`id`, `id_user`, `name`, `type`, `description`) VAL
 -- Indexes for table `activity`
 --
 ALTER TABLE `activity`
- ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`);
+ ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`), ADD KEY `activity_ibfk_2` (`place`);
 
 --
 -- Indexes for table `activity_resource`
@@ -538,7 +470,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
 -- AUTO_INCREMENT for table `activity_resource`
 --
 ALTER TABLE `activity_resource`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `activity_schedule`
 --
@@ -563,12 +495,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `notification_user`
 --
 ALTER TABLE `notification_user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `public_info`
 --
@@ -578,17 +510,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `resource`
 --
 ALTER TABLE `resource`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `session`
 --
 ALTER TABLE `session`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `user_activity`
 --
@@ -598,12 +530,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `user_table`
 --
 ALTER TABLE `user_table`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `workout_table`
 --
 ALTER TABLE `workout_table`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- Constraints for dumped tables
 --
@@ -612,7 +544,8 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- Constraints for table `activity`
 --
 ALTER TABLE `activity`
-ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+ADD CONSTRAINT `activity_ibfk_2` FOREIGN KEY (`place`) REFERENCES `resource` (`id`);
 
 --
 -- Constraints for table `activity_resource`
