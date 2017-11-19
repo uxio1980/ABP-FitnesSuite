@@ -28,9 +28,9 @@ class NotificationMapper {
   * @return void $phone=NULL, $email= NULL,$address=NULL
   */
   public function save($notification) {
-    $stmt = $this->db->prepare("INSERT INTO notification (id, id_user, 'date',
+    $stmt = $this->db->prepare("INSERT INTO notification (id, id_user, date,
       title, content) values (0,?,?,?,?)");
-      $stmt->execute(array($notification->getId_user(),
+      $stmt->execute(array($notification->getUser_author()->getId(),
       $notification->getDate(), $notification->getTitle(),$notification->getContent()));
     }
 
@@ -62,7 +62,7 @@ class NotificationMapper {
         $notification = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($notification != null) {
-          $usuario = new User($notification["user.id"], $notification["user.login"],
+          $usuario = new User($notification["id_user"], $notification["user.login"],
           $notification["user.name"],
           NULL/*password*/,
           $notification["user.email"],
@@ -89,7 +89,7 @@ class NotificationMapper {
         $notifications = array();
 
         foreach ($notification_db as $notification) {
-          $usuario = new User($notification["user.id"], $notification["user.login"],
+          $usuario = new User($notification["id_user"], $notification["user.login"],
           $notification["user.name"],
           NULL/*password*/,
           $notification["user.email"],
@@ -117,7 +117,7 @@ class NotificationMapper {
       $notifications = array();
 
       foreach ($notification_db as $notification) {
-        $usuario = new User($notification["user.id"], $notification["user.login"],
+        $usuario = new User($notification["id_user"], $notification["user.login"],
         $notification["user.name"],
         NULL/*password*/,
         $notification["user.email"],
@@ -145,7 +145,7 @@ class NotificationMapper {
     $notifications = array();
 
     foreach ($notification_db as $notification) {
-      $usuario = new User($notification["user.id"], $notification["user.login"],
+      $usuario = new User($notification["id_user"], $notification["user.login"],
       $notification["user.name"],
       NULL/*password*/,
       $notification["user.email"],
@@ -156,5 +156,17 @@ class NotificationMapper {
     }
     return $notifications;
 }
+
+    public function findLastId(){
+        $stmt = $this->db->prepare("SELECT MAX(id) FROM notification");
+        $stmt->execute();
+        $notification = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($notification != null) {
+            return new Notification($notification["MAX(id)"]);
+        } else {
+            return NULL;
+        }
+    }
 
 }
