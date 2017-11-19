@@ -12,7 +12,7 @@
   <div id="content-list">
     <div class="content-title">
       <strong><?= i18n("Notifications")?></strong><br>
-      <a href="index.php?controller=notifications&amp;action=add"><input type='button' value=<?= i18n("New")?> /></a>
+      <a href="index.php?controller=notification&amp;action=add"><input type='button' value=<?= i18n("New")?> /></a>
     </div>
     <div class="filter-box-notifications">
         <form id="form-notifications-filterby" action="index.php?controller=notification&amp;action=index" method="POST">

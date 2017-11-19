@@ -21,13 +21,20 @@ $view->setVariable("title", "FitnesSuite");
     </li>
     <?php foreach ($trainers as $trainer): ?>
         <li class="article-box">
-            </li>
+            <img src="resources/profiles/<?= $trainer->getProfileImage() ?>" alt="Image 1"></a>
+            <div class="article-footer">
+                <div class="tittle-edit">
+                    <p class="article-box-title"><?= $trainer->getName() ?></p>
+                </div>
+                <p><?= $trainer->getDescription() ?></p>
+            </div>
+        </li>
     <?php endforeach; ?>
     <li id="commercial-box" class="commercial-box">
       <div class="commercial-textbox">
         <p class="commercial-title commercial-title-second"><?= i18n("Why Join ?")?></p>
-        <p class="commercial-title">sed diam nonummy nibh euismod</p>
-        <p class="commercial-description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nibh euismod tincidunt ut laoreet dolore magna . </p>
+        <p class="commercial-title">Tú eres lo importante.</p>
+        <p class="commercial-description"> Contamos con los profesionales más cualificados, para que tengas una mejor experiencia en nuestras instalaciones.</p>
       </div>
     </li>
   </ul>

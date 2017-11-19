@@ -50,6 +50,7 @@ $view->setVariable("title", "FitnesSuite");
       <?php if($typeuser == usertype::Administrator): ?>
         <label for="login-field"><?= i18n("User type")?></label>
         <select name="user_type">
+            <option <?=(0)?'selected="selected"':''?> value=""></option>
           <option <?=($user->getUser_type()==usertype::Administrator)?'selected="selected"':''?> value=<?= usertype::Administrator?>><?= i18n("Administrator")?></option>
           <option <?=($user->getUser_type()==usertype::Trainer)?'selected="selected"':''?> value=<?= usertype::Trainer?>><?= i18n("Trainer")?></option>
           <option <?=($user->getUser_type()==usertype::AthleteTDU)?'selected="selected"':''?> value=<?= usertype::AthleteTDU?>><?= i18n("Athlete TDU")?></option>

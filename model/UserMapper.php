@@ -89,7 +89,7 @@ class UserMapper {
       * @return boolean true the login/passwrod exists, false otherwise.
       */
       public function isValidUser($login, $password) {
-        $stmt = $this->db->prepare("SELECT count(login) FROM user where login=? and password=?");
+        $stmt = $this->db->prepare("SELECT count(login) FROM user where login=? and password=? AND user_type IS NOT NULL");
         $stmt->execute(array($login, $password));
 
         if ($stmt->fetchColumn() > 0) {
@@ -120,12 +120,11 @@ class UserMapper {
       }
 
       /**
-      * Retrieves all articles
+      * Retrieves all trainers
       *
-      * Note: chatlines are not added to the Article instances
       *
       * @throws PDOException if a database error occurs
-      * @return mixed Array of Article instances
+      * @return mixed Array of User trainers instances
       */
       public function findAllTrainers() {
         $stmt = $this->db->prepare("SELECT * FROM user WHERE user_type=?");
@@ -135,12 +134,58 @@ class UserMapper {
           $trainers = array();
 
           foreach ($trainers_db as $trainer) {
-            array_push($trainers, new User($trainer["id"],NULL,$trainer["name"],NULL,NULL,
-              NULL,NULL,$trainer["surname"]));
+            array_push($trainers, new User($trainer["id"],NULL,$trainer["name"],NULL,$trainer["email"],
+              $trainer["description"],$trainer["profile_image"],$trainer["surname"]));
           }
 
           return $trainers;
       }
+
+
+    /**
+     * Retrieves all athlets
+     *
+     *
+     * @throws PDOException if a database error occurs
+     * @return mixed Array of User athlets instances
+     */
+    public function findAllAthlets() {
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE user_type=? or user_type=?");
+        $stmt->execute(array(usertype::AthleteTDU,usertype::AthletePEF));
+        $athlets_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $athlets = array();
+
+        foreach ($athlets_db as $athlet) {
+            array_push($athlets, new User($athlet["id"],$athlet["login"],$athlet["name"],NULL,
+                $athlet["email"], $athlet["description"], $athlet["profile_image"],
+                $athlet["surname"], $athlet["phone"], $athlet["dni"], $athlet["confirm_date"],
+                $athlet["user_type"]));
+        }
+        return $athlets;
+    }
+
+    /**
+     * Retrieves all admins
+     *
+     *
+     * @throws PDOException if a database error occurs
+     * @return mixed Array of User admins instances
+     */
+    public function findAdmin() {
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE user_type=?");
+        $stmt->execute(array(usertype::Administrator));
+        $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($admin != null) {
+            return new User($admin["id"],$admin["login"],$admin["name"],$admin["password"],
+                $admin["email"], $admin["description"], $admin["profile_image"],
+                $admin["surname"], $admin["phone"], $admin["dni"], $admin["confirm_date"],
+                $admin["user_type"]);
+        } else {
+            return NULL;
+        }
+    }
 
       /**
        * Retrieves all users
@@ -158,6 +203,26 @@ class UserMapper {
           $user["email"], $user["description"], $user["profile_image"],
           $user["surname"], $user["phone"], $user["dni"], $user["confirm_date"],
           $user["user_type"]));
+        }
+        return $users;
+    }
+
+    /**
+     * Retrieves all pending users
+     *
+     * @throws PDOException if a database error occurs
+     * @return mixed Array of pending User instances
+     */
+    public function findPending() {
+        $stmt = $this->db->query("SELECT * FROM user WHERE user_type IS NULL");
+        $users_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $users = array();
+
+        foreach ($users_db as $user) {
+            array_push($users, new User($user["id"],$user["login"],$user["name"],$user["password"],
+                $user["email"], $user["description"], $user["profile_image"],
+                $user["surname"], $user["phone"], $user["dni"], $user["confirm_date"],
+                $user["user_type"]));
         }
         return $users;
     }
