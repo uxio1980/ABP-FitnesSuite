@@ -1,9 +1,19 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require_once(__DIR__."/../mail/PHPMailer.php");
+require_once(__DIR__."/../mail/Exception.php");
+require_once(__DIR__."/../mail/SMTP.php");
+
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../core/I18n.php");
 
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
+require_once(__DIR__."/../model/Notification.php");
+require_once(__DIR__."/../model/Notification_user.php");
+require_once(__DIR__."/../model/NotificationMapper.php");
+require_once(__DIR__."/../model/Notification_userMapper.php");
 
 require_once(__DIR__."/../controller/BaseController.php");
 /**
@@ -21,12 +31,16 @@ class UsersController extends BaseController {
     * @var UserMapper
     */
     private $userMapper;
+    private $notificationMapper;
+    private $notificationUserMapper;
     private $date;
     private $currentDate;
 
     public function __construct() {
         parent::__construct();
         $this->userMapper = new UserMapper();
+        $this->notificationMapper = new NotificationMapper();
+        $this->notificationUserMapper = new Notification_userMapper();
         $this->view->setLayout("default");
         $this->date = new DateTime();
         $this->currentDate = $this->date->getTimestamp();
@@ -51,7 +65,17 @@ class UsersController extends BaseController {
       }else
       {
           if ($this->currentUser->getUser_type() == usertype::Administrator){
-              $users = $this->userMapper->findAll();
+              if (isset($_POST["filterby"])) {
+                  $filterby = $_POST['filterby'];
+              }else{
+                  $filterby = "all";
+              }
+              if ($filterby =="pending") {
+                  $users = $this->userMapper->findPending();
+              }elseif ($filterby =="all"){
+                  $users = $this->userMapper->findAll();
+              }
+
           } else {
               $users = $this->userMapper->findAllAthlets();
           }
@@ -62,6 +86,7 @@ class UsersController extends BaseController {
 
       // render the view (/view/articles/index.php)
         if ($this->currentUser->getUser_type() == usertype::Administrator){
+            $this->view->setVariable("filterby", $filterby);
             $this->view->render("users", "index");
         } else {
             $this->view->render("users", "index_trainer");
@@ -152,7 +177,6 @@ class UsersController extends BaseController {
             $user->setName($_POST["name"]);
             $user->setPassword($_POST["password"]);
             $user->setEmail($_POST["email"]);
-            $user->setUser_type(usertype::AthleteTDU);
             try{
                 $user->checkIsValidForRegister(); // if it fails, ValidationException
 
@@ -160,8 +184,13 @@ class UsersController extends BaseController {
                 if (!$this->userMapper->loginExists($_POST["login"])){
 
                   // save the User object into the database
+                  $admin =$this->userMapper->findAdmin();
+                  $this->notificationMapper->save(new Notification(NULL,new User(),$this->currentDate,"Confirm User",
+                      "New user added to the app, please, confirm."));
+                  $not = $this->notificationMapper->findLastId();
+                  $this->notificationUserMapper->save(new Notification_user(NULL,$admin,$not,NULL));
                   $this->userMapper->save($user);
-                  $this->view->setFlash("Login ".$user->getLogin()." successfully added. Please login now");
+                  $this->view->setFlash("Login ".$user->getLogin()." successfully added. Please, wait to confirm login.");
                   $this->view->redirectToReferer();
                 } else {
                   $errors = array();
@@ -182,7 +211,7 @@ class UsersController extends BaseController {
         $this->view->setVariable("user", $user);
 
         // render the view (/view/users/register.php)
-        $this->view->render("articles", "index");
+        $this->view->render("users", "add");
     }
 
 
@@ -196,6 +225,7 @@ class UsersController extends BaseController {
 
       if (!isset($this->currentUser)) {
         throw new Exception("Not in session. Editing users requires login");
+
       }
 
       // Get the user object from the database
@@ -221,7 +251,31 @@ class UsersController extends BaseController {
         $user->setSurname($_POST["surname"]);
         $user->setPhone($_POST["phone"]);
         $user->setDni($_POST["dni"]);
-        $user->setUser_type($_POST["user_type"]);
+        if($user->getUser_type() != $_POST["user_type"] && $user->getUser_type() == null){
+            $mail = new PHPMailer;
+            $mail->isSMTP();
+            $mail->SMTPDebug = 4;
+            $mail->Host = 'tls://smtp.gmail.com';
+            $mail->SMTPSecure = 'tls';
+            $mail->SMTPAuth = true;
+            $mail->AuthType = 'LOGIN';
+            $mail->Username = 'giraldezcastro@gmail.com';
+            $mail->Password = 'giraldezcastro1';
+            $mail->setFrom('sandracangas@gmail.com', 'Admin');
+            $mail->addAddress($user->getEmail(), $user->getLogin());
+            $mail->Subject = 'FitnesSuite. Usuario confirmado.';
+            $mail->Body = $user->getName().', '.$user->getSurname().'. Su usuario '.$user->getLogin().' ha sido confirmado. Ya puede iniciar sesión en la app!.';
+            $mail->AltBody = 'Su usuario ha sido confirmado. Ya puedes iniciar sesión';
+            if (!$mail->send()) {
+                echo "Mailer Error: " . $mail->ErrorInfo;
+                var_dump($mail->ErrorInfo);
+                exit;
+            } else {
+                echo "Message sent!";
+                $user->setUser_type($_POST["user_type"]);
+            }
+        }
+
 
 
         // Change image just if the user loads a new image profiles

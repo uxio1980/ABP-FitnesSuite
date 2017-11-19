@@ -5,6 +5,7 @@
  $view = ViewManager::getInstance();
 
  $articles = $view->getVariable("articles");
+$filterby = $view->getVariable("filterby");
  $currentuser = $view->getVariable("currentusername");
  $users = $view->getVariable("allusers");
  $view->setVariable("title", "FitnesSuite");
@@ -16,6 +17,13 @@
       <strong><?= i18n("Users")?></strong><br>
       <a href="index.php?controller=users&amp;action=register"><input type='button' value=<?= i18n("New")?> /></a>
     </div>
+      <div class="filter-box-notifications">
+          <form id="form-notifications-filterby" action="index.php?controller=users&amp;action=index" method="POST">
+              <input id="filter1" class="radio-button" type="radio" name="filterby" value="pending" <?= ($filterby == 'pending') ? "checked='checked'" : "";?>><?= i18n("Pending")?>
+              <input id="filter2" class="radio-button" type="radio" name="filterby" value="all" <?= ($filterby == 'all') ? "checked='checked'" : "";?>><?= i18n("All")?>
+          </form>
+
+      </div>
     <table id="table-content">
       <tr class="table-row-content">
         <td><strong><?= i18n("Login")?></strong></td>
@@ -50,5 +58,16 @@
         return confirm(ji18n('Are you sure?'));
     });
 </script>
+<script type="text/javascript">
+    var form = document.getElementById("form-notifications-filterby");
+    $('.radio-button').on('click', function () {
+        //return confirm(ji18n('Are you sure?'));
+        if (document.getElementById("filter1").checked || document.getElementById("filter2").checked){
+            form.submit();
+        }
+    });
+</script>
 
- <script src="js/index.js"></script>
+
+
+<script src="js/index.js"></script>
