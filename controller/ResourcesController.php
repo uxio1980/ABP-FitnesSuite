@@ -7,13 +7,6 @@ require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
 
-/**
-* Class ResourcesController
-*
-* Controller to make a CRUDL of Resources entities
-*
-* @author lipido <lipido@gmail.com>
-*/
 class ResourcesController extends BaseController {
 
   /**
@@ -30,17 +23,6 @@ class ResourcesController extends BaseController {
     $this->resourceMapper = new ResourceMapper();
   }
 
-  /**
-  * Action to list resources
-  *
-  * Loads all the resources from the database.
-  * No HTTP parameters are needed.
-  *
-  * The views are:
-  * <ul>
-  * <li>resources/index (via include)</li>
-  * </ul>
-  */
   public function index() {
 
     // obtain the data from the database
@@ -53,28 +35,6 @@ class ResourcesController extends BaseController {
     }
   }
 
-  /**
-  * Action to view a given resource
-  *
-  * This action should only be called via GET
-  *
-  * The expected HTTP parameters are:
-  * <ul>
-  * <li>id: Id of the resource (via HTTP GET)</li>
-  * </ul>
-  *
-  * The views are:
-  * <ul>
-  * <li>resources/view: If resource is successfully loaded (via include). Includes these view variables:</li>
-  * <ul>
-  *  <li>resource: The current Resource retrieved</li>
-  * </ul>
-  * </ul>
-  *
-  * @throws Exception If no such resource of the given id is found
-  * @return void
-  *
-  */
   public function view(){
     if (!isset($_GET["idresource"])) {
       throw new Exception("idresource is mandatory");
@@ -98,34 +58,7 @@ class ResourcesController extends BaseController {
 
   }
 
-  /**
-  * Action to add a new resource
-  *
-  * When called via GET, it shows the add form
-  * When called via POST, it adds the resource to the
-  * database
-  *
-  * The expected HTTP parameters are:
-  * <ul>
-  * <li>title: Title of the resource (via HTTP POST)</li>
-  * <li>content: Content of the post (via HTTP POST)</li>
-  * </ul>
-  *
-  * The views are:
-  * <ul>
-  * <li>posts/add: If this action is reached via HTTP GET (via include)</li>
-  * <li>posts/index: If post was successfully added (via redirect)</li>
-  * <li>posts/add: If validation fails (via include). Includes these view variables:</li>
-  * <ul>
-  *  <li>post: The current Post instance, empty or
-  *  being added (but not validated)</li>
-  *  <li>errors: Array including per-field validation errors</li>
-  * </ul>
-  * </ul>
-  * @throws Exception if no user is in session
-  * @return void
-  */
-  public function add() {
+  public function add_resource() {
     if (!isset($this->currentUser)) {
       throw new Exception("Not in session. Adding resources requires login");
     }
@@ -137,6 +70,7 @@ class ResourcesController extends BaseController {
       $resource->setName($_POST["name"]);
       $resource->setDescription($_POST["description"]);
       $resource->setQuantity($_POST["quantity"]);
+      $resource->setType(resourcetype::Resource);
 
       try {
         // validate resource object
@@ -144,13 +78,6 @@ class ResourcesController extends BaseController {
 
         // save the resource object into the database
         $this->resourceMapper->save($resource);
-
-        // POST-REDIRECT-GET
-        // Everything OK, we will redirect the user to the list of posts
-
-        // perform the redirection. More or less:
-        // header("Location: index.php?controller=resources&action=index")
-        // die();
         $this->view->redirect("resources", "index");
 
       }catch(ValidationException $ex) {
@@ -162,41 +89,45 @@ class ResourcesController extends BaseController {
     }
 
     // render the view (/view/resources/add.php)
-    $this->view->render("resources", "add");
+    $this->view->render("resources", "add_res");
 
   }
 
-  /**
-  * Action to edit a resource
-  *
-  * When called via GET, it shows an edit form
-  * including the current data of the resource.
-  * When called via POST, it modifies the post in the
-  * database.
-  *
-  * The expected HTTP parameters are:
-  * <ul>
-  * <li>id: Id of the post (via HTTP POST and GET)</li>
-  * <li>title: Title of the post (via HTTP POST)</li>
-  * <li>content: Content of the post (via HTTP POST)</li>
-  * </ul>
-  *
-  * The views are:
-  * <ul>
-  * <li>posts/edit: If this action is reached via HTTP GET (via include)</li>
-  * <li>posts/index: If post was successfully edited (via redirect)</li>
-  * <li>posts/edit: If validation fails (via include). Includes these view variables:</li>
-  * <ul>
-  *  <li>post: The current Post instance, empty or being added (but not validated)</li>
-  *  <li>errors: Array including per-field validation errors</li>
-  * </ul>
-  * </ul>
-  * @throws Exception if no id was provided
-  * @throws Exception if no user is in session
-  * @throws Exception if there is not any post with the provided id
-  * @throws Exception if the current logged user is not the author of the post
-  * @return void
-  */
+  public function add_place() {
+    if (!isset($this->currentUser)) {
+      throw new Exception("Not in session. Adding resources requires login");
+    }
+
+    $resource = new Resource();
+
+    if (isset($_POST["submit"])) { // reaching via HTTP Post...
+      // populate the resource object with data form the form
+      $resource->setName($_POST["name"]);
+      $resource->setDescription($_POST["description"]);
+      $resource->setQuantity(1);
+      $resource->setType(resourcetype::Place);
+
+      try {
+        // validate resource object
+        $resource->checkIsValidForCreate(); // if it fails, ValidationException
+
+        // save the resource object into the database
+        $this->resourceMapper->save($resource);
+        $this->view->redirect("resources", "index");
+
+      }catch(ValidationException $ex) {
+        // Get the errors array inside the exepction...
+        $errors = $ex->getErrors();
+        // And put it to the view as "errors" variable
+        $this->view->setVariable("errors", $errors);
+      }
+    }
+
+    // render the view (/view/resources/add.php)
+    $this->view->render("resources", "add_place");
+
+  }
+
   public function edit() {
     if (!isset($_REQUEST["idresource"])) {
       throw new Exception("A resource id is mandatory");
@@ -220,6 +151,7 @@ class ResourcesController extends BaseController {
       $resource->setName($_POST["name"]);
       $resource->setDescription($_POST["description"]);
       $resource->setQuantity($_POST["quantity"]);
+      $resource->setType($_POST["type"]);
 
       try {
         // validate Post object

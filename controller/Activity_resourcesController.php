@@ -61,6 +61,7 @@ class Activity_resourcesController extends BaseController {
     $idactivity = $_REQUEST["idactivity"];
     $activity_resources = $this->activity_resourceMapper->findAll($idactivity);
 
+    $this->view->setVariable("idactivity", $idactivity);
     $this->view->setVariable("activity_resources", $activity_resources);
     if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
       $this->view->render("activity_resources", "index");
@@ -69,7 +70,7 @@ class Activity_resourcesController extends BaseController {
 
   public function add() {
     if (!isset($this->currentUser)) {
-        throw new Exception("Not in session. Adding activitys requires login");
+        throw new Exception("Not in session. Adding activities requires login");
     } 
     if (!isset($_REQUEST["idactivity"])) {
         throw new Exception("An Activity id is required");

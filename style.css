@@ -576,6 +576,16 @@ header{
   text-align: center;
 }
 
+.commercial-title2{
+  margin: 0 0 10px 0;
+  border-radius: 0px 0px 2px 2px;
+  display: flex;
+  font: 1.8em 'Lato';
+  color: #5c5c5c;  /*color:#484848;*/
+  flex-direction: column;
+  text-align: center;
+}
+
 .commercial-title-second{
   color: white; /* #5c5c5c;  /*color:#484848;*/
 }
@@ -590,9 +600,39 @@ header{
   text-align: center;
 }
 
-.color-main{
-  color:var(--main-color);/* #5c5c5c;  /*color:#484848;*/
+.commercial-description a{
+  text-decoration: none;
+  color:green;
 }
+
+.commercial-description input[type=button] {
+  margin-top: 20px;
+  margin-left: 3px;
+  margin-bottom: 5px;
+  padding: 5px;
+  outline: 0;
+  /*box-shadow: 1px 1px 1px 1px #FFFFFF;*/
+  border-style:solid;
+  border-width:thin;
+  /*border-radius: 2px 2px 2px 2px;*/
+  background-color: var(--main-color);
+  border-color:white;
+  /*border: 0;*/
+  color: red;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.commercial-description input[type=button]:hover{
+    box-shadow: 0px 1px 6px 3px #C0C0C0;
+}
+/*
+.color-main{
+  color:var(--main-color);/* #5c5c5c;
+}*/
 /*********************************** CLASSES LIST **********************************/
 
 i.clock{
@@ -684,9 +724,51 @@ i.clock{
   /*margin: 0px 10px 20px 10px;*/
   /*box-shadow: 0px 1px 2px #A0A0A0;*/
   margin: 0px 10px 15px 10px;
-  box-shadow: 0px 1px 0px #A0A0A0;
+  box-shadow: 0px 1px 0px #FFFFFF;
+}
+#sublist a{
+  text-decoration: none;
+  color: var(--second-color);
 }
 
+ul.times{
+  font: 0.8em 'Lato';
+	list-style:none;
+	padding: 0;
+  padding-top: 20px;
+	margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+    width: 100%;
+}
+ul.times li{
+	border-bottom:1px solid #B9DEEC;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+}
+ul.times p{
+	color:#fff;
+	font-size:0.8125em;
+	line-height:1.5em;
+	text-align:center;
+	margin-top:5%;
+}
+ul.times h4{
+	font-size: 1.5em;
+	color: #FFF;
+	/*font-family: 'Open Sans', sans-serif;*/
+	font-weight: italic;
+	text-align: center;
+	font-style: italic;
+	margin-top: 5%;
+}
 /*********************************** ARTICLE **********************************/
 .article-box{
   padding: 0;
@@ -774,6 +856,98 @@ i.clock{
   order: 3;
 }
 
+.membershipprices-box{
+  padding: 0;
+  margin: 0px 10px 20px 10px;
+  height: 343px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  /*width: 100%;*/
+  border-radius: 2px 2px 0px 0px;
+  object-fit: cover; /* Reescalar la imagen */
+  object-position: center; /* Centrar la imagen */
+  /*para hacer no seleccionables los componentes: */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+}
+.next-events-container{
+  padding: 0;
+  margin: 0px 10px 20px 10px;
+  width: 300px;
+  height: 400px;
+  box-shadow: 0px 1px 2px #A0A0A0;
+  transition: 0.3s ease;
+  padding: 0;
+  margin: 0px 10px 20px 10px;
+  height: 343px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  align-items: flex-start;
+  /*width: 100%;*/
+  border-radius: 2px 2px 0px 0px;
+  object-fit: cover; /* Reescalar la imagen */
+  object-position: center; /* Centrar la imagen */
+  /*para hacer no seleccionables los componentes: */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.next-events-container:hover{
+  box-shadow: 0px 1px 6px 3px #C0C0C0;
+}
+.next-events-container img{
+  padding: 0;
+  margin: 0;
+  height: 90px;
+  /*width: 100%;*/
+  width: 100px;
+  border-radius: 2px 2px 0px 0px;
+  object-fit: cover; /* Reescalar la imagen */
+  object-position: center; /* Centrar la imagen */
+  /*para hacer no seleccionables los componentes: */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.next-event-box{
+  display: flex;
+  flex-direction: row;
+  width: 85%;
+  justify-content: space-between;
+box-shadow: 0px 1px 0px #FFFFFF;
+  padding: 10px 10px 10px 10px;
+  margin: 10px 10px 10px 10px;
+}
+
+ul.partner{
+	margin: 8% 0 0 0;
+	padding: 0;
+
+}
+
+ul.partner li{
+	display: inline-block;
+	margin:6% 0;
+	width: 49%;
+	vertical-align: middle;
+}
+
+ul.partner li img{
+  height: inherit;
+}
+
 /*****************************   PRICING PAGE *********************************/
 
 .pricing-box{
@@ -832,7 +1006,6 @@ i.clock{
   margin: 0 0 10px 0;
   font: 1.3em 'Lato';
   border-radius: 0px 0px 2px 2px;
-  display: flex;
 }
 
 .pricing-box img{
@@ -862,6 +1035,18 @@ i.clock{
   background-color: var(--second-color);
 }
 
+.background-none{
+    background: none;
+}
+
+.box-shadow-none{
+  box-shadow: 0px 0px 0px;
+}
+
+.box-shadow-none:hover{
+  box-shadow: 0px 0px 0px;
+}
+
 .main-color{
   color: var(--main-color);
 }
@@ -870,6 +1055,14 @@ i.clock{
   color: var(--second-color);
 }
 
+.red-color{
+  font-weight: bold;
+  color: red;
+}
+
+.uppercase{
+  text-transform: uppercase;
+}
 
 /*******************************DESCRIPTION PAGE*******************************/
 
@@ -1170,7 +1363,7 @@ i.clock{
   justify-content: space-between;
 }
 
-1
+
 .form .action button[type=submit]{
   padding: 20px 50px 20px 50px;
   margin-top: 50px;

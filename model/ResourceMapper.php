@@ -34,7 +34,7 @@ class ResourceMapper {
         $resource = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($resource != null) {
-            return new resource($resource["id"],$resource["name"],$resource["description"],$resource["quantity"]);
+            return new resource($resource["id"],$resource["name"],$resource["description"],$resource["quantity"],$resource["type"]);
         } else {
             return NULL;
         }
@@ -47,13 +47,13 @@ class ResourceMapper {
      * @return mixed Array of resource instances
      */
     public function findAll() {
-        $stmt = $this->db->query("SELECT * FROM resource");
+        $stmt = $this->db->query("SELECT * FROM resource ORDER BY type");
         $resources_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $resources = array();
 
         foreach ($resources_db as $resource) {
             array_push($resources, new resource($resource["id"],$resource["name"],
-                $resource["description"],$resource["quantity"]));
+                $resource["description"],$resource["quantity"],$resource["type"]));
         }
         return $resources;
     }
@@ -66,9 +66,10 @@ class ResourceMapper {
     * @return void $login=NULL, $name= NULL,$password=NULL, $email=NULL, $description=NULL
     */
     public function save($resource) {
-        $stmt = $this->db->prepare("INSERT INTO resource (id, name, description, quantity) 
-            values (0,?,?,?)");
-        $stmt->execute(array($resource->getName(),$resource->getDescription(),$resource->getQuantity()));
+        $stmt = $this->db->prepare("INSERT INTO resource (id, name, description, quantity, type) 
+            values (0,?,?,?,?)");
+        $stmt->execute(array($resource->getName(),$resource->getDescription(),$resource->getQuantity(),
+            $resource->getType()));
     }
 
     /**
@@ -79,9 +80,9 @@ class ResourceMapper {
     * @return void
     */
     public function update(resource $resource) {
-        $stmt = $this->db->prepare("UPDATE resource set id=?,name=?,description=?,quantity=? where id=?");
-        $stmt->execute(array($resource->getIdresource(), $resource->getName(),
-            $resource->getDescription(), $resource->getQuantity(),$resource->getIdresource()));
+        $stmt = $this->db->prepare("UPDATE resource set id=?,name=?,description=?,quantity=?,type=? where id=?");
+        $stmt->execute(array($resource->getIdresource(), $resource->getName(),$resource->getDescription(), 
+            $resource->getQuantity(),$resource->getType(),$resource->getIdresource()));
     }
 
     /**
@@ -96,4 +97,15 @@ class ResourceMapper {
         $stmt->execute(array($resource->getIdresource()));
     }
 
+    public function findAllPlaces() {
+        $stmt = $this->db->query("SELECT * FROM resource WHERE type=2 ORDER BY type");
+        $resources_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $resources = array();
+
+        foreach ($resources_db as $resource) {
+            array_push($resources, new resource($resource["id"],$resource["name"],
+                $resource["description"],$resource["quantity"],$resource["type"]));
+        }
+        return $resources;
+    }
 }
