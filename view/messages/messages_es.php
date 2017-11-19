@@ -108,7 +108,7 @@
     "are you sure?" => "¿Estás seguro?",
     "Upload product" => "Subir producto",
   	"❮ Prev" => "❮ Anterior",
-  	"Next ❯" => "Siguiente	 ❯",
+  	"Next ❯" => "Siguiente ❯",
     "Write something"=> "Escribe algo",
     "Write message"=> "Escribe un mensaje",
     "Add article"=> "Subir producto",
@@ -143,9 +143,5 @@
     "New place" => "Nueva instalación",
     "Exercise"=> "Ejercicio",
     "Exercises"=> "Ejercicios",
-	  "Athlets" => "Deportistas",
-	  "Asign Table" => "Asignar Tabla",
-	  "View Tables" => "Ver Tablas",
-	  "Pending" => "Pendientes"
   )
 ?>
