@@ -76,25 +76,35 @@ class SessionMapper {
     * @return mixed Array of session instances
     */
     public function searchAll($value) {
-      $stmt = $this->db->prepare("SELECT *
+      $stmt = $this->db->prepare("SELECT S.id as S_id, UT.id  as UT_id, WT.id as WT_id,
+        WT.name as WT_name, S.duration as S_duration, S.*, U.*, UT.*, WT.*
         FROM session S
         LEFT JOIN user U ON S.id_user=U.id
         LEFT JOIN  user_table UT ON S.id_table=UT.id
         LEFT JOIN workout_table WT ON UT.id_workout=WT.id
-        WHERE S.id_user=:search");
-        $stmt->execute(array(':search' => '%' . $value . '%'));
+        WHERE S.id_user=?");
+        $stmt->execute(array($value));
         $sessions_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         $sessions = array();
-
         foreach ($sessions_db as $session) {
-          $usuario = new User($session["user.login"],
-          $session["user.name"],
-          NULL/*password*/,
-          $session["user.email"],
-          $session["user.description"]
-        );
-        array_push($sessions, new Session($session["idarticle"], $session["name"], $session["description"], $session["price"], $session["url_image01"], $session["url_image02"], $session["url_image03"], $usuario));
+          $usuario = new User($session["user.id"], $session["user.login"],
+            $session["user.name"],
+            NULL/*password*/,
+            $session["user.email"],
+            $session["user.description"]
+            );
+          $workout_table = new Workout_table($session["WT_id"],
+            NULL, //usuario
+            $session["WT_name"],
+            $session["workout_table.type"],
+            $session["workout_table.description"]
+            );
+          $user_table = new User_table($session["UT_id"], $workout_table,
+            $usuario
+            );
+            var_dump($session["S_duration"]);
+        array_push($sessions, new Session($session["S_id"], $usuario, $user_table, $session["date"], $session["S_duration"], $session["comment"]));
       }
 
       return $sessions;
