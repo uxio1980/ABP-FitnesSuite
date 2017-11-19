@@ -116,6 +116,10 @@ class User {
     return $this->user_type;
   }
 
+  public function setId($id) {
+    $this->id = $id;
+  }
+
   public function setLogin($login) {
     $this->login = $login;
   }
