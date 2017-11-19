@@ -27,44 +27,99 @@ class User_tableMapper {
   * @throws PDOException if a database error occurs
   * @return void
   */
-  public function save($public_info) {
-    $stmt = $this->db->prepare("INSERT INTO public_info (phone, email,
-      address) values (?,?,?)");
-      $stmt->execute(array($public_info->getPhone(), $public_info->getEmail(),
-      $public_info->getAddress()));
+/**
+    * Loads a session from the database given its id
+    *
+    * @throws PDOException if a database error occurs
+    * @return User_table The user_table instances. NULL
+    * if the user_table is not found
+    */
+    public function findById($id){
+      $stmt = $this->db->prepare("SELECT UT.id as 'user_table.id',
+        U.id as 'user.id', U.login as 'user.login', U.name as 'user.name',
+        WT.id as 'workout_table.id', WT.name as 'workout_table.name'
+        FROM user_table UT
+        LEFT JOIN user U ON UT.id_user=U.id
+        LEFT JOIN workout_table WT ON UT.id_workout=WT.id
+        WHERE UT.id=?");
+      $stmt->execute(array($id));
+      $user_table = $stmt->fetch(PDO::FETCH_ASSOC);
+      if($user_table != null) {
+        $usuario = new User($user_table["user.id"], $user_table["user.login"],
+          $user_table["user.name"]
+          );
+        $workout_table = new Workout_table($user_table["workout_table.id"],
+          NULL, //usuario
+          $user_table["workout_table.name"]
+          );
+        return new User_table($user_table["user_table.id"]);
+      } else {
+        return NULL;
+      }
     }
 
     /**
-    * Updates a public info in the database
-    *
-    * @param Public_Info $public_info The public info to be updated
-    * @throws PDOException if a database error occurs
-    * @return void
-    */
-    public function update(Public_Info $public_info) {
-      $stmt = $this->db->prepare("UPDATE public_info set phone=?, email=?,
-        address=? where id=?");
-        $stmt->execute(array($public_info->getPhone(), $public_info->getEmail(),
-        $public_info->getAddress(), $public_info->getId()));
-      }
+        * Loads a session from the database given its id
+        *
+        * @throws PDOException if a database error occurs
+        * @return User_table The user_table instances. NULL
+        * if the user_table is not found
+        */
+        public function findByUserAndTable($id_user, $id_table){
+          $stmt = $this->db->prepare("SELECT UT.id as 'user_table.id',
+            U.id as 'user.id', U.login as 'user.login', U.name as 'user.name',
+            WT.id as 'workout_table.id', WT.name as 'workout_table.name'
+            FROM user_table UT
+            LEFT JOIN user U ON UT.id_user=U.id
+            LEFT JOIN workout_table WT ON UT.id_workout=WT.id
+            WHERE UT.id_user=? AND UT.id_workout=?");
+          $stmt->execute(array($id_user, $id_table));
+          $user_table = $stmt->fetch(PDO::FETCH_ASSOC);
 
-      /**
-      * Loads a public info from the database given its id
-      *
-      * @throws PDOException if a database error occurs
-      * @return User The public info instances. NULL
-      * if the public info is not found
-      */
-      public function findById($id){
-        $stmt = $this->db->prepare("SELECT * FROM public_info WHERE id=?");
-        $stmt->execute(array($id));
-        $public_info = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if($public_info != null) {
-          return new Public_Info($public_info["id"], $public_info["phone"],
-          $public_info["email"], $public_info["address"]);
-        } else {
-          return NULL;
+          if($user_table != null) {
+            $usuario = new User($user_table["user.id"], $user_table["user.login"],
+              $user_table["user.name"]
+              );
+            $workout_table = new Workout_table($user_table["workout_table.id"],
+              NULL, //usuario
+              $user_table["workout_table.name"]
+              );
+            return new User_table($user_table["user_table.id"]);
+          } else {
+            return NULL;
+          }
         }
+
+    /**
+    * Retrieves user_tables for an user
+    *
+    *
+    * @throws PDOException if a database error occurs
+    * @return mixed Array of user_table instances
+    */
+    public function searchAll($value) {
+      $stmt = $this->db->prepare("SELECT UT.id as 'user_table.id',
+        U.id as 'user.id', U.login as 'user.login', U.name as 'user.name',
+        WT.id as 'workout_table.id', WT.name as 'workout_table.name'
+        FROM user_table UT
+        LEFT JOIN user U ON UT.id_user=U.id
+        LEFT JOIN workout_table WT ON UT.id_workout=WT.id
+        WHERE UT.id_user=?");
+        $stmt->execute(array($value));
+        $user_tables_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $user_tables = array();
+        foreach ($user_tables_db as $user_table) {
+          $usuario = new User($user_table["user.id"], $user_table["user.login"],
+            $user_table["user.name"]
+            );
+          $workout_table = new Workout_table($user_table["workout_table.id"],
+            NULL, //usuario
+            $user_table["workout_table.name"]
+            );
+
+        array_push($user_tables, new User_table($user_table["user_table.id"], $workout_table, $usuario));
       }
+
+      return $user_tables;
+    }
 }

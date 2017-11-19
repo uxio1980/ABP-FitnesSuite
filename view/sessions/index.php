@@ -25,15 +25,15 @@
         <td><strong><?= i18n("Delete")?></strong></td>
       <?php foreach ($sessions as $session): ?>
         <tr class="table-row-content"
-          data-href="index.php?controller=users&amp;action=edit&amp;login=<?= $session->getId() ?>">
+          data-href="index.php?controller=users&amp;action=edit&amp;id=<?= $session->getId() ?>">
           <td><?= date("j M, Y g:ia", strtotime($session->getDate())) ?></td>
           <td><?= $session->getUser_table()->getWorkout_table()->getName() ?></td>
           <td><?= date('g:i' ,strtotime($session->getDuration() )) ?></td>
           <td><?= $session->getComment() ?></td>
-          <td><a href="index.php?controller=sessions&amp;action=edit&amp;login=<?= $session->getId() ?>">
+          <td><a href="index.php?controller=sessions&amp;action=edit&amp;id=<?= $session->getId() ?>">
             <img src="resources/icons/edit_icon.svg" alt="Edit" /></a>
           </td>
-          <td><a class="confirmation" href="index.php?controller=sessions&amp;action=delete&amp;login=<?= $session->getId() ?>">
+          <td><a class="confirmation" href="index.php?controller=sessions&amp;action=delete&amp;id=<?= $session->getId() ?>">
             <img src="resources/icons/delete_icon.svg" alt="Delete"/></a>
           </td>
         </tr>

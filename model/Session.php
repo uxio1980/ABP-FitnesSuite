@@ -92,7 +92,6 @@ class Session {
    */
   public function checkIsValidForUpdate() {
     $errors = array();
-
     try{
       $this->checkIsValidForCreate();
     }catch(ValidationException $ex) {
