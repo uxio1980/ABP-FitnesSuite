@@ -42,8 +42,8 @@ class Exercise_tableMapper {
 
                 $exercise = $exerciseMapper->findById($id_exercise);
 
-                $exercise_table_final = new Exercise_table();//$exercise_table["id"],$exercise, $exercise_table["id_workout"],$exercise_table["series"],$exercise_table["repetitions"]
-                var_dump($exercise);
+                $exercise_table_final = new Exercise_table($exercise_table["id"],$exercise, $exercise_table["id_workout"],$exercise_table["series"],$exercise_table["repetitions"]);
+
                 array_push($exercises, $exercise_table_final);
             }
             return $exercises;
