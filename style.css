@@ -948,6 +948,9 @@ ul.partner li img{
   height: inherit;
 }
 
+.session-box{
+  padding: 10px;
+}
 /*****************************   PRICING PAGE *********************************/
 
 .pricing-box{
@@ -1283,7 +1286,6 @@ ul.partner li img{
   width: 24px;
 }
 
-
 .form strong {
   padding-top: 60px;
   padding-bottom: 30px;
@@ -1308,6 +1310,11 @@ ul.partner li img{
   border-style: hidden hidden solid hidden;
   color: #5c5c5c;
   font: 1em 'Lato';
+}
+
+.form span.center-text {
+  text-align: center;
+  font-size: 1.2em;
 }
 
 .form label {
@@ -1404,6 +1411,46 @@ ul.partner li img{
   cursor: pointer;
 }
 
+.form .a-power-button{
+  display: flex;
+  justify-content: center;
+}
+
+.form button.power-button{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  object-fit: cover; /* Reescalar la imagen */
+  object-position: center; /* Centrar la imagen */
+  background-repeat: no-repeat;
+  background-size: 30px;
+  width: 250px;
+  height: 250px;
+  background-size: contain;
+  resize: both;
+  /*padding: 20px 50px 20px 50px;*/
+  /*margin-top: 50px;*/
+  /*margin-bottom: 50px;*/
+  background: var(--second-color);
+  border: 0;
+  color: black;
+  font: 1em 'Lato';
+  text-align: center;
+  cursor: pointer;
+  background-image: url("resources/icons/power_green.svg");
+}
+
+.form button.start-reset-button{
+  padding: 10px 20px 10px 20px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  background: var(--main-color);
+  border: 0;
+  color: black;
+  font: 1em 'Lato';
+  text-align: center;
+  cursor: pointer;
+}
 /***************************** MAIN CONTENT LIST ******************************/
 
 .content-title {
