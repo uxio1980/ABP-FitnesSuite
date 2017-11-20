@@ -157,7 +157,7 @@ class Activity_scheduleMapper {
           $activity = new Activity($activity_schedule["id_activity"],
           $activity_schedule["id_user"], $activity_schedule["name"],
           $activity_schedule["description"], $activity_schedule["place"],
-          $activity_schedule["type"], $activity_schedule["seats"], $activity_schedule["image"]);
+          $activity_schedule["seats"], $activity_schedule["image"]);
           $a_s = new Activity_schedule($activity_schedule["asId"],
           $activity,
           $activity_schedule["date"],
