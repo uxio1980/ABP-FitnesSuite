@@ -391,7 +391,7 @@ class UsersController extends BaseController {
     public function logout() {
         session_destroy();
 
-        $this->view->redirect("articles", "index");
+        $this->view->redirect("main", "index");
 
     }
 

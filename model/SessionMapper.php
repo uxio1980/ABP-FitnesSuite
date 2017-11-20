@@ -27,11 +27,11 @@ class SessionMapper {
   * @throws PDOException if a database error occurs
   * @return void
   */
-  public function save($public_info) {
-    $stmt = $this->db->prepare("INSERT INTO public_info (phone, email,
-      address) values (?,?,?)");
-      $stmt->execute(array($public_info->getPhone(), $public_info->getEmail(),
-      $public_info->getAddress()));
+  public function save($session) {
+    $stmt = $this->db->prepare("INSERT INTO session (id, id_user,
+      id_table, date, duration, comment) values (0,?,?,?,?,?)");
+      $stmt->execute(array($session->getUser()->getId(), $session->getUser_table()->getId(),
+      $session->getDate(), $session->getDuration(), $session->getComment()));
     }
 
     /**
