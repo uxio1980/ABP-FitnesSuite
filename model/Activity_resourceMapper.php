@@ -89,5 +89,5 @@ class Activity_resourceMapper {
         }
         return $resources;
     }
-   
+
 }

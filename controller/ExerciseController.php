@@ -110,7 +110,7 @@ class ExerciseController extends BaseController {
                 $exercise->setImage(json_encode($images));
             }
 
-            $exercise->setVideo($_POST["video"]);
+            $exercise->setVideo($_POST["videos"]);
 
             try {
                 // validate exercise object
@@ -197,7 +197,7 @@ class ExerciseController extends BaseController {
                 $exercise->setImage($exercise->getImage());
             }
 
-            $exercise->setVideo($_POST["video"]);
+            $exercise->setVideo($_POST["videos"]);
 
             try {
                 // validate Post object

@@ -117,9 +117,28 @@ class User_tableMapper {
             $user_table["workout_table.name"]
             );
 
-        array_push($user_tables, new User_table($user_table["user_table.id"], $workout_table, $usuario));
-      }
+            array_push($user_tables, new User_table($user_table["user_table.id"], $workout_table, $usuario));
+         }
 
       return $user_tables;
+    }
+
+
+    public function findByUser($id_user){
+        $stmt = $this->db->prepare("SELECT * FROM workout_table WHERE id IN 
+            (SELECT id_workout FROM user_table WHERE id_user=?)");
+
+        $stmt->execute(array($id_user));
+
+        $tables_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $tables = array();
+
+        foreach ($tables_db as $table) {
+            array_push($tables, new Workout_table($table["id"],$table["user"],
+                $table["name"],$table["type"],$table["description"]));
+
+        }
+        return $tables;
     }
 }

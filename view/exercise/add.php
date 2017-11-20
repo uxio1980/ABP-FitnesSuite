@@ -34,7 +34,7 @@
 			<?= isset($errors["images"])?$errors["images"]:"" ?><br>
 
            <label for="name-field"><?= i18n("Video") ?> (<?= i18n("enter the url of a video") ?>)</label>
-           <input type="url" name="video" placeholder="Video URL">
+           <input type="text" name="video" placeholder="Video URL">
 
 			<input type="submit" name="submit" value="<?= i18n("Add") ?>"/>
       </form>
