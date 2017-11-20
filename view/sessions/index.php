@@ -13,7 +13,7 @@
   <div id="content-list">
     <div class="content-title">
       <strong><?= i18n("Sessions")?></strong><br>
-      <a href="index.php?controller=sessions&amp;action=add"><input type='button' value=<?= i18n("New")?> /></a>
+      <a href="index.php?controller=sessions&amp;action=start"><input type='button' value=<?= i18n("New")?> /></a>
     </div>
     <table id="table-content">
       <tr class="table-row-content">

@@ -25,7 +25,7 @@
         <option <?=($session->getUser_table()->getId()==$user_table->getId())?'selected="selected"':''?> value=<?= $user_table->getId()?>><?= $user_table->getWorkout_table()->getName()?></option>
       <?php endforeach; ?>
       </select>
-      <?= isset($errors["user_type"])?$errors["user_type"]:"" ?>
+      <?= isset($errors["user_table"])?$errors["user_table"]:"" ?>
 
       <label for="login-field"><?= i18n("Date")?></label>
       <?php $date = date("Y-m-d\Th:i",strtotime($session->getDate())); ?>
