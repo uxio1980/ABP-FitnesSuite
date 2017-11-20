@@ -3,7 +3,7 @@
 
 require_once(__DIR__."/../core/ValidationException.php");
 
-class Activity_resource {
+class Exercise_table {
     
   private $id;
   private $id_exercise;

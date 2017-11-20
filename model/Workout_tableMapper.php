@@ -18,7 +18,7 @@ class Workout_tableMapper {
     private $db;
 
     public function __construct() {
-    $this->db = PDOConnection::getInstance();
+        $this->db = PDOConnection::getInstance();
     }
 
     /**
@@ -65,10 +65,11 @@ class Workout_tableMapper {
         $stmt = $this->db->prepare("SELECT * FROM workout_table WHERE id=?");
         $stmt->execute(array($id));
         $table = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if($table != null) {
-            return new Workout_table($table["id"],$table["id_user"],
-                $table["name"],$table["type"],$table["description"]);
+       //var_dump($table);
+        if($table != NULL) {
+            //var_dump($table["description"]);
+            $user = new User($table["id_user"]);
+            return new workout_table($table["id"],$user,$table["name"],$table["type"],$table["description"]);
         } else {
             return NULL;
         }

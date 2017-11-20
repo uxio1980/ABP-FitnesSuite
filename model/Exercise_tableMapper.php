@@ -32,11 +32,13 @@ class Exercise_tableMapper {
         $stmt->execute(array($id_workout));
         $exercises_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $exercises = array();
-
+        $exerciseMapper = new ExerciseMapper();
         if(sizeof($exercises_db) > 0){
             foreach ($exercises_db as $exercise) {
-                array_push($exercises_db, new exercise_table($exercise["id"],$exercise["id_exercise"],
-                    $exercise["id_workout"]));
+                $id_exercise = $exercise["id"];
+                $exercise_db = $exerciseMapper->findById($id_exercise);
+
+                array_push($exercises, $exercise_db);
             }
             return $exercises;
         } else {

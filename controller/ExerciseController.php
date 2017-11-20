@@ -175,7 +175,10 @@ class ExerciseController extends BaseController {
             $exercise->setType($_POST["type"]);
 
             // Sube las nuevas imágenes.
-            if(count($_FILES['images']['name']) > 0){
+            if($_FILES['images']['name'][0] == ""){
+                $exercise->setImage($exercise->getImage());
+            }// Sube las nuevas imágenes.
+            elseif(count($_FILES['images']['name']) > 0){
                 $images = array();
                 $tmp = array();
                 for($i=0; $i<count($_FILES['images']['name']); $i++) {
@@ -185,16 +188,15 @@ class ExerciseController extends BaseController {
                         array_push($images,$filePath);
                         array_push($tmp,$tmpFilePath);
                     }
-                }// Borra las imágenes anteriores.
+                }
                 $img = json_decode($exercise->getImage());
                 for($i=0; $i<count($img); $i++) {
                     unlink($img[$i]);
                 }
                 $exercise->setImage(json_encode($images));
-                // Si no se edita mantiene las imágenes actuales.
-            } elseif(!is_null($exercise->getImage())) {
 
-                $exercise->setImage($exercise->getImage());
+            } else {
+                $exercise->setImage(NULL);
             }
 
             $exercise->setVideo($_POST["videos"]);

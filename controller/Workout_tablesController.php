@@ -34,57 +34,49 @@ class Workout_tablesController extends BaseController {
   */
   public function index() {
 
-      if (isset($this->currentUser) && ($this->currentUser->getUser_type() == usertype::Trainer ||
-              $this->currentUser->getUser_type() == usertype::Administrator)){
+      if (isset($this->currentUser) && ($this->currentUser->getUser_type() == usertype::Trainer)){
 
           $tables = $this->workout_tableMapper->findAll();
 
           $this->view->setVariable("tables", $tables);
 
           $this->view->render("workout_tables", "index_trainer");
-;
+
       } else {
-          $tables_user = $this->user_tableMapper->findByUser($this->currentUser->getId());
-          $this->view->setVariable("tables", $tables_user);
-          $this->view->render("workout_tables", "index");
+          if (isset($this->currentUser) && ($this->currentUser->getUser_type() != usertype::Trainer)) {
+              $tables_user = $this->user_tableMapper->findByUser($this->currentUser->getId());
+              $this->view->setVariable("tables", $tables_user);
+              $this->view->render("workout_tables", "index");
+          }
       }
   }
 
     public function view(){
+
         if (!isset($_GET["id_workout"])) {
             throw new Exception("id_workout is mandatory");
         }
 
         $id_workout = $_GET["id_workout"];
-
         // Recuperar distintas actividades según usuario.
-        $table = $this->workout_tableMapper->findById($id_workout);
+        $workout_table = $this->workout_tableMapper->findById($id_workout);
 
+        $exercises = $this->exercise_tableMapper->findAll($id_workout);
 
-        //
-
-        $place = $this->resourceMapper->findById($activity->getPlace());
-        // Recupera el array de rutas a las imágenes.
-        $images = json_decode($activity->getImage());
-        $trainer = $this->activityMapper->findTrainerById($activity->getIduser());
-
-        if ($activity == NULL) {
-            throw new Exception("->no such activity with id: ".$activityid);
+        if ($workout_table == NULL) {
+            throw new Exception("->no such workout_table with id: ".$id_workout);
         }
 
         // put the Activity object to the view
-        $this->view->setVariable("activity", $activity);
-        $this->view->setVariable("images", $images);
-        $this->view->setVariable("trainer", $trainer);
-        $this->view->setVariable("place", $place);
+        $this->view->setVariable("table", $workout_table);
+        $this->view->setVariable("exercises", $exercises);
 
         // render the view (/view/activities/view.php)
-        if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
-            $this->view->render("activities", "view");
+        if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Trainer){
+            $this->view->render("workout_tables", "view-trainer");
         } else {
-            $this->view->render("activities", "view");
+            $this->view->render("workout_tables", "view");
         }
     }
-
 
 }

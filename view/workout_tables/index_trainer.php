@@ -19,7 +19,7 @@
             <li class="article-box">
                 <a href="index.php?controller=workout_tables&amp;action=view&amp;id_workout=<?=$table->getId() ?>">
 
-                    <img src="../../resources/images/grid_image.svg" alt="Workout Table Icon"></a>
+                    <img src="resources/images/grid_image.svg" alt="Workout Table Icon"></a>
                 <div class="article-footer">
                     <div class="tittle-edit">
                         <p class="article-box-title"><?= $table->getName() ?></p>
