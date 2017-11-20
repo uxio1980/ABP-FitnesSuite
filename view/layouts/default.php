@@ -176,7 +176,7 @@ $language = $i18n->getLanguage();
           </li>
           <li class="nav-item">
             <a href="index.php?controller=exercise&amp;action=index">
-                <img src="resources/icons/exercises.svg"  width="24" height="24" alt="Exercise icon"/>
+                <img src="resources/icons/ic_exercices_table.svg"  width="24" height="24" alt="Exercise icon"/>
                 <div class="text-item"><?= i18n("Exercises")?></div>
             </a>
           </li>
@@ -199,6 +199,12 @@ $language = $i18n->getLanguage();
                 <img src="resources/icons/profile_icon.svg" alt="Profile icon"/>
                 <div class="text-item"><?= i18n("My profile")?></div></a>
               </li>
+              <li class="nav-item">
+                  <a href="index.php?controller=workout_tables&amp;action=index">
+                      <img src="resources/icons/workout_table_icon.svg"  width="24" height="24" alt="Exercise icon"/>
+                      <div class="text-item"><?= i18n("Wourkout tables")?></div>
+                  </a>
+              </li>
               <?php if (($typeuser)==usertype::AthleteTDU || ($typeuser)==usertype::AthletePEF ):?>
                   <li class="nav-item">
                     <a href="index.php?controller=articles&amp;action=add">
@@ -211,6 +217,12 @@ $language = $i18n->getLanguage();
                       <img src="resources/icons/sessions_icon.svg" alt="Session icon"/>
                       <div class="text-item"><?= i18n("Sessions")?></div>
                     </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="index.php?controller=workout_table&amp;action=index">
+                          <img src="resources/icons/workout_table_icon.svg"  width="24" height="24" alt="Exercise icon"/>
+                          <div class="text-item"><?= i18n("Exercises")?></div>
+                      </a>
                   </li>
                 <?php endif ?>
                 <?php if (($typeuser)==usertype::Trainer):?>
@@ -239,6 +251,18 @@ $language = $i18n->getLanguage();
                       <img src="resources/icons/activities.svg" alt="Activities icon"/>
                       <div class="text-item"><?= i18n("Activities")?></div>
                     </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="index.php?controller=exercise&amp;action=index">
+                          <img src="resources/icons/ic_exercices_table.svg"  width="24" height="24" alt="Exercise icon"/>
+                          <div class="text-item"><?= i18n("Exercises")?></div>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="index.php?controller=workout_tables&amp;action=index">
+                          <img src="resources/icons/workout_table_icon.svg"  width="24" height="24" alt="Exercise icon"/>
+                          <div class="text-item"><?= i18n("Wourkout tables")?></div>
+                      </a>
                   </li>
                   <li class="nav-item">
                     <a href="index.php?controller=notification&amp;action=index">
