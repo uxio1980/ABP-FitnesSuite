@@ -7,7 +7,7 @@
  $user = $view->getVariable("user");
  $view->setVariable("title", "FitnesSuite");
 ?>
-<form id="form-sign-up" action="index.php?controller=users&amp;action=register" method="POST">
+<form id="form-sign-up" action="index.php?controller=users&amp;action=register" method="POST" enctype="multipart/form-data">
     <input type="text" name="login" value="<?=$user->getLogin() ?>" placeholder="Usuario"/>
     <?= isset($errors["login"])?$errors["login"]:"" ?><br>
 

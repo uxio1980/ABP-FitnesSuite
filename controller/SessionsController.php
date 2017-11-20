@@ -191,4 +191,135 @@ class SessionsController extends BaseController {
       $this->view->redirect("sessions", "index");
 
     }
+
+    /**
+    * Action to add a new session
+    *
+    * When called via GET, it shows the add form
+    * When called via POST, it adds the session to the
+    * database
+    *
+    * The expected HTTP parameters are:
+    * <ul>
+    * <li>title: Title of the session (via HTTP POST)</li>
+    * <li>content: Content of the session (via HTTP POST)</li>
+    * </ul>
+    *
+    * The views are:
+    * <ul>
+    * <li>sessions/add: If this action is reached via HTTP GET (via include)</li>
+    * <li>sessions/index: If session was successfully added (via redirect)</li>
+    * <li>sessions/add: If validation fails (via include). Includes these view variables:</li>
+    * <ul>
+    *  <li>session: The current session instance, empty or
+    *  being added (but not validated)</li>
+    *  <li>errors: Array including per-field validation errors</li>
+    * </ul>
+    * </ul>
+    * @throws Exception if no user is in session
+    * @return void
+    */
+    public function start() {
+      if (!isset($this->currentUser)) {
+        throw new Exception("Not in session. Adding sessions requires login");
+      }
+      $user_tables = $this->user_tableMapper->searchAll($this->currentUser->getId());
+
+      // Put the Session object visible to the view
+      $this->view->setVariable("user_tables", $user_tables);
+
+      // render the view (/view/sessions/add.php)
+      $this->view->render("sessions", "start");
+
+    }
+
+    /**
+    * Action to add a new session
+    *
+    * When called via GET, it shows the add form
+    * When called via POST, it adds the session to the
+    * database
+    *
+    * The expected HTTP parameters are:
+    * <ul>
+    * <li>title: Title of the session (via HTTP POST)</li>
+    * <li>content: Content of the session (via HTTP POST)</li>
+    * </ul>
+    *
+    * The views are:
+    * <ul>
+    * <li>sessions/add: If this action is reached via HTTP GET (via include)</li>
+    * <li>sessions/index: If session was successfully added (via redirect)</li>
+    * <li>sessions/add: If validation fails (via include). Includes these view variables:</li>
+    * <ul>
+    *  <li>session: The current session instance, empty or
+    *  being added (but not validated)</li>
+    *  <li>errors: Array including per-field validation errors</li>
+    * </ul>
+    * </ul>
+    * @throws Exception if no user is in session
+    * @return void
+    */
+    public function add() {
+      if (!isset($this->currentUser)) {
+        throw new Exception("Not in session. Adding sessions requires login");
+      }
+
+      $session = new Session();
+      // Get the user_table objects from the database
+      $user_tables = $this->user_tableMapper->searchAll($this->currentUser->getId());
+
+      // populate the session object with data form the form
+      $date_now = $_POST["date_now"];
+      $duration = $_POST["duration"];
+      $date = strtotime($duration);
+      $hour =  date('H', ($date+1));
+      $mints = date('i', ($date));
+      $seconds = date('s', ($date));
+      $session->setUser($this->currentUser);
+      $id_user_table = $_POST["user_table"];
+      $user_table = $this->user_tableMapper->findById($id_user_table);
+      $session->setUser_table($user_table);
+      $session->setDate($date_now);
+      $duration = date("H:i:s", strtotime($hour.':'.$mints.':'.$seconds));
+      $session->setDuration($duration);
+      if (isset($_POST["submit"])) { // reaching via HTTP Post...
+        try {
+          $date_now = $_POST["date"];
+          $duration = $_POST["duration"];
+          $comment = $_POST["comment"];
+          $session->setUser($this->currentUser);
+          $id_user_table = $_POST["user_table"];
+          $user_table = $this->user_tableMapper->findById($id_user_table);
+          $session->setUser_table($user_table);
+          $session->setDate($date_now);
+          $session->setDuration($duration);
+          $session->setComment($comment);
+          // validate session object
+          $session->checkIsValidForCreate(); // if it fails, ValidationException
+
+
+          // save the session object into the database
+          $this->sessionMapper->save($session);
+          // POST-REDIRECT-GET
+          // Everything OK, we will redirect the user to the list of sessions
+
+          // perform the redirection. More or less:
+          // header("Location: index.php?controller=sessions&action=index")
+          // die();
+          $this->view->redirect("sessions", "index");
+
+        }catch(ValidationException $ex) {
+          // Get the errors array inside the exepction...
+          $errors = $ex->getErrors();
+          // And put it to the view as "errors" variable
+          $this->view->setVariable("errors", $errors);
+        }
+    }
+      // Put the Article object visible to the view
+      $this->view->setVariable("session", $session);
+      $this->view->setVariable("user_tables", $user_tables);
+      // render the view (/view/activity_schedules/add.php)
+      $this->view->render("sessions", "add");
+    }
   }
