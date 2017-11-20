@@ -182,15 +182,20 @@ class UsersController extends BaseController {
 
                 // check if user exists in the database
                 if (!$this->userMapper->loginExists($_POST["login"])){
-
-                  // save the User object into the database
-                  $admin =$this->userMapper->findAdmin();
-                  $this->notificationMapper->save(new Notification(NULL,new User(),$this->currentDate,"Confirm User",
-                      "New user added to the app, please, confirm."));
-                  $not = $this->notificationMapper->findLastId();
-                  $this->notificationUserMapper->save(new Notification_user(NULL,$admin,$not,NULL));
-                  $this->userMapper->save($user);
-                  $this->view->setFlash("Login ".$user->getLogin()." successfully added. Please, wait to confirm login.");
+                    if(!isset($this->currentUser)) {
+                        // save the User object into the database
+                        $admin = $this->userMapper->findAdmin();
+                        $notdate = $this->date->modify( '+1 day' )->format('Y-m-d H:i:s');
+                        $this->notificationMapper->save(new Notification(NULL, new User(), $notdate, "Confirm User",
+                            "New user added to the app, please, confirm."));
+                        $not = $this->notificationMapper->findLastId();
+                        $this->notificationUserMapper->save(new Notification_user(NULL, $admin, $not, NULL));
+                        $this->userMapper->save($user);
+                        $this->view->setFlash("Login " . $user->getLogin() . " successfully added. Please, wait to confirm login.");
+                    } else{
+                        $this->userMapper->save($user);
+                        $this->view->setFlash("Login " . $user->getLogin() . " successfully added. Edit it!");
+                    }
                   $this->view->redirectToReferer();
                 } else {
                   $errors = array();
@@ -203,7 +208,7 @@ class UsersController extends BaseController {
                 // Get the errors array inside the exepction...
                 $errors = $ex->getErrors();
                 // And put it to the view as "register" errors variable
-                $this->view->setVariable("register", $errors, true);
+                $this->view->setVariable("errors", $errors, true);
                 $this->view->redirectToReferer();
             }
         }
@@ -252,16 +257,17 @@ class UsersController extends BaseController {
         $user->setPhone($_POST["phone"]);
         $user->setDni($_POST["dni"]);
         if($user->getUser_type() != $_POST["user_type"] && $user->getUser_type() == null){
-            $mail = new PHPMailer;
+            $mail = new PHPMailer();
             $mail->isSMTP();
             $mail->SMTPDebug = 4;
             $mail->Host = 'tls://smtp.gmail.com';
+            $mail->Port = 587;
             $mail->SMTPSecure = 'tls';
             $mail->SMTPAuth = true;
             $mail->AuthType = 'LOGIN';
             $mail->Username = 'giraldezcastro@gmail.com';
             $mail->Password = 'giraldezcastro1';
-            $mail->setFrom('sandracangas@gmail.com', 'Admin');
+            $mail->setFrom('giraldezcastro@gmail.com', 'Admin');
             $mail->addAddress($user->getEmail(), $user->getLogin());
             $mail->Subject = 'FitnesSuite. Usuario confirmado.';
             $mail->Body = $user->getName().', '.$user->getSurname().'. Su usuario '.$user->getLogin().' ha sido confirmado. Ya puede iniciar sesión en la app!.';
