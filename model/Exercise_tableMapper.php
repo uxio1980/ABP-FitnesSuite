@@ -30,15 +30,21 @@ class Exercise_tableMapper {
     public function findAll($id_workout) {
         $stmt = $this->db->prepare("SELECT * FROM exercise_table WHERE id_workout=?");
         $stmt->execute(array($id_workout));
-        $exercises_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $exercises = array();
-        $exerciseMapper = new ExerciseMapper();
-        if(sizeof($exercises_db) > 0){
-            foreach ($exercises_db as $exercise) {
-                $id_exercise = $exercise["id"];
-                $exercise_db = $exerciseMapper->findById($id_exercise);
+        $exercises_tables_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                array_push($exercises, $exercise_db);
+        $exercises = array();
+
+        $exerciseMapper = new ExerciseMapper();
+
+        if(sizeof($exercises_tables_db) > 0){
+            foreach ($exercises_tables_db as $exercise_table) {
+                $id_exercise = $exercise_table["id_exercise"];
+
+                $exercise = $exerciseMapper->findById($id_exercise);
+
+                $exercise_table_final = new Exercise_table();//$exercise_table["id"],$exercise, $exercise_table["id_workout"],$exercise_table["series"],$exercise_table["repetitions"]
+                var_dump($exercise);
+                array_push($exercises, $exercise_table_final);
             }
             return $exercises;
         } else {
@@ -52,24 +58,24 @@ class Exercise_tableMapper {
         $exercise = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($exercise != null) {
-            return new activity_resource($exercise["id"],$exercise["id_exercise"],
-                $exercise["id_workout"]);
+            return new Exercise_table($exercise["id"],$exercise["id_exercise"],
+                $exercise["id_workout"],$exercise["series"],$exercise["repetitions"]);
         } else {
             return NULL;
         }
     }
 
     public function save($exercise_table) {
-        $stmt = $this->db->prepare("INSERT INTO exercise_table (id, id_exercise, id_workout) 
-            values (0,?,?,)");
-        $stmt->execute(array($exercise_table->getExercise(),$exercise_table->getWorkout()));
+        $stmt = $this->db->prepare("INSERT INTO exercise_table (id, id_exercise, id_workout, series, repetitions) 
+            values (0,?,?,?,?)");
+        $stmt->execute(array($exercise_table->getExercise(),$exercise_table->getWorkout(),$exercise_table->getSeries(),$exercise_table->getRepetitions()));
     }
 
     public function update($exercise_table) {
         $stmt = $this->db->prepare("UPDATE exercise_table set id=?,id_exercise=?,
-            id_workout=?");
+            id_workout=?, series=?, repetitions=?");
         $stmt->execute(array($exercise_table->getId(),$exercise_table->getExercise(),
-            $exercise_table->getWorkout()));
+            $exercise_table->getWorkout(),$exercise_table->getSeries(),$exercise_table->getRepetitions()));
     }
 
     public function delete($exercise_table) {
@@ -86,7 +92,7 @@ class Exercise_tableMapper {
         $exercices = array();
 
         foreach ($exercises_db as $exercise) {
-            array_push($exercices, new resource($exercise["id"],$exercise["id_user"],
+            array_push($exercices, new Exercise($exercise["id"],$exercise["id_user"],
                 $exercise["name"],$exercise["description"],$exercise["type"],$exercise["image"],$exercise["video"]));
         }
         return $exercices;
@@ -101,7 +107,7 @@ class Exercise_tableMapper {
         $exercices = array();
 
         foreach ($exercises_db as $exercise) {
-            array_push($exercices, new resource($exercise["id"],$exercise["id_user"],
+            array_push($exercices, new Exercise($exercise["id"],$exercise["id_user"],
                 $exercise["name"],$exercise["description"],$exercise["type"],$exercise["image"],$exercise["video"]));
         }
         return $exercices;

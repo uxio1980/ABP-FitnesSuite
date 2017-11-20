@@ -6,14 +6,19 @@ require_once(__DIR__."/../core/ValidationException.php");
 class Exercise_table {
     
   private $id;
-  private $id_exercise;
+  private $exercise;
   private $id_workout;
+  private $series;
+  private $repetitions;
 
-  
-  public function __construct($id=NULL, $id_exercise=NULL, $id_workout=NULL) {
+
+  public function __construct($id=NULL, Exercise $exercise=NULL, $id_workout=NULL, $series=NULL, $repetitions=NULL) {
     $this->id = $id;
-    $this->id_exercise = $id_exercise;
+    $this->exercise = $exercise;
     $this->id_workout = $id_workout;
+    $this->series = $series;
+    $this->repetitions = $repetitions;
+
   }
   
   public function getId() {
@@ -21,11 +26,11 @@ class Exercise_table {
   }
 
   public function getExercise() {
-    return $this->id_exercise;
+    return $this->exercise;
   }
 
-  public function setExercise($id_exercise) {
-    $this->id_exercise = $id_exercise;
+  public function setExercise(Exercise $exercise) {
+    $this->exercise = $exercise;
   }
 
   public function getWorkout() {
@@ -35,6 +40,22 @@ class Exercise_table {
   public function setWorkout($id_workout) {
     $this->id_workout = $id_workout;
   }
+
+    public function getSeries() {
+        return $this->series;
+    }
+
+    public function setSeries($series) {
+        $this->series = $series;
+    }
+
+    public function getRepetitions() {
+        return $this->repetitions;
+    }
+
+    public function setRepetitions($repetitions) {
+        $this->repetitions = $repetitions;
+    }
  
    /**
    * Checks if the current instance is valid

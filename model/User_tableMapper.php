@@ -80,8 +80,7 @@ class User_tableMapper {
             $usuario = new User($user_table["user.id"], $user_table["user.login"],
               $user_table["user.name"]
               );
-            $workout_table = new Workout_table($user_table["workout_table.id"],
-              NULL, //usuario
+            $workout_table = new Workout_table($user_table["workout_table.id"],NULL, //usuario
               $user_table["workout_table.name"]
               );
             return new User_table($user_table["user_table.id"]);
