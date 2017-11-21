@@ -12,10 +12,14 @@ $view->setVariable("title", "FitnesSuite");
 <main id="main-content">
     <div id="content-list">
         <div class="content-title">
-            <strong><?= i18n("Workout tabale ")."\t".$table->getName()?></strong><br>
-            <a href="index.php?controller=sessions&amp;action=index"><input type='button' value=<?= i18n("Monitor training session")?> /></a>
+            <strong><?= i18n("Workout tabale ").$table->getName()?></strong><br>
+            <a href="index.php?controller=workout_tables&amp;action=delete&amp;id_table=<?= $table->getId() ?>"><input type='button' value=<?= i18n("Delete")?> /></a>
+            <div class="content-title">
+                <a href="index.php?controller=workout_tables&amp;action=delete&amp;id_table=<?= $table->getId() ?>">
+                    <img src="resources/icons/delete_icon.svg" alt="Delete"/></strong></a>
+            </div>
         </div>
-        <table id="table-content">
+        <table id="table-content" style="text-align: center;">
             <tr class="table-row-content">
                 <td><strong><?= i18n("Name")?></strong></td>
                 <td><strong><?= i18n("Series")?></strong></td>
@@ -23,7 +27,7 @@ $view->setVariable("title", "FitnesSuite");
                 <td><strong><?= i18n("View")?></strong></td>
                 <?php foreach ($exercises as $exercise): ?>
             <tr class="table-row-content"
-                data-href="index.php?controller=activities&amp;action=edit&amp;idactivity=<?= $exercise->getExercise()->getId() ?>">
+                data-href="index.php?controller=activities&amp;action=edit&amp;id_exercise=<?= $exercise->getExercise()->getId() ?>">
                 <td><?= $exercise->getExercise()->getName() ?></td>
                 <td><?= $exercise->getSeries() ?></td>
                 <td><?= $exercise->getRepetitions() ?></td>
@@ -33,7 +37,12 @@ $view->setVariable("title", "FitnesSuite");
 
             </tr>
             <?php endforeach; ?>
+
         </table>
+        <spam class="content-title">
+            <strong><?= i18n("Workout tabale ").$table->getName()?></strong><br>
+            <a href="index.php?controller=workout_tables&amp;action=print"><input type='button' value=<?= i18n("Print workout table")?> /></a>
+        </spam>
     </div>
 </main>
 

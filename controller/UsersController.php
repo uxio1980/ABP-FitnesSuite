@@ -10,6 +10,8 @@ require_once(__DIR__."/../core/I18n.php");
 
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
+require_once(__DIR__."/../model/User_table.php");
+require_once(__DIR__."/../model/User_tableMapper.php");
 require_once(__DIR__."/../model/Notification.php");
 require_once(__DIR__."/../model/Notification_user.php");
 require_once(__DIR__."/../model/NotificationMapper.php");

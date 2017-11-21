@@ -23,7 +23,6 @@ $view->setVariable("title", "FitnesSuite");
        <div class="article-footer">
         <div class="tittle-edit">
          <p class="article-box-title"><?= $table->getName() ?></p>
-         <p class="article-box-title"><?= $User ?></p>
         </div>
         <p class="article-box-title"><?= $table->getType() ?></p>
         <p class="article-box-title"><?= $table->getDescription() ?></p>
