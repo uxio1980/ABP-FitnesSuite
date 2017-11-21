@@ -60,7 +60,7 @@ class User_tablesController extends BaseController {
         $id_user = $_REQUEST["login"];
 
         $user = $this->userMapper->findById2($id_user);
-     
+
         if($user->getUser_type() == usertype::AthletePEF){
 
             $workout_tables = $this->user_tableMapper->searchNotAssignedTablesPEF($id_user);
