@@ -15,7 +15,7 @@ $view->setVariable("title", "FitnesSuite");
             <strong><?= i18n("Exercises")?></strong><br>
             <a href="index.php?controller=exercise&amp;action=add"><input type='button' value=<?= i18n("New")?> /></a>
         </div>
-        <table id="table-content" style="text-align: center;">>
+        <table id="table-content" style="text-align: center;">
             <tr class="table-row-content">
                 <td><strong><?= i18n("Name")?></strong></td>
                 <td><strong><?= i18n("Description")?></strong></td>

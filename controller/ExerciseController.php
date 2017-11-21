@@ -16,12 +16,14 @@ require_once(__DIR__."/../controller/BaseController.php");
 class ExerciseController extends BaseController {
 
     private $exerciseMapper;
+    private $userMapper;
     private $date;
     private $currentDate;
 
     public function __construct() {
         parent::__construct();
         $this->exerciseMapper = new ExerciseMapper();
+        $this->userMapper = new UserMapper();
         $this->date = new DateTime();
         $this->currentDate = $this->date->getTimestamp();
     }
@@ -52,6 +54,7 @@ class ExerciseController extends BaseController {
 
         // Recuperar distintas actividades según usuario.
         $exercise = $this->exerciseMapper->findById($id_exercise);
+
         // Recupera el array de rutas a las imágenes.
         $images = json_decode($exercise->getImage());
         $videos = json_encode($exercise->getVideo());
@@ -59,8 +62,9 @@ class ExerciseController extends BaseController {
         if ($exercise == NULL) {
             throw new Exception("->no such exercise with id: ".$id_exercise);
         }
-
+        $user = $this->userMapper->findById2($exercise->getId());
         // put the Activity object to the view
+        $this->view->setVariable("user", $user);
         $this->view->setVariable("exercise", $exercise);
         $this->view->setVariable("images", $images);
         $this->view->setVariable("videos", $videos);
