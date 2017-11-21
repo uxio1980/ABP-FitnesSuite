@@ -177,6 +177,10 @@ class UsersController extends BaseController {
             $user->setName($_POST["name"]);
             $user->setPassword($_POST["password"]);
             $user->setEmail($_POST["email"]);
+            if(isset($_POST["user_type"]) && $_POST["user_type"] != 0){
+                $user->setUser_type($_POST["user_type"]);
+
+            }
             try{
                 $user->checkIsValidForRegister(); // if it fails, ValidationException
 
@@ -192,31 +196,67 @@ class UsersController extends BaseController {
                         $this->notificationUserMapper->save(new Notification_user(NULL, $admin, $not, NULL));
                         $this->userMapper->save($user);
                         $this->view->setFlash("Login " . $user->getLogin() . " successfully added. Please, wait to confirm login.");
+                        $this->view->redirectToReferer();
                     } else{
                         $this->userMapper->save($user);
-                        $this->view->setFlash("Login " . $user->getLogin() . " successfully added. Edit it!");
+                        if($_POST["user_type"] != 0){
+                            $mail = new PHPMailer();
+                            $mail->isSMTP();
+                            $mail->SMTPDebug = 4;
+                            $mail->Host = 'tls://smtp.gmail.com';
+                            $mail->Port = 587;
+                            $mail->SMTPSecure = 'tls';
+                            $mail->SMTPAuth = true;
+                            $mail->AuthType = 'LOGIN';
+                            $mail->Username = 'giraldezcastro@gmail.com';
+                            $mail->Password = 'giraldezcastro1';
+                            $mail->setFrom('giraldezcastro@gmail.com', 'Admin');
+                            $mail->addAddress($user->getEmail(), $user->getLogin());
+                            $mail->Subject = 'FitnesSuite. Usuario confirmado.';
+                            $mail->Body = $user->getName().', '.$user->getSurname().'. Su usuario '.$user->getLogin().' ha sido confirmado. Ya puede iniciar sesión en la app!.';
+                            $mail->AltBody = 'Su usuario ha sido confirmado. Ya puedes iniciar sesión';
+                            if (!$mail->send()) {
+                                echo "Mailer Error: " . $mail->ErrorInfo;
+                                var_dump($mail->ErrorInfo);
+                                exit;
+                            } else {
+                                echo "Message sent!";
+                                $user->setUser_type($_POST["user_type"]);
+                            }
+                        }
+                        $this->view->setFlash("Login " . $user->getLogin() . " successfully added.");
+                        $this->view->redirect("users", "index");
                     }
-                  $this->view->redirectToReferer();
+
                 } else {
                   $errors = array();
                   $errors["general"] = "Login already exist";
                   //$this->view->setVariable("errors", $errors);
                   $this->view->setVariable("loginerrors", $errors, true);
-                  $this->view->redirectToReferer();
+                    $this->view->setVariable("user", $user);
+                    if(!isset($this->currentUser)) {
+                        $this->view->redirectToReferer();
+                    }
                 }
             } catch(ValidationException $ex) {
                 // Get the errors array inside the exepction...
                 $errors = $ex->getErrors();
                 // And put it to the view as "register" errors variable
-                $this->view->setVariable("errors", $errors, true);
-                $this->view->redirectToReferer();
+                if(isset($this->currentUser)) {
+                    $this->view->setVariable("errors", $errors, true);
+                }
+                $this->view->setVariable("user", $user);
+                if(!isset($this->currentUser)) {
+                    $this->view->setVariable("loginerrors", $errors, true);
+                    $this->view->redirectToReferer();
+                }
             }
         }
         // Put the User object visible to the view
         $this->view->setVariable("user", $user);
-
-        // render the view (/view/users/register.php)
-        $this->view->render("users", "add");
+        if(isset($this->currentUser)) {
+            $this->view->render("users", "add");
+        }
     }
 
 
