@@ -291,6 +291,6 @@ ALTER TABLE `user_table`
 ALTER TABLE `workout_table`
   ADD CONSTRAINT `workout_table_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
-CREATE USER IF NOT EXISTS 'fitnessuser'@'localhost' IDENTIFIED BY 'fitnesspass' ;
+CREATE USER 'fitnessuser'@'localhost' IDENTIFIED BY 'fitnesspass' ;
 GRANT USAGE ON *.* TO 'fitnessuser'@'localhost';
 GRANT ALL PRIVILEGES ON `fitnessdb` . * TO 'fitnessuser'@'localhost' ;
