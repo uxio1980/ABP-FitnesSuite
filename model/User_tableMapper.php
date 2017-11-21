@@ -122,7 +122,6 @@ class User_tableMapper {
       return $user_tables;
     }
 
-
     public function findByUser($id_user){
         $stmt = $this->db->prepare("SELECT * FROM workout_table WHERE id IN 
             (SELECT id_workout FROM user_table WHERE id_user=?)");
@@ -139,5 +138,21 @@ class User_tableMapper {
 
         }
         return $tables;
+    }
+
+    public function searchNotAssignedTables($id_user){
+        $stmt = $this->db->prepare("SELECT * FROM workout_table WHERE id NOT IN 
+            (SELECT id_workout FROM user_table WHERE id_user=?)");
+        $stmt->execute(array($id_user));
+        $tables_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $workout_tables = array();
+
+        foreach ($tables_db as $table) {
+            $user = new User();
+            $user->setId($table["id_user"]);
+            array_push($workout_tables, new Workout_table($table["id"],$user,
+                $table["name"],$table["type"], $table["description"]));
+        }
+        return $workout_tables;
     }
 }

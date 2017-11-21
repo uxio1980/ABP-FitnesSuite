@@ -19,7 +19,7 @@ $view->setVariable("title", "FitnesSuite");
                     <img src="resources/icons/delete_icon.svg" alt="Delete"/></strong></a>
             </div>
         </div>
-        <table id="table-content" style="text-align: center;">>
+        <table id="table-content" style="text-align: center;">
             <tr class="table-row-content">
                 <td><strong><?= i18n("Name")?></strong></td>
                 <td><strong><?= i18n("Series")?></strong></td>

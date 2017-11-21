@@ -4,16 +4,16 @@
  require_once(__DIR__."/../../core/ViewManager.php");
  $view = ViewManager::getInstance();
 
- $tables = $view->getVariable("tables");
+ $tables = $view->getVariable("table_exercises");
  $view->setVariable("title", "FitnesSuite");
 ?>
 <main id="main-content">
     <div id="content-list">
         <div class="content-title">
-            <strong><?= i18n("Workout Tables")?></strong><br>
-            <a href="index.php?controller=workout_tables&amp;action=add"><input type='button' value=<?= i18n("New")?> /></a>
+            <strong><?= i18n("Workout Tables of this user")?></strong><br>
+
         </div>
-        <table id="table-content" style="text-align: center;">
+        <table id="table-content" style="text-align: center;"  >
             <tr class="table-row-content">
                 <td><strong><?= i18n("Name")?></strong></td>
                 <td><strong><?= i18n("View")?></strong></td>
