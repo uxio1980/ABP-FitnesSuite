@@ -40,9 +40,6 @@ class Public_InfoController extends BaseController {
     *
     */
     public function index() {
-      if (!isset($this->currentUser)) {
-        throw new Exception("Not in session. Listing public info requires login");
-      }
 
       /*
       // To enable Search input in public info
@@ -55,7 +52,7 @@ class Public_InfoController extends BaseController {
         $public_infos = $this->public_infoMapper->findAll();
       }
       */
-      $public_info = $this->public_infoMapper->findById(0); //Solo tendrá la tupla con id = 0
+      $public_info = $this->public_infoMapper->findById(1); //Solo tendrá la tupla con id = 0
       // put the array containing public info object to the view
       $this->view->setVariable("public_info", $public_info);
 

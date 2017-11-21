@@ -10,7 +10,7 @@ require_once(__DIR__."/../core/PDOConnection.php");
 *
 * @author lipido <lipido@gmail.com>
 */
-class Public_InfoMapper {
+class Public_infoMapper {
   /**
   * Reference to the PDO connection
   * @var PDO
