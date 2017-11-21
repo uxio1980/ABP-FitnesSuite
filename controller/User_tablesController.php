@@ -60,15 +60,21 @@ class User_tablesController extends BaseController {
         $id_user = $_REQUEST["login"];
         $workout_tables = $this->user_tableMapper->searchNotAssignedTables($id_user);
 
+
+        var_dump($_POST["submit"]);
+
         if (isset($_POST["submit"])) { // reaching via HTTP Post...
+
             $user_table = new User_table();
 
+            var_dump($workout_tables);
 
             $user = new User();
 
             $workout_table = new Workout_table();
 
             $user->setId($id_user);
+
             $workout_table->setId($_POST["id_workout"]);
 
             $user_table->setUser($user);
@@ -79,7 +85,7 @@ class User_tablesController extends BaseController {
             try {
 
                 $this->user_tableMapper->save($user_table);
-                var_dump($user_table);
+
 
                 $this->view->redirect("user_tables", "index","login=".$id_user);
 

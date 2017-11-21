@@ -137,6 +137,7 @@ class User_tableMapper {
                 $table["name"],$table["type"],$table["description"]));
 
         }
+
         return $tables;
     }
 
@@ -154,5 +155,11 @@ class User_tableMapper {
                 $table["name"],$table["type"], $table["description"]));
         }
         return $workout_tables;
+    }
+
+    public function save($user_table) {
+        $stmt = $this->db->prepare("INSERT INTO user_table (id, id_workout, id_user) 
+            values (0,?,?)");
+        $stmt->execute(array($user_table->getUser()->getId(),$user_table->getWorkout_table()->getId()));
     }
 }
