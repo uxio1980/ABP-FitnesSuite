@@ -24,7 +24,7 @@
 				<option value=""></option>
 				<?php foreach ($workout_tables as $table): ?>
 				<option value="<?= $table->getId()?>">
-					<?= $table->getId()?></option>
+					<?= $table->getName()?></option>
 				<?php endforeach; ?>
 			</select>
 

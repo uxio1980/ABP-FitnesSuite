@@ -7,13 +7,14 @@ $view = ViewManager::getInstance();
 $table = $view->getVariable("table");
 $exercises = $view->getVariable("exercises");
 $view->setVariable("title", "FitnesSuite");
+$user_table = $view->getVariable("user_table");
 
 ?>
 <main id="main-content">
     <div id="content-list">
         <div class="content-title">
             <strong><?= i18n("Workout tabale ").$table->getName()?></strong><br>
-            <a href="index.php?controller=sessions&amp;action=index"><input type='button' value=<?= i18n("Monitor training session")?> /></a>
+            <a href="index.php?controller=sessions&amp;action=start&amp;id_user_table=<?=$user_table->getId()?>"><input type='button' value=<?= i18n("Monitor training session")?> /></a>
         </div>
         <table id="table-content">
             <tr class="table-row-content">

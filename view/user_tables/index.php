@@ -34,7 +34,7 @@
                         <td><a href="index.php?controller=exercises_table&amp;action=index&amp;id_workout=<?= $table->getId() ?>">
                                 <img src="resources/icons/manage_res.svg" alt="Resources" /></a>
                         </td>
-                        <td><a class="confirmation" href="index.php?controller=workout_tables&amp;action=delete&amp;id_workout=<?= $table->getId() ?>">
+                        <td><a class="confirmation" href="index.php?controller=user_tables&amp;action=delete&amp;id=<?= $table->getId() ?>">
                                 <img src="resources/icons/delete_icon.svg" alt="Delete"/></a>
                         </td>
                         <td><a class="confirmation" href="index.php?controller=workout_tables&amp;action=print&amp;id_workout=<?= $table->getId() ?>">

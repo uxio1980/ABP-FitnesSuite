@@ -61,6 +61,7 @@ class Workout_tablesController extends BaseController {
         }
 
         $id_workout = $_GET["id_workout"];
+        $user_table = $this->user_tableMapper->findByUserAndTable($this->currentUser->getId(),$id_workout);
         // Recuperar distintas actividades según usuario.
         $workout_table = $this->workout_tableMapper->findById($id_workout);
 
@@ -78,7 +79,10 @@ class Workout_tablesController extends BaseController {
         if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Trainer){
             $this->view->render("workout_tables", "view-trainer");
         } else {
+
+            $this->view->setVariable("user_table", $user_table);
             $this->view->render("workout_tables", "view");
+
         }
     }
     public function add() {

@@ -60,14 +60,9 @@ class User_tablesController extends BaseController {
         $id_user = $_REQUEST["login"];
         $workout_tables = $this->user_tableMapper->searchNotAssignedTables($id_user);
 
-
-        var_dump($_POST["submit"]);
-
         if (isset($_POST["submit"])) { // reaching via HTTP Post...
 
             $user_table = new User_table();
-
-            var_dump($workout_tables);
 
             $user = new User();
 
@@ -86,11 +81,12 @@ class User_tablesController extends BaseController {
 
                 $this->user_tableMapper->save($user_table);
 
-
+                var_dump($ex);
                 $this->view->redirect("user_tables", "index","login=".$id_user);
 
 
             }catch(ValidationException $ex) {
+
                 // Get the errors array inside the exepction...
                 $errors = $ex->getErrors();
                 // And put it to the view as "errors" variable
@@ -116,21 +112,20 @@ class User_tablesController extends BaseController {
 
         // Get the exercise object from the database
         $id = $_REQUEST["id"];
-        $exercise_table = $this->exercise_tableMapper->findById($id);
+
+        $user_table = $this->user_tableMapper->findById($id);
 
         // Does the exercise exist?
-        if ($exercise_table == NULL) {
-            throw new Exception("no such exercise with id: ".$id);
+        if ($user_table == NULL) {
+            throw new Exception("no such user table with id: ".$id);
         }else{
-            $this->exercise_tableMapper->delete($exercise_table);
-            $this->view->setFlash(sprintf(i18n("Exercise \"%s\" with name \"%s\" successfully deleted."),
-                $exercise_table->getExercise()->getId(),$exercise_table->getExercise()->getName()));
+            $this->user_tableMapper->delete($user_table);
+            $this->view->setFlash(sprintf(i18n("Table \"%s\" of user \"%s\" successfully deleted."),
+                $user_table->getWorkout_table()->getName(),$user_table->getUser()->getName()));
         }
 
 
-        $this->view->redirect("workout_tables", "index");
+        $this->view->redirect("user_tables", "index");
 
     }
-
-
 }

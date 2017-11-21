@@ -160,6 +160,11 @@ class User_tableMapper {
     public function save($user_table) {
         $stmt = $this->db->prepare("INSERT INTO user_table (id, id_workout, id_user) 
             values (0,?,?)");
-        $stmt->execute(array($user_table->getUser()->getId(),$user_table->getWorkout_table()->getId()));
+        $stmt->execute(array($user_table->getWorkout_table()->getId(),$user_table->getUser()->getId()));
+    }
+
+    public function delete(User_table $user_table) {
+        $stmt = $this->db->prepare("DELETE from user_table WHERE id=?");
+        $stmt->execute(array($user_table->getId()));
     }
 }
