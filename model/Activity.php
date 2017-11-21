@@ -8,16 +8,18 @@ class Activity {
   private $idactivity;
   private $iduser; 
   private $name;   
-  private $description;   
+  private $description;  
+  private $type; 
   private $place;    
   private $seats;  
   private $image;
   
-  public function __construct($idactivity=NULL, $iduser=NULL, $name=NULL, $description=NULL, $place=NULL, $seats=NULL, $image=NULL) {
+  public function __construct($idactivity=NULL, $iduser=NULL, $name=NULL, $description=NULL, $type=NULL, $place=NULL, $seats=NULL, $image=NULL) {
     $this->idactivity = $idactivity;
     $this->iduser = $iduser;
     $this->name = $name;
     $this->description = $description;
+    $this->type = $type;
     $this->place = $place;
     $this->seats = $seats;
     $this->image = $image;
@@ -49,6 +51,14 @@ class Activity {
   
   public function setDescription($description) {
     $this->description = $description;
+  }
+
+  public function getType() {
+    return $this->type;
+  }
+   
+  public function setType($type) {
+    $this->type = $type;
   }
  
   public function getPlace() {

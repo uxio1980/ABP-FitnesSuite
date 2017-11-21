@@ -70,7 +70,7 @@ $view->setVariable("title", "FitnesSuite");
                 <?php if ($next_event->getActivity()->getImage() == NULL):
     						  $pathimage = 'resources/images/_missing-thumbnail.png' ?>
     					  <?php else:
-    						  $pathimage = json_decode($next_event->getActivity()->getImage())[0] ?>
+    						  $pathimage = json_decode($next_event->getActivity()->getImage()[0]) ?>
     					  <?php endif ?>
                 <img src="<?= $pathimage ?>" alt="Image 1">
               </div>

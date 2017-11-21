@@ -32,6 +32,12 @@
 				<?php endforeach; ?>
 			</select>
 
+			<label for="form-field"><?= i18n("Type") ?></label>
+			<select name="type">
+				<option value="1"><?= i18n("Individual") ?></option>
+				<option value="2"><?= i18n("In group") ?></option>
+			</select>
+
 			<label for="form-field"><?= i18n("Place") ?></label>
 			<select name="place">
 				<?php foreach ($places as $place): ?>
