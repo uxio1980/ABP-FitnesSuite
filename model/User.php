@@ -46,14 +46,13 @@ class User {
   private $email;
   private $phone;
   private $dni;
-  private $confirm_date;
   private $description;
   private $profileImage;
   private $user_type;
 
   public function __construct($id=NULL, $login=NULL, $name= NULL,$password=NULL,
   $email=NULL, $description=NULL,$profileImage=NULL, $surname=NULL, $phone=NULL,
-  $dni=NULL, $confirm_date=NULL, $user_type=NULL) {
+  $dni=NULL, $user_type=NULL) {
     $this->id = $id;
     $this->login = $login;
     $this->name = $name;
@@ -64,7 +63,6 @@ class User {
     $this->surname = $surname;
     $this->phone = $phone;
     $this->dni = $dni;
-    $this->confirm_date = $confirm_date;
     $this->user_type = $user_type;
   }
 
@@ -106,10 +104,6 @@ class User {
 
   public function getDni() {
     return $this->dni;
-  }
-
-  public function getConfirm_date() {
-    return $this->confirm_date;
   }
 
   public function getUser_type() {
@@ -156,9 +150,6 @@ class User {
     $this->dni = $dni;
   }
 
-  public function setConfirm_date($confirm_date) {
-    $this->confirm_date = $confirm_date;
-  }
 
   public function setUser_type($user_type) {
     $this->user_type = $user_type;
@@ -186,6 +177,9 @@ class User {
     }
     if (strlen($this->email) < 5) {
       $errors["register-email"] = "You must write your email";
+    }
+    if (strlen($this->user_type) == 0) {
+          $errors["register-type"] = "You must specify a user type";
     }
     if (sizeof($errors)>0){
       throw new ValidationException($errors, "user is not valid");
