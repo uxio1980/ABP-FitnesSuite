@@ -58,7 +58,18 @@ class User_tablesController extends BaseController {
             throw new Exception("An user id is required");
         }
         $id_user = $_REQUEST["login"];
-        $workout_tables = $this->user_tableMapper->searchNotAssignedTables($id_user);
+
+        $user = $this->userMapper->findById2($id_user);
+     
+        if($user->getUser_type() == usertype::AthletePEF){
+
+            $workout_tables = $this->user_tableMapper->searchNotAssignedTablesPEF($id_user);
+        }else{
+            if($user->getUser_type() == usertype::AthletePEF){
+                $workout_tables = $this->user_tableMapper->searchNotAssignedTablesTDU($id_user);
+            }
+        }
+
 
         if (isset($_POST["submit"])) { // reaching via HTTP Post...
 
@@ -81,7 +92,6 @@ class User_tablesController extends BaseController {
 
                 $this->user_tableMapper->save($user_table);
 
-                var_dump($ex);
                 $this->view->redirect("user_tables", "index","login=".$id_user);
 
 
@@ -111,7 +121,7 @@ class User_tablesController extends BaseController {
         }
 
         // Get the exercise object from the database
-        $id = $_REQUEST["id"];
+        $id = $_REQUEST["id_workout"];
 
         $user_table = $this->user_tableMapper->findById($id);
 
@@ -123,7 +133,6 @@ class User_tablesController extends BaseController {
             $this->view->setFlash(sprintf(i18n("Table \"%s\" of user \"%s\" successfully deleted."),
                 $user_table->getWorkout_table()->getName(),$user_table->getUser()->getName()));
         }
-
 
         $this->view->redirect("user_tables", "index");
 

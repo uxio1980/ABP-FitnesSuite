@@ -119,6 +119,21 @@ class UserMapper {
         }
       }
 
+    public function findById2($userlogin){
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE id=?");
+        $stmt->execute(array($userlogin));
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($user != null) {
+            return new User($user["id"],$user["login"],$user["name"],$user["password"],
+                $user["email"], $user["description"], $user["profile_image"],
+                $user["surname"], $user["phone"], $user["dni"], $user["confirm_date"],
+                $user["user_type"]);
+        } else {
+            return NULL;
+        }
+    }
+
       /**
       * Retrieves all trainers
       *
