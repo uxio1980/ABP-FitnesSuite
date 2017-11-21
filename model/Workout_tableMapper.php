@@ -82,8 +82,9 @@ class Workout_tableMapper {
     }
 
     public function update($workout_table) {
-        $stmt = $this->db->prepare("UPDATE workout_table set id=?,id_user=?, name=?, type=?, description=? where id=?");
-        $stmt->execute(array($workout_table->getId(),$workout_table->getUser()->getId(),$workout_table->getName(), $workout_table->getType(),$workout_table->getDescription()));
+        $stmt = $this->db->prepare("UPDATE workout_table set id=?,id_user=?, name=?,
+                                              type=?, description=? where id=?");
+        $stmt->execute(array($workout_table->getId(),$workout_table->getUser()->getId(),$workout_table->getName(), $workout_table->getType(),$workout_table->getDescription(),$workout_table->getId()));
     }
 
     public function delete($workout_table) {
