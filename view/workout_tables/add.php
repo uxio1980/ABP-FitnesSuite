@@ -15,7 +15,7 @@
 		 enctype="multipart/form-data">
 			<strong><?= i18n("Add workout table") ?></strong>
 			<label for="form-field"><?= i18n("Name") ?></label>
-			<input type="text" name="name" minlength="2" maxlength="45" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ ]+" title="Formato incorrecto" required >
+			<input type="text" name="name" minlength="2" maxlength="45" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ 0-9]+" title="Formato incorrecto" required >
 			<?= isset($errors["name"])?$errors["name"]:"" ?>
 
            <label for="form-field"><?= i18n("Type") ?></label>
