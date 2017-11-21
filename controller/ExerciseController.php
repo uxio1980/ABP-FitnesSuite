@@ -104,7 +104,7 @@ class ExerciseController extends BaseController {
                 $images = array();
                 $img_tmp = array();
                 for ($i = 0; $i < count($_FILES['images']['name']); $i++) {
-                    $tmpImgFilePath = $_FILES['images']['tmp_img_name'][$i];
+                    $tmpImgFilePath = $_FILES['images']['tmp_name'][$i];
                     if ($tmpImgFilePath != "") {
                         $fileImgPath = $dir_img_load . date('d-m-Y-H-i-s') . '-' . $_FILES['images']['name'][$i];
                         array_push($images, $fileImgPath);
