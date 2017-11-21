@@ -12,7 +12,7 @@ $view->setVariable("title", "FitnesSuite");
 <main id="main-content">
     <div id="content-list">
         <div class="content-title">
-            <strong><?= i18n("Workout tabale ")."\t".$table->getName()?></strong><br>
+            <strong><?= i18n("Workout tabale ").$table->getName()?></strong><br>
             <a href="index.php?controller=sessions&amp;action=index"><input type='button' value=<?= i18n("Monitor training session")?> /></a>
         </div>
         <table id="table-content">
@@ -33,7 +33,12 @@ $view->setVariable("title", "FitnesSuite");
 
                     </tr>
             <?php endforeach; ?>
+
         </table>
+        <spam class="content-title">
+            <strong><?= i18n("Workout tabale ").$table->getName()?></strong><br>
+            <a href="index.php?controller=workout_tables&amp;action=print"><input type='button' value=<?= i18n("Print workout table")?> /></a>
+        </spam>
     </div>
 </main>
 

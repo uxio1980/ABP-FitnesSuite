@@ -55,11 +55,14 @@ class Exercise_tableMapper {
     public function findById($id) {
         $stmt = $this->db->prepare("SELECT * FROM exercise_table WHERE id=?");
         $stmt->execute(array($id));
-        $exercise = $stmt->fetch(PDO::FETCH_ASSOC);
+        $exercise_table = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($exercise != null) {
-            return new Exercise_table($exercise["id"],$exercise["id_exercise"],
-                $exercise["id_workout"],$exercise["series"],$exercise["repetitions"]);
+        if($exercise_table != null) {
+            $exerciseMapper  = new ExerciseMapper();
+            $exercise_db = $exerciseMapper->findById($exercise_table["id_exercise"]);
+
+            return new Exercise_table($exercise_table["id"],$exercise_db,
+                $exercise_table["id_workout"],$exercise_table["series"],$exercise_table["repetitions"]);
         } else {
             return NULL;
         }
@@ -68,13 +71,13 @@ class Exercise_tableMapper {
     public function save($exercise_table) {
         $stmt = $this->db->prepare("INSERT INTO exercise_table (id, id_exercise, id_workout, series, repetitions) 
             values (0,?,?,?,?)");
-        $stmt->execute(array($exercise_table->getExercise(),$exercise_table->getWorkout(),$exercise_table->getSeries(),$exercise_table->getRepetitions()));
+        $stmt->execute(array($exercise_table->getExercise()->getId(),$exercise_table->getWorkout(),$exercise_table->getSeries(),$exercise_table->getRepetitions()));
     }
 
     public function update($exercise_table) {
         $stmt = $this->db->prepare("UPDATE exercise_table set id=?,id_exercise=?,
             id_workout=?, series=?, repetitions=?");
-        $stmt->execute(array($exercise_table->getId(),$exercise_table->getExercise(),
+        $stmt->execute(array($exercise_table->getId(),$exercise_table->getExercise()->getId(),
             $exercise_table->getWorkout(),$exercise_table->getSeries(),$exercise_table->getRepetitions()));
     }
 
