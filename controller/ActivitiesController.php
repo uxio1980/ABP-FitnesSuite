@@ -165,6 +165,7 @@ class ActivitiesController extends BaseController {
       $activity->setIduser($_POST["id_user"]);
       $activity->setName($_POST["name"]);
       $activity->setDescription($_POST["description"]);
+      $activity->setType($_POST["type"]);
       $activity->setPlace($_POST["place"]);
       $activity->setSeats($_POST["seats"]);
       // Asigna a la variable image un array con las rutas a todas las imágenes.
@@ -216,7 +217,9 @@ class ActivitiesController extends BaseController {
     $this->view->setVariable("places", $places);
 
     // render the view (/view/activitys/add.php)
-    $this->view->render("activities", "add");
+    if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
+      $this->view->render("activities", "add");
+    }
 
   }
 
@@ -279,6 +282,7 @@ class ActivitiesController extends BaseController {
       $activity->setIduser($_POST["id_user"]);
       $activity->setName($_POST["name"]);
       $activity->setDescription($_POST["description"]);
+      $activity->setType($_POST["type"]);
       $activity->setPlace($_POST["place"]);
       $activity->setSeats($_POST["seats"]);
 
@@ -341,7 +345,9 @@ class ActivitiesController extends BaseController {
     $this->view->setVariable("trainers", $trainers);
 
     // render the view (/view/activitys/add.php)
-    $this->view->render("activities", "edit");
+    if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
+      $this->view->render("activities", "edit");
+    }
   }
 
   /**

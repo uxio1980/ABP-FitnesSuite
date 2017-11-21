@@ -5,7 +5,7 @@ require_once(__DIR__."/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 
 $exercises = $view->getVariable("exercises");
-
+$images = $view->getVariable("images");
 $view->setVariable("title", "FitnesSuite");
 
 ?>

@@ -38,6 +38,13 @@
           </div>
         </div>
             <p class="article-detail"><?= $activity->getDescription()?></p>
+            <?= i18n("Type")?>: <p class="article-detail">
+                <?php if($activity->getType()==1): ?>
+                    <?= i18n("Individual")?>
+                <?php else: ?>
+                    <?= i18n("In group")?>
+                <?php endif ?>
+            </p>
             <?= i18n("Place")?>: <p class="article-detail"><?= $place->getName() ?></p>
             <?= i18n("Trainer")?>: <p class="article-detail"><?= $trainer ?></p>
             <?= i18n("Seats")?>: <p class="article-detail"><?= $activity->getSeats()?></p>

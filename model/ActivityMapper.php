@@ -35,7 +35,7 @@ class ActivityMapper {
 
         if($activity != null) {
             return new activity($activity["id"],$activity["id_user"],$activity["name"],$activity["description"], 
-            $activity["place"],$activity["seats"], $activity["image"]);
+            $activity["type"],$activity["place"],$activity["seats"], $activity["image"]);
         } else {
             return NULL;
         }
@@ -53,8 +53,8 @@ class ActivityMapper {
         $activities = array();
 
         foreach ($activities_db as $activity) {
-            array_push($activities, new activity($activity["id"],$activity["id_user"],$activity["name"],
-            $activity["description"], $activity["place"],$activity["seats"],$activity["image"]));
+            array_push($activities, new activity($activity["id"],$activity["id_user"],$activity["name"],$activity["description"],
+                $activity["type"],$activity["place"],$activity["seats"],$activity["image"]));
         }
         return $activities;
     }
@@ -67,10 +67,10 @@ class ActivityMapper {
     * @return void $login=NULL, $name= NULL,$password=NULL, $email=NULL, $description=NULL
     */
     public function save($activity) {
-    $stmt = $this->db->prepare("INSERT INTO activity (id, id_user, name, description, place,
-        seats, image) values (0,?,?,?,?,?,?)");
+    $stmt = $this->db->prepare("INSERT INTO activity (id, id_user, name, description, type, place,
+        seats, image) values (0,?,?,?,?,?,?,?)");
         $stmt->execute(array($activity->getIduser(),$activity->getName(),$activity->getDescription(),
-        $activity->getPlace(),$activity->getSeats(),$activity->getImage()));
+        $activity->getType(),$activity->getPlace(),$activity->getSeats(),$activity->getImage()));
     }
 
     /**
@@ -82,9 +82,9 @@ class ActivityMapper {
     */
     public function update(Activity $activity) {
         $stmt = $this->db->prepare("UPDATE activity set id=?, id_user=?,
-            name=?, description=?, place=?, seats=?, image=? where id=?");
+            name=?, description=?, type=?, place=?, seats=?, image=? where id=?");
             $stmt->execute(array($activity->getIdactivity(), $activity->getIduser(), $activity->getName(),
-            $activity->getDescription(), $activity->getPlace(),
+            $activity->getDescription(), $activity->getType(), $activity->getPlace(),
             $activity->getSeats(), $activity->getImage(), $activity->getIdactivity()));
     }
 

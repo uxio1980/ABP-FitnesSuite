@@ -85,7 +85,7 @@ class Workout_table {
     $errors = array();
 
     try{
-      $this->checkIsValidForRegister();
+
     }catch(ValidationException $ex) {
       foreach ($ex->getErrors() as $key=>$error) {
         $errors[$key] = $error;
