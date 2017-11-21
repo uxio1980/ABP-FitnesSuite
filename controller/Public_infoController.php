@@ -2,8 +2,8 @@
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../core/I18n.php");
 
-require_once(__DIR__."/../model/Public_Info.php");
-require_once(__DIR__."/../model/Public_InfoMapper.php");
+require_once(__DIR__."/../model/Public_info.php");
+require_once(__DIR__."/../model/Public_infoMapper.php");
 
 require_once(__DIR__."/../controller/BaseController.php");
 /**
