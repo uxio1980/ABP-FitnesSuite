@@ -54,7 +54,9 @@ class ResourcesController extends BaseController {
     $this->view->setVariable("resource", $resource);
 
     // render the view (/view/resources/view.php)
-    $this->view->render("resources", "view");
+    if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
+      $this->view->render("resources", "view");
+    }
 
   }
 
@@ -89,7 +91,9 @@ class ResourcesController extends BaseController {
     }
 
     // render the view (/view/resources/add.php)
-    $this->view->render("resources", "add_res");
+    if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
+      $this->view->render("resources", "add_res");
+    }
 
   }
 
@@ -124,7 +128,9 @@ class ResourcesController extends BaseController {
     }
 
     // render the view (/view/resources/add.php)
-    $this->view->render("resources", "add_place");
+    if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
+      $this->view->render("resources", "add_place");
+    }
 
   }
 
@@ -179,7 +185,9 @@ class ResourcesController extends BaseController {
     $this->view->setVariable("resource", $resource);
 
     // render the view (/view/resources/add.php)
+    if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
     $this->view->render("resources", "edit");
+    }
   }
 
   /**

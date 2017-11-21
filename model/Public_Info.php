@@ -1,7 +1,7 @@
 <?php
 require_once(__DIR__."/../core/ValidationException.php");
 
-class Public_Info {
+class Public_info {
   private $id;
   private $phone;
   private $email;

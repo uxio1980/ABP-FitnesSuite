@@ -4,8 +4,8 @@
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
 
-require_once(__DIR__."/../model/Public_Info.php");
-require_once(__DIR__."/../model/Public_InfoMapper.php");
+require_once(__DIR__."/../model/Public_info.php");
+require_once(__DIR__."/../model/Public_infoMapper.php");
 
 require_once(__DIR__."/../model/Notification_user.php");
 require_once(__DIR__."/../model/Notification_userMapper.php");
@@ -33,7 +33,7 @@ class MainController extends BaseController {
 
   public function __construct() {
     parent::__construct();
-    $this->public_infoMapper = new Public_InfoMapper();
+    $this->public_infoMapper = new Public_infoMapper();
     $this->activityMapper = new ActivityMapper();
     $this->activity_scheduleMapper = new Activity_scheduleMapper();
     $this->date = new DateTime();
@@ -66,7 +66,7 @@ $next_events = $this->activity_scheduleMapper->search2NextEvents();
 $imagesNextEvents  = array();
   foreach ($next_events as $next_event) {
 
-  
+
   }
 $this->view->setVariable("next_events", $next_events);
 $notification=NULL;
@@ -97,7 +97,7 @@ public function aboutus() {
 */
 public function pricing() {
 
-  $public_info = $this->public_infoMapper->findById(0); //Solo tendrá la tupla con id = 0
+  $public_info = $this->public_infoMapper->findById(1); //Solo tendrá la tupla con id = 0
   // put the array containing public info object to the view
   $this->view->setVariable("public_info", $public_info);
   // render the view (/view/main/pricing.php)
@@ -112,7 +112,7 @@ public function pricing() {
 *
 */
 public function contact() {
-  $public_info = $this->public_infoMapper->findById(0); //Solo tendrá la tupla con id = 0
+  $public_info = $this->public_infoMapper->findById(1); //Solo tendrá la tupla con id = 0
   // put the array containing public info object to the view
   $this->view->setVariable("public_info", $public_info);
   // render the view (/view/main/contact.php)
@@ -128,7 +128,7 @@ public function contact() {
 public function sendmail() {
 
   if (isset($_POST["submit"])) {
-    $public_info = $this->public_infoMapper->findById(0);
+    $public_info = $this->public_infoMapper->findById(1);
 
     // populate the mail data
     $name = $_POST["name"];

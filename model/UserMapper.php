@@ -29,11 +29,11 @@ class UserMapper {
   */
   public function save($user) {
     $stmt = $this->db->prepare("INSERT INTO user (id, login, name, password, email,
-      description, profile_image, surname, phone, dni, confirm_date, user_type) values (0,?,?,?,?,?,?,?,?,?,?,?)");
+      description, profile_image, surname, phone, dni, user_type) values (0,?,?,?,?,?,?,?,?,?,?)");
       $stmt->execute(array($user->getLogin(), $user->getName(),
       $user->getPassword(), $user->getEmail(), $user->getDescription(),
       $user->getProfileImage(), $user->getSurname(), $user->getPhone(),
-      $user->getDni(), $user->getConfirm_date(), $user->getUser_type()));
+      $user->getDni(), $user->getUser_type()));
     }
 
     /**
@@ -46,11 +46,10 @@ class UserMapper {
     public function update(User $user) {
       $stmt = $this->db->prepare("UPDATE user set login=?, name=?,
         password=?, email=?, description=?, profile_image=?, surname=?, phone=?,
-        dni=?, confirm_date=?, user_type=? where login=?");
+        dni=?, user_type=? where login=?");
         $stmt->execute(array($user->getLogin(), $user->getName(), $user->getPassword(),
         $user->getEmail(), $user->getDescription(), $user->getProfileImage(),
-        $user->getSurname(), $user->getPhone(), $user->getDni(),
-        $user->getConfirm_date(), $user->getUser_type(),
+        $user->getSurname(), $user->getPhone(), $user->getDni(), $user->getUser_type(),
         $user->getLogin()));
       }
 
@@ -112,12 +111,26 @@ class UserMapper {
         if($user != null) {
           return new User($user["id"],$user["login"],$user["name"],$user["password"],
           $user["email"], $user["description"], $user["profile_image"],
-          $user["surname"], $user["phone"], $user["dni"], $user["confirm_date"],
+          $user["surname"], $user["phone"], $user["dni"],
           $user["user_type"]);
         } else {
           return NULL;
         }
       }
+    public function findById2($id){
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE id=?");
+        $stmt->execute(array($id));
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($user != null) {
+            return new User($user["id"],$user["login"],$user["name"],$user["password"],
+                $user["email"], $user["description"], $user["profile_image"],
+                $user["surname"], $user["phone"], $user["dni"],
+                $user["user_type"]);
+        } else {
+            return NULL;
+        }
+    }
 
     public function findById2($userlogin){
         $stmt = $this->db->prepare("SELECT * FROM user WHERE id=?");
@@ -174,7 +187,7 @@ class UserMapper {
         foreach ($athlets_db as $athlet) {
             array_push($athlets, new User($athlet["id"],$athlet["login"],$athlet["name"],NULL,
                 $athlet["email"], $athlet["description"], $athlet["profile_image"],
-                $athlet["surname"], $athlet["phone"], $athlet["dni"], $athlet["confirm_date"],
+                $athlet["surname"], $athlet["phone"], $athlet["dni"],
                 $athlet["user_type"]));
         }
         return $athlets;
@@ -195,7 +208,7 @@ class UserMapper {
         if($admin != null) {
             return new User($admin["id"],$admin["login"],$admin["name"],$admin["password"],
                 $admin["email"], $admin["description"], $admin["profile_image"],
-                $admin["surname"], $admin["phone"], $admin["dni"], $admin["confirm_date"],
+                $admin["surname"], $admin["phone"], $admin["dni"],
                 $admin["user_type"]);
         } else {
             return NULL;
@@ -216,7 +229,7 @@ class UserMapper {
         foreach ($users_db as $user) {
           array_push($users, new User($user["id"],$user["login"],$user["name"],$user["password"],
           $user["email"], $user["description"], $user["profile_image"],
-          $user["surname"], $user["phone"], $user["dni"], $user["confirm_date"],
+          $user["surname"], $user["phone"], $user["dni"],
           $user["user_type"]));
         }
         return $users;
@@ -236,7 +249,7 @@ class UserMapper {
         foreach ($users_db as $user) {
             array_push($users, new User($user["id"],$user["login"],$user["name"],$user["password"],
                 $user["email"], $user["description"], $user["profile_image"],
-                $user["surname"], $user["phone"], $user["dni"], $user["confirm_date"],
+                $user["surname"], $user["phone"], $user["dni"],
                 $user["user_type"]));
         }
         return $users;

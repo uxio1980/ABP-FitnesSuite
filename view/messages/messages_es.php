@@ -146,6 +146,8 @@
     "Athlets" => "Deportistas",
 	"Asign Table" => "Asignar Tabla",
 	"View Tables" => "Ver Tablas",
-	"Pending" => "Pendientes"
+  "Pending" => "Pendientes",
+  "Individual" => "Individual",
+  "In group" => "En grupo",
   )
 ?>

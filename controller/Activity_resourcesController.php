@@ -107,7 +107,9 @@ class Activity_resourcesController extends BaseController {
     $this->view->setVariable("resources", $resources);
 
     // render the view (/view/activitys/add.php)
-    $this->view->render("activity_resources", "add");
+    if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
+      $this->view->render("activity_resources", "add");
+    }
   }
 
   public function edit() {
@@ -157,7 +159,9 @@ class Activity_resourcesController extends BaseController {
     $this->view->setVariable("activity_resource", $activity_resource);
 
     // render the view (/view/activitys/add.php)
-    $this->view->render("activity_resources", "edit");
+    if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
+      $this->view->render("activity_resources", "edit");
+    }
   }
 
   public function delete() {
