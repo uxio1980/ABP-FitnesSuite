@@ -223,9 +223,17 @@ class SessionsController extends BaseController {
       if (!isset($this->currentUser)) {
         throw new Exception("Not in session. Adding sessions requires login");
       }
+
+      if(isset($_REQUEST["id_user_table"])){
+          $id_user_table = $_REQUEST["id_user_table"];
+
+          $user_table = $this->user_tableMapper->findById($id_user_table);
+
+      }
       $user_tables = $this->user_tableMapper->searchAll($this->currentUser->getId());
 
       // Put the Session object visible to the view
+      $this->view->setVariable("user_table", $user_table);
       $this->view->setVariable("user_tables", $user_tables);
 
       // render the view (/view/sessions/add.php)

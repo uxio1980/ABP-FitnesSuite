@@ -32,10 +32,10 @@ $view->setVariable("title", "FitnesSuite");
                 <td><?= $user->getSurname() ?></td>
                 <td><?= $user->getEmail() ?></td>
                 <td><?= $user->getPhone() ?></td>
-                <td><a href="index.php?controller=table&amp;action=add&amp;login=<?= $user->getLogin() ?>">
+                <td><a href="index.php?controller=user_tables&amp;action=add&amp;login=<?= $user->getId() ?>">
                         <img src="resources/icons/ic_exercices_table.png" alt="Add table" /></a>
                 </td>
-                <td><a href="index.php?controller=table&amp;action=index&amp;login=<?= $user->getLogin() ?>">
+                <td><a href="index.php?controller=user_tables&amp;action=index&amp;login=<?= $user->getId() ?>">
                         <img src="resources/icons/ic_visibility_black_24px.svg" alt="View Table"/></a>
                 </td>
             </tr>

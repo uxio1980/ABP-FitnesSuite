@@ -6,16 +6,19 @@ $currentuser = $view->getVariable("currentusername");
 $user_tables = $view->getVariable("user_tables");
 $activity = $view->getVariable("activity");
 $errors = $view->getVariable("errors");
-
+$user_table_for_id = $view->getVariable("user_table");
 $view->setVariable("title", "Start Session");
 
 ?>
 <main id="main-content">
+
   <div class="form classes-box session-box background-color2">
     <label for="login-field"><?= i18n("Workout table")?></label>
     <select id="select_user_table" name="user_table">
-    <?php foreach ($user_tables as $user_table): ?>
-      <option value=<?= $user_table->getId()?>><?= $user_table->getWorkout_table()->getName()?></option>
+
+    <?php foreach ($user_tables as $user_table):  ?>
+
+      <option <?=(isset($user_table_for_id) && $user_table_for_id->getId()==$user_table->getId())?'selected="selected"':''?> value=<?= $user_table->getId()?>><?= $user_table->getWorkout_table()->getName()?></option>
     <?php endforeach; ?>
     </select>
     <?= isset($errors["user_type"])?$errors["user_type"]:"" ?><br>
