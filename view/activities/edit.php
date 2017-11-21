@@ -27,15 +27,15 @@
 			<?= isset($errors["description"])?$errors["description"]:"" ?><br>
 
             <label for="form-field"><?= i18n("Trainer") ?></label>
-			<select name="id_user">
+			<select name="id_user" required="true">
 				<?php foreach ($trainers as $trainer): ?>
-				<option <?=($activity->getIduser()==$trainer->getId())?'selected="selected"':''?> 
+				<option <?=($activity->getIduser()==$trainer->getId())?'selected="selected"':''?>
 					value="<?= $trainer->getId()?>"><?= $trainer->getName()?></option>
 				<?php endforeach; ?>
 			</select>
 
 			<label for="form-field"><?= i18n("Type") ?></label>
-			<select name="type">
+			<select name="type" required="true">
 				<option <?=($activity->getType()==1)?'selected="selected"':''?>
 					value="1"><?= i18n("Individual") ?></option>
 				<option <?=($activity->getType()==2)?'selected="selected"':''?>
@@ -43,9 +43,9 @@
 			</select>
 
 			<label for="form-field"><?= i18n("Place") ?></label>
-			<select name="place">
+			<select name="place" required="true">
 				<?php foreach ($places as $place): ?>
-				<option <?=($activity->getPlace()==$place->getIdresource())?'selected="selected"':''?> 
+				<option <?=($activity->getPlace()==$place->getIdresource())?'selected="selected"':''?>
 					value="<?= $place->getIdresource()?>"><?= $place->getName()?></option>
 				<?php endforeach; ?>
 			</select>
