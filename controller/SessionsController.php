@@ -280,16 +280,13 @@ class SessionsController extends BaseController {
       // populate the session object with data form the form
       $date_now = $_POST["date_now"];
       $duration = $_POST["duration"];
-      $date = strtotime($duration);
-      $hour =  date('H', ($date+1));
-      $mints = date('i', ($date));
-      $seconds = date('s', ($date));
+      $duration = new DateTime($duration);
+      $duration = $duration->format("H:i:s");
       $session->setUser($this->currentUser);
       $id_user_table = $_POST["user_table"];
       $user_table = $this->user_tableMapper->findById($id_user_table);
       $session->setUser_table($user_table);
       $session->setDate($date_now);
-      $duration = date("H:i:s", strtotime($hour.':'.$mints.':'.$seconds));
       $session->setDuration($duration);
       if (isset($_POST["submit"])) { // reaching via HTTP Post...
         try {
