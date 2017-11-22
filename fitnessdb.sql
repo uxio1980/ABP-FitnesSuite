@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `fitnessdb`; 
+CREATE DATABASE  IF NOT EXISTS `fitnessdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;; 
 USE `fitnessdb`;
 
 DROP TABLE IF EXISTS `activity`;
@@ -11,14 +11,14 @@ CREATE TABLE `activity` (
   `place` int(11) DEFAULT NULL,
   `seats` int(11) NOT NULL,
   `image` mediumtext
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
 
 INSERT INTO `activity` (`id`, `id_user`, `name`, `description`, `type`, `place`, `seats`, `image`) VALUES
 (1, 2, 'Atletismo Entrada individual', 'O Campus de Ourense conta cunha pista de atletismo onde se poderán practicar as actividades atléticas de carreiras e saltos.', 1, 2, 20, '["resources\\/images\\/21-11-2017-18-59-39-atletismo.jpg"]'),
 (2, 2, 'Bailes', '1.- Destinatarias:Persoas con abono Muver, abono ponte en Forma ou cunha entrada multideporte.', 2, 4, 30, '["resources\\/images\\/21-11-2017-19-02-03-pic10.jpg"]'),
 (3, 3, 'Ciclo indoor', 'Horario e duración da actividade:\\r\\nImpartiranse catro clases semanais desta actividade dende o 2 de novembro ao 31 de maio (agás periodos non lectivos) nos seguintes horarios:\\r\\n- Luns, martes, mércores e xoves de 21:15 a 22:15 h.', 2, 6, 24, '["resources\\/images\\/21-11-2017-19-03-45-pic3.jpg"]'),
 (4, 2, 'Circuit Fit', 'Horario e duración da actividade:Impartiranse dúas clases semanais desta actividade dende o 2 de outubro ao 31 de maio (agás nos periodos non lectivos) no seguinte horario:\\r\\n- Luns e mércores de 19:15 a 20:15 h', 2, 4, 30, NULL),
-(5, 3, 'Voleibol IniciaciÃ³n', '1. Descrición da actividade:Iniciación o deporte de volei pista. ', 2, 3, 30, '["resources\\/images\\/21-11-2017-19-05-36-voleibol.jpg"]'),
+(5, 3, 'Voleibol Iniciación', '1. Descrición da actividade:Iniciación o deporte de volei pista. ', 2, 3, 30, '["resources\\/images\\/21-11-2017-19-05-36-voleibol.jpg"]'),
 (6, 3, 'Zumba', ' Horario e duración da actividade:Impartirase dúas clases semanais desta actividade dende o 23 de outubro e o 31 de maio (agás nos periodos non lectivos) no seguinte horario:\\r\\n- Martes e xoves de 20:15 a 21:15 h.', 2, 4, 30, '["resources\\/images\\/21-11-2017-19-17-00-zumba2.jpg"]'),
 (7, 2, 'Sala CardioFitness Entrada Individual', 'O Campus de Ourense conta, no interior do pavillón universitario, cunha sala cardio-fitness completamente equipada para o desenvolvemento de diferentes actividades de fitness.', 1, 4, 60, '["resources\\/images\\/21-11-2017-19-06-55-pic9.jpg","resources\\/images\\/21-11-2017-19-06-55-pic16.jpg","resources\\/images\\/21-11-2017-19-06-55-single_class.jpg"]');
 
@@ -29,7 +29,7 @@ CREATE TABLE `activity_resource` (
   `id_activity` int(11) DEFAULT NULL,
   `id_resource` int(11) DEFAULT NULL,
   `quantity` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
 
 INSERT INTO `activity_resource` (`id`, `id_activity`, `id_resource`, `quantity`) VALUES
 (1, 3, 7, 15),
@@ -44,7 +44,7 @@ CREATE TABLE `activity_schedule` (
   `date` date NOT NULL,
   `start_hour` time NOT NULL,
   `end_hour` time NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
 
 INSERT INTO `activity_schedule` (`id`, `id_activity`, `date`, `start_hour`, `end_hour`) VALUES
 (1, 6, '2017-11-21', '18:30:00', '19:30:00'),
@@ -115,18 +115,18 @@ CREATE TABLE `assistance` (
   `id_userActivity` int(11) DEFAULT NULL,
   `date` datetime NOT NULL,
   `assist` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
 
 DROP TABLE IF EXISTS `exercise`;
 CREATE TABLE `exercise` (
   `id` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
-  `description` mediumtext NOT NULL,
+  `description` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,
   `image` mediumtext,
   `video` mediumtext
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
 
 INSERT INTO `exercise` (`id`, `id_user`, `name`, `description`, `type`, `image`, `video`) VALUES
 (1, 1, 'Mountain Climbers', 'Para realizar los mountain climbers de manera perfecta, debemos seguir estos pasos al pie de la letra.\r\n\r\nColócate en posición de puente, como si fueses a realizar una flexión o largatija. Para ello apoya las palmas de la mano sobre el suelo al igual que las puntas de los pies. Con esta posición, el cuerpo debe simular una tabla, por lo que la espalda debe mantenerse recta en todo momento.\r\nA continuación, empezaremos a realizar las elevaciones de rodillas, procurando que estas lleguen a la altura del pecho. Haremos un levantamiento por lado, lo que cuenta como una repetición.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-09-03-ejer1.jpg"]', 'https://www.youtube.com/watch?time_continue=1&v=lD_gfTofg4A'),
@@ -146,7 +146,7 @@ CREATE TABLE `exercise_table` (
   `id_workout` int(11) DEFAULT NULL,
   `series` int(11) DEFAULT NULL,
   `repetitions` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
 
 INSERT INTO `exercise_table` (`id`, `id_exercise`, `id_workout`, `series`, `repetitions`) VALUES
 (1, 2, 1, 2, 5),
@@ -165,7 +165,7 @@ CREATE TABLE `notification` (
   `date` datetime NOT NULL,
   `title` varchar(45) NOT NULL,
   `content` mediumtext NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
 
 INSERT INTO `notification` (`id`, `id_user`, `date`, `title`, `content`) VALUES
 (1, 1, '2017-11-21 00:00:00', 'Clase cancelada', 'La clase de zumba ha sido cancelada'),
@@ -177,7 +177,7 @@ CREATE TABLE `notification_user` (
   `id_user` int(11) DEFAULT NULL,
   `id_notification` int(11) DEFAULT NULL,
   `viewed` date DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
 
 INSERT INTO `notification_user` (`id`, `id_user`, `id_notification`, `viewed`) VALUES
 (1, 1, 2, '2017-11-23');
@@ -189,7 +189,7 @@ CREATE TABLE `public_info` (
   `phone` int(11) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `address` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
 
 INSERT INTO `public_info` (`id`, `phone`, `email`, `address`) VALUES
 (1, 649555555, 'mail@mail.com', 'descriptuoin');
@@ -198,10 +198,10 @@ DROP TABLE IF EXISTS `resource`;
 CREATE TABLE `resource` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `description` mediumtext NOT NULL,
+  `description` varchar(45) NOT NULL,
   `quantity` int(11) NOT NULL,
   `type` tinyint(4) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
 
 INSERT INTO `resource` (`id`, `name`, `description`, `quantity`, `type`) VALUES
 (1, 'Campo de herba sintÃ©tica', 'O Campus de Ourense conta cun campo de herba sintÃ©tica para a prÃ¡ctica do fÃºtbol (7, 8 e 11) e do rugby.', 1, 2),
@@ -223,7 +223,7 @@ CREATE TABLE `session` (
   `date` datetime NOT NULL,
   `duration` time NOT NULL,
   `comment` mediumtext
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
 
 INSERT INTO `session` (`id`, `id_user`, `id_table`, `date`, `duration`, `comment`) VALUES
 (1, 5, 2, '2017-11-22 12:51:00', '01:00:21', 'Productiva'),
@@ -239,10 +239,10 @@ CREATE TABLE `user` (
   `email` varchar(100) NOT NULL,
   `phone` int(11) DEFAULT NULL,
   `dni` varchar(9) DEFAULT NULL,
-  `description` varchar(400) DEFAULT NULL,
+  `description` varchar(45) DEFAULT NULL,
   `profile_image` varchar(50) DEFAULT NULL,
   `user_type` tinyint(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
 
 INSERT INTO `user` (`id`, `login`, `password`, `name`, `surname`, `email`, `phone`, `dni`, `description`, `profile_image`, `user_type`) VALUES
 (1, 'admin', 'admin', 'Administrador', 'Administrador', 'asc-ou@uvigo.es', 988387102, NULL, 'Usuario Administrador de FitnesSuite.', 'profile-default.png', 1),
@@ -257,7 +257,7 @@ CREATE TABLE `user_activity` (
   `id` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `id_activity` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
 
 INSERT INTO `user_activity` (`id`, `id_user`, `id_activity`) VALUES
 (1, 4, 19),
@@ -271,7 +271,7 @@ CREATE TABLE `user_table` (
   `id` int(11) NOT NULL,
   `id_workout` int(11) DEFAULT NULL,
   `id_user` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
 
 INSERT INTO `user_table` (`id`, `id_workout`, `id_user`) VALUES
 (1, 1, 4),
@@ -285,7 +285,7 @@ CREATE TABLE `workout_table` (
   `name` varchar(45) NOT NULL,
   `type` varchar(45) NOT NULL,
   `description` mediumtext NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
 
 INSERT INTO `workout_table` (`id`, `id_user`, `name`, `type`, `description`) VALUES
 (1, 2, 'Tabla muscular', 'standard', 'Tabla con ejercicios de tipo muscular'),
