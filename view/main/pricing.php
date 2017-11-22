@@ -65,7 +65,7 @@ $view->setVariable("title", "FitnesSuite");
     <li id="commercial-box" class="commercial-box">
       <div class="commercial-textbox">
         <p class="commercial-title commercial-title-second"><?= i18n("Have a question?")?></p>
-        <p class="commercial-description">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt.</p>
+        <p class="commercial-description"><?= i18n("For further information, please do not hesitate to get in contact with us")?>.</p>
         <p class="commercial-title"><?= $public_info->getPhone() ?></p>
       </div>
     </li>

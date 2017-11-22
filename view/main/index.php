@@ -16,8 +16,8 @@ $view->setVariable("title", "FitnesSuite");
     <li id="commercial-box-index" class="commercial-box-index">
       <img class="commercial-image-index" src="resources/images/pic.png" alt="commercial picture" />
       <div class="commercial-textbox-index">
-        <p class="commercial-title">Lorem ipsum dolor sit!</p>
-        <p class="commercial-description">aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+        <p class="commercial-title"><?= i18n("Practice gives the")?> <?= i18n("Perfect results")?></p>
+        <p class="commercial-description"><?= i18n("Get healthy with FitnesSuite, because feeling good is being fit. In the end this is about living well")?>.</p>
       </div>
     </li>
     <div class="list-classes-box">
