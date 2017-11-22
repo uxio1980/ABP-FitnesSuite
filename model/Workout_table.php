@@ -7,13 +7,15 @@ class Workout_table {
   private $name;
   private $type;
   private $description;
+  private $id_user_table;
 
-  public function __construct($id=NULL, User $user=NULL, $name=NULL, $type=NULL, $description=NULL) {
+  public function __construct($id=NULL, User $user=NULL, $name=NULL, $type=NULL, $description=NULL, $id_user_table=NULL) {
     $this->id = $id;
     $this->user = $user;
     $this->name = $name;
     $this->type = $type;
     $this->description = $description;
+    $this->id_user_table = $id_user_table;
   }
 
   public function getId() {
@@ -34,6 +36,10 @@ class Workout_table {
 
   public function getDescription() {
     return $this->description;
+  }
+
+  public function getId_user_table() {
+    return $this->id_user_table;
   }
 
   public function setId($id) {
