@@ -14,13 +14,13 @@ CREATE TABLE `activity` (
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
 
 INSERT INTO `activity` (`id`, `id_user`, `name`, `description`, `type`, `place`, `seats`, `image`) VALUES
-(1, 2, 'Atletismo Entrada individual', 'O Campus de Ourense conta cunha pista de atletismo onde se poderán practicar as actividades atléticas de carreiras e saltos.', 1, 2, 20, '["resources\\/images\\/21-11-2017-18-59-39-atletismo.jpg"]'),
+(1, 2, 'Atletismo', 'O Campus de Ourense conta cunha pista de atletismo onde se poderán practicar as actividades atléticas de carreiras e saltos.', 1, 2, 20, '["resources\\/images\\/21-11-2017-18-59-39-atletismo.jpg"]'),
 (2, 2, 'Bailes', '1.- Destinatarias:Persoas con abono Muver, abono ponte en Forma ou cunha entrada multideporte.', 2, 4, 30, '["resources\\/images\\/21-11-2017-19-02-03-pic10.jpg"]'),
-(3, 3, 'Ciclo indoor', 'Horario e duración da actividade:\\r\\nImpartiranse catro clases semanais desta actividade dende o 2 de novembro ao 31 de maio (agás periodos non lectivos) nos seguintes horarios:\\r\\n- Luns, martes, mércores e xoves de 21:15 a 22:15 h.', 2, 6, 24, '["resources\\/images\\/21-11-2017-19-03-45-pic3.jpg"]'),
+(3, 3, 'Ciclo', 'Horario e duración da actividade:\\r\\nImpartiranse catro clases semanais desta actividade dende o 2 de novembro ao 31 de maio (agás periodos non lectivos) nos seguintes horarios:\\r\\n- Luns, martes, mércores e xoves de 21:15 a 22:15 h.', 2, 6, 24, '["resources\\/images\\/21-11-2017-19-03-45-pic3.jpg"]'),
 (4, 2, 'Circuit Fit', 'Horario e duración da actividade:Impartiranse dúas clases semanais desta actividade dende o 2 de outubro ao 31 de maio (agás nos periodos non lectivos) no seguinte horario:\\r\\n- Luns e mércores de 19:15 a 20:15 h', 2, 4, 30, NULL),
-(5, 3, 'Voleibol Iniciación', '1. Descrición da actividade:Iniciación o deporte de volei pista. ', 2, 3, 30, '["resources\\/images\\/21-11-2017-19-05-36-voleibol.jpg"]'),
-(6, 3, 'Zumba', ' Horario e duración da actividade:Impartirase dúas clases semanais desta actividade dende o 23 de outubro e o 31 de maio (agás nos periodos non lectivos) no seguinte horario:\\r\\n- Martes e xoves de 20:15 a 21:15 h.', 2, 4, 30, '["resources\\/images\\/21-11-2017-19-17-00-zumba2.jpg"]'),
-(7, 2, 'Sala CardioFitness Entrada Individual', 'O Campus de Ourense conta, no interior do pavillón universitario, cunha sala cardio-fitness completamente equipada para o desenvolvemento de diferentes actividades de fitness.', 1, 4, 60, '["resources\\/images\\/21-11-2017-19-06-55-pic9.jpg","resources\\/images\\/21-11-2017-19-06-55-pic16.jpg","resources\\/images\\/21-11-2017-19-06-55-single_class.jpg"]');
+(5, 3, 'Voleibol', '1. Descrición da actividade:Iniciación o deporte de volei pista. ', 2, 3, 30, '["resources\\/images\\/21-11-2017-19-05-36-voleibol.jpg"]'),
+(6, 3, 'Zumba', ' Horario e duración da actividade:Impartirase dúas clases semanais desta actividade dende o 23 de outubro e o 31 de maio (agás nos periodos non lectivos) no seguinte horario:\\r\\n- Martes e xoves de 20:15 a 21:15 h.', 2, 4, 30, '["resources\\/images\\/21-11-2017-19-14-00-zumba2.jpg"]'),
+(7, 2, 'Gimnasio', 'O Campus de Ourense conta, no interior do pavillón universitario, cunha sala cardio-fitness completamente equipada para o desenvolvemento de diferentes actividades de fitness.', 1, 4, 60, '["resources\\/images\\/21-11-2017-19-06-55-pic9.jpg","resources\\/images\\/21-11-2017-19-06-55-pic16.jpg","resources\\/images\\/21-11-2017-19-06-55-single_class.jpg"]');
 
 
 DROP TABLE IF EXISTS `activity_resource`;
