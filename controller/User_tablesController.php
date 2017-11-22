@@ -65,7 +65,7 @@ class User_tablesController extends BaseController {
 
             $workout_tables = $this->user_tableMapper->searchNotAssignedTablesPEF($id_user);
         }else{
-            if($user->getUser_type() == usertype::AthletePEF){
+            if($user->getUser_type() == usertype::AthleteTDU){
                 $workout_tables = $this->user_tableMapper->searchNotAssignedTablesTDU($id_user);
             }
         }
@@ -121,7 +121,7 @@ class User_tablesController extends BaseController {
         }
 
         // Get the exercise object from the database
-        $id = $_REQUEST["id_workout"];
+        $id = $_REQUEST["id"];
 
         $user_table = $this->user_tableMapper->findById($id);
 

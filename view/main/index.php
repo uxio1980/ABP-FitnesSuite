@@ -70,9 +70,9 @@ $view->setVariable("title", "FitnesSuite");
                 <?php if ($next_event->getActivity()->getImage() == NULL):
     						  $pathimage = 'resources/images/_missing-thumbnail.png' ?>
     					  <?php else:
-    						  $pathimage = json_decode($next_event->getActivity()->getImage()[0]) ?>
+    						  $pathimage = json_decode($next_event->getActivity()->getImage()) ?>
     					  <?php endif ?>
-                <img src="<?= $pathimage ?>" alt="Image 1">
+                <img src="<?= $pathimage[0] ?>" alt="Image 1">
               </div>
               <div class="commercial-description">
                 <p class="commercial-description red-color"><span><?= date( 'g:ia' ,strtotime($next_event->getStart_hour())) ?>-<?= date('g:ia', strtotime($next_event->getEnd_hour())) ?></span></p>
