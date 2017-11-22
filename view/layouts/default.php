@@ -199,19 +199,13 @@ $language = $i18n->getLanguage();
                 <img src="resources/icons/profile_icon.svg" alt="Profile icon"/>
                 <div class="text-item"><?= i18n("My profile")?></div></a>
               </li>
-              <li class="nav-item">
-                  <a href="index.php?controller=workout_tables&amp;action=index">
-                      <img src="resources/icons/workout_table_icon.svg"  width="24" height="24" alt="Exercise icon"/>
-                      <div class="text-item"><?= i18n("Wourkout tables")?></div>
-                  </a>
-              </li>
               <?php if (($typeuser)==usertype::AthleteTDU || ($typeuser)==usertype::AthletePEF ):?>
-                  <li class="nav-item">
-                    <a href="index.php?controller=articles&amp;action=add">
-                      <img src="resources/icons/manage_res.svg" alt="Upload product icon"/>
-                      <div class="text-item"><?= i18n("Upload product")?></div>
+                <li class="nav-item">
+                    <a href="index.php?controller=workout_tables&amp;action=index">
+                        <img src="resources/icons/workout_table_icon.svg"  width="24" height="24" alt="Exercise icon"/>
+                        <div class="text-item"><?= i18n("Wourkout tables")?></div>
                     </a>
-                  </li>
+                </li>
                   <li class="nav-item">
                     <a href="index.php?controller=sessions&amp;action=index">
                       <img src="resources/icons/sessions_icon.svg" alt="Session icon"/>
@@ -265,7 +259,8 @@ $language = $i18n->getLanguage();
                       </a>
                   </li>
                   <li class="nav-item">
-                    <a href="index.php?controller=notification&amp;action=index">
+                    <!-- index.php?controller=notification&amp;action=index -->
+                    <a href="">
                       <img src="resources/icons/ic_notifications_black_24px.svg" alt="Activities icon"/>
                       <div class="text-item"><?= i18n("Notifications")?></div>
                     </a>

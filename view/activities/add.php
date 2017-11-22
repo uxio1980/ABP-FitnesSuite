@@ -26,20 +26,20 @@
 			<?= isset($errors["description"])?$errors["description"]:"" ?><br>
 
             <label for="form-field"><?= i18n("Trainer") ?></label>
-			<select name="id_user">
+			<select name="id_user" required="true">
 				<?php foreach ($trainers as $trainer): ?>
 				<option value="<?= $trainer->getId()?>"><?= $trainer->getName()?></option>
 				<?php endforeach; ?>
 			</select>
 
 			<label for="form-field"><?= i18n("Type") ?></label>
-			<select name="type">
+			<select name="type" required="true">
 				<option value="1"><?= i18n("Individual") ?></option>
 				<option value="2"><?= i18n("In group") ?></option>
 			</select>
 
 			<label for="form-field"><?= i18n("Place") ?></label>
-			<select name="place">
+			<select name="place" required="true">
 				<?php foreach ($places as $place): ?>
 				<option value="<?= $place->getIdresource()?>"><?= $place->getName()?></option>
 				<?php endforeach; ?>

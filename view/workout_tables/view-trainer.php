@@ -12,10 +12,10 @@ $view->setVariable("title", "FitnesSuite");
 <main id="main-content">
     <div id="content-list">
         <div class="content-title">
-            <strong><?= i18n("Workout tabale ").$table->getName()?></strong><br>
-            <a href="index.php?controller=workout_tables&amp;action=delete&amp;id_table=<?= $table->getId() ?>"><input type='button' value=<?= i18n("Delete")?> /></a>
+            <strong><?= i18n("Workout table ").$table->getName()?></strong><br>
+            <a href="index.php?controller=workout_tables&amp;action=delete&amp;id_workout=<?= $table->getId() ?>"><input type='button' value=<?= i18n("Delete")?> /></a>
             <div class="content-title">
-                <a href="index.php?controller=workout_tables&amp;action=delete&amp;id_table=<?= $table->getId() ?>">
+                <a href="index.php?controller=workout_tables&amp;action=delete&amp;id_workout=<?= $table->getId() ?>">
                     <img src="resources/icons/delete_icon.svg" alt="Delete"/></strong></a>
             </div>
         </div>
@@ -40,8 +40,9 @@ $view->setVariable("title", "FitnesSuite");
 
         </table>
         <spam class="content-title">
-            <strong><?= i18n("Workout tabale ").$table->getName()?></strong><br>
-            <a href="index.php?controller=workout_tables&amp;action=print"><input type='button' value=<?= i18n("Print workout table")?> /></a>
+            <strong><?= i18n("Workout table ").$table->getName()?></strong><br>
+            <a href=""><input type='button' value=<?= i18n("Print workout table")?> /></a>
+            <!--index.php?controller=workout_tables&amp;action=print-->
         </spam>
     </div>
 </main>

@@ -7,6 +7,7 @@
  $images = $view->getVariable("images");
  $videos = $view->getVariable("videos");
  $errors = $view->getVariable("errors");
+ $user = $view->getVariable("user");
 
  $view->setVariable("title", $exercise->getName());
 
@@ -38,7 +39,7 @@
             </div>
             <p class="article-detail"><?= $exercise->getDescription()?>
             </p><?= i18n("Type")?>: <p class="article-detail"><?= $exercise->getType()?>
-            </p><?= i18n("Aded_by")?>: <p class="article-detail"><?= $exercise->getId_User() ?></p>
+            </p><?= i18n("Aded_by")?>: <p class="article-detail"><?= $user->getName() ?></p>
         </div>
             <div>
                 <?= i18n("Video")?>: <p class="article-detail"><?= $exercise->getVideo()?></p>
