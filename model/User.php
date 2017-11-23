@@ -13,7 +13,7 @@ abstract class usertype{
       return $constants;
     }
 
-    function getName($idnumber){
+    static function getName($idnumber){
       $utypeClass = new ReflectionClass('usertype');
       $constants = $utypeClass->getConstants();
       $constName = null;
