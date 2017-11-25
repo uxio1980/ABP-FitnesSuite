@@ -79,7 +79,8 @@ $view->setVariable("title", "FitnesSuite");
                 <a href="index.php?controller=activities&amp;action=view&amp;idactivity=<?= $next_event->getActivity()->getIdactivity()?>">
                   <p class="commercial-description uppercase second-color"><span><?= $next_event->getActivity()->getName() ?></span></p></a>
                 <div class="commercial-description">
-                  <a href="index.php?controller=Reservation&amp;action=add"><input type='button' value=<?= i18n("Reservation")?> /></a>
+                  <!-- index.php?controller=Reservation&amp;action=add -->
+                  <a href=""><input type='button' value=<?= i18n("Reservation")?> /></a>
                 </div>
             </div>
           </div>
