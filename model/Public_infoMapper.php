@@ -69,6 +69,25 @@ class Public_infoMapper {
       }
 
       /**
+      * Loads a first public info from the database
+      *
+      * @throws PDOException if a database error occurs
+      * @return User The public info instances. NULL
+      * if the public info is not found
+      */
+      public function findFirst(){
+        $stmt = $this->db->query("SELECT * FROM public_info LIMIT 1");
+        $public_info = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($public_info != null) {
+          return new Public_Info($public_info["id"], $public_info["phone"],
+          $public_info["email"], $public_info["address"]);
+        } else {
+          return NULL;
+        }
+      }
+
+      /**
        * Retrieves all public infos
        *
        * @throws PDOException if a database error occurs
