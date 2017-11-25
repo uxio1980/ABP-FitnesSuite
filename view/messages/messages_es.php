@@ -6,7 +6,7 @@
     "Practice gives the" => "La práctica da los",
     "Perfect results" => "Resultados perfectos",
     "Get healthy with FitnesSuite, because feeling good is being fit. In the end this is about living well" =>"Ponte en forma con FitnesSuite, porque sentirse bien es estar en forma. Al fin y al cabo, se trata de vivir bien",
-    "For further information, please do not hesitate to get in contact with us" => "Si tiene alguna duda o pregunta no dude en ponerse en contacto con nosotros y le atenderemos gustosamente",
+    "For further information, please do not hesitate to get in contact with us" => "Si tienes alguna duda o pregunta no dudes en ponerte en contacto con nosotros y te atenderemos gustosamente",
     "To ask us or send us your comments, simply fill in the form and the FitnesSuite team will contact you to discuss your question" => "Para preguntarnos o enviarnos tus comentarios, simplemente cumplimenta el formulario y el equido de FitnesSuite se pondrá en contacto contigo para tratar tu consulta",
     "Home" => "Inicio",
     "My profile" => "Mi perfil",
