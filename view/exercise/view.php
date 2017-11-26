@@ -61,15 +61,18 @@
         <p class="article-detail">
             <?= i18n("Type")?>: <?= $exercise->getType()?>
         </p>
-        <p class="article-detail">
-            <?= i18n("Video")?>: <p class="article-detail"><?= $exercise->getVideo()?></p>
-        </p>
         <div class="social-network-icon">
           <a href="#"><img src="resources/icons/facebook-icon.svg" alt="Facebook icon"></a>
           <a href="#"><img src="resources/icons/google-plus-icon.svg" alt="Google plus icon"></a>
           <a href="#"><img src="resources/icons/twitter-icon.svg" alt="Twitter icon"></a>
         </div>
       </div>
+      <?php if(strlen($exercise->getVideo())>0): ?>
+        <div class="article-autor">
+          <div class="video-detail"><iframe width="100%" height="100%" src=" <?= $exercise->getVideo()?>" frameborder="0" gesture="media" allowfullscreen=""></iframe></div>
+
+        </div>
+      <?php endif ?>
     </div>
 
 </article>

@@ -1313,6 +1313,13 @@ ul.partner li img{
   padding-right:15px;
 }
 
+.video-detail {
+  display: flex;
+  flex-wrap: wrap;
+  width: auto;
+  height: auto;
+  flex-direction: column;
+}
 /***************************** FORM MAIN-CONTENT ******************************/
 
 .form {

@@ -82,11 +82,11 @@
 			</div>
       <div class="article-autor"><p class="article-detail">Entrenador</p>
             <?php
-			$path = $trainer->getProfileImage()!=NULL?
-      (file_exists('./resources/profiles/'.$trainer->getProfileImage())  ?
-				'./resources/profiles/'.$trainer->getProfileImage()
-				:'./resources/profiles/profile-default.png'): './resources/profiles/profile-default.png';
-			?>
+      			$path = $trainer->getProfileImage()!=NULL?
+            (file_exists('./resources/profiles/'.$trainer->getProfileImage())  ?
+      				'./resources/profiles/'.$trainer->getProfileImage()
+      				:'./resources/profiles/profile-default.png'): './resources/profiles/profile-default.png';
+      			?>
             <a href="#"><div class="image-profile"><img src="<?= $path ?>" alt="image profile"></div><?= $trainer->getSurname().', '.$trainer->getName() ?></a>
 				<p class="autor-detail"> <?= $trainer->getDescription() ?></p>
 			</div>
