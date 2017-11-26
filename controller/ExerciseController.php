@@ -62,7 +62,7 @@ class ExerciseController extends BaseController {
         if ($exercise == NULL) {
             throw new Exception("->no such exercise with id: ".$id_exercise);
         }
-        $user = $this->userMapper->findById2($exercise->getId());
+        $user = $this->userMapper->findById2($exercise->getId_user());
         // put the Activity object to the view
         $this->view->setVariable("user", $user);
         $this->view->setVariable("exercise", $exercise);

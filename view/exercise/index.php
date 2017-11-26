@@ -26,12 +26,12 @@ $view->setVariable("title", "FitnesSuite");
                     <?php else:
                         $pathimage = json_decode($exercise->getImage())[0] ?>
                     <?php endif ?>
-                    <img src="<?= $pathimage ?>" alt="Image 1"></a>
+                  <div class="article-box-image-container"> <img src="<?= $pathimage ?>" alt="Image 1"></a></div>
                 <div class="article-footer">
                     <div class="tittle-edit">
                         <p class="article-box-title"><?= $exercise->getName() ?></p>
                     </div>
-                    <p><?= $exercise->getDescription() ?></p>
+                    <p><?= substr ($exercise->getDescription(),0,40) ?>...</p>
                 </div>
             </li>
         <?php endforeach; ?>

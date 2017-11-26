@@ -21,7 +21,7 @@
                 <?php $pathimage = file_exists('$image')  ?
                     $image
                 :'./resources/images/_missing-thumbnail.png' ?>
-                    <img class="slide" src="<?= $image ?>" width="512" height="400" alt="Image 1">
+                    <img class="slide" src="<?= $image ?>"  alt="Image 1">
                     <?php endif ?>
                 <?php endforeach; ?>
             <?php else:?>

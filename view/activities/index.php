@@ -29,7 +29,7 @@
                       <div class="tittle-edit">
                         <p class="article-box-title"><?= $activity->getName() ?></p>
                       </div>
-                      <p><?= $activity->getDescription() ?></p>
+                      <p><?= substr ($activity->getDescription(),0,50) ?>...</p>
                     </div>
             </li>
     <?php endforeach; ?>
