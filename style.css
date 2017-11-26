@@ -828,10 +828,12 @@ ul.times h4{
 }
 
 .article-box-title{
-  margin: 0 0 10px 0;
-  font: 1em 'Lato';
+  margin: 0 0 5px 0;
+  font: 1.2em 'Lato';
+  width: 100%;
   border-radius: 0px 0px 2px 2px;
   display: flex;
+  justify-content: center;
 }
 
 /** Contiene el texto "vendido por Xxx Yyy"**/

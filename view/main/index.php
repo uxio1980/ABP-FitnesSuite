@@ -30,7 +30,7 @@ $view->setVariable("title", "FitnesSuite");
             <a href="index.php?controller=activities&amp;action=view&amp;idactivity=<?= $activity->getIdactivity()?>">
               <?= $activity->getName() ?></a>
             <div class="social-media">
-              <span class="timetable-icon" data-tooltip="timetable"></span>
+              <a href=""><span class="timetable-icon" data-tooltip="timetable"></span></a>
               <span class="sendto" data-tooltip="Send to"></span>
               <span class="likeit" data-tooltip="like it"></span>
               <span class="share" data-tooltip="share"></span>
