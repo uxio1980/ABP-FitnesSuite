@@ -69,8 +69,7 @@ $imagesNextEvents  = array();
 
   }
 $this->view->setVariable("next_events", $next_events);
-$notification=NULL;
-$this->view->setVariable("notification", $notification);
+
 
 // render the view (/view/main/index.php)
 $this->view->render("main", "index");

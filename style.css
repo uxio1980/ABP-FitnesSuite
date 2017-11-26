@@ -139,6 +139,18 @@ header{
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
+
+#dropdown-notification-content {
+  display: none;
+  position: absolute;
+  top:45px;
+  right:50px;
+  background-color: #f9f9f9;
+  min-width: 210px;
+  max-width: 210px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
 /****************************** LOGIN *****************************************/
 #header-login {
   margin-right: 30px;

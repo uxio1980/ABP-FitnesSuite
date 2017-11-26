@@ -72,17 +72,27 @@ $language = $i18n->getLanguage();
         <!-- ******* Profile ALERT BUTTON  ************************  -->
         <button id="alert-button">
           <div class="container-user-circle">
-            <?php if (isset($notification)):?>
+            <?php if (isset($notification) && $notification>0):?>
                 <div class="circle kitten notificationYes" style="background-image: url('resources/icons/ic_notifications_black_24px.svg');">
+                  <div class="aligner">
+                    <!-- text inside the icon -->
+                  </div>
             <?php else:?>
                 <div class="circle kitten" style="background-image: url('resources/icons/ic_notifications_none_black_24px.svg');">
             <?php endif ?>
-            <div class="aligner">
-              <!-- text inside the icon -->
-            </div>
+
             </div>
           </div>
         </button>
+        <?php if (isset($notification) && $notification>0):?>
+        <div id="dropdown-notification-content" class="dropdown-content" style="display:none">
+          <div >
+            <?php include(__DIR__."/notification_select_element.php");?>
+
+          </div>
+        </div>
+        <?php endif ?>
+
         <!-- ******* Profile MESSAGE BUTTON  ************************
         <button id="message-button">
           <div class="container-user-circle">
