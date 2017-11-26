@@ -26,7 +26,8 @@ $view->setVariable("title", "FitnesSuite");
                     <?php else:
                         $pathimage = json_decode($exercise->getImage())[0] ?>
                     <?php endif ?>
-                  <div class="article-box-image-container"> <img src="<?= $pathimage ?>" alt="Image 1"></a></div>
+                  <div class="article-box-image-container"> <img src="<?= $pathimage ?>" alt="Image 1"></div>
+                </a>
                 <div class="article-footer">
                     <div class="tittle-edit">
                         <p class="article-box-title"><?= $exercise->getName() ?></p>

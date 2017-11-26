@@ -802,7 +802,7 @@ ul.times h4{
 .article-box-image-container{
   /****************/
   background-color: #e0e0e0;
-  height: 1800px;
+  height: 300px;
   object-fit: cover; /* Reescalar la imagen */
   object-position: center; /* Centrar la imagen */
   display: inline-block;
@@ -885,6 +885,7 @@ ul.times h4{
   border-radius: 0px 0px 2px 2px;
   display: flex;
   justify-content: center;
+  color: var(--main-color);
 }
 
 /** Contiene el texto "vendido por Xxx Yyy"**/
