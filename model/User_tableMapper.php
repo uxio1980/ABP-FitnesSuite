@@ -135,7 +135,9 @@ class User_tableMapper {
         $tables = array();
 
         foreach ($tables_db as $table) {
-            array_push($tables, new Workout_table($table["id"],$table["user"],
+          $user = new User();
+          $user->setId($table["id_user"]);
+            array_push($tables, new Workout_table($table["id"],$user,
                 $table["name"],$table["type"],$table["description"], $table["user_table.id"]));
 
         }

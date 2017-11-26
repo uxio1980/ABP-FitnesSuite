@@ -11,7 +11,7 @@ require_once(__DIR__."/../model/User_table.php");
 require_once(__DIR__."/../model/User_tableMapper.php");
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
-require_once(DIR."/../model/Exercise_table.php");
+require_once(__DIR__."/../model/Exercise_table.php");
 
 
 class Exercises_tableController extends BaseController {
