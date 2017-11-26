@@ -10,12 +10,13 @@
 ?>
 <main id="main-content">
     <ul class="article-container">
-    <li id="commercial-box" class="commercial-box">
-      <div class="commercial-textbox">
-        <p class="commercial-title commercial-title-second"><?= i18n("Activities")?></p>
-        <!--<p class="commercial-description"></p>-->
-      </div>
-    </li>
+      <li id="commercial-box" class="commercial-box">
+        <img class="commercial-image" src="resources/images/activities.jpg" alt="commercial picture" />
+        <div class="commercial-textbox">
+          <p class="commercial-title commercial-title-second"><?= i18n("Activities")?></p>
+          <!--<p class="commercial-description"></p>-->
+        </div>
+      </li>
     <?php foreach ($activities as $activity): ?>
 	   		<li class="article-box">
           <a href="index.php?controller=activities&amp;action=view&amp;idactivity=<?= $activity->getIdactivity() ?>">
