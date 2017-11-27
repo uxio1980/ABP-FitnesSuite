@@ -69,8 +69,7 @@
       </div>
       <?php if(strlen($exercise->getVideo())>0): ?>
         <div class="article-autor">
-          <div class="video-detail"><iframe width="100%" height="100%" src=" <?= $exercise->getVideo()?>" frameborder="0" gesture="media" allowfullscreen=""></iframe></div>
-
+          <div class="video-detail"><iframe width="100%" height="100%" src="<?=$exercise->getVideo()?>" frameborder="0" gesture="media" allowfullscreen=""></iframe></div>
         </div>
       <?php endif ?>
     </div>

@@ -10,7 +10,6 @@
  $errors = $view->getVariable("errors");
 
  $view->setVariable("title", $activity->getName());
-
 ?>
 <article id="main-detail-content">
         <div class="article-slideshow">
@@ -80,14 +79,23 @@
 					<a href="#"><img src="resources/icons/twitter-icon.svg" alt="Twitter icon"></a>
 				</div>
 			</div>
-      <div class="article-autor"><p class="article-detail">Entrenador</p>
+      <div class="article-autor"><p class="article-detail"><?= i18n("Trainer")?></p>
             <?php
       			$path = $trainer->getProfileImage()!=NULL?
             (file_exists('./resources/profiles/'.$trainer->getProfileImage())  ?
       				'./resources/profiles/'.$trainer->getProfileImage()
       				:'./resources/profiles/profile-default.png'): './resources/profiles/profile-default.png';
       			?>
-            <a href="#"><div class="image-profile"><img src="<?= $path ?>" alt="image profile"></div><?= $trainer->getSurname().', '.$trainer->getName() ?></a>
+            <a href="#">
+              <div class="container-user-circle">
+                <div class="circle kitten" style="background-image: url('<?=$path?>');">
+                  <div class="aligner">
+                    <!-- text inside the icon -->
+                  </div>
+                </div>
+              </div>
+                <?= $trainer->getSurname().', '.$trainer->getName() ?>
+            </a>
 				<p class="autor-detail"> <?= $trainer->getDescription() ?></p>
 			</div>
 		</div>

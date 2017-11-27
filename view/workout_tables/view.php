@@ -13,7 +13,7 @@ $user_table = $view->getVariable("user_table");
 <main id="main-content">
     <div id="content-list">
         <div class="content-title">
-            <strong><?= i18n("Workout table ").$table->getName()?></strong><br>
+            <strong><?= i18n("Workout table")." ".$table->getName()?></strong><br>
             <a href="index.php?controller=sessions&amp;action=start&amp;id_user_table=<?=$user_table->getId()?>"><input type='button' value=<?= i18n("Monitor training session")?> /></a>
         </div>
         <table id="table-content">

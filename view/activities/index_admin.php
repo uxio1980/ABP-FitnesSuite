@@ -19,7 +19,7 @@
         <td><strong><?= i18n("Name")?></strong></td>
         <td><strong><?= i18n("View")?></strong></td>
         <td><strong><?= i18n("Edit")?></strong></td>
-        <td><strong><?= i18n("Manage resources")?></strong></td>
+        <td><strong><?= i18n("Resources")?></strong></td>
         <td><strong><?= i18n("Schedules")?></strong></td>
         <td><strong><?= i18n("Notify")?></strong></td>
         <td><strong><?= i18n("Delete")?></strong></td>

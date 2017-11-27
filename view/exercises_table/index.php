@@ -12,7 +12,7 @@
 <main id="main-content">
   <div id="content-list">
     <div class="content-title">
-      <strong><?= i18n("Manage Exercises")?></strong><br>
+      <strong><?= i18n("Manage exercises")?></strong><br>
       <a href="index.php?controller=exercises_table&amp;action=add&amp;id_workout=<?= $id_workout ?>"><input type='button' value=<?= i18n("Add")?> /></a>
     </div>
     <table id="table-content">
@@ -20,7 +20,8 @@
         <td><strong><?= i18n("Exercise")?></strong></td>
         <td><strong><?= i18n("Series")?></strong></td>
         <td><strong><?= i18n("Repetitions")?></strong></td>
-      <?php foreach ($table_exercises as $exercise_table): ?>
+      <?php if (isset($table_exercises)):
+      foreach ($table_exercises as $exercise_table): ?>
         <tr class="table-row-content"
           data-href="index.php?controller=activity_resources&amp;action=edit&amp;id=<?= $exercise_table->getId() ?>">
           <td><?= $exercise_table->getExercise()->getName() ?></td>
@@ -33,7 +34,8 @@
             <img src="resources/icons/delete_icon.svg" alt="Delete"/></a>
           </td>
         </tr>
-      <?php endforeach; ?>
+      <?php endforeach;
+    endif; ?>
   </table>
   </div>
 </main>

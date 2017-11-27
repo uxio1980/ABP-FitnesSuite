@@ -11,7 +11,7 @@ $view->setVariable("title", "FitnesSuite");
  <ul class="article-container">
   <li id="commercial-box" class="commercial-box">
    <div class="commercial-textbox">
-    <p class="commercial-title commercial-title-second"><?= i18n("Workout Tables")?></p>
+    <p class="commercial-title commercial-title-second"><?= i18n("Workout tables")?></p>
     <!--<p class="commercial-description"></p>-->
    </div>
   </li>

@@ -16,7 +16,7 @@
 	<div class="form">
 	   <form action="index.php?controller=exercises_table&amp;action=add" method="POST">
 
-			<strong><?= i18n("Add Exercise") ?></strong>
+			<strong><?= i18n("Add exercise") ?></strong>
 
 			<label for="form-field"><?= i18n("Exercise") ?></label>
 			<select name="id_exercise" class="select" required>
@@ -27,9 +27,9 @@
 				<?php endforeach; ?>
 			</select>
 
-           <label for="form-field"><?= i18n("Number of Series") ?></label>
+           <label for="form-field"><?= i18n("Number of series") ?></label>
                 <input name="series" type="number" name="quantity" min="1" max="99" required>
-           <label for="form-field"><?= i18n("Number of Repetitions") ?></label>
+           <label for="form-field"><?= i18n("Number of repetitions") ?></label>
                 <input name="repetitions" type="number" name="quantity" min="1" max="99" required>
 
             <input name="id_workout" value="<?= $id_workout ?>" hidden="true">

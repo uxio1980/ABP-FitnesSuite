@@ -233,22 +233,22 @@ $language = $i18n->getLanguage();
                   <li class="nav-item">
                       <a href="index.php?controller=workout_tables&amp;action=index">
                           <img src="resources/icons/workout_table_icon.svg"  width="24" height="24" alt="Exercise icon"/>
-                          <div class="text-item"><?= i18n("Wourkout tables")?></div>
+                          <div class="text-item"><?= i18n("Workout tables")?></div>
                       </a>
                   </li>
                 <?php endif ?>
                 <?php if (($typeuser)==usertype::Administrator):?>
                 <div class="customHr">.</div>
                 <li class="nav-item">
+                  <a href="index.php?controller=users&amp;action=index">
+                    <img src="resources/icons/ic_group_black_24px.svg" alt="Users icon"/>
+                    <div class="text-item"><?= i18n("Users")?></div>
+                  </a>
+                </li>
+                <li class="nav-item">
                     <a href="index.php?controller=resources&amp;action=index">
                       <img src="resources/icons/ic_group_black_24px.svg" alt="MyStatistics icon"/>
                       <div class="text-item"><?= i18n("Resources")?></div>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="index.php?controller=users&amp;action=index">
-                      <img src="resources/icons/ic_group_black_24px.svg" alt="Users icon"/>
-                      <div class="text-item"><?= i18n("Users")?></div>
                     </a>
                   </li>
                   <li class="nav-item">

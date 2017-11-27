@@ -69,16 +69,17 @@ class Exercise_tableMapper {
     }
 
     public function save($exercise_table) {
-        $stmt = $this->db->prepare("INSERT INTO exercise_table (id, id_exercise, id_workout, series, repetitions) 
+        $stmt = $this->db->prepare("INSERT INTO exercise_table (id, id_exercise, id_workout, series, repetitions)
             values (0,?,?,?,?)");
         $stmt->execute(array($exercise_table->getExercise()->getId(),$exercise_table->getWorkout(),$exercise_table->getSeries(),$exercise_table->getRepetitions()));
     }
 
     public function update($exercise_table) {
-        $stmt = $this->db->prepare("UPDATE exercise_table set id=?,id_exercise=?,
-            id_workout=?, series=?, repetitions=?");
-        $stmt->execute(array($exercise_table->getId(),$exercise_table->getExercise()->getId(),
-            $exercise_table->getWorkout(),$exercise_table->getSeries(),$exercise_table->getRepetitions()));
+        $stmt = $this->db->prepare("UPDATE exercise_table set id_exercise=?,
+            id_workout=?, series=?, repetitions=? where id=?");
+        $stmt->execute(array($exercise_table->getExercise()->getId(),
+            $exercise_table->getWorkout(),$exercise_table->getSeries(),
+            $exercise_table->getRepetitions(), $exercise_table->getId()));
     }
 
     public function delete($exercise_table) {
@@ -88,7 +89,7 @@ class Exercise_tableMapper {
 
     // Devuelve los ejercicios que todavía no se han asignado a la tabla.
     public function findExercisesNotInTable($id_workout){
-        $stmt = $this->db->prepare("SELECT * FROM exercise WHERE id NOT IN 
+        $stmt = $this->db->prepare("SELECT * FROM exercise WHERE id NOT IN
             (SELECT id_exercise FROM exercise_table WHERE id_workout=?)");
         $stmt->execute(array($id_workout));
         $exercises_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -103,7 +104,7 @@ class Exercise_tableMapper {
 
     // Devuelve los ejercicios  asignados a la tabla.
     public function findExercisesTable($id_workout){
-        $stmt = $this->db->prepare("SELECT * FROM exercise WHERE id IN 
+        $stmt = $this->db->prepare("SELECT * FROM exercise WHERE id IN
             (SELECT id_exercise FROM exercise_table WHERE id_workout=?)");
         $stmt->execute(array($id_workout));
         $exercises_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
