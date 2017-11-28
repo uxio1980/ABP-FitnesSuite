@@ -61,12 +61,12 @@ class SessionsController extends BaseController {
         $public_infos = $this->public_infoMapper->findAll();
       }
       */
-
       $user_tables = $this->user_tableMapper->searchAll($this->currentUser->getId());
       $numUser_tables = sizeof($user_tables);
-        if (sizeof($numUser_tables)){
+      if (!($numUser_tables)){
         throw new Exception("This user not has user_tables assigned");
       }
+      $sessions = $this->sessionMapper->searchAll($this->currentUser->getId());
       // put the array containing session objects to the view
       $this->view->setVariable("sessions", $sessions);
       $this->view->setVariable("numUser_tables", $numUser_tables);
@@ -229,20 +229,25 @@ class SessionsController extends BaseController {
       if (!isset($this->currentUser)) {
         throw new Exception("Not in session. Adding sessions requires login");
       }
-
+/*
       if(!isset($_REQUEST["id_user_table"])){
           throw new Exception("no such user table");
       }
       $id_user_table = $_REQUEST["id_user_table"];
-
-      $user_table = $this->user_tableMapper->findById($id_user_table);
+*/
+      if(isset($_REQUEST["id_user_table"])){
+          $id_user_table = $_REQUEST["id_user_table"];
+          $user_table = $this->user_tableMapper->findById($id_user_table);
+      }else{
+        $user_table=NULL;
+      }
       $user_tables = $this->user_tableMapper->searchAll($this->currentUser->getId());
 
       // Put the Session object visible to the view
       $this->view->setVariable("user_table", $user_table);
       $this->view->setVariable("user_tables", $user_tables);
 
-      // render the view (/view/sessions/add.php)
+      // render the view (/view/sessions/start.php)
       $this->view->render("sessions", "start");
 
     }
