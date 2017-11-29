@@ -100,7 +100,6 @@ WHERE nu.id_user=? AND N.date > NOW() AND (NU.viewed IS NULL)");
         //$stmt->execute(array(0));
         $stmt->execute(array($user->getId()));
         $count = $stmt->fetch(PDO::FETCH_ASSOC);
-
         if($count != null) {
           return $count["COUNT(*)"];
         } else {

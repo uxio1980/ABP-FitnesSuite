@@ -11,7 +11,7 @@ require_once(__DIR__."/../model/User_table.php");
 require_once(__DIR__."/../model/User_tableMapper.php");
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
-require_once(DIR."/../model/Exercise_table.php");
+require_once(__DIR__."/../model/Exercise_table.php");
 
 
 class Workout_tablesController extends BaseController {
@@ -65,12 +65,10 @@ class Workout_tablesController extends BaseController {
         // Recuperar distintas actividades según usuario.
         $workout_table = $this->workout_tableMapper->findById($id_workout);
 
-        $exercises = $this->exercise_tableMapper->findAll($id_workout);
-
         if ($workout_table == NULL) {
             throw new Exception("->no such workout_table with id: ".$id_workout);
         }
-
+        $exercises = $this->exercise_tableMapper->findAll($id_workout);
         // put the Activity object to the view
         $this->view->setVariable("table", $workout_table);
         $this->view->setVariable("exercises", $exercises);

@@ -7,6 +7,8 @@ require_once(__DIR__."/../core/I18n.php");
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
 
+require_once(__DIR__."/../model/Notification_user.php");
+require_once(__DIR__."/../model/Notification_userMapper.php");
 /**
  * Class BaseController
  *
@@ -31,11 +33,13 @@ class BaseController {
    */
   protected $currentUser;
   private $userMapper;
+  private $notification_userMapper;
 
   public function __construct() {
     $this->view = ViewManager::getInstance();
     $this->i18n = I18n::getInstance();
     $this->userMapper = new UserMapper();
+    $this->notification_userMapper = new Notification_userMapper();
     // get the current user and put it to the view
     if (session_status() == PHP_SESSION_NONE) {	session_start();
     }
@@ -45,6 +49,8 @@ class BaseController {
       $userprofile =  $this->userMapper->findById($this->currentUser->getLogin());
       $this->currentUser->setUser_type($userprofile->getUser_type());
       $this->currentUser->setId($userprofile->getId());
+      $notification=$this->notification_userMapper->countAllByUser($this->currentUser);;
+      $this->view->setVariable("notification", $notification);
       //add current user to the view, since some views require it
       $this->view->setVariable("currentusername", $this->currentUser->getLogin());
       $this->view->setVariable("typeuser", $userprofile->getUser_type());

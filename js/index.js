@@ -25,11 +25,12 @@ getDimensions();
     (window.innerWidth < 767 ) ?document.getElementById("input-search").placeholder = '': document.getElementById("input-search").placeholder = 'Buscar producto';
 }*/
 //*************** Language button ***************
-// Modificar funcionamiento del evento click del botón Login
+// Modificar funcionamiento del evento click del botón Language
 $(document).ready(function() {
   $('#language-button').click(
     function(event) {
       $('#dropdown-language-content').css('display', 'flex');
+      $('#dropdown-notification-content').css('display', 'none');
       $('#dropdown-content').css('display', 'none');
       event.stopPropagation();
     }
@@ -48,6 +49,30 @@ $(document).ready(function() {
   );
 });
 
+//*************** Notification button ***************
+// Modificar funcionamiento del evento click del botón Notification
+$(document).ready(function() {
+  $('#alert-button').click(
+    function(event) {
+      $('#dropdown-notification-content').css('display', 'flex');
+      $('#dropdown-language-content').css('display', 'none');
+      $('#dropdown-content').css('display', 'none');
+      event.stopPropagation();
+    }
+  );
+
+  $('#dropdown-notification-content').click(
+    function(event) {
+      event.stopPropagation();
+    }
+  );
+  $('body').click(
+      function() {
+        $('#dropdown-notification-content').css('display', 'none');
+
+      }
+  );
+});
 //*************** Login button ***************
 // Trsansición entre formularios login y register
 $('.message a').click(function(){
@@ -59,6 +84,7 @@ $(document).ready(function() {
   $('#login-button').click(
     function(event) {
       $('#dropdown-content').css('display', 'flex');
+        $('#dropdown-notification-content').css('display', 'none');
       $('#dropdown-language-content').css('display', 'none');
       event.stopPropagation();
     }

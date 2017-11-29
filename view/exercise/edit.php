@@ -30,7 +30,7 @@ $view->setVariable("title", "Edit Exercise");
             <input type="file" name="images[]" multiple accept="image/*">
             <?= isset($errors["image"])?$errors["image"]:"" ?><br>
             <label for="name-field"><?= i18n("Video") ?> (<?= i18n("Enter a video URL") ?>)</label>
-            <input type="text" name="videos" placeholder="<?= $exercise->getVideo()?>">
+            <input type="text" name="videos" value="<?= $exercise->getVideo()?>">
             <input name="id_exercise" value="<?= $exercise->getId() ?>" hidden="true">
             <input type="submit" name="submit" value="<?= i18n("Modify") ?>"/>
         </form>

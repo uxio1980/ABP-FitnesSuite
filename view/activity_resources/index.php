@@ -19,19 +19,21 @@
       <tr class="table-row-content">
         <td><strong><?= i18n("Resource")?></strong></td>
         <td><strong><?= i18n("Quantity")?></strong></td>
-      <?php foreach ($activity_resources as $activity_resource): ?>
-        <tr class="table-row-content"
-          data-href="index.php?controller=activity_resources&amp;action=edit&amp;id=<?= $activity_resource->getId() ?>">
-          <td><?= $activity_resource->getIdresource() ?></td>
-          <td><?= $activity_resource->getQuantity() ?></td>
-          <td><a href="index.php?controller=activity_resources&amp;action=edit&amp;id=<?= $activity_resource->getId() ?>">
-            <img src="resources/icons/edit_icon.svg" alt="Edit" /></a>
-          </td>
-          <td><a class="confirmation" href="index.php?controller=activity_resources&amp;action=delete&amp;id=<?= $activity_resource->getId() ?>">
-            <img src="resources/icons/delete_icon.svg" alt="Delete"/></a>
-          </td>
-        </tr>
-      <?php endforeach; ?>
+        <?php if (isset($activity_resources)): ?>
+          <?php foreach ($activity_resources as $activity_resource): ?>
+            <tr class="table-row-content"
+            data-href="index.php?controller=activity_resources&amp;action=edit&amp;id=<?= $activity_resource->getId() ?>">
+            <td><?= $activity_resource->getIdresource() ?></td>
+            <td><?= $activity_resource->getQuantity() ?></td>
+            <td><a href="index.php?controller=activity_resources&amp;action=edit&amp;id=<?= $activity_resource->getId() ?>">
+              <img src="resources/icons/edit_icon.svg" alt="Edit" /></a>
+            </td>
+            <td><a class="confirmation" href="index.php?controller=activity_resources&amp;action=delete&amp;id=<?= $activity_resource->getId() ?>">
+              <img src="resources/icons/delete_icon.svg" alt="Delete"/></a>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+      <?php endif ?>
   </table>
   </div>
 </main>

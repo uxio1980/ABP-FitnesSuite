@@ -6,7 +6,7 @@
 
  $errors = $view->getVariable("errors");
 
- $view->setVariable("title", "Add Exercise");
+ $view->setVariable("title", i18n("Add exercise"));
 
 ?>
 
@@ -14,7 +14,7 @@
 	<div class="form">
 	   <form action="index.php?controller=exercise&amp;action=add" method="POST"
 		 enctype="multipart/form-data">
-			<strong><?= i18n("Add Exercise") ?></strong>
+			<strong><?= i18n("Add exercise") ?></strong>
 			<label for="form-field"><?= i18n("Name") ?></label>
 			<input type="text" name="name" minlength="2" maxlength="50" required >
 			<?= isset($errors["name"])?$errors["name"]:"" ?>

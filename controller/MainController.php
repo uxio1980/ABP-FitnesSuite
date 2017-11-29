@@ -69,8 +69,7 @@ $imagesNextEvents  = array();
 
   }
 $this->view->setVariable("next_events", $next_events);
-$notification=NULL;
-$this->view->setVariable("notification", $notification);
+
 
 // render the view (/view/main/index.php)
 $this->view->render("main", "index");
@@ -97,7 +96,7 @@ public function aboutus() {
 */
 public function pricing() {
 
-  $public_info = $this->public_infoMapper->findById(1); //Solo tendrá la tupla con id = 0
+  $public_info = $this->public_infoMapper->findFirst(); //Solo tendrá la tupla con id = 0
   // put the array containing public info object to the view
   $this->view->setVariable("public_info", $public_info);
   // render the view (/view/main/pricing.php)
@@ -112,7 +111,7 @@ public function pricing() {
 *
 */
 public function contact() {
-  $public_info = $this->public_infoMapper->findById(1); //Solo tendrá la tupla con id = 0
+  $public_info = $this->public_infoMapper->findFirst(); //Solo tendrá la tupla con id = 0
   // put the array containing public info object to the view
   $this->view->setVariable("public_info", $public_info);
   // render the view (/view/main/contact.php)
@@ -128,7 +127,7 @@ public function contact() {
 public function sendmail() {
 
   if (isset($_POST["submit"])) {
-    $public_info = $this->public_infoMapper->findById(1);
+    $public_info = $this->public_infoMapper->findFirst();
 
     // populate the mail data
     $name = $_POST["name"];

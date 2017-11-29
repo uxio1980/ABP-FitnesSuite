@@ -61,9 +61,15 @@ class SessionsController extends BaseController {
         $public_infos = $this->public_infoMapper->findAll();
       }
       */
+      $user_tables = $this->user_tableMapper->searchAll($this->currentUser->getId());
+      $numUser_tables = sizeof($user_tables);
+      if (!($numUser_tables)){
+        throw new Exception("This user not has user_tables assigned");
+      }
       $sessions = $this->sessionMapper->searchAll($this->currentUser->getId());
       // put the array containing session objects to the view
       $this->view->setVariable("sessions", $sessions);
+      $this->view->setVariable("numUser_tables", $numUser_tables);
 
       // render the view (/view/sessions/index.php)
       $this->view->render("sessions", "index");
@@ -223,12 +229,17 @@ class SessionsController extends BaseController {
       if (!isset($this->currentUser)) {
         throw new Exception("Not in session. Adding sessions requires login");
       }
-
+/*
+      if(!isset($_REQUEST["id_user_table"])){
+          throw new Exception("no such user table");
+      }
+      $id_user_table = $_REQUEST["id_user_table"];
+*/
       if(isset($_REQUEST["id_user_table"])){
           $id_user_table = $_REQUEST["id_user_table"];
-
           $user_table = $this->user_tableMapper->findById($id_user_table);
-
+      }else{
+        $user_table=NULL;
       }
       $user_tables = $this->user_tableMapper->searchAll($this->currentUser->getId());
 
@@ -236,7 +247,7 @@ class SessionsController extends BaseController {
       $this->view->setVariable("user_table", $user_table);
       $this->view->setVariable("user_tables", $user_tables);
 
-      // render the view (/view/sessions/add.php)
+      // render the view (/view/sessions/start.php)
       $this->view->render("sessions", "start");
 
     }
@@ -280,16 +291,13 @@ class SessionsController extends BaseController {
       // populate the session object with data form the form
       $date_now = $_POST["date_now"];
       $duration = $_POST["duration"];
-      $date = strtotime($duration);
-      $hour =  date('H', ($date+1));
-      $mints = date('i', ($date));
-      $seconds = date('s', ($date));
+      $duration = new DateTime($duration);
+      $duration = $duration->format("H:i:s");
       $session->setUser($this->currentUser);
       $id_user_table = $_POST["user_table"];
       $user_table = $this->user_tableMapper->findById($id_user_table);
       $session->setUser_table($user_table);
       $session->setDate($date_now);
-      $duration = date("H:i:s", strtotime($hour.':'.$mints.':'.$seconds));
       $session->setDuration($duration);
       if (isset($_POST["submit"])) { // reaching via HTTP Post...
         try {

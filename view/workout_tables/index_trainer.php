@@ -10,7 +10,7 @@
 <main id="main-content">
     <div id="content-list">
         <div class="content-title">
-            <strong><?= i18n("Workout Tables")?></strong><br>
+            <strong><?= i18n("Workout tables")?></strong><br>
             <a href="index.php?controller=workout_tables&amp;action=add"><input type='button' value=<?= i18n("New")?> /></a>
         </div>
         <table id="table-content" style="text-align: center;">
@@ -18,7 +18,7 @@
                 <td><strong><?= i18n("Name")?></strong></td>
                 <td><strong><?= i18n("View")?></strong></td>
                 <td><strong><?= i18n("Edit")?></strong></td>
-                <td><strong><?= i18n("Manage Exercices")?></strong></td>
+                <td><strong><?= i18n("Exercises")?></strong></td>
                 <td><strong><?= i18n("Delete")?></strong></td>
                 <td><strong><?= i18n("Print")?></strong></td>
                 <?php foreach ($tables as $table): ?>

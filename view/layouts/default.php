@@ -72,17 +72,27 @@ $language = $i18n->getLanguage();
         <!-- ******* Profile ALERT BUTTON  ************************  -->
         <button id="alert-button">
           <div class="container-user-circle">
-            <?php if (isset($notification)):?>
+            <?php if (isset($notification) && $notification>0):?>
                 <div class="circle kitten notificationYes" style="background-image: url('resources/icons/ic_notifications_black_24px.svg');">
+                  <div class="aligner">
+                    <!-- text inside the icon -->
+                  </div>
             <?php else:?>
                 <div class="circle kitten" style="background-image: url('resources/icons/ic_notifications_none_black_24px.svg');">
             <?php endif ?>
-            <div class="aligner">
-              <!-- text inside the icon -->
-            </div>
+
             </div>
           </div>
         </button>
+        <?php if (isset($notification) && $notification>0):?>
+        <div id="dropdown-notification-content" class="dropdown-content" style="display:none">
+          <div >
+            <?php include(__DIR__."/notification_select_element.php");?>
+
+          </div>
+        </div>
+        <?php endif ?>
+
         <!-- ******* Profile MESSAGE BUTTON  ************************
         <button id="message-button">
           <div class="container-user-circle">
@@ -162,38 +172,38 @@ $language = $i18n->getLanguage();
 
       <nav id="main-navigation">
         <ul class="nav-container">
-          <li class="nav-item">
-            <a href="index.php?controller=trainers&amp;action=index">
-              <img src="resources/icons/weight.svg" alt="Trainer icon"/>
-              <div class="text-item"><?= i18n("Trainers")?></div>
-            </a>
-          </li>
-          <li class="nav-item">
-          <a href="index.php?controller=activities&amp;action=index">
-              <img src="resources/icons/activities.svg" alt="Activity icon"/>
-              <div class="text-item"><?= i18n("Activities")?></div>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="index.php?controller=exercise&amp;action=index">
-                <img src="resources/icons/ic_exercices_table.svg"  width="24" height="24" alt="Exercise icon"/>
-                <div class="text-item"><?= i18n("Exercises")?></div>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="index.php?controller=main&amp;action=pricing">
-              <img src="resources/icons/ic_local_atm_black_24px.svg" alt="Pricing icon"/>
-              <div class="text-item"><?= i18n("Pricing")?></div>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="index.php?controller=main&amp;action=contact">
-              <img src="resources/icons/ic_contact_phone_black_24px.svg" alt="Contact icon"/>
-              <div class="text-item"><?= i18n("Contact")?></div>
-            </a>
-          </li>
-          <?php if (isset($currentuser)):?>
-            <div class="customHr">.</div>
+          <?php if (!isset($currentuser)):?>
+            <li class="nav-item">
+              <a href="index.php?controller=trainers&amp;action=index">
+                <img src="resources/icons/weight.svg" alt="Trainer icon"/>
+                <div class="text-item"><?= i18n("Trainers")?></div>
+              </a>
+            </li>
+            <li class="nav-item">
+            <a href="index.php?controller=activities&amp;action=index">
+                <img src="resources/icons/activities.svg" alt="Activity icon"/>
+                <div class="text-item"><?= i18n("Activities")?></div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="index.php?controller=exercise&amp;action=index">
+                  <img src="resources/icons/ic_exercices_table.svg"  width="24" height="24" alt="Exercise icon"/>
+                  <div class="text-item"><?= i18n("Exercises")?></div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="index.php?controller=main&amp;action=pricing">
+                <img src="resources/icons/ic_local_atm_black_24px.svg" alt="Pricing icon"/>
+                <div class="text-item"><?= i18n("Pricing")?></div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="index.php?controller=main&amp;action=contact">
+                <img src="resources/icons/ic_contact_phone_black_24px.svg" alt="Contact icon"/>
+                <div class="text-item"><?= i18n("Contact")?></div>
+              </a>
+            </li>
+          <?php else: ?>
             <li class="nav-item">
               <a href="index.php?controller=users&amp;action=profile&amp;login=<?= $currentuser ?>" method="POST">
                 <img src="resources/icons/profile_icon.svg" alt="Profile icon"/>
@@ -212,12 +222,6 @@ $language = $i18n->getLanguage();
                       <div class="text-item"><?= i18n("Sessions")?></div>
                     </a>
                   </li>
-                  <li class="nav-item">
-                      <a href="index.php?controller=workout_table&amp;action=index">
-                          <img src="resources/icons/workout_table_icon.svg"  width="24" height="24" alt="Exercise icon"/>
-                          <div class="text-item"><?= i18n("Exercises")?></div>
-                      </a>
-                  </li>
                 <?php endif ?>
                 <?php if (($typeuser)==usertype::Trainer):?>
                   <li class="nav-item">
@@ -226,18 +230,25 @@ $language = $i18n->getLanguage();
                           <div class="text-item"><?= i18n("Users")?></div>
                       </a>
                   </li>
+                  <li class="nav-item">
+                      <a href="index.php?controller=workout_tables&amp;action=index">
+                          <img src="resources/icons/workout_table_icon.svg"  width="24" height="24" alt="Exercise icon"/>
+                          <div class="text-item"><?= i18n("Workout tables")?></div>
+                      </a>
+                  </li>
                 <?php endif ?>
                 <?php if (($typeuser)==usertype::Administrator):?>
+                <div class="customHr">.</div>
+                <li class="nav-item">
+                  <a href="index.php?controller=users&amp;action=index">
+                    <img src="resources/icons/ic_group_black_24px.svg" alt="Users icon"/>
+                    <div class="text-item"><?= i18n("Users")?></div>
+                  </a>
+                </li>
                 <li class="nav-item">
                     <a href="index.php?controller=resources&amp;action=index">
                       <img src="resources/icons/ic_group_black_24px.svg" alt="MyStatistics icon"/>
                       <div class="text-item"><?= i18n("Resources")?></div>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="index.php?controller=users&amp;action=index">
-                      <img src="resources/icons/ic_group_black_24px.svg" alt="Users icon"/>
-                      <div class="text-item"><?= i18n("Users")?></div>
                     </a>
                   </li>
                   <li class="nav-item">
@@ -253,14 +264,7 @@ $language = $i18n->getLanguage();
                       </a>
                   </li>
                   <li class="nav-item">
-                      <a href="index.php?controller=workout_tables&amp;action=index">
-                          <img src="resources/icons/workout_table_icon.svg"  width="24" height="24" alt="Exercise icon"/>
-                          <div class="text-item"><?= i18n("Wourkout tables")?></div>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                    <!-- index.php?controller=notification&amp;action=index -->
-                    <a href="">
+                    <a href="index.php?controller=notification&amp;action=index">
                       <img src="resources/icons/ic_notifications_black_24px.svg" alt="Activities icon"/>
                       <div class="text-item"><?= i18n("Notifications")?></div>
                     </a>

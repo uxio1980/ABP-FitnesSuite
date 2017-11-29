@@ -29,13 +29,15 @@ class Workout_tableMapper {
      */
     public function findAll() {
 
-        $stmt = $this->db->query("SELECT * FROM workout_table");
+        $stmt = $this->db->query("SELECT workout_table.*, user.id as 'user.id', user.login as 'user.login'
+          FROM workout_table
+          LEFT JOIN user on workout_table.id_user=user.id");
         $tables_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $tables = array();
 
         foreach ($tables_db as $table) {
-            array_push($tables, new Workout_table($table["id"], $table["user"], $table["name"], $table["type"], $table["description"]));
-
+          $user = new User($table["user.id"], $table["user.login"]);
+            array_push($tables, new Workout_table($table["id"], $user, $table["name"], $table["type"], $table["description"]));
         }
         return $tables;
     }
@@ -76,7 +78,7 @@ class Workout_tableMapper {
     }
 
     public function save($workout_table) {
-        $stmt = $this->db->prepare("INSERT INTO workout_table (id, id_user, name, type, description) 
+        $stmt = $this->db->prepare("INSERT INTO workout_table (id, id_user, name, type, description)
             values (0,?,?,?,?)");
         $stmt->execute(array($workout_table->getUser()->getId(),$workout_table->getName(),$workout_table->getType(),$workout_table->getDescription()));
     }

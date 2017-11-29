@@ -18,7 +18,6 @@ $view->setVariable("title", "FitnesSuite");
         <table id="table-content" style="text-align: center;">
             <tr class="table-row-content">
                 <td><strong><?= i18n("Name")?></strong></td>
-                <td><strong><?= i18n("Description")?></strong></td>
                 <td><strong><?= i18n("Type")?></strong></td>
                 <td><strong><?= i18n("View")?></strong></td>
                 <td><strong><?= i18n("Edit")?></strong></td>
@@ -27,7 +26,6 @@ $view->setVariable("title", "FitnesSuite");
             <tr class="table-row-content"
                 data-href="index.php?controller=exercise&amp;action=edit&amp;id_exercise=<?= $exercise->getId() ?>">
                 <td><?= $exercise->getName() ?></td>
-                <td><?= $exercise->getDescription() ?></td>
                 <td><?= $exercise->getType() ?></td>
                 <td><a href="index.php?controller=exercise&amp;action=view&amp;id_exercise=<?= $exercise->getId() ?>">
                         <img src="resources/icons/view_icon.svg" alt="View" /></a>

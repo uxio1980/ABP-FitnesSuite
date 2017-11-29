@@ -13,7 +13,7 @@ abstract class usertype{
       return $constants;
     }
 
-    function getName($idnumber){
+    static function getName($idnumber){
       $utypeClass = new ReflectionClass('usertype');
       $constants = $utypeClass->getConstants();
       $constName = null;
@@ -177,9 +177,6 @@ class User {
     }
     if (strlen($this->email) < 5) {
       $errors["register-email"] = "You must write your email";
-    }
-    if (strlen($this->user_type) == 0) {
-          $errors["register-type"] = "You must specify a user type";
     }
     if (sizeof($errors)>0){
       throw new ValidationException($errors, "user is not valid");

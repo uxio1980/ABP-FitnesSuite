@@ -20,8 +20,8 @@
 
            <label for="form-field"><?= i18n("Type") ?></label>
            <select name="type" placeholder="<?=$workout_table->getType()?>">
-               <option value="standard"><?= i18n("standard")?></option>
-               <option value="customized"><?= i18n("customized")?></option>
+               <option <?=($workout_table->getType()=="standard")?'selected="selected"':''?> value="standard"><?= i18n("standard")?></option>
+               <option <?=($workout_table->getType()=="customized")?'selected="selected"':''?> value="customized"><?= i18n("customized")?></option>
            </select>
 
 			<label for="name-field"><?= i18n("Description") ?></label>

@@ -34,7 +34,7 @@ class ActivityMapper {
         $activity = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($activity != null) {
-            return new activity($activity["id"],$activity["id_user"],$activity["name"],$activity["description"], 
+            return new activity($activity["id"],$activity["id_user"],$activity["name"],$activity["description"],
             $activity["type"],$activity["place"],$activity["seats"], $activity["image"]);
         } else {
             return NULL;

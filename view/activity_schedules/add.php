@@ -13,15 +13,15 @@ $view->setVariable("title", "Add Activity schedule");
   <div class="form">
     <form action="index.php?controller=activity_schedule&amp;action=add&amp;id_activity=<?= $activity->getIdactivity()?>/>" method="POST"
     enctype="multipart/form-data">
-    <strong><?= i18n("Add activity schedule for ") ?><?= $activity->getName();?></strong>
+    <strong><?= i18n("Add activity schedule for") ?> <?= $activity->getName();?></strong>
     <input type="hidden" name="id_activity" value="<?= $activity->getIdactivity()?>"/>
 
     <label for="login-field"><?=i18n("Start date")?></label>
-    <?php $date = getdate(); $actualDate = $date[year]."-".$date[mon]."-".$date[mday];?>
+    <?php $date = getdate(); $actualDate = $date['year']."-".$date['mon']."-".$date['mday'];?>
     <input type="date" name="startdate" required="true" value="<?= $actualDate?>"/>
     <?= isset($errors["startdate"])?$errors["startdate"]:"" ?><br>
 
-    <?php $actualTime = sprintf("%02d",$date[hours]).":".sprintf("%02d", $date[minutes]);?>
+    <?php $actualTime = sprintf("%02d",$date['hours']).":".sprintf("%02d", $date['minutes']);?>
     <label for="login-field"><?=i18n("Start hour")?></label>
     <input type="time" name="start" required="true" value="<?= $actualTime?>"/>
     <?= isset($errors["start"])?$errors["start"]:"" ?><br>

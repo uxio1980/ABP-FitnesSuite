@@ -42,7 +42,6 @@
 
       <label for="login-field"><?= i18n("User type")?></label>
       <span class="field"> <?= i18n(usertype::getName($user->getUser_type())) ?></span>
-
   </div>
 </main>
 <script src="js/index.js"></script>

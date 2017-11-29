@@ -100,8 +100,8 @@ class ActivitiesController extends BaseController {
     $place = $this->resourceMapper->findById($activity->getPlace());
     // Recupera el array de rutas a las imágenes.
     $images = json_decode($activity->getImage());
-    $trainer = $this->activityMapper->findTrainerById($activity->getIduser());
-
+    //$trainer = $this->activityMapper->findTrainerById($activity->getIduser());
+    $trainer = $this->userMapper->findById2($activity->getIduser());
     if ($activity == NULL) {
       throw new Exception("->no such activity with id: ".$activityid);
     }
@@ -117,7 +117,7 @@ class ActivitiesController extends BaseController {
       $this->view->render("activities", "view");
     } else {
       $this->view->render("activities", "view");
-    }  
+    }
   }
 
   /**
@@ -289,7 +289,7 @@ class ActivitiesController extends BaseController {
       // Si no se edita mantiene las imágenes actuales.
       if($_FILES['images']['name'][0] == ""){
         $activity->setImage($activity->getImage());
-      }// Sube las nuevas imágenes. 
+      }// Sube las nuevas imágenes.
       elseif(count($_FILES['images']['name']) > 0){
         $images = array();
         $tmp = array();
@@ -306,7 +306,7 @@ class ActivitiesController extends BaseController {
           unlink($img[$i]);
         }
         $activity->setImage(json_encode($images));
-        
+
       } else {
         $activity->setImage(NULL);
       }
@@ -317,7 +317,7 @@ class ActivitiesController extends BaseController {
 
         // update the Post object in the database
         $this->activityMapper->update($activity);
-        
+
         if(count($_FILES['images']['name']) > 0){
           $files = json_decode($activity->getImage());
           for($i=0; $i<count($files); $i++) {

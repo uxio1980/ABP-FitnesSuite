@@ -13,7 +13,7 @@
   <div id="content-list">
     <div class="content-title">
       <strong><?= i18n("Sessions")?></strong><br>
-      <a href="index.php?controller=sessions&amp;action=start"><input type='button' value=<?= i18n("New")?> /></a>
+        <a href="index.php?controller=sessions&amp;action=start"><input type='button' value=<?= i18n("New")?> /></a>
     </div>
     <table id="table-content">
       <tr class="table-row-content">
@@ -28,7 +28,7 @@
           data-href="index.php?controller=users&amp;action=edit&amp;id=<?= $session->getId() ?>">
           <td><?= date("j M, Y g:ia", strtotime($session->getDate())) ?></td>
           <td><?= $session->getUser_table()->getWorkout_table()->getName() ?></td>
-          <td><?= date('g:i' ,strtotime($session->getDuration() )) ?></td>
+          <td><?= date('H:i:s' ,strtotime($session->getDuration() )) ?></td>
           <td><?= $session->getComment() ?></td>
           <td><a href="index.php?controller=sessions&amp;action=edit&amp;id=<?= $session->getId() ?>">
             <img src="resources/icons/edit_icon.svg" alt="Edit" /></a>

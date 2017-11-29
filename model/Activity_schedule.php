@@ -74,10 +74,6 @@ class Activity_schedule {
   */
   public function checkIsValidForCreate() {
     $errors = array();
-    if ($this->duration <= $this->date ) {
-      $errors["end"] = "End date is previous or equal to start date";
-    }
-
     if ($this->end_hour <= $this->start_hour ) {
       $errors["end"] = "End hour is previous or equal to start hour";
     }

@@ -52,7 +52,7 @@ class User_tableMapper {
           NULL, //usuario
           $user_table["workout_table.name"]
           );
-        return new User_table($user_table["user_table.id"]);
+        return new User_table($user_table["user_table.id"], $workout_table, $usuario);
       } else {
         return NULL;
       }
@@ -123,8 +123,10 @@ class User_tableMapper {
     }
 
     public function findByUser($id_user){
-        $stmt = $this->db->prepare("SELECT * FROM workout_table WHERE id IN 
-            (SELECT id_workout FROM user_table WHERE id_user=?)");
+        $stmt = $this->db->prepare("SELECT UT.id as 'user_table.id', WT.id, WT.id_user, WT.name, WT.type, WT.description
+          FROM user_table UT
+	         left join workout_table WT ON UT.id_workout= WT.id
+          WHERE UT.id_user=?");
 
         $stmt->execute(array($id_user));
 
@@ -133,8 +135,10 @@ class User_tableMapper {
         $tables = array();
 
         foreach ($tables_db as $table) {
-            array_push($tables, new Workout_table($table["id"],$table["user"],
-                $table["name"],$table["type"],$table["description"]));
+          $user = new User();
+          $user->setId($table["id_user"]);
+            array_push($tables, new Workout_table($table["id"],$user,
+                $table["name"],$table["type"],$table["description"], $table["user_table.id"]));
 
         }
 
@@ -142,7 +146,7 @@ class User_tableMapper {
     }
 
     public function searchNotAssignedTablesPEF($id_user){
-        $stmt = $this->db->prepare("SELECT * FROM workout_table WHERE id NOT IN 
+        $stmt = $this->db->prepare("SELECT * FROM workout_table WHERE id NOT IN
             (SELECT id_workout FROM user_table WHERE id_user=?)");
         $stmt->execute(array($id_user));
         $tables_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -158,7 +162,7 @@ class User_tableMapper {
     }
 
     public function searchNotAssignedTablesTDU($id_user){
-        $stmt = $this->db->prepare("SELECT * FROM workout_table WHERE type='standard' AND id NOT IN 
+        $stmt = $this->db->prepare("SELECT * FROM workout_table WHERE type='standard' AND id NOT IN
             (SELECT id_workout FROM user_table WHERE id_user=?)");
         $stmt->execute(array($id_user));
         $tables_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -174,7 +178,7 @@ class User_tableMapper {
     }
 
     public function save($user_table) {
-        $stmt = $this->db->prepare("INSERT INTO user_table (id, id_workout, id_user) 
+        $stmt = $this->db->prepare("INSERT INTO user_table (id, id_workout, id_user)
             values (0,?,?)");
         $stmt->execute(array($user_table->getWorkout_table()->getId(),$user_table->getUser()->getId()));
     }

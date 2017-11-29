@@ -17,7 +17,7 @@
 	<div class="form">
 	   <form action="index.php?controller=user_tables&amp;action=add" method="POST">
 
-			<strong><?= i18n("Assignd Workout Table") ?></strong>
+			<strong><?= i18n("Assign workout table") ?></strong>
 
 			<label for="form-field"><?= i18n("Workout tables") ?></label>
 			<select name="id_workout" class="select" required>

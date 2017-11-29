@@ -11,7 +11,7 @@ require_once(__DIR__."/../model/User_table.php");
 require_once(__DIR__."/../model/User_tableMapper.php");
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
-require_once(DIR."/../model/Exercise_table.php");
+require_once(__DIR__."/../model/Exercise_table.php");
 
 
 class User_tablesController extends BaseController {
@@ -40,6 +40,7 @@ class User_tablesController extends BaseController {
         if (!isset($this->currentUser) || $this->currentUser->getUser_type() != usertype::Trainer) {
             throw new Exception("Not in session. View  workout tables  requires login like a trainer");
         }
+
         $id_user = $_REQUEST["login"];
 
         $table_exercises = $this->user_tableMapper->findByUser($id_user);
@@ -65,7 +66,7 @@ class User_tablesController extends BaseController {
 
             $workout_tables = $this->user_tableMapper->searchNotAssignedTablesPEF($id_user);
         }else{
-            if($user->getUser_type() == usertype::AthletePEF){
+            if($user->getUser_type() == usertype::AthleteTDU){
                 $workout_tables = $this->user_tableMapper->searchNotAssignedTablesTDU($id_user);
             }
         }
@@ -121,7 +122,7 @@ class User_tablesController extends BaseController {
         }
 
         // Get the exercise object from the database
-        $id = $_REQUEST["id_workout"];
+        $id = $_REQUEST["id"];
 
         $user_table = $this->user_tableMapper->findById($id);
 
@@ -130,11 +131,13 @@ class User_tablesController extends BaseController {
             throw new Exception("no such user table with id: ".$id);
         }else{
             $this->user_tableMapper->delete($user_table);
-            $this->view->setFlash(sprintf(i18n("Table \"%s\" of user \"%s\" successfully deleted."),
-                $user_table->getWorkout_table()->getName(),$user_table->getUser()->getName()));
+            //$this->view->setFlash(sprintf(i18n("Table \"%s\" of user \"%s\" successfully deleted."),
+            //  $user_table->getWorkout_table()->getName(),$user_table->getUser()->getName()));
         }
 
-        $this->view->redirect("user_tables", "index");
+        //$this->view->redirect("user_tables", "index");
+
+        $this->view->redirect("user_tables", "index","login=".$user_table->getUser()->getId());
 
     }
 }

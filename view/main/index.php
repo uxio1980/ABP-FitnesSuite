@@ -16,8 +16,8 @@ $view->setVariable("title", "FitnesSuite");
     <li id="commercial-box-index" class="commercial-box-index">
       <img class="commercial-image-index" src="resources/images/pic.png" alt="commercial picture" />
       <div class="commercial-textbox-index">
-        <p class="commercial-title">Lorem ipsum dolor sit!</p>
-        <p class="commercial-description">aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+        <p class="commercial-title"><?= i18n("Practice gives the")?> <?= i18n("Perfect results")?></p>
+        <p class="commercial-description"><?= i18n("Get healthy with FitnesSuite, because feeling good is being fit. In the end this is about living well")?>.</p>
       </div>
     </li>
     <div class="list-classes-box">
@@ -30,7 +30,7 @@ $view->setVariable("title", "FitnesSuite");
             <a href="index.php?controller=activities&amp;action=view&amp;idactivity=<?= $activity->getIdactivity()?>">
               <?= $activity->getName() ?></a>
             <div class="social-media">
-              <span class="timetable-icon" data-tooltip="timetable"></span>
+              <a href=""><span class="timetable-icon" data-tooltip="timetable"></span></a>
               <span class="sendto" data-tooltip="Send to"></span>
               <span class="likeit" data-tooltip="like it"></span>
               <span class="share" data-tooltip="share"></span>
@@ -70,16 +70,17 @@ $view->setVariable("title", "FitnesSuite");
                 <?php if ($next_event->getActivity()->getImage() == NULL):
     						  $pathimage = 'resources/images/_missing-thumbnail.png' ?>
     					  <?php else:
-    						  $pathimage = json_decode($next_event->getActivity()->getImage()[0]) ?>
+    						  $pathimage = json_decode($next_event->getActivity()->getImage()) ?>
     					  <?php endif ?>
-                <img src="<?= $pathimage ?>" alt="Image 1">
+                <img src="<?= $pathimage[0] ?>" alt="Image 1">
               </div>
               <div class="commercial-description">
                 <p class="commercial-description red-color"><span><?= date( 'g:ia' ,strtotime($next_event->getStart_hour())) ?>-<?= date('g:ia', strtotime($next_event->getEnd_hour())) ?></span></p>
                 <a href="index.php?controller=activities&amp;action=view&amp;idactivity=<?= $next_event->getActivity()->getIdactivity()?>">
                   <p class="commercial-description uppercase second-color"><span><?= $next_event->getActivity()->getName() ?></span></p></a>
                 <div class="commercial-description">
-                  <a href="index.php?controller=Reservation&amp;action=add"><input type='button' value=<?= i18n("Reservation")?> /></a>
+                  <!-- index.php?controller=Reservation&amp;action=add -->
+                  <a href=""><input type='button' value=<?= i18n("Reservation")?> /></a>
                 </div>
             </div>
           </div>
