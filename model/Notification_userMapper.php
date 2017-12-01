@@ -95,8 +95,8 @@ class Notification_userMapper {
        */
       public function countAllByUser(User $user) {
         $stmt = $this->db->prepare("SELECT COUNT(*)
-FROM notification_user  NU LEFT JOIN notification N ON N.id_user = n.id
-WHERE nu.id_user=? AND N.date > NOW() AND (NU.viewed IS NULL)");
+FROM notification_user  NU LEFT JOIN notification N ON N.id_user = N.id
+WHERE NU.id_user=? AND N.date > NOW() AND (NU.viewed IS NULL)");
         //$stmt->execute(array(0));
         $stmt->execute(array($user->getId()));
         $count = $stmt->fetch(PDO::FETCH_ASSOC);

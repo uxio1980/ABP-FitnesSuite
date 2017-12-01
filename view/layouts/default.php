@@ -205,6 +205,12 @@ $language = $i18n->getLanguage();
             </li>
           <?php else: ?>
             <li class="nav-item">
+              <a href="index.php?controller=statistics&amp;action=index">
+                <img src="resources/icons/weight.svg" alt="Trainer icon"/>
+                <div class="text-item"><?= i18n("Statistics")?></div>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="index.php?controller=users&amp;action=profile&amp;login=<?= $currentuser ?>" method="POST">
                 <img src="resources/icons/profile_icon.svg" alt="Profile icon"/>
                 <div class="text-item"><?= i18n("My profile")?></div></a>
