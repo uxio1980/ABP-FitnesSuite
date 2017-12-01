@@ -16,7 +16,7 @@
 	<div class="form">
 	   <form action="index.php?controller=exercises_table&amp;action=edit" method="POST">
 
-			<strong><?= i18n("Modify exercise from table") ?></strong>
+			<strong><?= i18n("Modify exercise") ?> <?=i18n("from table")?></strong>
 
            <input type="hidden" name="id_workout" value="<?= $exercise_table->getWorkout() ?>"/>
 

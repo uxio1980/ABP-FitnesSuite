@@ -114,7 +114,8 @@ class SessionMapper {
               U.id  as 'user.id', U.login as 'user.login', U.name as 'user.name'
             FROM session S
             LEFT JOIN user U ON S.id_user=U.id
-	          WHERE S.id_user=?) X
+	          WHERE S.id_user=?
+          order by S.date) X
         LEFT JOIN user_table UT ON session_id_table=UT.id
         LEFT JOIN workout_table WT ON UT.id_workout = WT.id");
         $stmt->execute(array($value));

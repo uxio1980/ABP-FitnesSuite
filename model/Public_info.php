@@ -55,7 +55,7 @@ class Public_info {
   *
   * @return void
   */
-  public function checkIsValidForRegister() {
+  public function checkIsValidForCreate() {
     $errors = array();
     if (strlen($this->email) < 5) {
       $errors["register-email"] = "You must write your email";
@@ -81,7 +81,7 @@ class Public_info {
       $errors["phone"] = "You must write a valid phone number";
     }
     try{
-      $this->checkIsValidForRegister();
+      $this->checkIsValidForCreate();
     }catch(ValidationException $ex) {
       foreach ($ex->getErrors() as $key=>$error) {
         $errors[$key] = $error;

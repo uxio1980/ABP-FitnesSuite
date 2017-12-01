@@ -23,9 +23,9 @@ $view->setVariable("title", "Add Activity schedule");
     </select>
     <?= isset($errors["user_table"])?$errors["user_table"]:"" ?>
 
-    <label for="login-field"><?= i18n("Begin date")?></label>
-    <?php $date = date("Y-m-d\Th:i",strtotime($session->getDate())); ?>
-    <input type="datetime-local" name="date" value="<?= $date ?>" />
+    <label for="login-field"><?= i18n("Begin")?></label>
+    <?php $date = date("Y-m-d\TH:i",strtotime($session->getDate())); ?>
+    <input type="datetime-local" name="date" value="<?= ($session->getDate())?$date:'' ?>" />
     <?= isset($errors["date"])?$errors["date"]:"" ?>
 
     <label for="login-field"><?=i18n("Duration")?></label>
@@ -33,7 +33,7 @@ $view->setVariable("title", "Add Activity schedule");
     <?= isset($errors["duration"])?$errors["duration"]:"" ?><br>
 
     <label for="name-field"><?= i18n("Comment") ?></label>
-    <textarea name="comment" rows="4" cols="50" required><?=$session->getComment() ?></textarea>
+    <textarea name="comment" rows="4" cols="50" ><?=$session->getComment() ?></textarea>
     <?= isset($errors["comment"])?$errors["comment"]:"" ?><br>
 
     <input type="submit" name="submit" value="<?= i18n("Add") ?>"/>

@@ -16,7 +16,7 @@
 	<div class="form">
 	   <form action="index.php?controller=sessions&amp;action=edit" method="POST"
 		 enctype="multipart/form-data">
-			<strong><?= i18n("Edit Session") ?></strong>
+			<strong><?= i18n("Edit session") ?></strong>
       <input type="hidden" name="id" value="<?= $session->getId() ?>"/>
 
       <label for="login-field"><?= i18n("Workout table")?></label>
@@ -28,8 +28,8 @@
       <?= isset($errors["user_table"])?$errors["user_table"]:"" ?>
 
       <label for="login-field"><?= i18n("Date")?></label>
-      <?php $date = date("Y-m-d\Th:i",strtotime($session->getDate())); ?>
-      <input type="datetime-local" name="date" value="<?= $date ?>" />
+      <?php $date = date("Y-m-d\TH:i",strtotime($session->getDate())); ?>
+      <input type="datetime-local" name="date" value="<?= ($session->getDate())?$date:'' ?>" />
       <?= isset($errors["date"])?$errors["date"]:"" ?>
 
       <label for="login-field"><?=i18n("Duration")?></label>
@@ -37,7 +37,7 @@
       <?= isset($errors["duration"])?$errors["duration"]:"" ?><br>
 
       <label for="name-field"><?= i18n("Comment") ?></label>
-			<textarea name="comment" rows="4" cols="50" required><?=$session->getComment() ?></textarea>
+			<textarea name="comment" rows="4" cols="50" ><?=$session->getComment() ?></textarea>
 			<?= isset($errors["comment"])?$errors["comment"]:"" ?><br>
 
 			<input type="submit" name="submit" value="<?= i18n("Modify") ?>"/>
