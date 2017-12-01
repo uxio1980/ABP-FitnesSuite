@@ -148,7 +148,9 @@ class Activity_scheduleMapper {
       $stmt = $this->db->query("SELECT A_S.id as asId, A_S.*, A.*
         FROM activity_schedule A_S
         LEFT JOIN activity A ON A_S.id_activity=A.id
-        WHERE STR_TO_DATE(CONCAT(DATE_FORMAT(A_S.date, '%Y-%m-%d'), A_S.start_hour), '%Y-%m-%d %H:%i:%s') >=NOW() LIMIT 2");
+        WHERE STR_TO_DATE(CONCAT(DATE_FORMAT(A_S.date, '%Y-%m-%d'), A_S.start_hour), '%Y-%m-%d %H:%i:%s') >=NOW()
+        order by date(A_S.date), date(A_S.start_hour)
+        LIMIT 2");
       $activity_schedules_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       $activity_schedules = array();
@@ -157,7 +159,7 @@ class Activity_scheduleMapper {
           $activity = new Activity($activity_schedule["id_activity"],
           $activity_schedule["id_user"], $activity_schedule["name"],
           $activity_schedule["description"], $activity_schedule["type"],
-          $activity_schedule["place"],$activity_schedule["seats"], 
+          $activity_schedule["place"],$activity_schedule["seats"],
           $activity_schedule["image"]);
           $a_s = new Activity_schedule($activity_schedule["asId"],
           $activity,

@@ -211,6 +211,12 @@ $language = $i18n->getLanguage();
               </li>
               <?php if (($typeuser)==usertype::AthleteTDU || ($typeuser)==usertype::AthletePEF ):?>
                 <li class="nav-item">
+                  <a href="index.php?controller=activities&amp;action=index">
+                    <img src="resources/icons/activities.svg" alt="Activities icon"/>
+                    <div class="text-item"><?= i18n("Activities")?></div>
+                  </a>
+                </li>
+                <li class="nav-item">
                     <a href="index.php?controller=workout_tables&amp;action=index">
                         <img src="resources/icons/workout_table_icon.svg"  width="24" height="24" alt="Exercise icon"/>
                         <div class="text-item"><?= i18n("Workout tables")?></div>
@@ -220,6 +226,12 @@ $language = $i18n->getLanguage();
                     <a href="index.php?controller=sessions&amp;action=index">
                       <img src="resources/icons/sessions_icon.svg" alt="Session icon"/>
                       <div class="text-item"><?= i18n("Sessions")?></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="index.php?controller=notification&amp;action=index">
+                      <img src="resources/icons/ic_notifications_black_24px.svg" alt="Activities icon"/>
+                      <div class="text-item"><?= i18n("Notifications")?></div>
                     </a>
                   </li>
                 <?php endif ?>
@@ -235,6 +247,18 @@ $language = $i18n->getLanguage();
                           <img src="resources/icons/workout_table_icon.svg"  width="24" height="24" alt="Exercise icon"/>
                           <div class="text-item"><?= i18n("Workout tables")?></div>
                       </a>
+                  </li>
+                  <li class="nav-item">
+                      <a href="index.php?controller=exercise&amp;action=index">
+                          <img src="resources/icons/ic_exercices_table.svg"  width="24" height="24" alt="Exercise icon"/>
+                          <div class="text-item"><?= i18n("Exercises")?></div>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="index.php?controller=notification&amp;action=index">
+                      <img src="resources/icons/ic_notifications_black_24px.svg" alt="Activities icon"/>
+                      <div class="text-item"><?= i18n("Notifications")?></div>
+                    </a>
                   </li>
                 <?php endif ?>
                 <?php if (($typeuser)==usertype::Administrator):?>
