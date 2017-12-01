@@ -76,6 +76,10 @@ class UsersController extends BaseController {
                   $users = $this->userMapper->findPending();
               }elseif ($filterby =="all"){
                   $users = $this->userMapper->findAll();
+              }elseif ($filterby == "trainers"){
+                  $users = $this->userMapper->findAllTrainers();
+              }elseif ($filterby =="athlets"){
+                  $users = $this->userMapper->findAllAthlets();
               }
 
           } else {
@@ -219,8 +223,8 @@ class UsersController extends BaseController {
                             $mail->AltBody = 'Su usuario ha sido confirmado. Ya puedes iniciar sesión';
                             if (!$mail->send()) {
                                 echo "Mailer Error: " . $mail->ErrorInfo;
-                                var_dump($mail->ErrorInfo);
-                                exit;
+                                /*var_dump($mail->ErrorInfo);
+                                exit;*/
                             } else {
                                 echo "Message sent!";
                                 $user->setUser_type($_POST["user_type"]);
@@ -316,8 +320,8 @@ class UsersController extends BaseController {
             $mail->AltBody = 'Su usuario ha sido confirmado. Ya puedes iniciar sesión';
             if (!$mail->send()) {
                 echo "Mailer Error: " . $mail->ErrorInfo;
-                var_dump($mail->ErrorInfo);
-                exit;
+                /*var_dump($mail->ErrorInfo);
+                exit;*/
             } else {
                 echo "Message sent!";
                 $user->setUser_type($_POST["user_type"]);

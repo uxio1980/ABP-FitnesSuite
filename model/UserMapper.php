@@ -147,8 +147,8 @@ class UserMapper {
           $trainers = array();
 
           foreach ($trainers_db as $trainer) {
-            array_push($trainers, new User($trainer["id"],NULL,$trainer["name"],NULL,$trainer["email"],
-              $trainer["description"],$trainer["profile_image"],$trainer["surname"]));
+            array_push($trainers, new User($trainer["id"],$trainer["login"],$trainer["name"],NULL,$trainer["email"],
+              $trainer["description"],$trainer["profile_image"],$trainer["surname"],$trainer["phone"],null,$trainer["user_type"]));
           }
 
           return $trainers;
