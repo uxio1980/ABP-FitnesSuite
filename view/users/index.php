@@ -19,16 +19,19 @@ $filterby = $view->getVariable("filterby");
     </div>
       <div class="filter-box-notifications">
           <form id="form-notifications-filterby" action="index.php?controller=users&amp;action=index" method="POST">
-              <input id="filter1" class="radio-button" type="radio" name="filterby" value="pending" <?= ($filterby == 'pending') ? "checked='checked'" : "";?>><?= i18n("Pending")?>
               <input id="filter2" class="radio-button" type="radio" name="filterby" value="all" <?= ($filterby == 'all') ? "checked='checked'" : "";?>><?= i18n("All")?>
+              <input id="filter1" class="radio-button" type="radio" name="filterby" value="pending" <?= ($filterby == 'pending') ? "checked='checked'" : "";?>><?= i18n("Pending")?>
+              <input id="filter3" class="radio-button" type="radio" name="filterby" value="athlets" <?= ($filterby == 'athlets') ? "checked='checked'" : "";?>><?= i18n("Athlets")?>
+              <input id="filter4" class="radio-button" type="radio" name="filterby" value="trainers" <?= ($filterby == 'trainers') ? "checked='checked'" : "";?>><?= i18n("Trainers")?>
           </form>
 
       </div>
     <table id="table-content">
       <tr class="table-row-content">
+          <td><strong><?= i18n("User type")?></strong></td>
         <td><strong><?= i18n("Login")?></strong></td>
         <td><strong><?= i18n("Name")?></strong></td>
-        <td><strong><?= i18n("Surname")?></strong></td>
+        <!--<td><strong><?= i18n("Surname")?></strong></td>-->
         <td><strong><?= i18n("Email")?></strong></td>
         <td><strong><?= i18n("Phone")?></strong></td>
         <td><strong><?= i18n("Edit")?></strong></td>
@@ -36,9 +39,10 @@ $filterby = $view->getVariable("filterby");
       <?php foreach ($users as $user): ?>
         <tr class="table-row-content"
           data-href="index.php?controller=users&amp;action=edit&amp;login=<?= $user->getLogin() ?>">
+            <td><?= i18n(usertype::getName($user->getUser_type()))?></td>
           <td><?= $user->getLogin() ?></td>
           <td><?= $user->getName() ?></td>
-          <td><?= $user->getSurname() ?></td>
+          <!--<td><?= $user->getSurname() ?></td>-->
           <td><?= $user->getEmail() ?></td>
           <td><?= $user->getPhone() ?></td>
           <td><a href="index.php?controller=users&amp;action=edit&amp;login=<?= $user->getLogin() ?>">
@@ -62,7 +66,8 @@ $filterby = $view->getVariable("filterby");
     var form = document.getElementById("form-notifications-filterby");
     $('.radio-button').on('click', function () {
         //return confirm(ji18n('Are you sure?'));
-        if (document.getElementById("filter1").checked || document.getElementById("filter2").checked){
+        if (document.getElementById("filter1").checked || document.getElementById("filter2").checked ||
+            document.getElementById("filter3").checked ||  document.getElementById("filter4").checked){
             form.submit();
         }
     });
