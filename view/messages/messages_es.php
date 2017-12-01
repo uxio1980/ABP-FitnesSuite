@@ -3,6 +3,7 @@
   $i18n_messages =
   array(
     "title" => "FitnesSuite",
+    "is mandatory" => "es obligatorio",
     "Practice gives the" => "La práctica da los",
     "Perfect results" => "Resultados perfectos",
     "Get healthy with FitnesSuite, because feeling good is being fit. In the end this is about living well" =>"Ponte en forma con FitnesSuite, porque sentirse bien es estar en forma. Al fin y al cabo, se trata de vivir bien",
@@ -45,7 +46,15 @@
     "Routines" => "Rutinas",
     "Address" => "Dirección",
     "New" => "Nuevo",
+    "Notifications" => "Notificaciones",
     "Sessions" => "Sesiones",
+    "Save the session?" => "¿Guardar la sesión?",
+    "Table" => "Tabla",
+    "Duration" => "Duración",
+    "Comment" => "Comentario",
+    "Edit session" => "Editar sesión",
+    "Resume for add session" => "Resumen de la sesión realizada",
+    "Begin" => "Comienzo",
     "Reservation" => "Reservar",
     "by %s" => "por %s",
     "Public info" => "Info pública",
