@@ -20,11 +20,13 @@ class StatisticsController extends BaseController {
 
     // obtain the data from the database
     $number_users = $this->statisticMapper->athletesRegistered();
+    $exercises_type = $this->statisticMapper->exercisesByType();
 
     // put the array containing Activity object to the view
     
     if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
-    $this->view->setVariable("number_users", $number_users);
+      $this->view->setVariable("number_users", $number_users->getStatistic());
+      $this->view->setVariable("exercises_type", $exercises_type->getStatistic());
       $this->view->render("statistics", "index_admin");
     } else {
       //$this->view->render("statistics", "index");

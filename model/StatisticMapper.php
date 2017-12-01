@@ -17,66 +17,74 @@ class StatisticMapper {
         
         if($athletes != null) {
             $statistic = $athletes['users'];
-            return new Statistic( $statistic );
+            return new Statistic($statistic);
         } else {
             return NULL;
         }
     }
 
     public function athletesByActivity(){
-        $stmt = $this->db->query("");
-        $athletes = $stmt->fetch(PDO::FETCH_ASSOC);
-        // Necesario reservas.
-    }
+        $stmt = $this->db->query("SELECT A.name,count(*) FROM user_activity U,activity_schedule S,activity A 
+        WHERE U.id_activity=S.id AND S.id_activity=A.id 
+        GROUP BY U.id_activity");
+        $athletes_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Falta return
+    } 
 
     public function exercisesByType(){
-        $stmt = $this->db->query("SELECT COUNT(*) as users FROM exercise GROUP BY type");
-        $exercises = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt = $this->db->query("SELECT type,COUNT(*) as num FROM exercise GROUP BY type");
+        $exercises_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($exercises_db as $exercise) {
+            $statistic[$exercise['type']] = $exercise['num'];
+        }
+        return new Statistic($statistic);
     }
 
     // Para deportista/entrenador:
     public function athletesTrainer($trainerid){
-        
+        // Necesario corregir tablas.
     }
 
-    public function athleteAssistanceWeek($userid){
-        
+    public function athleteAssistance($userid){
+        $stmt = $this->db->prepare("SELECT U.name,A.date FROM assistance A,user_activity UA,user U
+            WHERE U.id=? AND A.assist=1 AND U.id=UA.id_user AND UA.id=A.id_userActivity
+            ORDER BY A.date");
+        $stmt->execute(array($userid));
+        $assistance_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Falta return
+    }
+
+    public function athleteAssistanceActivity($userid,$activityid){
+        $stmt = $this->db->prepare("SELECT U.name,A.date FROM assistance A,user_activity UA,user U
+            WHERE U.id=? AND UA.id_activity=? AND A.assist=1 AND U.id=UA.id_user AND UA.id=A.id_userActivity
+            ORDER BY A.date");
+        $stmt->execute(array($userid,$activityid));
+        $assistance_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Falta return
     }
 
     public function athleteSessions($userid){
-        
+        $stmt = $this->db->prepare("SELECT W.name,S.date,S.duration FROM session S,user_table U,workout_table W 
+            WHERE S.id_user=? AND S.id_table=U.id AND U.id_workout=W.id 
+            ORDER BY S.id_user,S.id_table,S.date");
+        $stmt->execute(array($userid));
+        $sessions_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Falta return
     }
 
-    public function findAll() {
-        $stmt = $this->db->query("SELECT * FROM activity");
-        $activities_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $activities = array();
+    public function athleteSessionsTable($userid,$tableid){
+        $stmt = $this->db->prepare("SELECT W.name,S.date,S.duration FROM session S,user_table U,workout_table W 
+            WHERE S.id_user=? AND S.id_table=? AND S.id_table=U.id AND U.id_workout=W.id 
+            ORDER BY S.id_user,S.id_table,S.date");
+        $stmt->execute(array($userid,$tableid));
+        $sessions_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach ($activities_db as $activity) {
-            array_push($activities, new activity($activity["id"],$activity["id_user"],$activity["name"],$activity["description"],
-                $activity["type"],$activity["place"],$activity["seats"],$activity["image"]));
-        }
-        return $activities;
-    }
-
-    public function save($activity) {
-    $stmt = $this->db->prepare("INSERT INTO activity (id, id_user, name, description, type, place,
-        seats, image) values (0,?,?,?,?,?,?,?)");
-        $stmt->execute(array($activity->getIduser(),$activity->getName(),$activity->getDescription(),
-        $activity->getType(),$activity->getPlace(),$activity->getSeats(),$activity->getImage()));
-    }
-
-    public function update(Activity $activity) {
-        $stmt = $this->db->prepare("UPDATE activity set id=?, id_user=?,
-            name=?, description=?, type=?, place=?, seats=?, image=? where id=?");
-            $stmt->execute(array($activity->getIdactivity(), $activity->getIduser(), $activity->getName(),
-            $activity->getDescription(), $activity->getType(), $activity->getPlace(),
-            $activity->getSeats(), $activity->getImage(), $activity->getIdactivity()));
-    }
-
-    public function delete(Activity $activity) {
-        $stmt = $this->db->prepare("DELETE from activity WHERE id=?");
-        $stmt->execute(array($activity->getIdactivity()));
+        // Falta return
     }
 
 }

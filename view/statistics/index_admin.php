@@ -5,6 +5,7 @@
  $view = ViewManager::getInstance();
 
  $number_users = $view->getVariable("number_users");
+ $exercises_type = $view->getVariable("exercises_type");
  $view->setVariable("title", "FitnesSuite");
 
 ?>
@@ -13,9 +14,11 @@
     <div class="content-title">
       <strong><?= i18n("Statistics")?></strong><br>
     </div>
-    Deportistas registrados: <?= $number_users->getStatistic() ?>
-    <p>Ejercicios por tipo:
-
+    Deportistas registrados: <?= $number_users ?>
+    <p>Ejercicios por tipo:<p>
+    <?php foreach ($exercises_type as $type => $number): ?>
+      <?= $type.": ".$number."<p>" ?>
+    <?php endforeach; ?>
   </div>
 </main>
 
