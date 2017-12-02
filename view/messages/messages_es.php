@@ -47,6 +47,8 @@
     "Routines" => "Rutinas",
     "Address" => "Dirección",
     "New" => "Nuevo",
+    "new notification" => "notificación nueva",
+    "new notifications" => "notificaciones nuevas",
     "Notification" => "Notificación",
     "Notifications" => "Notificaciones",
     "Add notification" => "Añadir notificación",

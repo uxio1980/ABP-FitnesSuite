@@ -7,7 +7,7 @@ $view = ViewManager::getInstance();
 $currentuser = $view->getVariable("currentusername");
 $typeuser = $view->getVariable("typeuser");
 $imageUser = $view->getVariable("imageUser");
-$notification = $view->getVariable("notification");
+$numberOfNotifications = $view->getVariable("numberOfNotifications");
 $loginerrors = $view->getVariable("loginerrors");
 $registererrors = $view->getVariable("register");
 $i18n = I18n::getInstance();
@@ -72,7 +72,7 @@ $language = $i18n->getLanguage();
         <!-- ******* Profile ALERT BUTTON  ************************  -->
         <button id="alert-button">
           <div class="container-user-circle">
-            <?php if (isset($notification) && $notification>0):?>
+            <?php if (isset($numberOfNotifications) && $numberOfNotifications>0):?>
                 <div class="circle kitten notificationYes" style="background-image: url('resources/icons/ic_notifications_black_24px.svg');">
                   <div class="aligner">
                     <!-- text inside the icon -->
@@ -84,7 +84,7 @@ $language = $i18n->getLanguage();
             </div>
           </div>
         </button>
-        <?php if (isset($notification) && $notification>0):?>
+        <?php if (isset($numberOfNotifications) && $numberOfNotifications>0):?>
         <div id="dropdown-notification-content" class="dropdown-content" style="display:none">
           <div >
             <?php include(__DIR__."/notification_select_element.php");?>
