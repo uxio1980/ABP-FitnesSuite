@@ -53,6 +53,7 @@
     "Notifications" => "Notificaciones",
     "Add notification" => "Añadir notificación",
     "Modify notification" => "Modificar notificación",
+    "Mark as read" => "Marcar como leída",
     "Author" => "Autor",
     "Title" => "Título",
     "Content" => "Contenido",

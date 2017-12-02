@@ -4,7 +4,7 @@
 require_once(__DIR__."/../../core/ViewManager.php");
 $view = ViewManager::getInstance();
 
-$notification = $view->getVariable("view_notification");
+$notification_user = $view->getVariable("view_notification_user");
 $currentusername = $view->getVariable("currentusername");
 $typeuser = $view->getVariable("typeuser");
 $view->setVariable("title", "FitnesSuite");
@@ -13,26 +13,30 @@ $view->setVariable("title", "FitnesSuite");
 <main id="main-content">
   <div class="form">
     <div class="form-title">
+      <form id="form-sign-up" action="index.php?controller=notifications_user&amp;action=markAsRead" method="POST" enctype="multipart/form-data">
       <strong><?= i18n("Notification")?></strong>
       <?php if ($typeuser == usertype::Administrator || $typeuser == usertype::Trainer ): ?>
-        <a href="index.php?controller=notification&amp;action=edit&amp;id_notification=<?= $notification->getId() ?>">
+        <a href="index.php?controller=notification&amp;action=edit&amp;id_notification=<?= $notification_user->getId() ?>">
           <img class="image-edit" src="resources/icons/edit_icon.svg" alt="Edit" />
         </a>
       <?php endif; ?>
     </div>
-    <input type="hidden" name="id" value="<?= $notification->getId() ?>"/>
+    <input type="hidden" name="id_notification_user" value="<?= $notification_user->getId() ?>"/>
 
     <label for="login-field"><?= i18n("Author")?></label>
-    <span class="field"> <?= $notification->getUser_author()->getName() ?></span>
+    <span class="field"> <?= $notification_user->getNotification()->getUser_author()->getName() ?></span>
 
     <label for="login-field"><?= i18n("Expiration")?></label>
-    <span class="field"> <?= $notification->getDate() ?></span>
+    <span class="field"> <?= $notification_user->getNotification()->getDate() ?></span>
 
     <label for="login-field"><?= i18n("Title")?></label>
-    <span class="field"> <?= $notification->getTitle() ?></span>
+    <span class="field"> <?= $notification_user->getNotification()->getTitle() ?></span>
 
     <label for="login-field"><?= i18n("Content")?></label>
-    <span class="field"> <?= $notification->getContent() ?></span>
+    <span class="field"> <?= $notification_user->getNotification()->getContent() ?></span>
+
+    <input type="submit" name="submit" value="<?= i18n("Mark as read") ?>"/>
+    </form>
   </div>
 </main>
 <script src="js/index.js"></script>

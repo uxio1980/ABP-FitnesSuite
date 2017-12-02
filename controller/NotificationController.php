@@ -160,6 +160,7 @@ class NotificationController extends BaseController {
 
       // put the notification object to the view
       $this->view->setVariable("view_notification", $notification);
+      //$this->view->setVariable("currentUser",$this->currentUser);
 
       // render the view (/view/notifications/view.php)
         $this->view->render("notifications", "view");

@@ -8,7 +8,7 @@ $currentuser = $view->getVariable("currentusername");
 $typeuser = $view->getVariable("typeuser");
 $imageUser = $view->getVariable("imageUser");
 $numberOfNotifications = $view->getVariable("numberOfNotifications");
-$notifications = $view->getVariable("notifications");
+$default_notifications_user = $view->getVariable("default_notifications_user");
 $loginerrors = $view->getVariable("loginerrors");
 $registererrors = $view->getVariable("register");
 $i18n = I18n::getInstance();
@@ -81,7 +81,6 @@ $language = $i18n->getLanguage();
             <?php else:?>
                 <div class="circle kitten" style="background-image: url('resources/icons/ic_notifications_none_black_24px.svg');">
             <?php endif ?>
-
             </div>
           </div>
         </button>
@@ -89,7 +88,6 @@ $language = $i18n->getLanguage();
         <div id="dropdown-notification-content" class="dropdown-content" style="display:none">
           <div >
             <?php include(__DIR__."/notification_select_element.php");?>
-
           </div>
         </div>
         <?php endif ?>
@@ -126,7 +124,7 @@ $language = $i18n->getLanguage();
               <li class="nav-item">
                 <a href="index.php?controller=users&amp;action=profile&amp;login=<?= $currentuser ?>" method="POST">
                   <img src="resources/icons/profile_icon.svg" alt="Profile icon"/>
-                  <div class="text-item"><?= i18n("Profile")?></div></a>
+                  <div class="text-item"><?= i18n("My profile")?></div></a>
                 </li>
                 <li class="nav-item">
                   <a href="index.php?controller=users&amp;action=logout">

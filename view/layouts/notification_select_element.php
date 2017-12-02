@@ -9,11 +9,16 @@
 	<?php endif;?>
 </p>
 <ul class="nav-container">
-	<?php foreach ($notifications as $notification_CurrentUser): ?>
+	<?php foreach ($default_notifications_user as $nCurrentUser): ?>
 		<li class="nav-item">
-			<a href="index.php?controller=notification&amp;action=view&amp;id_notification=<?= $notification_CurrentUser->getNotification()->getId() ?>">
+			<a href="index.php?controller=notifications_user&amp;action=view&amp;id_notification_user=<?= $nCurrentUser->getId() ?>">
 				<img src="resources/icons/ic_notifications_black_24px.svg" alt="Notification icon"/>
-				<div class="text-item"><?= $notification_CurrentUser->getNotification()->getTitle();?></div></a>
+				<?php if (strlen($nCurrentUser->getNotification()->getTitle())>35): ?>
+					<?php $content=substr($nCurrentUser->getNotification()->getTitle(),0,35). "..."; ?>
+					<?php else:?>
+						<?php $content = $nCurrentUser->getNotification()->getTitle(); ?>
+						<?php endif ?>
+				<div class="text-item"><?= $content;?></div></a>
 			</li>
 		<?php endforeach; ?>
 	</ul>
