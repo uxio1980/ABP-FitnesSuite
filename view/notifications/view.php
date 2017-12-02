@@ -14,7 +14,7 @@ $view->setVariable("title", "FitnesSuite");
   <div class="form">
     <div class="form-title">
       <strong><?= i18n("Notification")?></strong>
-      <a href="index.php?controller=notification&amp;action=edit&amp;id_notification=<?= $notification->getId() ?>s">
+      <a href="index.php?controller=notification&amp;action=edit&amp;id_notification=<?= $notification->getId() ?>">
         <img class="image-edit" src="resources/icons/edit_icon.svg" alt="Edit" />
       </a>
     </div>

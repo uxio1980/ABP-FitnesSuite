@@ -60,6 +60,7 @@ class NotificationController extends BaseController {
       }
       */
       //$public_info = $this->public_infoMapper->findById(0); //Solo tendrá la tupla con id = 0
+
       if (isset($_POST["filterby"])) {
         $filterby = $_POST['filterby'];
       }else{
@@ -164,4 +165,55 @@ class NotificationController extends BaseController {
         $this->view->render("notifications", "view");
 
     }
+
+    /**
+    * Action to delete a notification
+    *
+    * This action should only be called via HTTP POST
+    *
+    * The expected HTTP parameters are:
+    * <ul>
+    * <li>id: Id of the notification (via HTTP POST)</li>
+    * </ul>
+    *
+    * The views are:
+    * <ul>
+    * <li>posts/index: If notification was successfully deleted (via redirect)</li>
+    * </ul>
+    * @throws Exception if no id was provided
+    * @throws Exception if no user is in session
+    * @throws Exception if there is not any notification with the provided id
+    * @throws Exception if the author of the notification to be deleted is not the current user
+    * @return void
+    */
+    public function delete() {
+      if (!isset($_REQUEST["id_notification"])) {
+        throw new Exception("id_notification is mandatory");
+      }
+      if (!isset($this->currentUser)) {
+        throw new Exception("Not in session. Deleting notification requires login");
+      }
+
+      // Get the id_notification object from the database
+      $id_notification = $_REQUEST["id_notification"];
+      $notification = $this->notificationMapper->findById($id_notification);
+
+      // Does the notification exist?
+      if ($notification == NULL) {
+        throw new Exception("no such notification with id: ".$id_notification);
+      }
+
+      // Delete the notification object from the database
+      $this->notificationMapper->delete($notification);
+
+      // POST-REDIRECT-GET
+      // Everything OK, we will redirect the user to the list of artcles
+
+      // perform the redirection. More or less:
+      // header("Location: index.php?controller=notifications&action=index")
+      // die();
+      $this->view->redirect("notification", "index");
+
+    }
+
 }

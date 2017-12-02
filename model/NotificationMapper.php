@@ -49,6 +49,18 @@ class NotificationMapper {
       }
 
       /**
+       * Deletes an Notification from the database
+       *
+       * @param Notification $Notification The Notification to be deleted
+       * @throws PDOException if a database error occurs
+       * @return void
+       */
+      public function delete(Notification $notification) {
+          $stmt = $this->db->prepare("DELETE from notification WHERE id=?");
+          $stmt->execute(array($notification->getId()));
+      }
+
+      /**
       * Loads a Notification from the database given its id
       *
       * @throws PDOException if a database error occurs
@@ -57,7 +69,7 @@ class NotificationMapper {
       */
       public function findById($id){
 
-        $stmt = $this->db->prepare("SELECT *, U.id as 'id_user' FROM notification N LEFT JOIN user U ON N.id_user=U.id WHERE N.id=?");
+        $stmt = $this->db->prepare("SELECT *, N.id as 'id_notification', U.id as 'id_user' FROM notification N LEFT JOIN user U ON N.id_user=U.id WHERE N.id=?");
         $stmt->execute(array($id));
         $notification = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -67,7 +79,7 @@ class NotificationMapper {
           NULL/*password*/,
           $notification["email"],
           $notification["description"]);
-          return new Notification($notification["id"], $usuario,
+          return new Notification($notification["id_notification"], $usuario,
           $notification["date"], $notification["title"], $notification["content"]);
         } else {
           return NULL;
