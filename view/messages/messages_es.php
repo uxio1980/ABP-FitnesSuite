@@ -49,6 +49,7 @@
     "New" => "Nuevo",
     "Notification" => "Notificación",
     "Notifications" => "Notificaciones",
+    "Add notification" => "Añadir notificación",
     "Modify notification" => "Modificar notificación",
     "Author" => "Autor",
     "Title" => "Título",

@@ -216,4 +216,78 @@ class NotificationController extends BaseController {
 
     }
 
+    /**
+    * Action to add a new notification
+    *
+    * When called via GET, it shows the add form
+    * When called via POST, it adds the notification to the
+    * database
+    *
+    * The expected HTTP parameters are:
+    * <ul>
+    * <li>title: Title of the notification (via HTTP POST)</li>
+    * <li>content: Content of the post (via HTTP POST)</li>
+    * </ul>
+    *
+    * The views are:
+    * <ul>
+    * <li>posts/add: If this action is reached via HTTP GET (via include)</li>
+    * <li>posts/index: If post was successfully added (via redirect)</li>
+    * <li>posts/add: If validation fails (via include). Includes these view variables:</li>
+    * <ul>
+    *  <li>post: The current Post instance, empty or
+    *  being added (but not validated)</li>
+    *  <li>errors: Array including per-field validation errors</li>
+    * </ul>
+    * </ul>
+    * @throws Exception if no user is in session
+    * @return void
+    */
+    public function add() {
+      if (!isset($this->currentUser)) {
+        throw new Exception("Not in session. Adding notifications requires login");
+      }
+
+      $notification = new Notification();
+
+      if (isset($_POST["submit"])) { // reaching via HTTP Post...
+
+        // populate the notification object with data form the form
+        $notification->setUser_author($this->currentUser);
+        $notification->setTitle($_POST["title"]);
+        $notification->setDate($_POST["date"]);
+        $notification->setContent($_POST["content"]);
+
+        try {
+          // validate notification object
+          $notification->checkIsValidForCreate(); // if it fails, ValidationException
+
+          // save the notification object into the database
+          $this->notificationMapper->save($notification);
+
+          // POST-REDIRECT-GET
+          // Everything OK, we will redirect the user to the list of notifications
+
+          // perform the redirection. More or less:
+          // header("Location: index.php?controller=notifications&action=index")
+          // die();
+          $this->view->redirect("notification", "index");
+
+        }catch(ValidationException $ex) {
+          // Get the errors array inside the exepction...
+          $errors = $ex->getErrors();
+          // And put it to the view as "errors" variable
+          $this->view->setVariable("errors", $errors);
+        }
+      }
+
+      // Put the notification object visible to the view
+      $this->view->setVariable("add_notification", $notification);
+
+      // render the view (/view/notifications/add.php)
+        $this->view->render("notifications", "add");
+
+    }
+
+
 }

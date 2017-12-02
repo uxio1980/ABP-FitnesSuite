@@ -16,7 +16,7 @@ $view->setVariable("title", "FitnesSuite");
 
       <label for="login-field"><?= i18n("Author")?></label>
       <span class="field"> <?= $notification->getUser_author()->getName() ?></span>
-      <?= isset($errors["user"])?$errors["user"]:"" ?>
+      <?= isset($errors["author"])?$errors["author"]:"" ?>
 
       <label for="login-field"><?= i18n("Expiration")?></label>
       <?php $date = date("Y-m-d\TH:i",strtotime($notification->getDate())); ?>
