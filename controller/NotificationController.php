@@ -49,7 +49,7 @@ class NotificationController extends BaseController {
       }
 
       /*
-      // To enable Search input in public info
+      // To enable Search input in notification
       // obtain the data from the database
       if (isset($_GET["search"])) {
         $search = $_GET["search"];
@@ -84,7 +84,7 @@ class NotificationController extends BaseController {
         //$count = $this->notification_userMapper->countAllByNotification();
         //$notification->setReceivers($count);
       //}
-      // put the array containing public info object to the view
+      // put the array containing notification object to the view
       $this->view->setVariable("filterby", $filterby);
       $this->view->setVariable("notifications", $notifications);
 
@@ -93,7 +93,7 @@ class NotificationController extends BaseController {
     }
 
     /**
-    * Action to edit a public info
+    * Action to edit a notification
     */
     public function edit() {
       if (!isset($_REQUEST["id_notification"])) {
@@ -101,15 +101,15 @@ class NotificationController extends BaseController {
       }
 
       if (!isset($this->currentUser)) {
-        throw new Exception("Not in session. Editing public info requires login");
+        throw new Exception("Not in session. Editing notification requires login");
       }
 
       // Get the notification object from the database
       $id_notification = $_REQUEST["id_notification"];
       $notification = $this->notificationMapper->findById($id_notification);
-      // Does the public info exist?
+      // Does the notification exist?
       if ($notification == NULL) {
-        throw new Exception("no such public info with id: ".$id_notification);
+        throw new Exception("no such notification with id: ".$id_notification);
       }
 
       if (isset($_POST["submit"])) {
@@ -121,10 +121,10 @@ class NotificationController extends BaseController {
         $notification->setContent($_POST["content"]);
 
         try {
-          // validate public info object
+          // validate notification object
           $notification->checkIsValidForUpdate(); // if it fails, ValidationException
 
-          // update the public info object in the database
+          // update the notification object in the database
           $this->notificationMapper->update($notification);
 
           $this->view->redirect("notification", "index");
@@ -136,10 +136,32 @@ class NotificationController extends BaseController {
           $this->view->setVariable("errors", $errors);
         }
       }
-      // Put the Public info object visible to the view
+      // Put the notification object visible to the view
       $this->view->setVariable("edit_notification", $notification);
 
-      // render the view (/view/notification/edit.php)
+      // render the view (/view/notifications/edit.php)
       $this->view->render("notifications", "edit");
+    }
+
+    public function view(){
+      if (!isset($_GET["id_notification"])) {
+        throw new Exception("id notification is mandatory");
+      }
+
+      $id_notification = $_GET["id_notification"];
+
+      // Recuperar notificacion según su id.
+      $notification = $this->notificationMapper->findById($id_notification);
+
+      if ($notification == NULL) {
+        throw new Exception("->no such notification with id: ".$id_notification);
+      }
+
+      // put the notification object to the view
+      $this->view->setVariable("view_notification", $notification);
+
+      // render the view (/view/notifications/view.php)
+        $this->view->render("notifications", "view");
+
     }
 }

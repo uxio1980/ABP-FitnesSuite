@@ -49,8 +49,8 @@
           <td><?= $content ?></td>
           <td><?= $notification->getDate() ?></td>
           <td><?= $notification->getReceivers() ?></td>
-          <td><a href="index.php?controller=notification&amp;action=edit&amp;id_notification=<?= $notification->getId() ?>">
-            <img src="resources/icons/ic_visibility_black_24px.svg" alt="Edit" /></a></td>
+          <td><a href="index.php?controller=notification&amp;action=view&amp;id_notification=<?= $notification->getId() ?>">
+            <img src="resources/icons/ic_visibility_black_24px.svg" alt="View" /></a></td>
           <td><a href="index.php?controller=notification&amp;action=edit&amp;id_notification=<?= $notification->getId() ?>">
             <img src="resources/icons/edit_icon.svg" alt="Edit" /></a>
           </td>
