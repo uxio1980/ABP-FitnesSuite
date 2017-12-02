@@ -204,11 +204,6 @@ $language = $i18n->getLanguage();
               </a>
             </li>
           <?php else: ?>
-            <li class="nav-item">
-              <a href="index.php?controller=users&amp;action=profile&amp;login=<?= $currentuser ?>" method="POST">
-                <img src="resources/icons/profile_icon.svg" alt="Profile icon"/>
-                <div class="text-item"><?= i18n("My profile")?></div></a>
-              </li>
               <?php if (($typeuser)==usertype::AthleteTDU || ($typeuser)==usertype::AthletePEF ):?>
                 <li class="nav-item">
                   <a href="index.php?controller=activities&amp;action=index">
@@ -271,7 +266,7 @@ $language = $i18n->getLanguage();
                 </li>
                 <li class="nav-item">
                     <a href="index.php?controller=resources&amp;action=index">
-                      <img src="resources/icons/ic_group_black_24px.svg" alt="MyStatistics icon"/>
+                      <img src="resources/icons/resources.svg" alt="MyStatistics icon"/>
                       <div class="text-item"><?= i18n("Resources")?></div>
                     </a>
                   </li>
