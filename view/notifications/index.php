@@ -5,6 +5,7 @@
  $view = ViewManager::getInstance();
  $filterby = $view->getVariable("filterby");
  $notifications = $view->getVariable("notifications");
+ $typeuser = $view->getVariable("typeuser");
  $view->setVariable("title", "FitnesSuite");
 
 ?>
@@ -12,7 +13,9 @@
   <div id="content-list">
     <div class="content-title">
       <strong><?= i18n("Notifications")?></strong><br>
-      <a href="index.php?controller=notification&amp;action=add"><input type='button' value=<?= i18n("New")?> /></a>
+      <?php if ($typeuser==usertype::Administrator || $typeuser==usertype::Trainer): ?>
+        <a href="index.php?controller=notification&amp;action=add"><input type='button' value=<?= i18n("New")?> /></a>
+      <?php endif ?>
     </div>
     <div class="filter-box-notifications">
         <form id="form-notifications-filterby" action="index.php?controller=notification&amp;action=index" method="POST">
