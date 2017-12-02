@@ -97,7 +97,7 @@ class NotificationController extends BaseController {
     */
     public function edit() {
       if (!isset($_REQUEST["id_notification"])) {
-        throw new Exception("A public id is mandatory");
+        throw new Exception("A id_notification is mandatory");
       }
 
       if (!isset($this->currentUser)) {
@@ -107,20 +107,19 @@ class NotificationController extends BaseController {
       // Get the notification object from the database
       $id_notification = $_REQUEST["id_notification"];
       $notification = $this->notificationMapper->findById($id_notification);
-
       // Does the public info exist?
       if ($notification == NULL) {
         throw new Exception("no such public info with id: ".$id_notification);
       }
 
       if (isset($_POST["submit"])) {
-/*
-        // populate the public info object with data form
-        $notification->setId($_POST["id"]);
-        $notification->setPhone($_POST["phone"]);
-        $notification->setEmail($_POST["email"]);
-        $notification->setAddress($_POST["address"]);
-*/
+
+        // populate the notification object with data form
+        $notification->setId($id_notification);
+        $notification->setDate($_POST["date"]);
+        $notification->setTitle($_POST["title"]);
+        $notification->setContent($_POST["content"]);
+
         try {
           // validate public info object
           $notification->checkIsValidForUpdate(); // if it fails, ValidationException
@@ -138,9 +137,9 @@ class NotificationController extends BaseController {
         }
       }
       // Put the Public info object visible to the view
-      $this->view->setVariable("notification", $notification);
+      $this->view->setVariable("edit_notification", $notification);
 
-      // render the view (/view/public_info/edit.php)
-      $this->view->render("notification", "view");
+      // render the view (/view/notification/edit.php)
+      $this->view->render("notifications", "edit");
     }
 }

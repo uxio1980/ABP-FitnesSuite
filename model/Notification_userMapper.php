@@ -57,7 +57,7 @@ class Notification_userMapper {
       * if the Notification is not found
       */
       public function findById($id){
-        $stmt = $this->db->prepare("SELECT * FROM notification WHERE id=?");
+        $stmt = $this->db->prepare("SELECT * FROM notification_user WHERE id=?");
         $stmt->execute(array($id));
         $notification = $stmt->fetch(PDO::FETCH_ASSOC);
 

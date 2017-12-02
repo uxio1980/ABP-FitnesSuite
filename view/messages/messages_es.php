@@ -48,6 +48,7 @@
     "Address" => "Dirección",
     "New" => "Nuevo",
     "Notifications" => "Notificaciones",
+    "Modify notification" => "Modificar notificación",
     "Author" => "Autor",
     "Title" => "Título",
     "Content" => "Contenido",
