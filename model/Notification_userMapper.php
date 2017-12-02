@@ -108,6 +108,38 @@ class Notification_userMapper {
       }
 
       /**
+       * Retrieves all Notifications for current user
+       *
+       * @throws PDOException if a database error occurs
+       * @return mixed Array of Notifications instances
+       */
+      public function findAllByUser(User $user) {
+        $stmt = $this->db->prepare("SELECT NU.*, NU.id as 'notification_user.id', N.*, N.id as 'notification.id', U.id as 'user.id', U.login as 'user.login',
+          U.name as 'user.name', U.email as 'user.email',
+          U.description as 'user.description'
+          FROM notification_user NU
+          LEFT JOIN notification N ON NU.id_notification = N.id
+          LEFT JOIN user U ON NU.id_user = U.id
+          WHERE NU.id_user=?");
+          $stmt->execute(array($user->getId()));
+        $notification_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $notifications = array();
+
+        foreach ($notification_db as $notification_user) {
+          $usuario = new User($notification_user["user.id"], $notification_user["user.login"],
+          $notification_user["user.name"],
+          NULL/*password*/,
+          $notification_user["user.email"],
+          $notification_user["user.description"]);
+          $notification = new Notification($notification_user["notification.id"],NULL, NULL, $notification_user["title"]);
+          array_push($notifications, new Notification_user($notification_user["notification_user.id"],
+          $usuario, $notification,
+          $notification_user["viewed"]));
+        }
+        return $notifications;
+    }
+
+      /**
        * Retrieves all Notifications
        *
        * @throws PDOException if a database error occurs

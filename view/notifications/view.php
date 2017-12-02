@@ -6,7 +6,7 @@ $view = ViewManager::getInstance();
 
 $notification = $view->getVariable("view_notification");
 $currentuser = $view->getVariable("currentusername");
-
+$typeuser = $view->getVariable("typeuser");
 $view->setVariable("title", "FitnesSuite");
 
 ?>
@@ -14,9 +14,11 @@ $view->setVariable("title", "FitnesSuite");
   <div class="form">
     <div class="form-title">
       <strong><?= i18n("Notification")?></strong>
-      <a href="index.php?controller=notification&amp;action=edit&amp;id_notification=<?= $notification->getId() ?>">
-        <img class="image-edit" src="resources/icons/edit_icon.svg" alt="Edit" />
-      </a>
+      <?php if ($typeuser == usertype::Administrator || $typeuser == usertype::Trainer ): ?>
+        <a href="index.php?controller=notification&amp;action=edit&amp;id_notification=<?= $notification->getId() ?>">
+          <img class="image-edit" src="resources/icons/edit_icon.svg" alt="Edit" />
+        </a>
+      <?php endif; ?>
     </div>
     <input type="hidden" name="id" value="<?= $notification->getId() ?>"/>
 

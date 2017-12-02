@@ -8,6 +8,7 @@ $currentuser = $view->getVariable("currentusername");
 $typeuser = $view->getVariable("typeuser");
 $imageUser = $view->getVariable("imageUser");
 $numberOfNotifications = $view->getVariable("numberOfNotifications");
+$notifications = $view->getVariable("notifications");
 $loginerrors = $view->getVariable("loginerrors");
 $registererrors = $view->getVariable("register");
 $i18n = I18n::getInstance();
