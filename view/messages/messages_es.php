@@ -51,6 +51,7 @@
     "Address" => "Dirección",
     "New" => "Nuevo",
     "new notification" => "notificación nueva",
+    "Show only my notifications" => "Mostrar sólo mis notificaciones",
     "new notifications" => "notificaciones nuevas",
     "Notification" => "Notificación",
     "Notifications" => "Notificaciones",

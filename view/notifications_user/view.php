@@ -16,14 +16,14 @@ $view->setVariable("title", "FitnesSuite");
       <?php $link = ($notification_user->getViewed() != NULL)?
          'index.php?controller=notifications_user&amp;action=markAsUnread'
         :'index.php?controller=notifications_user&amp;action=markAsRead' ?>
-      <form id="form-sign-up" action="<?= $link ?>" method="POST" enctype="multipart/form-data">
       <strong><?= i18n("Notification")?></strong>
       <?php if ($typeuser == usertype::Administrator || $typeuser == usertype::Trainer ): ?>
-        <a href="index.php?controller=notification&amp;action=edit&amp;id_notification=<?= $notification_user->getId() ?>">
+        <a href="index.php?controller=notification&amp;action=edit&amp;id_notification=<?= $notification_user->getNotification()->getId() ?>">
           <img class="image-edit" src="resources/icons/edit_icon.svg" alt="Edit" />
         </a>
       <?php endif; ?>
     </div>
+    <form id="form-sign-up" action="<?= $link ?>" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="id_notification_user" value="<?= $notification_user->getId() ?>"/>
 
     <label for="login-field"><?= i18n("Author")?></label>

@@ -1834,6 +1834,7 @@ footer{
 
 /******************************* NOTIFICATIONS  *******************************/
 .filter-box-notifications{
+  padding: 10px;
   display: flex;
   flex-flow: column;
   flex-wrap: wrap;
@@ -1842,6 +1843,7 @@ footer{
   align-items: center;
   padding-bottom: 15px;
 }
+
 .filter-box-notifications form {
   font: 1em 'Lato';
   color: #5c5c5c;

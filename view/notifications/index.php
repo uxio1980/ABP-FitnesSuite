@@ -18,12 +18,17 @@
       <?php endif ?>
     </div>
     <div class="filter-box-notifications">
+      <form id="form-notifications-checkbox" action="index.php?controller=notifications_user&amp;action=index" method="POST">
+        <input id="checkbox" class="checkbox-button" type="checkbox" name="checkbox" value="Yes"  />
+          <?= i18n("Show only my notifications")?>
+      </form>
+    </div>
+    <div class="filter-box-notifications">
         <form id="form-notifications-filterby" action="index.php?controller=notification&amp;action=index" method="POST">
           <input id="filter1" class="radio-button" type="radio" name="filterby" value="active" <?= ($filterby == 'active') ? "checked='checked'" : "";?>><?= i18n("Actives")?>
           <input id="filter2" class="radio-button" type="radio" name="filterby" value="lapsed" <?= ($filterby == 'lapsed') ? "checked='checked'" : "";?>><?= i18n("Lapsed")?>
           <input id="filter3" class="radio-button" type="radio" name="filterby" value="all" <?= ($filterby == 'all') ? "checked='checked'" : "";?>><?= i18n("All")?>
         </form>
-
     </div>
     <table id="table-content">
       <tr class="table-row-content">
@@ -74,6 +79,14 @@
       //return confirm(ji18n('Are you sure?'));
       if (document.getElementById("filter1").checked || document.getElementById("filter2").checked || document.getElementById("filter3").checked){
         form.submit();
+      }
+    });
+
+    var form2 = document.getElementById("form-notifications-checkbox");
+    $('.checkbox-button').on('click', function () {
+      //return confirm(ji18n('Are you sure?'));
+      if (document.getElementById("checkbox").checked ){
+        form2.submit();
       }
     });
 </script>
