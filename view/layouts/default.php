@@ -223,7 +223,7 @@ $language = $i18n->getLanguage();
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="index.php?controller=notification&amp;action=index">
+                    <a href="index.php?controller=notifications_user&amp;action=index">
                       <img src="resources/icons/ic_notifications_black_24px.svg" alt="Activities icon"/>
                       <div class="text-item"><?= i18n("Notifications")?></div>
                     </a>

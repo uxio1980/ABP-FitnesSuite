@@ -35,6 +35,64 @@ class Notifications_UserController extends BaseController {
         $this->currentDate = $this->date->getTimestamp();
     }
 
+    /**
+    * Action to list Notifications for current user
+    *
+    * Loads all the Notification for current user from the database.
+    * No HTTP parameters are needed.
+    *
+    */
+    public function index() {
+
+      if (!isset($this->currentUser)) {
+        throw new Exception("Not in session. Listing notifications for current user requires login");
+      }
+
+      /*
+      // To enable Search input in notification
+      // obtain the data from the database
+      if (isset($_GET["search"])) {
+        $search = $_GET["search"];
+        $public_infos = $this->public_infoMapper->searchAll($search);
+      }else
+      {
+        $public_infos = $this->public_infoMapper->findAll();
+      }
+      */
+      //$public_info = $this->public_infoMapper->findById(0); //Solo tendrá la tupla con id = 0
+
+      if (isset($_POST["filterby"])) {
+        $filterby = $_POST['filterby'];
+      }else{
+        $filterby = "active";
+      }
+      if ($filterby =="active") {
+          $notifications_user = $this->notificationMapper->findAllActives();
+      }elseif ($filterby =="lapsed"){
+          $notifications_user = $this->notificationMapper->findAllLapsed();
+      }else{
+          $notifications_user = $this->notificationMapper->findAll();
+      }
+
+      if($notifications_user != NULL){
+        foreach ($notifications_user as $notification) {
+          //var_dump($notification->getId());
+          $count = $this->notification_userMapper->countAllByNotification($notification);
+          $notification->setReceivers($count);
+        }
+      }
+      //foreach ($notifications as $notification) {
+        //$count = $this->notification_userMapper->countAllByNotification();
+        //$notification->setReceivers($count);
+      //}
+      // put the array containing notification object to the view
+      $this->view->setVariable("filterby", $filterby);
+      $this->view->setVariable("notifications", $notifications_user);
+
+      // render the view (/view/public_info/index.php)
+      $this->view->render("notifications_user", "index");
+    }
+
     public function view(){
       if (!isset($_GET["id_notification_user"])) {
         throw new Exception("id notification_user is mandatory");
@@ -92,9 +150,9 @@ class Notifications_UserController extends BaseController {
           // Everything OK, we will redirect the user to the list of sessions
 
           // perform the redirection. More or less:
-          // header("Location: index.php?controller=sessions&action=index")
+          // header("Location: index.php?controller=notifications_user&action=index")
           // die();
-          $this->view->redirect("main", "index");
+          $this->view->redirect("notifications_user", "index");
 
         }catch(ValidationException $ex) {
           // Get the errors array inside the exepction...
@@ -103,9 +161,6 @@ class Notifications_UserController extends BaseController {
           $this->view->setVariable("errors", $errors);
         }
       }
-      // Delete the notification object from the database
-      //$this->notificationMapper->delete($notification);
-
         $this->view->render("notifications_user", "view");
     }
 }

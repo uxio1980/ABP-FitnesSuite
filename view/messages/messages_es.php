@@ -40,6 +40,7 @@
     "FREE" => "GRATIS",
     "ONE DAY TRAINING" => "UN DÍA DE ENTRENAMIENTO",
     "MONTHS MEMBERSHIP" => "MESES DE AFILIACIÓN",
+    "Read" => "Leída",
     "Contact" => "Contacto",
     "Telephone contact" => "Teléfono de contacto",
     "Upload product" => "Subir producto",
