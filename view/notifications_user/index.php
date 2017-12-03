@@ -46,7 +46,7 @@
               <?php endif ?>
           <td><?= $content ?></td>
           <td><?= $notification_user->getNotification()->getDate() ?></td>
-          <td><a href="index.php?controller=notifications_user&amp;action=view&amp;id_notification_user=<?= $notification_user->getNotification()->getId() ?>">
+          <td><a href="index.php?controller=notifications_user&amp;action=view&amp;id_notification_user=<?= $notification_user->getId() ?>">
             <img src="resources/icons/ic_visibility_black_24px.svg" alt="View" /></a></td>
             <?php $link = ($notification_user->getViewed() != NULL)?
                'index.php?controller=notifications_user&amp;action=markAsUnread&amp;id_notification_user='.$notification_user->getId()
