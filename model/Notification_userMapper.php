@@ -139,26 +139,37 @@ class Notification_userMapper {
        * @return mixed Array of Notifications instances
        */
       public function findAllByUser(User $user) {
-        $stmt = $this->db->prepare("SELECT NU.*, NU.id as 'notification_user.id', N.*, N.id as 'notification.id', U.id as 'user.id', U.login as 'user.login',
+        $stmt = $this->db->prepare("SELECT NU.*, NU.id as 'notification_user.id', N.*,
+          N.id as 'notification.id', U.id as 'user.id', U.login as 'user.login',
           U.name as 'user.name', U.email as 'user.email',
-          U.description as 'user.description'
+          U.description as 'user.description',
+          UN.id as 'user_notification.id', UN.login as 'user_notification.login',
+          UN.name as 'user_notification.name', UN.email as 'user_notification.email',
+          UN.description as 'user_notification.description'
           FROM notification_user NU
           LEFT JOIN notification N ON NU.id_notification = N.id
           LEFT JOIN user U ON NU.id_user = U.id
+          LEFT JOIN user UN ON N.id_user = UN.id
           WHERE NU.id_user=?");
           $stmt->execute(array($user->getId()));
         $notification_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $notifications = array();
 
         foreach ($notification_db as $notification_user) {
-          $usuario = new User($notification_user["user.id"], $notification_user["user.login"],
-          $notification_user["user.name"],
-          NULL/*password*/,
-          $notification_user["user.email"],
-          $notification_user["user.description"]);
-          $notification = new Notification($notification_user["notification.id"],NULL, NULL, $notification_user["title"]);
+          $usuario_Notification_User = new User($notification_user["user.id"], $notification_user["user.login"],
+              $notification_user["user.name"],
+              NULL/*password*/,
+              $notification_user["user.email"],
+              $notification_user["user.description"]);
+          $usuario_Notification = new User($notification_user["user_notification.id"], $notification_user["user_notification.login"],
+              $notification_user["user_notification.name"],
+              NULL/*password*/,
+              $notification_user["user_notification.email"],
+              $notification_user["user_notification.description"]);
+          $notification = new Notification($notification_user["notification.id"],$usuario_Notification, $notification_user["date"],
+           $notification_user["title"], $notification_user["content"]);
           array_push($notifications, new Notification_user($notification_user["notification_user.id"],
-          $usuario, $notification,
+          $usuario_Notification_User, $notification,
           $notification_user["viewed"]));
         }
         return $notifications;
@@ -229,24 +240,39 @@ class Notification_userMapper {
      * @throws PDOException if a database error occurs
      * @return mixed Array of Notifications instances
      */
-    public function findAllLapsed() {
-      $stmt = $this->db->query("SELECT N.*, U.login as 'user.login',
+    public function findAllLapsedByUser(User $user) {
+      $stmt = $this->db->prepare("SELECT NU.*, NU.id as 'notification_user.id', N.*,
+        N.id as 'notification.id', U.id as 'user.id', U.login as 'user.login',
         U.name as 'user.name', U.email as 'user.email',
-        U.description as 'user.description'
-        FROM notification N LEFT JOIN user U ON N.id_user = U.id
-        WHERE N.date < NOW()");
+        U.description as 'user.description',
+        UN.id as 'user_notification.id', UN.login as 'user_notification.login',
+        UN.name as 'user_notification.name', UN.email as 'user_notification.email',
+        UN.description as 'user_notification.description'
+        FROM notification_user NU
+        LEFT JOIN notification N ON NU.id_notification = N.id
+        LEFT JOIN user U ON NU.id_user = U.id
+        LEFT JOIN user UN ON N.id_user = UN.id
+        WHERE NU.id_user=? AND N.date < NOW()");
+        $stmt->execute(array($user->getId()));
       $notification_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
       $notifications = array();
 
-      foreach ($notification_db as $notification) {
-        $usuario = new User($notification["user.login"],
-        $notification["user.name"],
-        NULL/*password*/,
-        $notification["user.email"],
-        $notification["user.description"]);
-        array_push($notifications, new Notification($notification["id"],
-        $usuario, $notification["date"],
-        $notification["title"], $notification["content"]));
+      foreach ($notification_db as $notification_user) {
+        $usuario_Notification_User = new User($notification_user["user.id"], $notification_user["user.login"],
+            $notification_user["user.name"],
+            NULL/*password*/,
+            $notification_user["user.email"],
+            $notification_user["user.description"]);
+        $usuario_Notification = new User($notification_user["user_notification.id"], $notification_user["user_notification.login"],
+            $notification_user["user_notification.name"],
+            NULL/*password*/,
+            $notification_user["user_notification.email"],
+            $notification_user["user_notification.description"]);
+        $notification = new Notification($notification_user["notification.id"],$usuario_Notification, $notification_user["date"],
+         $notification_user["title"], $notification_user["content"]);
+        array_push($notifications, new Notification_user($notification_user["notification_user.id"],
+        $usuario_Notification_User, $notification,
+        $notification_user["viewed"]));
       }
       return $notifications;
   }
@@ -257,24 +283,39 @@ class Notification_userMapper {
    * @throws PDOException if a database error occurs
    * @return mixed Array of Notifications instances
    */
-  public function findAllActives() {
-    $stmt = $this->db->query("SELECT N.*, U.login as 'user.login',
+  public function findAllActivesByUser(User $user) {
+    $stmt = $this->db->prepare("SELECT NU.*, NU.id as 'notification_user.id', N.*,
+      N.id as 'notification.id', U.id as 'user.id', U.login as 'user.login',
       U.name as 'user.name', U.email as 'user.email',
-      U.description as 'user.description'
-      FROM notification N LEFT JOIN user U ON N.id_user = U.id
-      WHERE N.date > NOW()");
+      U.description as 'user.description',
+      UN.id as 'user_notification.id', UN.login as 'user_notification.login',
+      UN.name as 'user_notification.name', UN.email as 'user_notification.email',
+      UN.description as 'user_notification.description'
+      FROM notification_user NU
+      LEFT JOIN notification N ON NU.id_notification = N.id
+      LEFT JOIN user U ON NU.id_user = U.id
+      LEFT JOIN user UN ON N.id_user = UN.id
+      WHERE NU.id_user=? AND N.date > NOW()");
+      $stmt->execute(array($user->getId()));
     $notification_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $notifications = array();
 
-    foreach ($notification_db as $notification) {
-      $usuario = new User($notification["user.login"],
-      $notification["user.name"],
-      NULL/*password*/,
-      $notification["user.email"],
-      $notification["user.description"]);
-      array_push($notifications, new Notification($notification["id"],
-      $usuario, $notification["date"],
-      $notification["title"], $notification["content"]));
+    foreach ($notification_db as $notification_user) {
+      $usuario_Notification_User = new User($notification_user["user.id"], $notification_user["user.login"],
+          $notification_user["user.name"],
+          NULL/*password*/,
+          $notification_user["user.email"],
+          $notification_user["user.description"]);
+      $usuario_Notification = new User($notification_user["user_notification.id"], $notification_user["user_notification.login"],
+          $notification_user["user_notification.name"],
+          NULL/*password*/,
+          $notification_user["user_notification.email"],
+          $notification_user["user_notification.description"]);
+      $notification = new Notification($notification_user["notification.id"],$usuario_Notification, $notification_user["date"],
+       $notification_user["title"], $notification_user["content"]);
+      array_push($notifications, new Notification_user($notification_user["notification_user.id"],
+      $usuario_Notification_User, $notification,
+      $notification_user["viewed"]));
     }
     return $notifications;
 }

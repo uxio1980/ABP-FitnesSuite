@@ -13,7 +13,10 @@ $view->setVariable("title", "FitnesSuite");
 <main id="main-content">
   <div class="form">
     <div class="form-title">
-      <form id="form-sign-up" action="index.php?controller=notifications_user&amp;action=markAsRead" method="POST" enctype="multipart/form-data">
+      <?php $link = ($notification_user->getViewed() != NULL)?
+         'index.php?controller=notifications_user&amp;action=markAsUnread'
+        :'index.php?controller=notifications_user&amp;action=markAsRead' ?>
+      <form id="form-sign-up" action="<?= $link ?>" method="POST" enctype="multipart/form-data">
       <strong><?= i18n("Notification")?></strong>
       <?php if ($typeuser == usertype::Administrator || $typeuser == usertype::Trainer ): ?>
         <a href="index.php?controller=notification&amp;action=edit&amp;id_notification=<?= $notification_user->getId() ?>">
@@ -35,7 +38,7 @@ $view->setVariable("title", "FitnesSuite");
     <label for="login-field"><?= i18n("Content")?></label>
     <span class="field"> <?= $notification_user->getNotification()->getContent() ?></span>
 
-    <input type="submit" name="submit" value="<?= i18n("Mark as read") ?>"/>
+    <input type="submit" name="submit" value="<?= i18n("Mark as")?> <?= ($notification_user->getViewed() != NULL)?i18n("unread"):i18n("read"); ?>"/>
     </form>
   </div>
 </main>

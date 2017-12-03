@@ -4,7 +4,7 @@
  require_once(__DIR__."/../../core/ViewManager.php");
  $view = ViewManager::getInstance();
  $filterby = $view->getVariable("filterby");
- $notifications = $view->getVariable("notifications");
+ $notifications_user = $view->getVariable("notifications");
  $typeuser = $view->getVariable("typeuser");
  $view->setVariable("title", "FitnesSuite");
 
@@ -18,7 +18,7 @@
       <?php endif ?>
     </div>
     <div class="filter-box-notifications">
-        <form id="form-notifications-filterby" action="index.php?controller=notification&amp;action=index" method="POST">
+        <form id="form-notifications-filterby" action="index.php?controller=notifications_user&amp;action=index" method="POST">
           <input id="filter1" class="radio-button" type="radio" name="filterby" value="active" <?= ($filterby == 'active') ? "checked='checked'" : "";?>><?= i18n("Actives")?>
           <input id="filter2" class="radio-button" type="radio" name="filterby" value="lapsed" <?= ($filterby == 'lapsed') ? "checked='checked'" : "";?>><?= i18n("Lapsed")?>
           <input id="filter3" class="radio-button" type="radio" name="filterby" value="all" <?= ($filterby == 'all') ? "checked='checked'" : "";?>><?= i18n("All")?>
@@ -33,23 +33,27 @@
         <td><strong><?= i18n("Expiration")?></strong></td>
         <td><strong><?= i18n("View")?></strong></td>
         <td><strong><?= i18n("Read")?></strong></td>
-      <?php foreach ($notifications as $notification): ?>
+      <?php foreach ($notifications_user as $notification_user): ?>
         <tr class="table-row-content"
-          data-href="index.php?controller=notification&amp;action=edit&amp;id_notification=<?= $notification->getId() ?>">
-          <td><?= $notification->getUser_author()->getName() ?></td>
-          <td><?= $notification->getTitle() ?></td>
-          <!-- var_dump(strlen($notification->getTitle())) ?>-->
-          <?php if (strlen($notification->getContent())>20): ?>
-            <?php $content = substr($notification->getContent(),0,20)  . "..."; ?>
+          data-href="index.php?controller=notifications_user&amp;action=edit&amp;id_notification_user=<?= $notification_user->getId() ?>">
+          <td><?= $notification_user->getNotification()->getUser_author()->getName() ?></td>
+          <td><?= $notification_user->getNotification()->getTitle() ?></td>
+
+          <?php if (strlen($notification_user->getNotification()->getContent())>20): ?>
+            <?php $content = substr($notification_user->getNotification()->getContent(),0,20)  . "..."; ?>
             <?php else:?>
-              <?php $content = $notification->getContent(); ?>
+              <?php $content = $notification_user->getNotification()->getContent(); ?>
               <?php endif ?>
           <td><?= $content ?></td>
-          <td><?= $notification->getDate() ?></td>
-          <td><a href="index.php?controller=notification&amp;action=view&amp;id_notification=<?= $notification->getId() ?>">
+          <td><?= $notification_user->getNotification()->getDate() ?></td>
+          <td><a href="index.php?controller=notifications_user&amp;action=view&amp;id_notification_user=<?= $notification_user->getNotification()->getId() ?>">
             <img src="resources/icons/ic_visibility_black_24px.svg" alt="View" /></a></td>
-          <td><a class="confirmation" href="index.php?controller=notification&amp;action=delete&amp;id_notification=<?= $notification->getId() ?>">
-            <img src="resources/icons/delete_icon.svg" alt="Delete"/></a>
+            <?php $link = ($notification_user->getViewed() != NULL)?
+               'index.php?controller=notifications_user&amp;action=markAsUnread&amp;id_notification_user='.$notification_user->getId()
+              :'index.php?controller=notifications_user&amp;action=markAsRead&amp;id_notification_user='.$notification_user->getId() ?>
+          <td><a class="confirmation" href="<?= $link ?>">
+            <?php $icon = ($notification_user->getViewed() != NULL)?'ic_check_box.svg':'ic_check_box_outline.svg';?>
+            <img src="resources/icons/<?= $icon ?>" alt="Delete"/></a>
           </td>
         </tr>
       <?php endforeach; ?>
