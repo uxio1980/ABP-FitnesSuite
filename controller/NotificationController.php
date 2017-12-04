@@ -112,6 +112,7 @@ class NotificationController extends BaseController {
       if ($notification == NULL) {
         throw new Exception("no such notification with id: ".$id_notification);
       }
+      $notification_users = $this->notification_userMapper->findAllByNotification($notification);
 
       if (isset($_POST["submit"])) {
 
@@ -139,7 +140,7 @@ class NotificationController extends BaseController {
       }
       // Put the notification object visible to the view
       $this->view->setVariable("edit_notification", $notification);
-
+      $this->view->setVariable("notification_users",$notification_users);
       // render the view (/view/notifications/edit.php)
       $this->view->render("notifications", "edit");
     }
@@ -157,10 +158,10 @@ class NotificationController extends BaseController {
       if ($notification == NULL) {
         throw new Exception("->no such notification with id: ".$id_notification);
       }
-
+      $notification_users = $this->notification_userMapper->findAllByNotification($notification);
       // put the notification object to the view
       $this->view->setVariable("view_notification", $notification);
-      //$this->view->setVariable("currentUser",$this->currentUser);
+      $this->view->setVariable("notification_users",$notification_users);
 
       // render the view (/view/notifications/view.php)
         $this->view->render("notifications", "view");

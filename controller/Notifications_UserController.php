@@ -216,4 +216,35 @@ class Notifications_UserController extends BaseController {
         }
     }
 
+    public function delete() {
+        if (!isset($this->currentUser)) {
+            throw new Exception("Not in session. delete notifications_user requires login");
+        }
+        if ($this->currentUser->getUser_type()!=usertype::Administrator &&
+            $this->currentUser->getUser_type()!=usertype::Trainer ){
+            throw new Exception("Not valid user. Editing exercise requires Administrator or Trainer");
+        }
+
+        // Get the exercise object from the database
+        if (!isset($_REQUEST["id_notification_user"])) {
+            throw new Exception("Delete notifications_user requires id");
+        }
+        $id_notification_user = $_REQUEST["id_notification_user"];
+        $notification_user = $this->notification_userMapper->findById($id_notification_user);
+
+        // Does the exercise exist?
+        if ($notification_user == NULL) {
+            throw new Exception("no such notification_user with id: ".$id_notification_user);
+        }
+
+        // Delete the notification_user object from the database
+        $this->notification_userMapper->delete($notification_user);
+
+        $this->view->setFlash(sprintf(i18n("notification user  \"%s\" with name \"%s\" successfully deleted."),
+                                            $notification_user->getId(),$notification_user->getUser_receiver()->getName()));
+
+        $this->view->redirect("notification", "edit", "id_notification= " . $notification_user->getNotification()->getId());
+
+    }
+
 }
