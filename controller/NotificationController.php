@@ -4,6 +4,7 @@ require_once(__DIR__."/../core/I18n.php");
 require_once(__DIR__."/../model/Notification.php");
 require_once(__DIR__."/../model/Notification_user.php");
 require_once(__DIR__."/../model/User.php");
+require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../model/NotificationMapper.php");
 require_once(__DIR__."/../model/Notification_userMapper.php");
 require_once(__DIR__."/../controller/BaseController.php");
@@ -21,6 +22,7 @@ class NotificationController extends BaseController {
     *
     * @var Notification
     */
+    private $userMapper;
     private $notificationMapper;
     private $notification_userMapper;
     private $date;
@@ -28,6 +30,7 @@ class NotificationController extends BaseController {
 
     public function __construct() {
         parent::__construct();
+        $this->userMapper = new UserMapper();
         $this->notificationMapper = new NotificationMapper();
         $this->notification_userMapper = new Notification_userMapper();
         $this->view->setLayout("default");
@@ -113,6 +116,7 @@ class NotificationController extends BaseController {
         throw new Exception("no such notification with id: ".$id_notification);
       }
       $notification_users = $this->notification_userMapper->findAllByNotification($notification);
+      $users = $this->userMapper->findAll();
 
       if (isset($_POST["submit"])) {
 
@@ -141,6 +145,7 @@ class NotificationController extends BaseController {
       // Put the notification object visible to the view
       $this->view->setVariable("edit_notification", $notification);
       $this->view->setVariable("notification_users",$notification_users);
+      $this->view->setVariable("users",$users);
       // render the view (/view/notifications/edit.php)
       $this->view->render("notifications", "edit");
     }

@@ -6,6 +6,7 @@ $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");
 $notification = $view->getVariable("edit_notification");
 $notification_users = $view->getVariable("notification_users");
+$users = $view->getVariable("users");
 $view->setVariable("title", "FitnesSuite");
 ?>
 
@@ -36,9 +37,15 @@ $view->setVariable("title", "FitnesSuite");
         <table id="table-content">
           <tr class="table-row-content">
             <td>
-              <strong><?= i18n("Receivers")?><a href="index.php?controller=notifications_user&amp;action=add&amp;id_notification=<?= $notification->getId() ?>">
-                <img class="image-edit" src="resources/icons/ic_users_add.svg" alt="Edit" />
-              </a> </strong>
+              <strong><?= i18n("Receivers")?>
+                <!-- Trigger/Open The Modal -->
+                <div id="myBtn">
+                  <!--a href="index.php?controller=notifications_user&amp;action=add&amp;id_notification= < ?= $notification->getId() ?>"> -->
+                    <img class="image-edit" src="resources/icons/ic_users_add.svg" alt="Edit" />
+                  <!--</a> -->
+                </div>
+                <?php include(__DIR__."/modalform.php");?>
+                </strong>
             </td>
             <td><strong><?= i18n("Delete")?></strong></td>
             <?php foreach ($notification_users as $notification_user): ?>

@@ -247,4 +247,77 @@ class Notifications_UserController extends BaseController {
 
     }
 
+    /**
+    * Action to add a new notification_user
+    *
+    * When called via GET, it shows the add form
+    * When called via POST, it adds the notification_user to the
+    * database
+    *
+    * The expected HTTP parameters are:
+    * <ul>
+    * <li>title: Title of the notification_user (via HTTP POST)</li>
+    * <li>content: Content of the post (via HTTP POST)</li>
+    * </ul>
+    *
+    * The views are:
+    * <ul>
+    * <li>posts/add: If this action is reached via HTTP GET (via include)</li>
+    * <li>posts/index: If post was successfully added (via redirect)</li>
+    * <li>posts/add: If validation fails (via include). Includes these view variables:</li>
+    * <ul>
+    *  <li>post: The current Post instance, empty or
+    *  being added (but not validated)</li>
+    *  <li>errors: Array including per-field validation errors</li>
+    * </ul>
+    * </ul>
+    * @throws Exception if no user is in session
+    * @return void
+    */
+    public function add() {
+      if (!isset($this->currentUser)) {
+        throw new Exception("Not in session. Adding notification_users requires login");
+      }
+
+      $notification_user = new Notification_user();
+      $usuario = new User();
+
+      if (!isset($_REQUEST["id_notification"])) {
+          throw new Exception("Add notifications_user requires notification_id");
+      }
+
+        // populate the notification_user object with data form the form
+        $notification_user->setUser_receiver($usuario);
+        $notification_user->setNotification(new Notification());
+
+        try {
+          // validate notification_user object
+          $notification_user->checkIsValidForCreate(); // if it fails, ValidationException
+          // save the notification_user object into the database
+          $this->notification_userMapper->save($notification_user);
+
+          // POST-REDIRECT-GET
+          // Everything OK, we will redirect the user to the list of posts
+
+          // perform the redirection. More or less:
+          // header("Location: index.php?controller=notification_users&action=index")
+          // die();
+          //$this->view->redirect("notifications_user", "index");
+
+        }catch(ValidationException $ex) {
+          // Get the errors array inside the exepction...
+          $errors = $ex->getErrors();
+          // And put it to the view as "errors" variable
+          $this->view->setVariable("errors", $errors);
+        }
+
+
+
+      // render the view (/view/notification_users/add.php)
+      if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
+        //$this->view->render("notifications_user", "add");
+      }
+      $this->view->redirectToReferer();
+    }
+
 }

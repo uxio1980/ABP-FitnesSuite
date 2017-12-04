@@ -27,7 +27,7 @@ class Notification_userMapper {
   * @throws PDOException if a database error occurs
   * @return void $phone=NULL, $email= NULL,$address=NULL
   */
-  public function save($notification_user) {
+  public function save(Notification_user $notification_user) {
     $stmt = $this->db->prepare("INSERT INTO notification_user (id, id_user, id_notification, viewed
     ) values (0,?,?,?)");
       $stmt->execute(array($notification_user->getUser_receiver()->getId(),

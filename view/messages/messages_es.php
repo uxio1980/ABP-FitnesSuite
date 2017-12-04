@@ -51,6 +51,7 @@
     "Address" => "Dirección",
     "New" => "Nuevo",
     "new notification" => "notificación nueva",
+    "Add Users to notification" => "Añadir usuarios a la notificación",
     "Show only my notifications" => "Mostrar sólo mis notificaciones",
     "new notifications" => "notificaciones nuevas",
     "Notification" => "Notificación",
