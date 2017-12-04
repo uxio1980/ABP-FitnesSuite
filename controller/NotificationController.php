@@ -27,6 +27,7 @@ class NotificationController extends BaseController {
     private $notification_userMapper;
     private $date;
     private $currentDate;
+    private $temporalUsers;
 
     public function __construct() {
         parent::__construct();
@@ -49,6 +50,10 @@ class NotificationController extends BaseController {
 
       if (!isset($this->currentUser)) {
         throw new Exception("Not in session. Listing notifications requires login");
+      }
+
+      if ($this->currentUser->getUser_type() != usertype::Administrator && $this->currentUser->getUser_type() != usertype::Trainer) {
+        throw new Exception("Listing notifications requires Administrator or trainer user");
       }
 
       /*
@@ -254,9 +259,19 @@ class NotificationController extends BaseController {
       if (!isset($this->currentUser)) {
         throw new Exception("Not in session. Adding notifications requires login");
       }
-
+      $users = $this->userMapper->findAll();
       $notification = new Notification();
-
+      if (isset($_SESSION['temporalUsers'])){
+        $this->temporalUsers = unserialize($_SESSION['temporalUsers']);
+      }
+      if (isset($_SESSION['NotificationValues'])){
+        //var_dump($_SESSION['NotificationValues']);
+        //$notification_values = $_SESSION['NotificationValues'];
+        //var_dump($notification_values);
+        /*$notification->setDate($notification_values["ndate"]);
+        $notification->setTitle($notification_values["bar"]);
+        $notification->setContent($notification_values["foo"]);*/
+      }
       if (isset($_POST["submit"])) { // reaching via HTTP Post...
 
         // populate the notification object with data form the form
@@ -271,7 +286,19 @@ class NotificationController extends BaseController {
 
           // save the notification object into the database
           $this->notificationMapper->save($notification);
-
+          $lastNotification = $this->notificationMapper->findLastNotification();
+          if (isset($_SESSION['temporalUsers'])){
+            foreach ($this->temporalUsers as $user_forAdd){
+              $notification_user = new Notification_user();
+              // populate the notification_user object with data form the form
+              $notification_user->setNotification($lastNotification);
+              $notification_user->setUser_receiver($user_forAdd);
+              $check_notification_user = $this->notification_userMapper->findByUserAndNotification($user_forAdd, $lastNotification);
+              if($check_notification_user == NULL){
+                $this->notification_userMapper->save($notification_user);
+              }
+            }
+          }
           // POST-REDIRECT-GET
           // Everything OK, we will redirect the user to the list of notifications
 
@@ -290,11 +317,12 @@ class NotificationController extends BaseController {
 
       // Put the notification object visible to the view
       $this->view->setVariable("add_notification", $notification);
+      $this->view->setVariable("users", $users);
+      $this->view->setVariable("notification_users", $this->temporalUsers);
 
       // render the view (/view/notifications/add.php)
         $this->view->render("notifications", "add");
 
     }
-
 
 }

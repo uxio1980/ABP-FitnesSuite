@@ -14,7 +14,7 @@
     <div class="content-title">
       <strong><?= i18n("Notifications")?></strong><br>
       <?php if ($typeuser==usertype::Administrator || $typeuser==usertype::Trainer): ?>
-        <a href="index.php?controller=notification&amp;action=add"><input type='button' value=<?= i18n("New")?> /></a>
+        <input type='button' value=<?= i18n("New")?> onclick="<?php $_SESSION['temporalUsers']=NULL ?>;location.href='index.php?controller=notification&amp;action=add';" />
       <?php endif ?>
     </div>
     <div class="filter-box-notifications">

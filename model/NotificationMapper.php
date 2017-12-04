@@ -86,6 +86,33 @@ class NotificationMapper {
         }
       }
 
+
+      /**
+      * Loads a Notification from the database given its id
+      *
+      * @throws PDOException if a database error occurs
+      * @return Notification The Notification instances. NULL
+      * if the Notification is not found
+      */
+      public function findLastNotification(){
+
+        $stmt = $this->db->query("SELECT *, N.id as 'id_notification',
+          U.id as 'id_user' FROM notification N LEFT JOIN user U ON N.id_user=U.id
+          ORDER BY N.id DESC LIMIT 1");
+        $notification = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($notification != null) {
+          $usuario = new User($notification["id_user"], $notification["login"],
+          $notification["name"],
+          NULL/*password*/,
+          $notification["email"],
+          $notification["description"]);
+          return new Notification($notification["id_notification"], $usuario,
+          $notification["date"], $notification["title"], $notification["content"]);
+        } else {
+          return NULL;
+        }
+      }
       /**
        * Retrieves all Notifications
        *

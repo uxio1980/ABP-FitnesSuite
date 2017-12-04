@@ -25,12 +25,13 @@
             <tr class="table-row-content">
               <td>
                 <?php $checked = '';
-                foreach ($notification_users as $checked_user): ?>
-                  <?php if($my_user->getId()==$checked_user->getUser_receiver()->getId()): ?>
-                    <?php $checked = 'checked'; ?>
-                  <?php endif; ?>
-                <?php endforeach; ?>
-                <!--input class="check_box" type="checkbox" name="checkbox[]" value="<= $my_user->getId() ?>" <= $checked ?>/>-->
+                  if ($notification_users != NULL):
+                    foreach ($notification_users as $checked_user): ?>
+                      <?php if($my_user->getId()==$checked_user->getUser_receiver()->getId()): ?>
+                        <?php $checked = 'checked'; ?>
+                      <?php endif; ?>
+                    <?php endforeach;
+                  endif; ?>
                 <input class="check_box" type="checkbox" id="checkbox_<?= ++$count ?>" name="checkbox[]" value="<?= $my_user->getId() ?>" <?= $checked ?>/>
               </td>
               <td><?= $my_user->getSurname() ?>, <?= $my_user->getName()?></td>

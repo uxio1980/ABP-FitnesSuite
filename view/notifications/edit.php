@@ -43,7 +43,7 @@ $view->setVariable("title", "FitnesSuite");
                   <img class="image-edit" src="resources/icons/ic_users_add.svg" alt="Edit" />
                 <!--</a> -->
               </div>
-              <?php include(__DIR__."/modalform.php");?>
+              <?php include(__DIR__."/modalEditForm.php");?>
               </strong>
           </td>
           <td><strong><?= i18n("Delete")?></strong></td>

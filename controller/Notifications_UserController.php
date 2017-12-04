@@ -250,6 +250,35 @@ class Notifications_UserController extends BaseController {
 
     }
 
+    public function deletetemporaluser() {
+        if (!isset($this->currentUser)) {
+            throw new Exception("Not in session. delete notifications_user requires login");
+        }
+        if ($this->currentUser->getUser_type()!=usertype::Administrator &&
+            $this->currentUser->getUser_type()!=usertype::Trainer ){
+            throw new Exception("Not valid user. Editing exercise requires Administrator or Trainer");
+        }
+
+        // Get the exercise object from the database
+        if (!isset($_REQUEST["id_user"])) {
+            throw new Exception("Delete user for notification add requires id");
+        }
+        $id_user = $_REQUEST["id_user"];
+
+        if (isset($_SESSION['temporalUsers'])){
+          $temporalUsers = unserialize($_SESSION['temporalUsers']);
+        }
+
+        $temporal_user = $this->userMapper->findById2($id_user);
+        //foreach ($temporalUsers as $temporalUser){
+          if (($key = array_search($temporal_user, $temporalUsers)) !== false) {
+            unset($temporalUsers[$key]);
+          }
+          $_SESSION['temporalUsers'] = serialize($temporalUsers);
+          $this->view->redirectToReferer();
+
+    }
+
     /**
     * Action to add a new notification_user
     *
@@ -338,4 +367,73 @@ class Notifications_UserController extends BaseController {
       $this->view->redirectToReferer();
     }
 
+
+        /**
+        * Action to add a new notification_user
+        *
+        * When called via GET, it shows the add form
+        * When called via POST, it adds the notification_user to the
+        * database
+        *
+        * The expected HTTP parameters are:
+        * <ul>
+        * <li>title: Title of the notification_user (via HTTP POST)</li>
+        * <li>content: Content of the post (via HTTP POST)</li>
+        * </ul>
+        *
+        * The views are:
+        * <ul>
+        * <li>posts/add: If this action is reached via HTTP GET (via include)</li>
+        * <li>posts/index: If post was successfully added (via redirect)</li>
+        * <li>posts/add: If validation fails (via include). Includes these view variables:</li>
+        * <ul>
+        *  <li>post: The current Post instance, empty or
+        *  being added (but not validated)</li>
+        *  <li>errors: Array including per-field validation errors</li>
+        * </ul>
+        * </ul>
+        * @throws Exception if no user is in session
+        * @return void
+        */
+        public function updatetemporalusers() {
+          if (!isset($this->currentUser)) {
+            throw new Exception("Not in session. update notification_users requires login");
+          }
+            $this->temporalUsers =  array();
+
+            $idusercheckboxes = $_POST['checkbox'];
+            foreach ($idusercheckboxes as $user_checked){
+              $temporal_user = $this->userMapper->findById2($user_checked);
+              array_push($this->temporalUsers, $temporal_user);
+            }
+            $_SESSION['temporalUsers'] = serialize($this->temporalUsers);
+            try {
+              // validate notification_user object
+              //$notification_user->checkIsValidForCreate(); // if it fails, ValidationException
+              // save the notification_user object into the database
+              //$this->notification_userMapper->save($notification_user);
+
+              // POST-REDIRECT-GET
+              // Everything OK, we will redirect the user to the list of posts
+
+              // perform the redirection. More or less:
+              // header("Location: index.php?controller=notification_users&action=index")
+              // die();
+              //$this->view->redirect("notifications_user", "index");
+
+            }catch(ValidationException $ex) {
+              // Get the errors array inside the exepction...
+              $errors = $ex->getErrors();
+              // And put it to the view as "errors" variable
+              $this->view->setVariable("errors", $errors);
+            }
+
+
+
+          // render the view (/view/notification_users/add.php)
+          if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
+            //$this->view->render("notifications_user", "add");
+          }
+          $this->view->redirectToReferer();
+        }
 }
