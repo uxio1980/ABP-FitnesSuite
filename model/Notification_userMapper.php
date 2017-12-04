@@ -73,6 +73,18 @@ class Notification_userMapper {
             $stmt->execute(array($notification_user->getId()));
         }
 
+        /**
+        * Deletes an activity into the database
+        *
+        * @param Article $article The Article to be deleted
+        * @throws PDOException if a database error occurs
+        * @return void
+        */
+        public function deleteUsersByNotification(Notification $notification) {
+            $stmt = $this->db->prepare("DELETE from notification_user WHERE id_notification=?");
+            $stmt->execute(array($notification->getId()));
+        }
+
       /**
       * Loads a Notification from the database given its id
       *
@@ -91,6 +103,39 @@ class Notification_userMapper {
              LEFT JOIN user U ON N.id_user = U.id
              WHERE NU.id=?");
         $stmt->execute(array($id));
+        $notification_user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($notification_user != null) {
+          $usuario_notification_user = new User($notification_user["notification_user.id_user"]);
+          $usuario_notification = new User($notification_user["notification.id_user"],NULL,$notification_user["notification.username"] );
+          $notification = new Notification($notification_user["notification_user.id_notification"],
+          $usuario_notification, $notification_user["date"],
+          $notification_user["title"], $notification_user["content"]);
+          return new Notification_User($notification_user["notification_user.id"], $usuario_notification_user,
+          $notification, $notification_user["viewed"]);
+        } else {
+          return NULL;
+        }
+      }
+
+      /**
+      * Loads a Notification from the database given its id
+      *
+      * @throws PDOException if a database error occurs
+      * @return Notification The Notification instances. NULL
+      * if the Notification is not found
+      */
+      public function findByUserAndNotification(User $user, Notification $notification){
+        $stmt = $this->db->prepare("SELECT NU.*,N.*, NU.id as 'notification_user.id',
+             NU.id_user as 'notification_user.id_user',
+	         NU.id_notification as 'notification_user.id_notification',
+             U.name as 'notification.username',
+             N.id_user as 'notification.id_user'
+	         FROM `notification_user` NU
+             LEFT JOIN notification N ON NU.id_notification = N.id
+             LEFT JOIN user U ON N.id_user = U.id
+             WHERE NU.id_user=? AND NU.id_notification=?");
+        $stmt->execute(array($user->getId(),$notification->getId()));
         $notification_user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($notification_user != null) {

@@ -4,6 +4,7 @@ require_once(__DIR__."/../core/I18n.php");
 require_once(__DIR__."/../model/Notification.php");
 require_once(__DIR__."/../model/Notification_user.php");
 require_once(__DIR__."/../model/User.php");
+require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../model/NotificationMapper.php");
 require_once(__DIR__."/../model/Notification_userMapper.php");
 require_once(__DIR__."/../controller/BaseController.php");
@@ -21,6 +22,7 @@ class Notifications_UserController extends BaseController {
     *
     * @var Notification
     */
+    private $userMapper;
     private $notificationMapper;
     private $notification_userMapper;
     private $date;
@@ -28,6 +30,7 @@ class Notifications_UserController extends BaseController {
 
     public function __construct() {
         parent::__construct();
+        $this->userMapper = new UserMapper();
         $this->notificationMapper = new NotificationMapper();
         $this->notification_userMapper = new Notification_userMapper();
         $this->view->setLayout("default");
@@ -274,27 +277,42 @@ class Notifications_UserController extends BaseController {
     * @throws Exception if no user is in session
     * @return void
     */
-    public function add() {
+    public function updateusers() {
       if (!isset($this->currentUser)) {
-        throw new Exception("Not in session. Adding notification_users requires login");
+        throw new Exception("Not in session. update notification_users requires login");
       }
-
-      $notification_user = new Notification_user();
-      $usuario = new User();
 
       if (!isset($_REQUEST["id_notification"])) {
           throw new Exception("Add notifications_user requires notification_id");
       }
 
-        // populate the notification_user object with data form the form
-        $notification_user->setUser_receiver($usuario);
-        $notification_user->setNotification(new Notification());
+        // Get the notification object from the database
+        $id_notification = $_POST["id_notification"];
+        $notification = $this->notificationMapper->findById($id_notification);
+        // Does the notification exist?
+        if ($notification == NULL) {
+          throw new Exception("no such notification with id: ".$id_notification);
+        }
+        $this->notification_userMapper->deleteUsersByNotification($notification);
+
+        $idusercheckboxes = $_POST['checkbox'];
+        foreach ($idusercheckboxes as $user_checked){
+          $notification_user = new Notification_user();
+          // populate the notification_user object with data form the form
+          $notification_user->setNotification($notification);
+          $userChecked = $this->userMapper->findById2($user_checked);
+          $notification_user->setUser_receiver($userChecked);
+          $check_notification_user = $this->notification_userMapper->findByUserAndNotification($userChecked, $notification);
+          if($check_notification_user == NULL){
+            $this->notification_userMapper->save($notification_user);
+          }
+        }
 
         try {
           // validate notification_user object
-          $notification_user->checkIsValidForCreate(); // if it fails, ValidationException
+          //$notification_user->checkIsValidForCreate(); // if it fails, ValidationException
           // save the notification_user object into the database
-          $this->notification_userMapper->save($notification_user);
+          //$this->notification_userMapper->save($notification_user);
 
           // POST-REDIRECT-GET
           // Everything OK, we will redirect the user to the list of posts

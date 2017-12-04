@@ -1612,12 +1612,13 @@ ul.partner li img{
 }
 
 #table-content .table-row-content td {
+  font: 1em 'Lato';
   margin: 0;
   padding-top: 15px;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 15px;
-  border-left: ;
+  /*border-left: ;*/
   border-bottom: 1pt solid #dedede;
 
 }
@@ -1648,7 +1649,28 @@ ul.partner li img{
   flex-direction: row;
   flex-wrap: wrap;
 }
+/******************************* CUSTOM CHECK BOX *****************************/
+.check_box {
+    display:none;
+}
 
+.check_box + label{
+    background:url('resources/icons/ic_check_box_outline.svg') no-repeat;
+    height: 24px;
+    width: 24px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+    cursor: pointer;
+}
+
+.check_box:checked + label{
+    background:url('resources/icons/ic_check_box.svg') no-repeat;
+    height: 24px;
+    width: 24px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+    cursor: pointer;
+}
 /*******************************    MODAL FORM    *****************************/
 /* The Modal (background) */
 .modal {

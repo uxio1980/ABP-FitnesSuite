@@ -3,7 +3,6 @@
 ?>
 <!-- The Modal -->
 <div id="myModal" class="modal">
-
   <!-- Modal content -->
   <div class="modal-content">
     <div class="modal-header">
@@ -11,6 +10,8 @@
       <h2><?= i18n("Add Users to notification")?></h2>
     </div>
     <div class="modal-body">
+      <form id="form-select-notification_users" action="index.php?controller=notifications_user&amp;action=updateusers" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id_notification" value="<?= $notification->getId() ?>"/>
       <table id="table-content">
         <tr class="table-row-content">
           <td>
@@ -19,51 +20,63 @@
           <td>
             <?= i18n("User")?>
           </td>
-          <?php foreach ($users as $my_user): ?>
-
+          <?php $count = 0;
+          foreach ($users as $my_user): ?>
             <tr class="table-row-content">
-              <td><a class="No_confirmation" href="index.php?controller=notifications_user&amp;action=add&amp;id_notification=<?= $notification->getId() ?>">
-                <img src="resources/icons/ic_check_box_outline.svg" alt="Add"/></a>
+              <td>
+                <?php $checked = '';
+                foreach ($notification_users as $checked_user): ?>
+                  <?php if($my_user->getId()==$checked_user->getUser_receiver()->getId()): ?>
+                    <?php $checked = 'checked'; ?>
+                  <?php endif; ?>
+                <?php endforeach; ?>
+                <!--input class="check_box" type="checkbox" name="checkbox[]" value="<= $my_user->getId() ?>" <= $checked ?>/>-->
+                <input class="check_box" type="checkbox" id="checkbox_<?= ++$count ?>" name="checkbox[]" value="<?= $my_user->getId() ?>" <?= $checked ?>/>
               </td>
               <td><?= $my_user->getSurname() ?>, <?= $my_user->getName()?></td>
             </tr>
           <?php endforeach; ?>
         </table>
-
-    </div>
-    <div class="modal-footer">
-      <div class="content-title">
-          <a href="index.php?controller=notifications_user&amp;action=add"><input type='button' value=<?= i18n("Add")?> /></a>
+      </div>
+    </form>
+      <div class="modal-footer">
+        <div class="content-title">
+          <input type="submit" name="submit2" form="form-select-notification_users" value="<?= i18n("Update users") ?>"/>
+        </div>
       </div>
     </div>
+
   </div>
 
-</div>
-
-<script>
-// Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal
-btn.onclick = function() {
-		  $('#myModal').css('display', 'flex');
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+  <script>
+  // Get the modal
+  var modal = document.getElementById('myModal');
+  // Get the button that opens the modal
+  var btn = document.getElementById("BtnModalForm");
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+  // When the user clicks the button, open the modal
+  btn.onclick = function() {
+    $('#myModal').css('display', 'flex');
+  }
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function() {
     modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+  }
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
     if (event.target == modal) {
-        modal.style.display = "none";
+      modal.style.display = "none";
     }
-}
+  }
+  // Change checkbox icons
+  $('.check_box').each(function(){
+    $(this).hide().after('<label class="checkbox_label"></label>');
+
+});
+
+$('.checkbox_label').on('click',function(){
+    $(this).toggleClass('checked').prev().prop('checked',$(this).is('.checked'))
+});
+
 </script>

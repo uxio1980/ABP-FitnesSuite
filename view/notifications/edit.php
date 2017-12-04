@@ -13,7 +13,7 @@ $view->setVariable("title", "FitnesSuite");
 <main id="main-content">
   <div class="form">
     <strong><?= i18n("Modify notification")?></strong>
-    <form id="form-sign-up" action="index.php?controller=notification&amp;action=edit" method="POST" enctype="multipart/form-data">
+    <form id="form-edit-notification_user" action="index.php?controller=notification&amp;action=edit" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="id_notification" value="<?= $notification->getId() ?>"/>
 
       <label for="login-field"><?= i18n("Author")?></label>
@@ -32,36 +32,33 @@ $view->setVariable("title", "FitnesSuite");
       <label for="login-field"><?= i18n("Content")?></label>
       <textarea name="content" rows="4" cols="50" required><?=$notification->getContent() ?></textarea>
       <?= isset($errors["content"])?$errors["content"]:"" ?>
-
-      <div id="content-list">
-        <table id="table-content">
-          <tr class="table-row-content">
-            <td>
-              <strong><?= i18n("Receivers")?>
-                <!-- Trigger/Open The Modal -->
-                <div id="myBtn">
-                  <!--a href="index.php?controller=notifications_user&amp;action=add&amp;id_notification= < ?= $notification->getId() ?>"> -->
-                    <img class="image-edit" src="resources/icons/ic_users_add.svg" alt="Edit" />
-                  <!--</a> -->
-                </div>
-                <?php include(__DIR__."/modalform.php");?>
-                </strong>
-            </td>
-            <td><strong><?= i18n("Delete")?></strong></td>
-            <?php foreach ($notification_users as $notification_user): ?>
-              <tr class="table-row-content"
-                data-href="index.php?controller=notifications_user&amp;action=delete&amp;id_notification_user=<?= $notification_user->getId() ?>">
-                <td><?= $notification_user->getUser_receiver()->getSurname() ?>, <?= $notification_user->getUser_receiver()->getName()?></td>
-                <td><a class="confirmation" href="index.php?controller=notifications_user&amp;action=delete&amp;id_notification_user=<?= $notification_user->getId()?>">
-                  <img src="resources/icons/delete_icon.svg" alt="Delete"/></a>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          </table>
-        </div>
-      <input type="submit" name="submit" value="<?= i18n("Modify") ?>"/>
     </form>
-  </div>
+      <table id="table-content">
+        <tr class="table-row-content">
+          <td>
+            <strong><?= i18n("Receivers")?>
+              <!-- Trigger/Open The Modal -->
+              <div id="BtnModalForm">
+                <!--a href="index.php?controller=notifications_user&amp;action=add&amp;id_notification= < ?= $notification->getId() ?>"> -->
+                  <img class="image-edit" src="resources/icons/ic_users_add.svg" alt="Edit" />
+                <!--</a> -->
+              </div>
+              <?php include(__DIR__."/modalform.php");?>
+              </strong>
+          </td>
+          <td><strong><?= i18n("Delete")?></strong></td>
+          <?php foreach ($notification_users as $notification_user): ?>
+            <tr class="table-row-content"
+              data-href="index.php?controller=notifications_user&amp;action=delete&amp;id_notification_user=<?= $notification_user->getId() ?>">
+              <td><?= $notification_user->getUser_receiver()->getSurname() ?>, <?= $notification_user->getUser_receiver()->getName()?></td>
+              <td><a class="confirmation" href="index.php?controller=notifications_user&amp;action=delete&amp;id_notification_user=<?= $notification_user->getId()?>">
+                <img src="resources/icons/delete_icon.svg" alt="Delete"/></a>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+        </table>
+        <input type="submit" name="submit" form="form-edit-notification_user" value="<?= i18n("Modify") ?>"/>
+    </div>
 </main>
 <script type="text/javascript">
     $('.confirmation').on('click', function () {
