@@ -434,9 +434,9 @@ header{
 
 .nav-item img{
   padding-top: 10px;
-  padding-left: 30px;
+  padding-left: 20px;
   padding-bottom: 10px;
-  padding-right: 30px;
+  padding-right: 20px;
   text-decoration: none;
   color: #5c5c5c;
   display: flex;
@@ -1592,8 +1592,19 @@ ul.partner li img{
 
 #table-content tr strong{
   font-size: 1em;
+
 }
 
+#table-content tr strong img{
+  margin-left: 10px;
+    cursor: pointer;
+
+}
+
+#table-content tr strong a{
+    margin-right: 10px;
+    margin-left: 10px;
+}
 
 #table-content tr:hover {
   color: #333333;
@@ -1601,12 +1612,13 @@ ul.partner li img{
 }
 
 #table-content .table-row-content td {
+  font: 1em 'Lato';
   margin: 0;
   padding-top: 15px;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 15px;
-  border-left: ;
+  /*border-left: ;*/
   border-bottom: 1pt solid #dedede;
 
 }
@@ -1636,6 +1648,104 @@ ul.partner li img{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+/******************************* CUSTOM CHECK BOX *****************************/
+.check_box {
+    display:none;
+}
+
+.check_box + label{
+    background:url('resources/icons/ic_check_box_outline.svg') no-repeat;
+    height: 24px;
+    width: 24px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+    cursor: pointer;
+}
+
+.check_box:checked + label{
+    background:url('resources/icons/ic_check_box.svg') no-repeat;
+    height: 24px;
+    width: 24px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+    cursor: pointer;
+}
+/*******************************    MODAL FORM    *****************************/
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 10px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-200px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-200px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: var(--main-color);
+    color: white;
+}
+
+.modal-body {
+  padding: 2px 16px;
+  justify-content: center;
+  display: flex;
+}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: var(--second-color);
+    color: white;
+    display: flex;
+    justify-content: center;
 }
 /*******************************    FOOTER DETAIL *****************************/
 footer{
@@ -1834,6 +1944,7 @@ footer{
 
 /******************************* NOTIFICATIONS  *******************************/
 .filter-box-notifications{
+  padding: 10px;
   display: flex;
   flex-flow: column;
   flex-wrap: wrap;
@@ -1842,6 +1953,7 @@ footer{
   align-items: center;
   padding-bottom: 15px;
 }
+
 .filter-box-notifications form {
   font: 1em 'Lato';
   color: #5c5c5c;
@@ -2032,6 +2144,10 @@ footer{
     flex-direction:column;
   }
 
+  .modal-content {
+    width: 80%;
+  }
+
 }
 /* mobile layout: single colum, all items occupy the entire row, so wrap */
 @media (max-width: 767px) {
@@ -2125,7 +2241,9 @@ footer{
     margin-top: 10px;
   }
 
-
+  .modal-content {
+    width: 95%;
+  }
   /*************** CONTENT ***************/
   #commercial-box-index{
     flex-direction: column;

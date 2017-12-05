@@ -60,6 +60,10 @@ class Notification {
     $this->title = $title;
   }
 
+  public function setContent($content) {
+    $this->content = $content;
+  }
+
   public function setReceivers($receivers) {
     $this->receivers = $receivers;
   }
@@ -72,14 +76,14 @@ class Notification {
   *
   * @return void
   */
-  public function checkIsValidForRegister() {
+  public function checkIsValidForCreate() {
     $errors = array();
     /*if (strlen($this->email) < 5) {
       $errors["register-email"] = "You must write your email";
-    }
-    if (sizeof($errors)>0){
-      throw new ValidationException($errors, "user is not valid");
     }*/
+    if (sizeof($errors)>0){
+      throw new ValidationException($errors, "Notification is not valid");
+    }
   }
 
   /**
@@ -93,19 +97,16 @@ class Notification {
    */
   public function checkIsValidForUpdate() {
     $errors = array();
-    /*
-    if (strlen($this->phone) >0 && !is_numeric($this->phone)){
-      $errors["phone"] = "You must write a valid phone number";
-    }
+
     try{
-      $this->checkIsValidForRegister();
+      $this->checkIsValidForCreate();
     }catch(ValidationException $ex) {
       foreach ($ex->getErrors() as $key=>$error) {
         $errors[$key] = $error;
       }
     }
     if (sizeof($errors) > 0) {
-      throw new ValidationException($errors, "User is not valid");
-    }*/
+      throw new ValidationException($errors, "Notification is not valid");
+    }
   }
 }

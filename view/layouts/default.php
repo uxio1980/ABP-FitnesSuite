@@ -7,7 +7,8 @@ $view = ViewManager::getInstance();
 $currentuser = $view->getVariable("currentusername");
 $typeuser = $view->getVariable("typeuser");
 $imageUser = $view->getVariable("imageUser");
-$notification = $view->getVariable("notification");
+$numberOfNotifications = $view->getVariable("numberOfNotifications");
+$default_notifications_user = $view->getVariable("default_notifications_user");
 $loginerrors = $view->getVariable("loginerrors");
 $registererrors = $view->getVariable("register");
 $i18n = I18n::getInstance();
@@ -72,7 +73,7 @@ $language = $i18n->getLanguage();
         <!-- ******* Profile ALERT BUTTON  ************************  -->
         <button id="alert-button">
           <div class="container-user-circle">
-            <?php if (isset($notification) && $notification>0):?>
+            <?php if (isset($numberOfNotifications) && $numberOfNotifications>0):?>
                 <div class="circle kitten notificationYes" style="background-image: url('resources/icons/ic_notifications_black_24px.svg');">
                   <div class="aligner">
                     <!-- text inside the icon -->
@@ -80,15 +81,13 @@ $language = $i18n->getLanguage();
             <?php else:?>
                 <div class="circle kitten" style="background-image: url('resources/icons/ic_notifications_none_black_24px.svg');">
             <?php endif ?>
-
             </div>
           </div>
         </button>
-        <?php if (isset($notification) && $notification>0):?>
+        <?php if (isset($numberOfNotifications) && $numberOfNotifications>0):?>
         <div id="dropdown-notification-content" class="dropdown-content" style="display:none">
           <div >
             <?php include(__DIR__."/notification_select_element.php");?>
-
           </div>
         </div>
         <?php endif ?>
@@ -125,7 +124,7 @@ $language = $i18n->getLanguage();
               <li class="nav-item">
                 <a href="index.php?controller=users&amp;action=profile&amp;login=<?= $currentuser ?>" method="POST">
                   <img src="resources/icons/profile_icon.svg" alt="Profile icon"/>
-                  <div class="text-item"><?= i18n("Profile")?></div></a>
+                  <div class="text-item"><?= i18n("My profile")?></div></a>
                 </li>
                 <li class="nav-item">
                   <a href="index.php?controller=users&amp;action=logout">
@@ -224,7 +223,7 @@ $language = $i18n->getLanguage();
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="index.php?controller=notification&amp;action=index">
+                    <a href="index.php?controller=notifications_user&amp;action=index">
                       <img src="resources/icons/ic_notifications_black_24px.svg" alt="Activities icon"/>
                       <div class="text-item"><?= i18n("Notifications")?></div>
                     </a>
