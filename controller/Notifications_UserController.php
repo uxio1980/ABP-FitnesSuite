@@ -77,12 +77,12 @@ class Notifications_UserController extends BaseController {
           $notifications_user = $this->notification_userMapper->findAllByUser($this->currentUser);
       }
 
-      /*if($notifications_user != NULL){
-        foreach ($notifications_user as $notification) {
-          $count = $this->notification_userMapper->countAllByNotification($notification);
-          $notification->setReceivers($count);
+      if($notifications_user != NULL){
+        foreach ($notifications_user as $notification_user) {
+          $count = $this->notification_userMapper->countAllByNotification_user($notification_user);
+          $notification_user->getNotification()->setReceivers($count);
         }
-      }*/
+      }
       // put the array containing notification object to the view
       $this->view->setVariable("filterby", $filterby);
       $this->view->setVariable("notifications", $notifications_user);
@@ -307,6 +307,7 @@ class Notifications_UserController extends BaseController {
     * @return void
     */
     public function updateusers() {
+
       if (!isset($this->currentUser)) {
         throw new Exception("Not in session. update notification_users requires login");
       }
