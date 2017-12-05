@@ -34,14 +34,24 @@
       <tr class="table-row-content">
         <td><strong><?= i18n("Author")?></strong></td>
         <td><strong><?= i18n("Title")?></strong></td>
+        <td><strong><?= i18n("Content")?></strong></td>
         <td><strong><?= i18n("Expiration")?></strong></td>
         <td><strong><?= i18n("Receivers")?></strong></td>
-
+        <td><strong><?= i18n("View")?></strong></td>
+        <td><strong><?= i18n("Edit")?></strong></td>
+        <td><strong><?= i18n("Delete")?></strong></td>
       <?php foreach ($notifications as $notification): ?>
         <tr class="table-row-content"
           data-href="index.php?controller=notification&amp;action=edit&amp;id_notification=<?= $notification->getId() ?>">
           <td><?= $notification->getUser_author()->getName() ?></td>
           <td><?= $notification->getTitle() ?></td>
+          <!-- var_dump(strlen($notification->getTitle())) ?>-->
+          <?php if (strlen($notification->getContent())>20): ?>
+            <?php $content = substr($notification->getContent(),0,20)  . "..."; ?>
+            <?php else:?>
+              <?php $content = $notification->getContent(); ?>
+              <?php endif ?>
+          <td><?= $content ?></td>
           <td><?= $notification->getDate() ?></td>
           <td><?= $notification->getReceivers() ?></td>
           <td><a href="index.php?controller=notification&amp;action=view&amp;id_notification=<?= $notification->getId() ?>">

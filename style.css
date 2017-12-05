@@ -1677,7 +1677,7 @@ ul.partner li img{
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
-    padding-top: 10px; /* Location of the box */
+    padding-top: 100px; /* Location of the box */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -1704,12 +1704,12 @@ ul.partner li img{
 
 /* Add Animation */
 @-webkit-keyframes animatetop {
-    from {top:-200px; opacity:0}
+    from {top:-300px; opacity:0}
     to {top:0; opacity:1}
 }
 
 @keyframes animatetop {
-    from {top:-200px; opacity:0}
+    from {top:-300px; opacity:0}
     to {top:0; opacity:1}
 }
 
