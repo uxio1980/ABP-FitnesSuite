@@ -158,6 +158,7 @@ class Notification_userMapper {
        * @return mixed Array of Notifications instances
        */
       public function countAllByNotification(Notification $notification) {
+
         $stmt = $this->db->prepare("SELECT COUNT(*) FROM notification_user WHERE id_notification=?");
         $stmt->execute(array($notification->getId()));
         $count = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -168,6 +169,26 @@ class Notification_userMapper {
           return 0;
         }
       }
+
+      /**
+       * Retrieves all Notifications
+       *
+       * @throws PDOException if a database error occurs
+       * @return mixed Array of Notifications instances
+       */
+      public function countAllByNotification_user(Notification_user $notification) {
+
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM notification_user WHERE id_notification=?");
+        $stmt->execute(array($notification->getNotification()->getId()));
+        $count = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($count != null) {
+          return $count["COUNT(*)"];
+        } else {
+          return 0;
+        }
+      }
+
 
       /**
        * Retrieves all Notifications lapsed
