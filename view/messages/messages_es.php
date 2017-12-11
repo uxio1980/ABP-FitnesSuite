@@ -26,6 +26,7 @@
     "Next events" => "Próximos eventos",
     "Opening hours" => "Horario",
     "Discount of for all members" => "Descuento para miembros",
+    "Without description" => "Sin descripción",
     "Discount on services and treatments at the GymBase for all membership cards holders."=> "Descuento en servicios y tratamientos de nuestra tienda para todos los titulares de tarjetas.",
     "Monday" => "Lunes",
     "Tuesday" => "Martes",

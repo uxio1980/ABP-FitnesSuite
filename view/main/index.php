@@ -6,6 +6,7 @@ $view = ViewManager::getInstance();
 
 $activities = $view->getVariable("activities");
 $next_events = $view->getVariable("next_events");
+$trainers = $view->getVariable("trainers");
 //$currentuser = $view->getVariable("currentusername");
 
 $view->setVariable("title", "FitnesSuite");
@@ -56,8 +57,63 @@ $view->setVariable("title", "FitnesSuite");
     </div>
     <div class="list-classes-box">
       <p class="commercial-title2 main-color uppercase"><?= i18n("Trainers")?></p>
-      <li class="article-box membershipprices-box">
+      <li class="index-trainer-box membershipprices-box">
+        <div class="content_middle_bottom">
+  				<div class="col-md-4">
+  					<div class="course_demo">
+  						<ul id="flexiselDemo3">
+                <?php foreach ($trainers as $trainer): ?>
+                  <?php if ($trainer->getProfileImage() != NULL): ?>
+                    <?php $ruta="resources/profiles/". $trainer->getProfileImage();?>
+                  <?php else: ?>
+                    <?php $ruta="resources/profiles/profile-default.png"; ?>
+                  <?php endif ?>
+    							<li><img src="<?= $ruta ?>" /><div class="desc">
+    								<h3><?= $trainer->getName()?><br><span class="m_text"><?php $apellidos = explode(' ', $trainer->getSurname()); $apel=(strlen($apellidos[0])?$apellidos[0]:'.');?><?= $apel ?></span></h3>
+    								<p><?= (strlen($trainer->getDescription())>0)?$trainer->getDescription(): i18n("Without description".'<br>..'); ?></p>
+    								<div class="coursel_list">
+    									<i class="heart1"> </i>
+    									<i class="like1"> </i>
+    								</div>
+    								<div class="coursel_list1">
+    									<i class="twt"> </i>
+    									<i class="fb"> </i>
+    								</div>
+    								<div class="clear"></div>
+    							</div></li>
+                <?php endforeach; ?>
+  						</ul>
+  						<script type="text/javascript">
+  						$(window).load(function() {
+  							$("#flexiselDemo3").flexisel({
+  								visibleItems: 4,
+  								animationSpeed: 1000,
+  								autoPlay: true,
+  								autoPlaySpeed: 3000,
+  								pauseOnHover: true,
+  								enableResponsiveBreakpoints: true,
+  								responsiveBreakpoints: {
+  									portrait: {
+  										changePoint:480,
+  										visibleItems: 1
+  									},
+  									landscape: {
+  										changePoint:640,
+  										visibleItems: 2
+  									},
+  									tablet: {
+  										changePoint:768,
+  										visibleItems: 2
+  									}
+  								}
+  							});
 
+  						});
+  						</script>
+  						<script type="text/javascript" src="js/jquery.flexisel.js"></script>
+  					</div>
+  				</div>
+  	</div>
       </li>
     </div>
     <div class="list-classes-box">
