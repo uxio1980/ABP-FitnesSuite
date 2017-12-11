@@ -5,14 +5,26 @@ require_once(__DIR__."/../core/ValidationException.php");
 
 class Statistic {
 
-  private $statistic;
+  private $xaxis;
+  private $yaxis;
+  private $extra;
   
-  public function __construct($statistic=NULL) {
-    $this->statistic = $statistic;
+  public function __construct($xaxis=NULL, $yaxis=NULL, $extra=NULL) {
+    $this->xaxis = $xaxis;
+    $this->yaxis = $yaxis;
+    $this->extra = $extra;
   }
     
-  public function getStatistic() {
-    return $this->statistic;
+  public function getXaxis() {
+    return $this->xaxis;
+  }
+
+  public function getYaxis() {
+    return $this->yaxis;
+  }
+
+  public function extra() {
+    return $this->extra;
   }
    
   public function checkIsValidForCreate() {
