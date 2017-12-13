@@ -24,7 +24,7 @@ $language = $i18n->getLanguage();
   <meta name="author" content="Jose Eugenio González, Andrés Fernández, Iago Fernández, Sandra Pastoriza">
 
   <link rel="stylesheet" href="style.css" type="text/css">
-
+  <link rel="shortcut icon" type="image/png" href="favicon.ico"/>
   <script src="index.php?controller=language&amp;action=i18njs"></script>
   <title><?= $view->getVariable("title", "no title") ?></title>
   <?= $view->getFragment("css") ?>
