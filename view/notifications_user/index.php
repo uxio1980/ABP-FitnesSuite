@@ -35,16 +35,16 @@
     </div>
     <table id="table-content">
       <tr class="table-row-content">
-        <td><strong><?= i18n("Author")?></strong></td>
+        <td class="td_ocultable"><strong><?= i18n("Author")?></strong></td>
         <td><strong><?= i18n("Title")?></strong></td>
-        <td><strong><?= i18n("Content")?></strong></td>
-        <td><strong><?= i18n("Expiration")?></strong></td>
+        <td class="td_ocultable"><strong><?= i18n("Content")?></strong></td>
+        <td class="td_ocultable"><strong><?= i18n("Expiration")?></strong></td>
         <td><strong><?= i18n("View")?></strong></td>
         <td><strong><?= i18n("Read")?></strong></td>
       <?php foreach ($notifications_user as $notification_user): ?>
         <tr class="table-row-content"
           data-href="index.php?controller=notifications_user&amp;action=edit&amp;id_notification_user=<?= $notification_user->getId() ?>">
-          <td><?= $notification_user->getNotification()->getUser_author()->getName() ?></td>
+          <td class="td_ocultable"><?= $notification_user->getNotification()->getUser_author()->getName() ?></td>
           <td><?= $notification_user->getNotification()->getTitle() ?></td>
 
           <?php if (strlen($notification_user->getNotification()->getContent())>20): ?>
@@ -52,8 +52,8 @@
             <?php else:?>
               <?php $content = $notification_user->getNotification()->getContent(); ?>
               <?php endif ?>
-          <td><?= $content ?></td>
-          <td><?= $notification_user->getNotification()->getDate() ?></td>
+          <td class="td_ocultable"><?= $content ?></td>
+          <td class="td_ocultable"><?= $notification_user->getNotification()->getDate() ?></td>
           <td><a href="index.php?controller=notifications_user&amp;action=view&amp;id_notification_user=<?= $notification_user->getId() ?>">
             <img src="resources/icons/ic_visibility_black_24px.svg" alt="View" /></a></td>
             <?php $link = ($notification_user->getViewed() != NULL)?

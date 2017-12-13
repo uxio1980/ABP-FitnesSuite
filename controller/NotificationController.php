@@ -97,7 +97,7 @@ class NotificationController extends BaseController {
       $this->view->setVariable("filterby", $filterby);
       $this->view->setVariable("notifications", $notifications);
 
-      // render the view (/view/public_info/index.php)
+      // render the view (/view/notification/index.php)
       $this->view->render("notifications", "index");
     }
 
