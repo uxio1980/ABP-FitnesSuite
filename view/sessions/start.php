@@ -130,8 +130,8 @@ $view->setVariable("title", "Start Session");
     <!--<a class="a-power-button" href="index.php?controller=sessions&amp;action=start"><img class="power-button" src="resources/icons/power_green.svg" alt="power"/></a>-->
     <button id="power-button" class="power-button" onclick="startChr()"></button>
     <div>
-      <button class="start-reset-button" onclick="pauseChr()">Pause</button>
-      <button class="start-reset-button" onclick="resetChr()">Reset</button>
+      <button class="start-reset-button" onclick="pauseChr()"><?= i18n("Pause") ?></button>
+      <button class="start-reset-button" onclick="resetChr()"><?= i18n("Reset") ?></button>
     </div>
 </div>
 

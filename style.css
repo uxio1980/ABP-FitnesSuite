@@ -2511,4 +2511,8 @@ i.like1{
     align-self:auto;
     flex-basis: 80%;
   }
+  .td_ocultable{
+    background-color: red;
+    display:none;
+  }
 }

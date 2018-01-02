@@ -73,6 +73,8 @@
     "Lapsed" => "Expiradas",
     "All" => "Todas",
     "Sessions" => "Sesiones",
+    "Pause" => "Pausar",
+    "Reset" => "Borrar",
     "Save the session?" => "¿Guardar la sesión?",
     "Table" => "Tabla",
     "Duration" => "Duración",

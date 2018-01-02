@@ -18,18 +18,16 @@
     <table id="table-content">
       <tr class="table-row-content">
         <td><strong><?= i18n("Date")?></strong></td>
-        <td><strong><?= i18n("Table")?></strong></td>
+        <td class="td_ocultable"><strong><?= i18n("Table")?></strong></td>
         <td><strong><?= i18n("Duration")?></strong></td>
-        <td><strong><?= i18n("Comment")?></strong></td>
-        <td><strong><?= i18n("Edit")?></strong></td>
-        <td><strong><?= i18n("Delete")?></strong></td>
+        <td class="td_ocultable"><strong><?= i18n("Comment")?></strong></td>
       <?php foreach ($sessions as $session): ?>
         <tr class="table-row-content"
           data-href="index.php?controller=users&amp;action=edit&amp;id=<?= $session->getId() ?>">
           <td><?= date("j M, Y g:ia", strtotime($session->getDate())) ?></td>
-          <td><?= $session->getUser_table()->getWorkout_table()->getName() ?></td>
+          <td class="td_ocultable"><?= $session->getUser_table()->getWorkout_table()->getName() ?></td>
           <td><?= date('H:i:s' ,strtotime($session->getDuration() )) ?></td>
-          <td><?= $session->getComment() ?></td>
+          <td class="td_ocultable"><?= $session->getComment() ?></td>
           <td><a href="index.php?controller=sessions&amp;action=edit&amp;id=<?= $session->getId() ?>">
             <img src="resources/icons/edit_icon.svg" alt="Edit" /></a>
           </td>
