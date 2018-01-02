@@ -58,7 +58,7 @@ class Public_info {
   public function checkIsValidForCreate() {
     $errors = array();
     if (strlen($this->email) < 5) {
-      $errors["register-email"] = "You must write your email";
+      $errors["email"] = i18n("You must write your email");
     }
     if (sizeof($errors)>0){
       throw new ValidationException($errors, "user is not valid");
@@ -78,7 +78,10 @@ class Public_info {
     $errors = array();
 
     if (strlen($this->phone) >0 && !is_numeric($this->phone)){
-      $errors["phone"] = "You must write a valid phone number";
+      $errors["phone"] = i18n("You must write a valid phone number");
+    }
+    if (strlen($this->phone) < 1) {
+      $errors["phone"] = i18n("You must write a valid phone number");
     }
     try{
       $this->checkIsValidForCreate();

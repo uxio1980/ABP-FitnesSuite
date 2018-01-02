@@ -23,7 +23,7 @@
           <?php foreach ($activity_resources as $activity_resource): ?>
             <tr class="table-row-content"
             data-href="index.php?controller=activity_resources&amp;action=edit&amp;id=<?= $activity_resource->getId() ?>">
-            <td><?= $activity_resource->getIdresource() ?></td>
+            <td><?= $activity_resource->getNameResource() ?></td>
             <td><?= $activity_resource->getQuantity() ?></td>
             <td><a href="index.php?controller=activity_resources&amp;action=edit&amp;id=<?= $activity_resource->getId() ?>">
               <img src="resources/icons/edit_icon.svg" alt="Edit" /></a>
