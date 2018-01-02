@@ -401,7 +401,7 @@ class Notifications_UserController extends BaseController {
             throw new Exception("Not in session. update notification_users requires login");
           }
             $this->temporalUsers =  array();
-
+            $notification = new Notification();
             $idusercheckboxes = $_POST['checkbox'];
             foreach ($idusercheckboxes as $user_checked){
               $temporal_user = $this->userMapper->findById2($user_checked);
@@ -409,6 +409,19 @@ class Notifications_UserController extends BaseController {
             }
             $_SESSION['temporalUsers'] = serialize($this->temporalUsers);
             try {
+              //  $_SESSION['NotificationValues'] = serialize($this->temporalUsers);
+              if (isset($_COOKIE["NotificationTitulo"])){
+                $notification->setTitle($_COOKIE["NotificationTitulo"]);
+              }
+              if (isset($_COOKIE["NotificationFechaExp"])){
+                $notification->setDate($_COOKIE["NotificationFechaExp"]);
+              }
+              if (isset($_COOKIE["NotificationContenido"])){
+                $notification->setContent($_COOKIE["NotificationContenido"]);
+              }
+
+              //$notification->setDate($tmp_date);
+              //$notification->setContent($tmp_content);
               // validate notification_user object
               //$notification_user->checkIsValidForCreate(); // if it fails, ValidationException
               // save the notification_user object into the database
@@ -435,6 +448,13 @@ class Notifications_UserController extends BaseController {
           if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
             //$this->view->render("notifications_user", "add");
           }
-          $this->view->redirectToReferer();
+          $users = $this->userMapper->findAll();
+          $this->view->setVariable("add_notification", $notification);
+          // Put the notification object visible to the view
+          $this->view->setVariable("users", $users);
+          $this->view->setVariable("notification_users", $this->temporalUsers);
+          //$this->view->redirectToReferer();
+          //$this->view->redirect("notification", "add");
+          $this->view->render("notifications", "add");
         }
 }

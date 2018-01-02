@@ -66,7 +66,7 @@ class ResourceMapper {
     * @return void $login=NULL, $name= NULL,$password=NULL, $email=NULL, $description=NULL
     */
     public function save($resource) {
-        $stmt = $this->db->prepare("INSERT INTO resource (id, name, description, quantity, type) 
+        $stmt = $this->db->prepare("INSERT INTO resource (id, name, description, quantity, type)
             values (0,?,?,?,?)");
         $stmt->execute(array($resource->getName(),$resource->getDescription(),$resource->getQuantity(),
             $resource->getType()));
@@ -81,7 +81,7 @@ class ResourceMapper {
     */
     public function update(resource $resource) {
         $stmt = $this->db->prepare("UPDATE resource set id=?,name=?,description=?,quantity=?,type=? where id=?");
-        $stmt->execute(array($resource->getIdresource(), $resource->getName(),$resource->getDescription(), 
+        $stmt->execute(array($resource->getIdresource(), $resource->getName(),$resource->getDescription(),
             $resource->getQuantity(),$resource->getType(),$resource->getIdresource()));
     }
 

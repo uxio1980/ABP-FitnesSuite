@@ -8,6 +8,10 @@ require_once(__DIR__."/../model/UserMapper.php");
 require_once(__DIR__."/../model/NotificationMapper.php");
 require_once(__DIR__."/../model/Notification_userMapper.php");
 require_once(__DIR__."/../controller/BaseController.php");
+require_once(__DIR__."/../model/Activity.php");
+require_once(__DIR__."/../model/ActivityMapper.php");
+require_once(__DIR__."/../model/User_activity.php");
+require_once(__DIR__."/../model/User_activityMapper.php");
 /**
 * Class NotificationController
 *
@@ -25,6 +29,8 @@ class NotificationController extends BaseController {
     private $userMapper;
     private $notificationMapper;
     private $notification_userMapper;
+    private $user_activityMapper;
+    private $activityMapper;
     private $date;
     private $currentDate;
     private $temporalUsers;
@@ -34,6 +40,8 @@ class NotificationController extends BaseController {
         $this->userMapper = new UserMapper();
         $this->notificationMapper = new NotificationMapper();
         $this->notification_userMapper = new Notification_userMapper();
+        $this->user_activityMapper = new User_activityMapper();
+        $this->activityMapper = new ActivityMapper();
         $this->view->setLayout("default");
         $this->date = new DateTime();
         $this->currentDate = $this->date->getTimestamp();
@@ -97,7 +105,6 @@ class NotificationController extends BaseController {
       $this->view->setVariable("filterby", $filterby);
       $this->view->setVariable("notifications", $notifications);
 
-      // render the view (/view/notification/index.php)
       $this->view->render("notifications", "index");
     }
 
@@ -314,6 +321,115 @@ class NotificationController extends BaseController {
           $this->view->setVariable("errors", $errors);
         }
       }
+
+      // Put the notification object visible to the view
+      $this->view->setVariable("add_notification", $notification);
+      $this->view->setVariable("users", $users);
+      $this->view->setVariable("notification_users", $this->temporalUsers);
+
+      // render the view (/view/notifications/add.php)
+        $this->view->render("notifications", "add");
+
+    }
+
+    /**
+    * Action to add a new notification
+    *
+    * When called via GET, it shows the add form
+    * When called via POST, it adds the notification to the
+    * database
+    *
+    * The expected HTTP parameters are:
+    * <ul>
+    * <li>title: Title of the notification (via HTTP POST)</li>
+    * <li>content: Content of the post (via HTTP POST)</li>
+    * </ul>
+    *
+    * The views are:
+    * <ul>
+    * <li>posts/add: If this action is reached via HTTP GET (via include)</li>
+    * <li>posts/index: If post was successfully added (via redirect)</li>
+    * <li>posts/add: If validation fails (via include). Includes these view variables:</li>
+    * <ul>
+    *  <li>post: The current Post instance, empty or
+    *  being added (but not validated)</li>
+    *  <li>errors: Array including per-field validation errors</li>
+    * </ul>
+    * </ul>
+    * @throws Exception if no user is in session
+    * @return void
+    */
+    public function addByGroup() {
+      if (!isset($this->currentUser)) {
+        throw new Exception("Not in session. Adding notifications requires login");
+      }
+      $users = $this->userMapper->findAll();
+      $notification = new Notification();
+      $this->temporalUsers = NULL;
+      $_SESSION['temporalUsers']=NULL;
+      if (isset($_GET["idactivity"])){
+          $id_activity = $_GET["idactivity"];
+          $this->temporalUsers = $this->user_activityMapper->findUsersByIdActivity($id_activity);
+          $actividad = $this->activityMapper->findById($id_activity);
+          $notification->setTitle(i18n("Activity").": ". $actividad->getName());
+          if ($this->temporalUsers == NULL){
+              $_SESSION['temporalUsers'] = NULL;
+          }else{
+              $_SESSION['temporalUsers'] = serialize($this->temporalUsers);
+          }
+      }
+
+      if (isset($_SESSION['NotificationValues'])){
+        //var_dump($_SESSION['NotificationValues']);
+        //$notification_values = $_SESSION['NotificationValues'];
+        //var_dump($notification_values);
+        /*$notification->setDate($notification_values["ndate"]);
+        $notification->setTitle($notification_values["bar"]);
+        $notification->setContent($notification_values["foo"]);*/
+      }
+      if (isset($_POST["submit"])) { // reaching via HTTP Post...
+
+        // populate the notification object with data form the form
+        $notification->setUser_author($this->currentUser);
+        $notification->setTitle($_POST["title"]);
+        $notification->setDate($_POST["date"]);
+        $notification->setContent($_POST["content"]);
+
+        try {
+          // validate notification object
+          $notification->checkIsValidForCreate(); // if it fails, ValidationException
+
+          // save the notification object into the database
+          $this->notificationMapper->save($notification);
+          $lastNotification = $this->notificationMapper->findLastNotification();
+          if (isset($_SESSION['temporalUsers'])){
+            foreach ($this->temporalUsers as $user_forAdd){
+              $notification_user = new Notification_user();
+              // populate the notification_user object with data form the form
+              $notification_user->setNotification($lastNotification);
+              $notification_user->setUser_receiver($user_forAdd);
+              $check_notification_user = $this->notification_userMapper->findByUserAndNotification($user_forAdd, $lastNotification);
+              if($check_notification_user == NULL){
+                $this->notification_userMapper->save($notification_user);
+              }
+            }
+          }
+          // POST-REDIRECT-GET
+          // Everything OK, we will redirect the user to the list of notifications
+
+          // perform the redirection. More or less:
+          // header("Location: index.php?controller=notifications&action=index")
+          // die();
+          $this->view->redirect("notification", "index");
+
+        }catch(ValidationException $ex) {
+          // Get the errors array inside the exepction...
+          $errors = $ex->getErrors();
+          // And put it to the view as "errors" variable
+          $this->view->setVariable("errors", $errors);
+        }
+      }
+
 
       // Put the notification object visible to the view
       $this->view->setVariable("add_notification", $notification);

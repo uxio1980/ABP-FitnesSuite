@@ -45,9 +45,9 @@ $view->setVariable("title", i18n("Add notification"));
       <td>
         <strong><?= i18n("Receivers")?>
           <!-- Trigger/Open The Modal -->
-          <div id="BtnModalForm">
+          <div id="BtnModalForm" class="OnBtnModalForm">
             <!--a href="index.php?controller=notifications_user&amp;action=add&amp;id_notification= < ?= $notification->getId() ?>"> -->
-              <img class="image-edit" src="resources/icons/ic_users_add.svg" alt="Edit" />
+              <img class="image-edit" src="resources/icons/ic_users_add.svg" alt="Add" />
             <!--</a> -->
           </div>
           <?php include(__DIR__."/modalAddForm.php");?>
@@ -69,4 +69,30 @@ $view->setVariable("title", i18n("Add notification"));
 </div>
 
 </main>
+<script>
+  $('div.OnBtnModalForm').click(function(){
+    var titulo = document.getElementById("ntitle").value;
+    var fechaExp = document.getElementById("ndate").value;
+    var contenido = document.getElementById("ncontent").value;
+    createCookie("NotificationTitulo",titulo,"10");
+    createCookie("NotificationFechaExp",fechaExp,"10");
+    createCookie("NotificationContenido",contenido,"10");
+    //var toret = "< ?php
+    //$_SESSION['NotificationValues'] ="d";
+    //echo 'Desde php, Titulo: ' . $notification->getTitle() . '> ' . $_SESSION['NotificationValues'];
+    //?>";
+    //alert(toret);
+  });
+  function createCookie(name, value, days){
+    var expires;
+    if (days){
+      var date = new Date();
+      date.setTime(date.getTime()+(days*24*60*60*1000));
+      expires = "; expires=" + date.toGMTString();
+    }else{
+      expires = "";
+    }
+    document.cookie = escape(name)+ "=" + escape(value) + expires + "; path=/";
+  }
+</script>
 <script src="js/index.js"></script>
