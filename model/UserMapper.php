@@ -29,11 +29,11 @@ class UserMapper {
   */
   public function save($user) {
     $stmt = $this->db->prepare("INSERT INTO user (id, login, name, password, email,
-      description, profile_image, surname, phone, dni, user_type) values (0,?,?,?,?,?,?,?,?,?,?)");
+      description, profile_image, surname, phone, dni, user_type,trainer) values (0,?,?,?,?,?,?,?,?,?,?,?)");
       $stmt->execute(array($user->getLogin(), $user->getName(),
       $user->getPassword(), $user->getEmail(), $user->getDescription(),
       $user->getProfileImage(), $user->getSurname(), $user->getPhone(),
-      $user->getDni(), $user->getUser_type()));
+      $user->getDni(), $user->getUser_type(),$user->getTrainer()));
     }
 
     /**
@@ -46,11 +46,11 @@ class UserMapper {
     public function update(User $user) {
       $stmt = $this->db->prepare("UPDATE user set login=?, name=?,
         password=?, email=?, description=?, profile_image=?, surname=?, phone=?,
-        dni=?, user_type=? where login=?");
+        dni=?, user_type=?, trainer=? where login=?");
         $stmt->execute(array($user->getLogin(), $user->getName(), $user->getPassword(),
         $user->getEmail(), $user->getDescription(), $user->getProfileImage(),
         $user->getSurname(), $user->getPhone(), $user->getDni(), $user->getUser_type(),
-        $user->getLogin()));
+        $user->getLogin(), $user->getTrainer()));
       }
 
       /**
@@ -112,7 +112,7 @@ class UserMapper {
           return new User($user["id"],$user["login"],$user["name"],$user["password"],
           $user["email"], $user["description"], $user["profile_image"],
           $user["surname"], $user["phone"], $user["dni"],
-          $user["user_type"]);
+          $user["user_type"], $user["trainer"]);
         } else {
           return NULL;
         }
@@ -126,7 +126,7 @@ class UserMapper {
             return new User($user["id"],$user["login"],$user["name"],$user["password"],
                 $user["email"], $user["description"], $user["profile_image"],
                 $user["surname"], $user["phone"], $user["dni"],
-                $user["user_type"]);
+                $user["user_type"], $user["trainer"]);
         } else {
             return NULL;
         }
@@ -148,7 +148,8 @@ class UserMapper {
 
           foreach ($trainers_db as $trainer) {
             array_push($trainers, new User($trainer["id"],$trainer["login"],$trainer["name"],NULL,$trainer["email"],
-              $trainer["description"],$trainer["profile_image"],$trainer["surname"],$trainer["phone"],null,$trainer["user_type"]));
+              $trainer["description"],$trainer["profile_image"],$trainer["surname"],$trainer["phone"],null,
+                $trainer["user_type"], $trainer["trainer"]));
           }
 
           return $trainers;
@@ -173,7 +174,55 @@ class UserMapper {
             array_push($athlets, new User($athlet["id"],$athlet["login"],$athlet["name"],NULL,
                 $athlet["email"], $athlet["description"], $athlet["profile_image"],
                 $athlet["surname"], $athlet["phone"], $athlet["dni"],
-                $athlet["user_type"]));
+                $athlet["user_type"], $athlet["trainer"]));
+        }
+        return $athlets;
+    }
+
+    public function findAllAthletsTDU() {
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE user_type=?");
+        $stmt->execute(array(usertype::AthleteTDU));
+        $athlets_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $athlets = array();
+
+        foreach ($athlets_db as $athlet) {
+            array_push($athlets, new User($athlet["id"],$athlet["login"],$athlet["name"],NULL,
+                $athlet["email"], $athlet["description"], $athlet["profile_image"],
+                $athlet["surname"], $athlet["phone"], $athlet["dni"],
+                $athlet["user_type"], $athlet["trainer"]));
+        }
+        return $athlets;
+    }
+
+    public function findMyAthlets($id) {
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE user_type=? AND trainer=?");
+        $stmt->execute(array(usertype::AthletePEF,$id));
+        $athlets_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $athlets = array();
+
+        foreach ($athlets_db as $athlet) {
+            array_push($athlets, new User($athlet["id"],$athlet["login"],$athlet["name"],NULL,
+                $athlet["email"], $athlet["description"], $athlet["profile_image"],
+                $athlet["surname"], $athlet["phone"], $athlet["dni"],
+                $athlet["user_type"], $athlet["trainer"]));
+        }
+        return $athlets;
+    }
+
+    public function findAllAthletsT($id){
+        $stmt = $this->db->prepare("SELECT * FROM user WHERE user_type=? OR trainer=?");
+        $stmt->execute(array(usertype::AthleteTDU,$id));
+        $athlets_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $athlets = array();
+
+        foreach ($athlets_db as $athlet) {
+            array_push($athlets, new User($athlet["id"],$athlet["login"],$athlet["name"],NULL,
+                $athlet["email"], $athlet["description"], $athlet["profile_image"],
+                $athlet["surname"], $athlet["phone"], $athlet["dni"],
+                $athlet["user_type"], $athlet["trainer"]));
         }
         return $athlets;
     }
@@ -194,7 +243,7 @@ class UserMapper {
             return new User($admin["id"],$admin["login"],$admin["name"],$admin["password"],
                 $admin["email"], $admin["description"], $admin["profile_image"],
                 $admin["surname"], $admin["phone"], $admin["dni"],
-                $admin["user_type"]);
+                $admin["user_type"], $admin["trainer"]);
         } else {
             return NULL;
         }
@@ -215,7 +264,7 @@ class UserMapper {
           array_push($users, new User($user["id"],$user["login"],$user["name"],$user["password"],
           $user["email"], $user["description"], $user["profile_image"],
           $user["surname"], $user["phone"], $user["dni"],
-          $user["user_type"]));
+          $user["user_type"], $user["trainer"]));
         }
         return $users;
     }
@@ -235,7 +284,7 @@ class UserMapper {
             array_push($users, new User($user["id"],$user["login"],$user["name"],$user["password"],
                 $user["email"], $user["description"], $user["profile_image"],
                 $user["surname"], $user["phone"], $user["dni"],
-                $user["user_type"]));
+                $user["user_type"], $user["trainer"]));
         }
         return $users;
     }
