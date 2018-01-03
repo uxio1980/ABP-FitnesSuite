@@ -83,7 +83,18 @@ class UsersController extends BaseController {
               }
 
           } else {
-              $users = $this->userMapper->findAllAthlets();
+              if (isset($_POST["filterby"])) {
+                  $filterby = $_POST['filterby'];
+              }else{
+                  $filterby = "all";
+              }
+              if ($filterby =="myathlets") {
+                  $users = $this->userMapper->findMyAthlets($this->currentUser->getId());
+              }elseif ($filterby =="all"){
+                  $users = $this->userMapper->findAllAthletsT($this->currentUser->getId());
+              }elseif ($filterby=="athletsTDU"){
+                  $users = $this->userMapper->findAllAthletsTDU();
+              }
           }
       }
 
@@ -95,6 +106,7 @@ class UsersController extends BaseController {
             $this->view->setVariable("filterby", $filterby);
             $this->view->render("users", "index");
         } else {
+            $this->view->setVariable("filterby", $filterby);
             $this->view->render("users", "index_trainer");
         }
     }
@@ -185,7 +197,9 @@ class UsersController extends BaseController {
             $user->setEmail($_POST["email"]);
             if(isset($_POST["user_type"]) && $_POST["user_type"] != 0){
                 $user->setUser_type($_POST["user_type"]);
-
+            }
+            if(isset($_POST["trainer"]) && $_POST["trainer"] != 0){
+                $user->setTrainer($_POST["trainer"]);
             }
             try{
                 $user->checkIsValidForRegister(); // if it fails, ValidationException
@@ -258,6 +272,7 @@ class UsersController extends BaseController {
                 }
             }
         }
+        $this->view->setVariable("trainers",$this->userMapper->findAllTrainers());
         // Put the User object visible to the view
         $this->view->setVariable("user", $user);
         if(isset($this->currentUser)) {
@@ -302,6 +317,7 @@ class UsersController extends BaseController {
         $user->setSurname($_POST["surname"]);
         $user->setPhone($_POST["phone"]);
         $user->setDni($_POST["dni"]);
+        $user->setTrainer($_POST["trainer"]);
         if($user->getUser_type() != $_POST["user_type"] && $user->getUser_type() == null){
             $mail = new PHPMailer();
             $mail->isSMTP();
@@ -353,6 +369,7 @@ class UsersController extends BaseController {
           $this->view->setVariable("errors", $errors);
         }
       }
+        $this->view->setVariable("trainers",$this->userMapper->findAllTrainers());
       // Put the User object visible to the view
       $this->view->setVariable("profileUser", $user);
 
