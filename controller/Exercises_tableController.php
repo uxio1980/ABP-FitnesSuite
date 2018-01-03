@@ -95,8 +95,12 @@ class Exercises_tableController extends BaseController {
 
             $exercise_table->setExercise($exercise);
             $exercise_table->setWorkout($_POST["id_workout"]);
-            $exercise_table->setSeries($_POST["series"]);
-            $exercise_table->setRepetitions($_POST["repetitions"]);
+            if ($exercise->getType()=="Cardiovascular"){
+              $exercise_table->setDuration($_POST["duration"]);
+            }else{
+              $exercise_table->setSeries($_POST["series"]);
+              $exercise_table->setRepetitions($_POST["repetitions"]);
+            }
 
             try {
                 // validate activity object
@@ -138,11 +142,18 @@ class Exercises_tableController extends BaseController {
         $exercises = $this->exercise_tableMapper->findExercisesNotInTable($exercise->getId());
 
         if (isset($_POST["submit"])) {
-            // Get the activity object from the database
-            $exercise_table->setSeries($_POST["series"]);
-            $exercise_table->setRepetitions($_POST["repetitions"]);
-
             try {
+                // Get the activity object from the database
+                if(isset($_POST["series"])) {
+                  $exercise_table->setSeries($_POST["series"]);
+                }
+                if(isset($_POST["repetitions"])) {
+                  $exercise_table->setRepetitions($_POST["repetitions"]);
+                }
+
+                if(isset($_POST["duration"])) {
+                  $exercise_table->setDuration($_POST["duration"]);
+                }
                 // validate Post object
                 $exercise_table->checkIsValidForUpdate(); // if it fails, ValidationException
 
