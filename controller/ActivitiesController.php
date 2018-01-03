@@ -5,6 +5,8 @@ require_once(__DIR__."/../model/Activity.php");
 require_once(__DIR__."/../model/ActivityMapper.php");
 require_once(__DIR__."/../model/User.php");
 require_once(__DIR__."/../model/UserMapper.php");
+require_once(__DIR__."/../model/User_activity.php");
+require_once(__DIR__."/../model/User_activityMapper.php");
 require_once(__DIR__."/../model/Resource.php");
 require_once(__DIR__."/../model/ResourceMapper.php");
 require_once(__DIR__."/../model/Activity_resource.php");
@@ -31,10 +33,10 @@ class ActivitiesController extends BaseController {
   private $activityMapper;
   private $resourceMapper;
   private $activity_resourceMapper;
-
+  private $user_activityMapper;
   public function __construct() {
     parent::__construct();
-
+    $this->user_activityMapper = new User_activityMapper();
     $this->activityMapper = new ActivityMapper();
     $this->userMapper = new UserMapper();
     $this->resourceMapper = new ResourceMapper();
@@ -93,7 +95,8 @@ class ActivitiesController extends BaseController {
       throw new Exception("idactivity is mandatory");
     }
 
-    $activityid = $_GET["idactivity"];
+
+      $activityid = $_GET["idactivity"];
 
     // Recuperar distintas actividades según usuario.
     $activity = $this->activityMapper->findById($activityid);
@@ -118,14 +121,26 @@ class ActivitiesController extends BaseController {
       throw new Exception("->no such activity with id: ".$activityid);
     }
 
+      if($this->user_activityMapper->countByIdActivityAndIdUser($activityid,$this->currentUser->getId()) != 0){
+          $isReserved = 1;
+      }else{
+          $isReserved = 0;
+      }
+
+      $plazasOcupadas = $this->user_activityMapper->countAllByIdActivity($activityid);
+      $plazasDisponibles = $activity->getSeats() - $plazasOcupadas;
+
     // put the Activity object to the view
+      $this->view->setVariable("isReserved", $isReserved);
     $this->view->setVariable("activity", $activity);
     $this->view->setVariable("images", $images);
     $this->view->setVariable("trainer", $trainer);
     $this->view->setVariable("place", $place);
     $this->view->setVariable("resources", $resources);
+      $this->view->setVariable("plazasDisponibles", $plazasDisponibles);
 
     // render the view (/view/activities/view.php)
+
       $this->view->render("activities", "view");
 
   }

@@ -2,14 +2,14 @@
  //file: view/activitys/view.php
  require_once(__DIR__."/../../core/ViewManager.php");
  $view = ViewManager::getInstance();
-
+ $isReserved = $view->getVariable("isReserved");
  $activity = $view->getVariable("activity");
  $images = $view->getVariable("images");
  $trainer = $view->getVariable("trainer");
  $place = $view->getVariable("place");
  $resources = $view->getVariable("resources");
  $errors = $view->getVariable("errors");
-
+ $plazasDisponibles = $view->getVariable("plazasDisponibles");
  $view->setVariable("title", $activity->getName());
 ?>
 <article id="main-detail-content">
@@ -56,36 +56,56 @@
         </div>
 		<div class="article-user">
 			<div class="article-description">
-        <div class="article-title">
-          <div class="article-name">
-            <p><?= $activity->getName()?></p>
-          </div>
-          <div class="article-price">
-            <p><?= $activity->getSeats()?> <?= i18n("Seats")?></p>
-        </div>
-        </div>
-				<p class="article-detail"><?= $activity->getDescription()?></p>
-        <p class="article-detail">
-            <?= i18n("Type")?>:
-            <?php if($activity->getType()==1): ?>
-                <?= i18n("Individual")?>
-            <?php else: ?>
-                <?= i18n("In group")?>
-            <?php endif ?>
-        </p>
-        <p class="article-detail"> <?= i18n("Place")?>: <?= $place->getName() ?></p>
-				<div class="social-network-icon">
-					<a href="#"><img src="resources/icons/facebook-icon.svg" alt="Facebook icon"></a>
-					<a href="#"><img src="resources/icons/google-plus-icon.svg" alt="Google plus icon"></a>
-					<a href="#"><img src="resources/icons/twitter-icon.svg" alt="Twitter icon"></a>
-        <div class="commercial-description">
-          <div id="content-list">
-            <div class="content-title center">
-          <a href="index.php?controller=user_activity&amp;action=add&amp;id_activity=<?= $activity->getIdactivity();?>"><input id="no_margin" type='button' value="<?= i18n("Reservation")?>" /></a>
-        </div></div>
-        </div>
-				</div>
-			</div>
+                <div class="article-title">
+                  <div class="article-name">
+                    <p><?= $activity->getName()?></p>
+                  </div>
+                  <div class="article-price">
+                    <p><?= $activity->getSeats()?> <?= i18n("Seats")?></p>
+                </div>
+                </div>
+                        <p class="article-detail"><?= $activity->getDescription()?></p>
+                <p class="article-detail">
+                    <?= i18n("Type")?>:
+                    <?php if($activity->getType()==1): ?>
+                        <?= i18n("Individual")?>
+                    <?php else: ?>
+                        <?= i18n("In group")?>
+                    <?php endif ?>
+                </p>
+                <p class="article-detail"> <?= i18n("Place")?>: <?= $place->getName() ?></p>
+                        <div class="social-network-icon">
+                            <a href="#"><img src="resources/icons/facebook-icon.svg" alt="Facebook icon"></a>
+                            <a href="#"><img src="resources/icons/google-plus-icon.svg" alt="Google plus icon"></a>
+                            <a href="#"><img src="resources/icons/twitter-icon.svg" alt="Twitter icon"></a>
+                            <div class="commercial-description">
+                                <div id="content-list">
+                                    <div class="content-title center">
+                                        Número de plazas disponibles: <?= $plazasDisponibles ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="commercial-description">
+                              <div id="content-list">
+                                <div class="content-title center">
+                                    <?php if(!$isReserved): ?>
+                                        <?php if($plazasDisponibles > 0): ?>
+                                            <a href="index.php?controller=user_activity&amp;action=add&amp;id_activity=<?=
+                                            $activity->getIdactivity();?>"><input id="no_margin" type='button' value="<?=
+                                                i18n("Reservation")?>" /></a>
+                                        <?php else:?>
+                                            <a href="#"><input id="no_margin" type='button' value="<?=
+                                                i18n("Complete activity")?>" /></a>
+                                        <?php endif; ?>
+
+                                    <?php else:?>
+                                        <a href="index.php?controller=user_activity&amp;action=delete&amp;id_activity=<?= $activity->getIdactivity();?>"><input id="no_margin" type='button' value="<?= i18n("Cancel Reservation")?>" /></a>
+                                    <?php endif; ?>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+            </div>
       <div class="article-autor"><p class="article-detail"><b><?= i18n("Trainer")?></b></p>
             <?php
       			$path = $trainer->getProfileImage()!=NULL?
