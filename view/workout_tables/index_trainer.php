@@ -11,7 +11,7 @@
     <div id="content-list">
         <div class="content-title">
             <strong><?= i18n("Workout tables")?></strong><br>
-            <a href="index.php?controller=workout_tables&amp;action=add"><input type='button' value=<?= i18n("New")?> /></a>
+            <a href="index.php?controller=workout_tables&amp;action=add&amp;type=standard"><input type='button' value=<?= i18n("New")?> /></a>
         </div>
         <table id="table-content" style="text-align: center;">
             <tr class="table-row-content">
