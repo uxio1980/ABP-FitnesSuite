@@ -48,7 +48,7 @@
 <script>
    function yesnoCheck(that) {
      var tipo = that.value.split(", ");
-       if (tipo[1] == "Cardiovascular") {
+       if (tipo[1] == "Cardiovascular" || tipo[1] == "Estiramiento") {
            document.getElementById("typeCardiovascular").style.display = "block";
            document.getElementById("typeNotCardiovascular").style.display = "none";
        } else {
