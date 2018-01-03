@@ -87,7 +87,7 @@ class Workout_tablesController extends BaseController {
         if (!isset($this->currentUser) || $this->currentUser->getUser_type() != usertype::Trainer ) {
             throw new Exception("Not in session. Adding activitys requires login like Trainer");
         }
-
+        $type = $_GET["type"];
         $workout_table = new Workout_table();
 
         $exercises = $this->exerciseMapper->findAll();
@@ -96,7 +96,7 @@ class Workout_tablesController extends BaseController {
             $i = 0;
             $workout_table->setUser($this->currentUser);
             $workout_table->setName($_POST["name"]);
-            $workout_table->setType($_POST["type"]);
+            $workout_table->setType($type);
             $workout_table->setDescription($_POST["description"]);
             try {
                 // validate activity object
@@ -118,7 +118,7 @@ class Workout_tablesController extends BaseController {
 
         // Put the Activity object visible to the view
         $this->view->setVariable("exercises", $exercises);
-
+        $this->view->setVariable("type", $type);
         // render the view (/view/activitys/add.php)
         $this->view->render("workout_tables", "add");
 

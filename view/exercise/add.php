@@ -16,18 +16,17 @@
 		 enctype="multipart/form-data">
 			<strong><?= i18n("Add exercise") ?></strong>
 			<label for="form-field"><?= i18n("Name") ?></label>
-			<input type="text" name="name" minlength="2" maxlength="50" required >
+			<input type="text" name="name" minlength="2" maxlength="50" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\  0-9]" required >
 			<?= isset($errors["name"])?$errors["name"]:"" ?>
 
 			<label for="name-field"><?= i18n("Description") ?></label>
 			<textarea name="description" rows="4" cols="50"></textarea>
 			<?= isset($errors["description"])?$errors["description"]:"" ?><br>
-
             <label for="form-field"><?= i18n("Type") ?></label>
 			<select name="type">
 				<option value="<?=i18n("Cardiovascular")?>"><?=i18n("Cardiovascular")?></option>
                 <option value="<?=i18n("Muscular")?>"><?=i18n("Muscular")?></option>
-                <option value="<?=i18n("Stretch")?>"><?=i18n("Stretch")?></option>
+                <option value="<?="Estiramiento"?>"><?=i18n("Stretch")?></option>
 			</select>
 			<label for="name-field"><?= i18n("Image") ?> (<?= i18n("select a image") ?>)</label>
 			<input type="file" name="images[]" multiple accept="image/*">
