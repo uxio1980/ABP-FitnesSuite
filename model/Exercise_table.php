@@ -77,7 +77,7 @@ class Exercise_table {
    */
   public function checkIsValidForCreate() {
       $errors = array();
-      if ($this->getExercise()->getType()=="Cardiovascular"){
+      if ($this->getExercise()->getType()=="Cardiovascular" || $this->getExercise()->getType()=="Estiramiento"){
         if (strlen($this->getDuration())<1){
           $errors["duration"] = i18n("You must write a duration");
         }
@@ -105,7 +105,7 @@ class Exercise_table {
    */
   public function checkIsValidForUpdate() {
     $errors = array();
-    if ($this->getExercise()->getType()=="Cardiovascular"){
+    if ($this->getExercise()->getType()=="Cardiovascular" || $this->getExercise()->getType()=="Estiramiento"){
       if (strlen($this->getDuration())<1){
         $errors["duration"] = i18n("You must write a duration");
       }

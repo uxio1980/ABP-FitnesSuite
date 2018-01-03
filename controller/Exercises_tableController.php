@@ -95,7 +95,7 @@ class Exercises_tableController extends BaseController {
 
             $exercise_table->setExercise($exercise);
             $exercise_table->setWorkout($_POST["id_workout"]);
-            if ($exercise->getType()=="Cardiovascular"){
+            if ($exercise->getType()=="Cardiovascular" || $exercise->getType()=="Estiramiento"){
               $exercise_table->setDuration($_POST["duration"]);
             }else{
               $exercise_table->setSeries($_POST["series"]);

@@ -20,7 +20,7 @@
 
            <input type="hidden" name="id_workout" value="<?= $exercise_table->getWorkout() ?>"/>
 
-           <?php if($exercise->getType()=="Cardiovascular"): ?>
+           <?php if($exercise->getType()=="Cardiovascular" || $exercise->getType()=="Estiramiento"): ?>
              <label for="form-field"><?= i18n("Duration") ?> (<?= i18n("minutes") ?>)</label>
              <input name="duration" type="number" name="quantity" min="1" max="99" value="<?= $exercise_table->getDuration() ?>">
              <?= isset($errors["duration"])?$errors["duration"]:"" ?>
