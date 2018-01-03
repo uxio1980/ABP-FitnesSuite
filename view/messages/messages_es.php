@@ -218,5 +218,7 @@
     "Add standad workout table" => "Añadir tabla de entrenamiento estandard",
 		"Add customized workout table" => "Añadir tabla de entrenamiento personalizada",
 		"Stretch" => "Estiramiento",
+      "Cancel Reservation" => "Cancelar Reserva",
+			"Complete activity" => "Aforo Completo"
   )
 ?>

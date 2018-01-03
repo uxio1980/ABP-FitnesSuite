@@ -23,6 +23,14 @@ class User_activityMapper {
     $this->db = PDOConnection::getInstance();
   }
 
+
+    public function save(User_activity $user_activity) {
+        $stmt = $this->db->prepare("INSERT INTO user_activity (id, id_user, id_activity)
+            values (0,?,?)");
+        $stmt->execute(array($user_activity->getUser()->getId(),$user_activity->getActivity()->getIdactivity()));
+    }
+
+
   /**
   * Retrieves all trainers
   *
@@ -54,7 +62,6 @@ class User_activityMapper {
       array_push($user_activities, new User_activity($user_activity["U_A.id_user_activity"],$usuario, $actividad));
 
     }
-
     return $user_activities;
   }
 
@@ -89,5 +96,51 @@ class User_activityMapper {
 
     return $users;
   }
+
+    public function countAllByIdActivity($id_Activity) {
+
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM user_activity WHERE id_activity=?");
+        $stmt->execute(array($id_Activity));
+        $count = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($count != null) {
+            return $count["COUNT(*)"];
+        } else {
+            return 0;
+        }
+    }
+
+    public function countByIdActivityAndIdUser($id_Activity, $id_User) {
+
+        $stmt = $this->db->prepare("SELECT COUNT(*) FROM user_activity WHERE id_activity=? AND id_user=?");
+        $stmt->execute(array($id_Activity, $id_User));
+        $count = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($count != null) {
+            return $count["COUNT(*)"];
+        } else {
+            return 0;
+        }
+    }
+    public function findByIdActivityAndIdUser($id_Activity, $id_User) {
+
+        $stmt = $this->db->prepare("SELECT * FROM user_activity WHERE id_activity=? AND id_user=?");
+        $stmt->execute(array($id_Activity, $id_User));
+        $user_activityDB = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($user_activityDB != null){
+            $user = new User($id_User);
+            $activity = new Activity($id_Activity);
+            return new User_activity($user_activityDB["id"],$user,$activity);
+        }else{
+            return null;
+        }
+
+    }
+
+    public function delete(User_activity $user_activity) {
+        $stmt = $this->db->prepare("DELETE from user_activity WHERE id=?");
+        $stmt->execute(array( $user_activity->getId()));
+    }
 
 }

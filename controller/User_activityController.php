@@ -37,43 +37,49 @@ class User_activityController extends BaseController {
         }
         $idactivity = $_GET["id_activity"];
 
-        if (isset($_POST["submit"])) { // reaching via HTTP Post...
-
-            $user_table = new User_table();
-
-            $user = new User();
-
-            $workout_table = new Workout_table();
-
-            $user->setId($id_user);
-
-            $workout_table->setId($_POST["id_workout"]);
-
-            $user_table->setUser($user);
-
-            $user_table->setWorkout_table($workout_table);
-
-
-            try {
-
-                $this->user_tableMapper->save($user_table);
-
-                $this->view->redirect("user_tables", "index","login=".$id_user);
-
-
-            }catch(ValidationException $ex) {
-
-                // Get the errors array inside the exepction...
-                $errors = $ex->getErrors();
-                // And put it to the view as "errors" variable
-                $this->view->setVariable("errors", $errors);
-            }
+        if($this->user_activityMapper->countByIdActivityAndIdUser($idactivity,$this->currentUser->getId()) != 0){
+            Throw new Exception("Usted ya ha reservado esta actividad");
         }
-        // Put the Activity object visible to the view
-        //$this->view->setVariable("workout_tables", $workout_tables);
-        //$this->view->setVariable("activity", $activity);
-        // render the view (/view/activitys/add.php)
-        //$this->view->render("activities", "view","idactivity="  . $idactivity);
+
+        $currentActivity = $this->activityMapper->findById($idactivity);
+
+        if($this->user_activityMapper->countAllByIdActivity($idactivity) == $currentActivity->getSeats()){
+            throw new Exception("Actividad sin plazas disponibles");
+        }
+        $user_activity = new User_activity();
+        $user_activity->setUser($this->currentUser);
+        $user_activity->setActivity($currentActivity);
+        $this->user_activityMapper->save($user_activity);
+
         $this->view->redirect("activities", "view","idactivity="  . $idactivity);
+    }
+
+    public function delete() {
+        if (!isset($this->currentUser)) {
+            throw new Exception("Not in session. delete user_activity requires login ");
+        }
+        if ($this->currentUser->getUser_type()!=usertype::AthletePEF && $this->currentUser->getUser_type()!=usertype::AthleteTDU ){
+            throw new Exception("Not in session. delete user_activity requires login like athlete");
+
+        }
+
+        // Get the exercise object from the database
+        $id_activity = $_REQUEST["id_activity"];
+
+        $user_activity = $this->user_activityMapper->findByIdActivityAndIdUser($id_activity, $this->currentUser->getId());
+
+        // Does the exercise exist?
+        if ($user_activity == NULL) {
+            throw new Exception("no such user activity with id activity: ".$id_activity);
+        }else{
+            $this->user_activityMapper->delete($user_activity);
+            //$this->view->setFlash(sprintf(i18n("Table \"%s\" of user \"%s\" successfully deleted."),
+            //  $user_table->getWorkout_table()->getName(),$user_table->getUser()->getName()));
+        }
+
+        //$this->view->redirect("user_tables", "index");
+
+        $this->view->redirect("activities", "view","idactivity="  . $id_activity);
+
     }
 }

@@ -136,7 +136,7 @@ $view->setVariable("title", "FitnesSuite");
                   <p class="commercial-description uppercase second-color"><span><?= $next_event->getActivity()->getName() ?></span></p></a>
                 <div class="commercial-description">
                   <!-- index.php?controller=Reservation&amp;action=add -->
-                  <a href="index.php?controller=user_activity&amp;action=add&amp;id_activity=<?= $next_event->getActivity()->getIdactivity();?>"><input type='button' value=<?= i18n("Reservation")?> /></a>
+                  <a href="index.php?controller=activities&action=view&idactivity=<?= $next_event->getActivity()->getIdactivity();?>"><input type='button' value=<?= i18n("Reservation")?> /></a>
                 </div>
             </div>
           </div>
