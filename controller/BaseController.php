@@ -49,8 +49,10 @@ class BaseController {
       $userprofile =  $this->userMapper->findById($this->currentUser->getLogin());
       $this->currentUser->setUser_type($userprofile->getUser_type());
       $this->currentUser->setId($userprofile->getId());
-      $notification=$this->notification_userMapper->countAllByUser($this->currentUser);;
-      $this->view->setVariable("notification", $notification);
+      $numberOfNotifications=$this->notification_userMapper->countAllByUser($this->currentUser);
+      $this->view->setVariable("numberOfNotifications", $numberOfNotifications);
+      $notifications_user = $this->notification_userMapper->findNotReadByUser($this->currentUser);
+      $this->view->setVariable("default_notifications_user", $notifications_user);
       //add current user to the view, since some views require it
       $this->view->setVariable("currentusername", $this->currentUser->getLogin());
       $this->view->setVariable("typeuser", $userprofile->getUser_type());

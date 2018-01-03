@@ -434,9 +434,9 @@ header{
 
 .nav-item img{
   padding-top: 10px;
-  padding-left: 30px;
+  padding-left: 20px;
   padding-bottom: 10px;
-  padding-right: 30px;
+  padding-right: 20px;
   text-decoration: none;
   color: #5c5c5c;
   display: flex;
@@ -908,6 +908,19 @@ ul.times h4{
   padding: 0;
   display: flex;
   order: 3;
+}
+
+.index-trainer-box{
+  padding: 0;
+  margin: 0px 10px 20px 10px;
+/*  max-width: 380px;*/
+  height: 400px;
+  box-shadow: 0px 1px 2px #A0A0A0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background: white;
+  transition: 0.3s ease;
 }
 
 .membershipprices-box{
@@ -1577,6 +1590,10 @@ ul.partner li img{
   align-self: flex-end;
 }
 
+#content-list #no_margin{
+  margin-left: 0px;
+}
+
 #table-content {
   margin: 0;
   padding: 0;
@@ -1592,8 +1609,19 @@ ul.partner li img{
 
 #table-content tr strong{
   font-size: 1em;
+
 }
 
+#table-content tr strong img{
+  margin-left: 10px;
+    cursor: pointer;
+
+}
+
+#table-content tr strong a{
+    margin-right: 10px;
+    margin-left: 10px;
+}
 
 #table-content tr:hover {
   color: #333333;
@@ -1601,12 +1629,13 @@ ul.partner li img{
 }
 
 #table-content .table-row-content td {
+  font: 1em 'Lato';
   margin: 0;
   padding-top: 15px;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 15px;
-  border-left: ;
+  /*border-left: ;*/
   border-bottom: 1pt solid #dedede;
 
 }
@@ -1636,6 +1665,122 @@ ul.partner li img{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+/******************************* CUSTOM CHECK BOX *****************************/
+.check_box {
+    display:none;
+}
+
+.check_box + label{
+    background:url('resources/icons/ic_check_box_outline.svg') no-repeat;
+    height: 24px;
+    width: 24px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+    cursor: pointer;
+}
+
+.check_box:checked + label{
+    background:url('resources/icons/ic_check_box.svg') no-repeat;
+    height: 24px;
+    width: 24px;
+    display:inline-block;
+    padding: 0 0 0 0px;
+    cursor: pointer;
+}
+/*******************************    MODAL FORM    *****************************/
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 10px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+.modal-content table{
+  display: flex;
+  width: inherit;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-200px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-200px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: var(--main-color);
+    color: white;
+}
+
+.modal-body {
+  padding: 2px 16px;
+  justify-content: center;
+  display: flex;
+  width: auto;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: var(--second-color);
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+td.notify{
+  cursor:pointer;
+}
+
+td.ocultable{
+  display: none;
 }
 /*******************************    FOOTER DETAIL *****************************/
 footer{
@@ -1832,8 +1977,151 @@ footer{
   border-radius: 50%;
 }
 
+/*******************************      GALERY    *******************************/
+  .col-md-4 {
+    max-width: 380px;
+  }
+/*--content-middle-botoom--*/
+.content_middle_bottom {
+	/*padding-top:7%;*/
+}
+.nbs-flexisel-container {
+	position: relative;
+	max-width: 100%;
+}
+.nbs-flexisel-ul {
+	position: relative;
+	width: 9999px;
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+	text-align: center;
+}
+.nbs-flexisel-inner {
+	overflow: hidden;
+	margin: 0 auto;
+	width:100%;
+  	background: #FFF;
+}
+.nbs-flexisel-item {
+	float: left;
+	margin:0px;
+	padding:0px;
+	cursor: pointer;
+	position: relative;
+	line-height: 0px;
+	width:180px !important;
+}
+.course_demo{
+	background: #FFF;
+	padding:0% 3% 0 3%;
+}
+.nbs-flexisel-item img {
+	  width: 100%;
+	  cursor: pointer;
+	  positon: relative;
+	  max-width: 110px;
+	  max-height:110px;
+	  margin-top:25px;
+	  margin-bottom: 10px;
+	  display:inline;
+	  border-radius:100px;
+}
+/*** Navigation ***/
+.nbs-flexisel-nav-left,
+.nbs-flexisel-nav-right {
+  width:50px;
+  height:50px;
+  position: absolute;
+  cursor: pointer;
+  z-index: 100;
+}
+.nbs-flexisel-nav-left {
+  	left:-30px;
+  	background: url(/resources/icons/img-sprite.png) -184px -66px no-repeat;
+}
+.nbs-flexisel-nav-right {
+  	right:-26px;
+ 	background: url(/resources/icons/img-sprite.png)-244px -66px no-repeat;
+}
+.desc{
+	padding:10px 0 20px;
+	width:80%;
+}
+.desc h3{
+	text-align:center;
+	line-height:20px;
+	color:#00BFF0;
+  font: 1em 'Lato';
+	font-weight:600;
+	text-transform:uppercase;
+	margin-bottom: 10px;
+}
+span.m_text{
+	font-style:italic;
+	font-weight:100;
+  font: 'Lato';
+}
+.desc p{
+	color: #000;
+	font-size: 0.8125em;
+	font-style: italic;
+	line-height:15px;
+	text-align: center;
+  font: 0.8125em 'Lato';
+	margin-bottom: 10px;
+}
+i.heart1{
+	background: url(/resources/icons/img-sprite.png)no-repeat -303px -76px;
+	width: 20px;
+	height: 25px;
+	display: inline-block;
+	cursor:pointer;
+}
+i.like{
+	background: url(/resources/icons/img-sprite.png)no-repeat -350px -75px;
+	width: 20px;
+	height: 25px;
+	display: inline-block;
+	cursor:pointer;
+}
+i.twt{
+	background: url(/resources/icons/img-sprite.png)no-repeat -390px -76px;
+	width: 20px;
+	height: 25px;
+	display: inline-block;
+	cursor:pointer;
+}
+i.fb{
+	background: url(/resources/icons/img-sprite.png)no-repeat -432px -77px;
+	width: 20px;
+	height: 25px;
+	display: inline-block;
+	cursor:pointer;
+}
+i.heart2{
+	background: url(/resources/icons/img-sprite.png)no-repeat -18px -136px;
+	width: 20px;
+	height: 25px;
+	display: inline-block;
+}
+i.like1{
+	background: url(/resources/icons/img-sprite.png)no-repeat -59px -136px;
+	width: 20px;
+	height: 25px;
+	display: inline-block;
+	cursor: pointer;
+}
+.coursel_list{
+	float:left;
+}
+.coursel_list1{
+	float:right;
+}
+
 /******************************* NOTIFICATIONS  *******************************/
 .filter-box-notifications{
+  padding: 10px;
   display: flex;
   flex-flow: column;
   flex-wrap: wrap;
@@ -1842,9 +2130,14 @@ footer{
   align-items: center;
   padding-bottom: 15px;
 }
+
 .filter-box-notifications form {
   font: 1em 'Lato';
   color: #5c5c5c;
+}
+
+.center{
+  justify-content: center;
 }
 /******************************* MY CHATS *************************************/
 #listAndChat{
@@ -1952,6 +2245,7 @@ footer{
   min-height: 60px;
   /*max-height: 60px;*/
 }
+
 /******************************************************************************/
 /***************************** MEDIA QUERIES **********************************/
 @media (max-width: 1920px) {
@@ -2030,6 +2324,10 @@ footer{
     order:2;
     flex-basis: 90%;
     flex-direction:column;
+  }
+
+  .modal-content {
+    width: 80%;
   }
 
 }
@@ -2125,7 +2423,9 @@ footer{
     margin-top: 10px;
   }
 
-
+  .modal-content {
+    width: 95%;
+  }
   /*************** CONTENT ***************/
   #commercial-box-index{
     flex-direction: column;
@@ -2210,5 +2510,9 @@ footer{
     order: 2;
     align-self:auto;
     flex-basis: 80%;
+  }
+  .td_ocultable{
+    background-color: red;
+    display:none;
   }
 }

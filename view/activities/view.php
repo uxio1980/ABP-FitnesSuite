@@ -7,6 +7,7 @@
  $images = $view->getVariable("images");
  $trainer = $view->getVariable("trainer");
  $place = $view->getVariable("place");
+ $resources = $view->getVariable("resources");
  $errors = $view->getVariable("errors");
 
  $view->setVariable("title", $activity->getName());
@@ -77,9 +78,15 @@
 					<a href="#"><img src="resources/icons/facebook-icon.svg" alt="Facebook icon"></a>
 					<a href="#"><img src="resources/icons/google-plus-icon.svg" alt="Google plus icon"></a>
 					<a href="#"><img src="resources/icons/twitter-icon.svg" alt="Twitter icon"></a>
+        <div class="commercial-description">
+          <div id="content-list">
+            <div class="content-title center">
+          <a href="index.php?controller=user_activity&amp;action=add&amp;id_activity=<?= $activity->getIdactivity();?>"><input id="no_margin" type='button' value="<?= i18n("Reservation")?>" /></a>
+        </div></div>
+        </div>
 				</div>
 			</div>
-      <div class="article-autor"><p class="article-detail"><?= i18n("Trainer")?></p>
+      <div class="article-autor"><p class="article-detail"><b><?= i18n("Trainer")?></b></p>
             <?php
       			$path = $trainer->getProfileImage()!=NULL?
             (file_exists('./resources/profiles/'.$trainer->getProfileImage())  ?
@@ -98,11 +105,18 @@
             </a>
 				<p class="autor-detail"> <?= $trainer->getDescription() ?></p>
 			</div>
+      <?php if(isset($resources) && $resources!=NULL): ?>
+        <div class="article-autor"><p class="article-detail"><?= i18n("Available resources");?> <?= i18n("for");?> <b><?= $activity->getName();?></b></p>
+          <ul>
+            <?php foreach ($resources as $resource): ?>
+              <li class="article-detail"><?= $resource->getQuantity() ?>  <?= $resource->getName() ?></li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      <?php endif; ?>
 		</div>
 	</article>
 	<footer>
-
-
 		<script src="js/index.js"></script>
     <script type="text/javascript" src="js/XHConn.js"></script>
 	</footer>

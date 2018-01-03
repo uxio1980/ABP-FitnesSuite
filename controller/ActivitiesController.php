@@ -97,6 +97,18 @@ class ActivitiesController extends BaseController {
 
     // Recuperar distintas actividades según usuario.
     $activity = $this->activityMapper->findById($activityid);
+    $activity_resources = $this->activity_resourceMapper->findAll($activityid);
+    $resources = array();
+    if ($activity_resources !=NULL){
+      foreach ($activity_resources as $activity_resource) {
+        if ($activity_resource->getId() != $activity->getPlace()){
+          $resource = $this->resourceMapper->findById($activity_resource->getIdresource());
+          if ($resource != NULL && ($resource->getType() == resourcetype::Resource)){
+            array_push($resources, $resource);
+          }
+        }
+      }
+    }
     $place = $this->resourceMapper->findById($activity->getPlace());
     // Recupera el array de rutas a las imágenes.
     $images = json_decode($activity->getImage());
@@ -111,13 +123,11 @@ class ActivitiesController extends BaseController {
     $this->view->setVariable("images", $images);
     $this->view->setVariable("trainer", $trainer);
     $this->view->setVariable("place", $place);
+    $this->view->setVariable("resources", $resources);
 
     // render the view (/view/activities/view.php)
-    if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
       $this->view->render("activities", "view");
-    } else {
-      $this->view->render("activities", "view");
-    }
+
   }
 
   /**

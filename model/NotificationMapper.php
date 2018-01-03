@@ -42,10 +42,22 @@ class NotificationMapper {
     * @return void
     */
     public function update(Notification $notification) {
-      $stmt = $this->db->prepare("UPDATE notification set id_user=?, date=?,
+      $stmt = $this->db->prepare("UPDATE notification set date=?,
         title=?, content=? where id=?");
-        $stmt->execute(array($notification->getId_User(), $notification->getDate(),
+        $stmt->execute(array($notification->getDate(),
         $notification->getTitle(), $notification->getContent(), $notification->getId()));
+      }
+
+      /**
+       * Deletes an Notification from the database
+       *
+       * @param Notification $Notification The Notification to be deleted
+       * @throws PDOException if a database error occurs
+       * @return void
+       */
+      public function delete(Notification $notification) {
+          $stmt = $this->db->prepare("DELETE from notification WHERE id=?");
+          $stmt->execute(array($notification->getId()));
       }
 
       /**
@@ -57,23 +69,50 @@ class NotificationMapper {
       */
       public function findById($id){
 
-        $stmt = $this->db->prepare("SELECT * FROM notification N LEFT JOIN user U ON n.id_user=U.id WHERE N.id=?");
+        $stmt = $this->db->prepare("SELECT *, N.id as 'id_notification', U.id as 'id_user' FROM notification N LEFT JOIN user U ON N.id_user=U.id WHERE N.id=?");
         $stmt->execute(array($id));
         $notification = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($notification != null) {
-          $usuario = new User($notification["id_user"], $notification["user.login"],
-          $notification["user.name"],
+          $usuario = new User($notification["id_user"], $notification["login"],
+          $notification["name"],
           NULL/*password*/,
-          $notification["user.email"],
-          $notification["user.description"]);
-          return new Notification($notification["id"], $usuario,
+          $notification["email"],
+          $notification["description"]);
+          return new Notification($notification["id_notification"], $usuario,
           $notification["date"], $notification["title"], $notification["content"]);
         } else {
           return NULL;
         }
       }
 
+
+      /**
+      * Loads a Notification from the database given its id
+      *
+      * @throws PDOException if a database error occurs
+      * @return Notification The Notification instances. NULL
+      * if the Notification is not found
+      */
+      public function findLastNotification(){
+
+        $stmt = $this->db->query("SELECT *, N.id as 'id_notification',
+          U.id as 'id_user' FROM notification N LEFT JOIN user U ON N.id_user=U.id
+          ORDER BY N.id DESC LIMIT 1");
+        $notification = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($notification != null) {
+          $usuario = new User($notification["id_user"], $notification["login"],
+          $notification["name"],
+          NULL/*password*/,
+          $notification["email"],
+          $notification["description"]);
+          return new Notification($notification["id_notification"], $usuario,
+          $notification["date"], $notification["title"], $notification["content"]);
+        } else {
+          return NULL;
+        }
+      }
       /**
        * Retrieves all Notifications
        *
