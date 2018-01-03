@@ -13,7 +13,7 @@ $view->setVariable("title", "Edit Exercise");
               enctype="multipart/form-data">
             <strong><?= i18n("Modify exercise") ?></strong>
             <label for="form-field"><?= i18n("Name") ?></label>
-            <input type="text" name="name" value="<?= $exercise->getName() ?>" minlength="5" maxlength="50" required >
+            <input type="text" name="name" value="<?= $exercise->getName() ?>" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\  0-9] minlength="5" maxlength="50" required >
             <?= isset($errors["name"])?$errors["name"]:"" ?>
 
             <label for="name-field"><?= i18n("Description") ?></label>
@@ -21,10 +21,10 @@ $view->setVariable("title", "Edit Exercise");
             <?= isset($errors["description"])?$errors["description"]:"" ?><br>
 
             <label for="form-field"><?= i18n("Type") ?></label>
-            <select name="type" value="<?=i18n($exercise->getType())?>">
-                <option value="<?=i18n("Cardiovascular")?>"><?=i18n("Cardiovascular")?></option>
-                <option value="<?=i18n("Muscular")?>"><?=i18n("Muscular")?></option>
-                <option value="<?=i18n("Stretch")?>"><?=i18n("Stretch")?></option>
+            <select name="type">
+                <option <?= i18n($exercise->getType())==i18n("Cardiovascular")?'selected':''?> value="<?=i18n("Cardiovascular")?>"><?=i18n("Cardiovascular")?></option>
+                <option <?= i18n($exercise->getType())==i18n("Muscular")?'selected':''?> value="<?=i18n("Muscular")?>"><?=i18n("Muscular")?></option>
+                <option <?= i18n($exercise->getType())=="Estiramiento"?'selected':''?> value="<?=i18n("Stretch")?>"><?=i18n("Stretch")?></option>
             </select>
             <label for="name-field"><?= i18n("Image") ?> (<?= i18n("select a image") ?>)</label>
             <input type="file" name="images[]" multiple accept="image/*">

@@ -16,7 +16,7 @@
 			<strong><?= i18n("Edit workout table") ?></strong>
             <input type="hidden" name="type" value="<?= $workout_table->getType() ?>"/>
 			<label for="form-field"><?= i18n("Name") ?></label>
-			<input type="text" name="name" value="<?=$workout_table->getName()?>" minlength="2" maxlength="45" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ ]+" title="Formato incorrecto">
+			<input type="text" name="name" value="<?=$workout_table->getName()?>" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\  0-9]" minlength="2" maxlength="45" pattern="[A-Za-záéíóúÁÉÍÓÚñÑ ]+" title="Formato incorrecto">
 			<?= isset($errors["name"])?$errors["name"]:"" ?>
 			<label for="name-field"><?= i18n("Description") ?></label>
 			<textarea name="description" rows="4" cols="50"> <?=$workout_table->getDescription()?></textarea>

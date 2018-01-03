@@ -216,6 +216,7 @@
 		"Individual" => "Individual",
 		"In group" => "En grupo",
     "Add standad workout table" => "Añadir tabla de entrenamiento estandard",
-		"Add customized workout table" => "Añadir tabla de entrenamiento personalizada"
+		"Add customized workout table" => "Añadir tabla de entrenamiento personalizada",
+		"Stretch" => "Estiramiento",
   )
 ?>
