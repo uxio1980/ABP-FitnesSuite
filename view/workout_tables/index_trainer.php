@@ -20,7 +20,7 @@
                 <td><strong><?= i18n("Edit")?></strong></td>
                 <td><strong><?= i18n("Exercises")?></strong></td>
                 <td><strong><?= i18n("Delete")?></strong></td>
-                <td><strong><?= i18n("Print")?></strong></td>
+
                 <?php foreach ($tables as $table): ?>
                     <tr class="table-row-content"
                         data-href="index.php?controller=workout_tables&amp;action=edit&amp;id_workout=<?= $table->getId() ?>">
@@ -36,9 +36,6 @@
                         </td>
                         <td><a class="confirmation" href="index.php?controller=workout_tables&amp;action=delete&amp;id_workout=<?= $table->getId() ?>">
                                 <img src="resources/icons/delete_icon.svg" alt="Delete"/></a>
-                        </td>
-                        <td><a class="confirmation" href="index.php?controller=workout_tables&amp;action=print&amp;id_workout=<?= $table->getId() ?>">
-                                <img src="resources/icons/ic_print.svg" alt="Print"/></a>
                         </td>
                     </tr>
                 <?php endforeach; ?>

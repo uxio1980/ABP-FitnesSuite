@@ -6,7 +6,7 @@ CREATE TABLE `activity` (
   `id` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
-  `description` varchar(45) NOT NULL,
+  `description` varchar(250) NOT NULL,
   `type` int(11) NOT NULL,
   `place` int(11) DEFAULT NULL,
   `seats` int(11) NOT NULL,
@@ -122,7 +122,7 @@ CREATE TABLE `exercise` (
   `id` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `name` varchar(45) NOT NULL,
-  `description` varchar(45) NOT NULL,
+  `description` varchar(1000) NOT NULL,
   `type` varchar(45) NOT NULL,
   `image` mediumtext,
   `video` mediumtext
@@ -198,7 +198,7 @@ DROP TABLE IF EXISTS `resource`;
 CREATE TABLE `resource` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `description` varchar(45) NOT NULL,
+  `description` varchar(1000) NOT NULL,
   `quantity` int(11) NOT NULL,
   `type` tinyint(4) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
@@ -239,7 +239,7 @@ CREATE TABLE `user` (
   `email` varchar(100) NOT NULL,
   `phone` int(11) DEFAULT NULL,
   `dni` varchar(9) DEFAULT NULL,
-  `description` varchar(45) DEFAULT NULL,
+  `description` varchar(1000) DEFAULT NULL,
   `profile_image` varchar(50) DEFAULT NULL,
   `user_type` tinyint(11) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE utf8_spanish_ci;
