@@ -10,15 +10,16 @@ class Exercise_table {
   private $id_workout;
   private $series;
   private $repetitions;
+  private $duration;
 
 
-  public function __construct($id=NULL, Exercise $exercise=NULL, $id_workout=NULL, $series=NULL, $repetitions=NULL) {
+  public function __construct($id=NULL, Exercise $exercise=NULL, $id_workout=NULL, $series=NULL, $repetitions=NULL, $duration=NULL) {
     $this->id = $id;
     $this->exercise = $exercise;
     $this->id_workout = $id_workout;
     $this->series = $series;
     $this->repetitions = $repetitions;
-
+    $this->duration = $duration;
   }
   
   public function getId() {
@@ -55,6 +56,14 @@ class Exercise_table {
 
     public function setRepetitions($repetitions) {
         $this->repetitions = $repetitions;
+    }
+
+    public function getDuration() {
+        return $this->duration;
+    }
+
+    public function setDuration($duration) {
+        $this->duration = $duration;
     }
  
    /**
