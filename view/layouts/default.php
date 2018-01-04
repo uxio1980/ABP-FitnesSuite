@@ -42,6 +42,7 @@ $language = $i18n->getLanguage();
       </a>
         <img id="end-logo" src="resources/icons/end-logo.png" alt="Menu icon"/>
     </div>
+
     <div id="header-search">
       <form id="form-search" action="index.php?controller=articles&amp;action=search" method="GET">
         <input id="input-search"  type="text" name="search"
@@ -299,7 +300,26 @@ $language = $i18n->getLanguage();
             </ul>
           </nav>
           <div id="flash">
-            <?= $view->popFlash() ?>
+            <?php $message = $view->popFlash(); ?>
+            <?php if($message != ""): ?>
+              <div id="notification" style="display: none; font-size:20px">
+                <span class="dismiss" onclick="closeNotification()"><a title="dismiss this notification">X</a></span>
+              </div>
+              <script >
+              var mensajeFlash = '<?php echo $message ?>';
+              function closeNotification(){
+                     $("#notification").fadeOut("slow");
+              }
+
+              function notification(mensaje){
+                document.getElementById("notification").style.display = "none";
+                $("#notification").fadeIn("slow").append(mensaje);
+                setTimeout(closeNotification, 2500);
+              }
+              notification(mensajeFlash);
+              </script>
+
+            <?php endif;?>
           </div>
 
           <?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>

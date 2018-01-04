@@ -221,7 +221,7 @@ class ResourcesController extends BaseController {
     $this->resourceMapper->delete($resource);
 
 
-    $this->view->setFlash(sprintf(i18n("Resource \"%s\" successfully deleted."),$resource->getIdresource()));
+    $this->view->setFlash(sprintf(i18n("Resource successfully deleted."),$resource->getIdresource()));
 
     $this->view->redirect("resources", "index");
 

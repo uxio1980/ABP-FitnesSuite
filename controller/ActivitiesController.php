@@ -412,7 +412,7 @@ class ActivitiesController extends BaseController {
       }
     }
 
-    $this->view->setFlash(sprintf(i18n("Activity \"%s\" successfully deleted."),$activity->getIdactivity()));
+    $this->view->setFlash(sprintf(i18n("Activity successfully deleted") . ".",$activity->getIdactivity()));
 
     $this->view->redirect("activities", "index");
 

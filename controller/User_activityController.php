@@ -73,7 +73,7 @@ class User_activityController extends BaseController {
             throw new Exception("no such user activity with id activity: ".$id_activity);
         }else{
             $this->user_activityMapper->delete($user_activity);
-            //$this->view->setFlash(sprintf(i18n("Table \"%s\" of user \"%s\" successfully deleted."),
+            $this->view->setFlash(sprintf(i18n("Table successfully deleted."),
             //  $user_table->getWorkout_table()->getName(),$user_table->getUser()->getName()));
         }
 
