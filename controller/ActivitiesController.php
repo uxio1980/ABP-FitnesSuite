@@ -121,12 +121,16 @@ class ActivitiesController extends BaseController {
       throw new Exception("->no such activity with id: ".$activityid);
     }
 
+    if (!isset($this->currentUser)) {
+        $isReserved = 0;
+    }else{
       if($this->user_activityMapper->countByIdActivityAndIdUser($activityid,$this->currentUser->getId()) != 0){
           $isReserved = 1;
       }else{
           $isReserved = 0;
       }
-
+    }
+    
       $plazasOcupadas = $this->user_activityMapper->countAllByIdActivity($activityid);
       $plazasDisponibles = $activity->getSeats() - $plazasOcupadas;
 
