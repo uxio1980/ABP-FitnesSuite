@@ -35,6 +35,9 @@ class User_activityController extends BaseController {
         if (!isset($_GET["id_activity"])) {
           throw new Exception("idactivity is mandatory");
         }
+        if ($this->currentUser->getUser_type()!=usertype::AthletePEF && $this->currentUser->getUser_type()!=usertype::AthleteTDU ){
+            throw new Exception("Not in session. add user_activity requires login like athlete");
+        }
         $idactivity = $_GET["id_activity"];
 
         if($this->user_activityMapper->countByIdActivityAndIdUser($idactivity,$this->currentUser->getId()) != 0){
@@ -60,7 +63,6 @@ class User_activityController extends BaseController {
         }
         if ($this->currentUser->getUser_type()!=usertype::AthletePEF && $this->currentUser->getUser_type()!=usertype::AthleteTDU ){
             throw new Exception("Not in session. delete user_activity requires login like athlete");
-
         }
 
         // Get the exercise object from the database
@@ -74,7 +76,7 @@ class User_activityController extends BaseController {
         }else{
             $this->user_activityMapper->delete($user_activity);
             $this->view->setFlash(sprintf(i18n("Table successfully deleted."),
-            //  $user_table->getWorkout_table()->getName(),$user_table->getUser()->getName()));
+              $user_table->getWorkout_table()->getName(),$user_table->getUser()->getName()));
         }
 
         //$this->view->redirect("user_tables", "index");
