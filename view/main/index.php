@@ -31,7 +31,7 @@ $view->setVariable("title", "FitnesSuite");
             <a href="index.php?controller=activities&amp;action=view&amp;idactivity=<?= $activity->getIdactivity()?>">
               <?= $activity->getName() ?></a>
             <div class="social-media">
-              <a href=""><span class="timetable-icon" data-tooltip="timetable"></span></a>
+              <a href="index.php?controller=schedule&amp;action=index&amp;idactivity=<?= $activity->getIdactivity()?>"><span class="timetable-icon" data-tooltip="timetable"></span></a>
               <span class="sendto" data-tooltip="Send to"></span>
               <span class="likeit" data-tooltip="like it"></span>
               <span class="share" data-tooltip="share"></span>
@@ -163,7 +163,7 @@ $view->setVariable("title", "FitnesSuite");
         			 	<li class="second-color"><?= i18n("Monday")?><div class="hours second-color">h.8:00-h.22:00</div>  </li>
         			 	<li class="second-color"><?= i18n("Tuesday")?><div class="hours second-color">h.8:00-h.22:00</div>  </li>
         			 	<li class="second-color"><?= i18n("Wednesday")?><div class="hours second-color">h.8:00-h.22:00</div> </li>
-        			 	<li class="second-color"><?= i18n("Thrusday")?><div class="hours second-color">h.8:00-h.22:00</div> </li>
+        			 	<li class="second-color"><?= i18n("Thursday")?><div class="hours second-color">h.8:00-h.22:00</div> </li>
         			 	<li class="second-color"><?= i18n("Friday")?><div class="hours second-color">h.8:00-h.22:00</div>  </li>
         			 	<li class="second-color"><?= i18n("Saturday")?><div class="hours second-color">h.8:00-h.22:00</div>  </li>
         			 	<li class="second-color"><?= i18n("Sunday")?><div class="hours second-color">h.10:00-h.14:00</div>  </li>

@@ -186,8 +186,14 @@ $language = $i18n->getLanguage();
               </a>
             </li>
             <li class="nav-item">
+            <a href="index.php?controller=schedule&amp;action=index">
+                <img src="resources/icons/ic_dashboard_black_24px.svg" alt="Schedule icon"/>
+                <div class="text-item"><?= i18n("Schedules")?></div>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="index.php?controller=exercise&amp;action=index">
-                  <img src="resources/icons/ic_exercices_table.svg"  width="24" height="24" alt="Exercise icon"/>
+                  <img src="resources/icons/ic_exercices_table.svg" alt="Exercise icon"/>
                   <div class="text-item"><?= i18n("Exercises")?></div>
               </a>
             </li>

@@ -111,6 +111,79 @@ class Activity_scheduleMapper {
     * @throws PDOException if a database error occurs
     * @return mixed Array of activity_schedule instances
     */
+    public function findAllByCurrentWeek() {
+      $stmt = $this->db->query("SELECT A_S.id as idA_S, A.id as idA, A_S.*, A.*
+                                FROM activity_schedule A_S
+                                LEFT JOIN activity A ON A_S.id_activity=A.id
+                                WHERE WEEKOFYEAR(date)=WEEKOFYEAR(NOW())
+                                ORDER BY date ASC");
+      //$stmt = $this->db->query("SELECT * FROM activity_schedule");
+        $activity_schedules_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      $activity_schedules = array();
+
+        foreach ($activity_schedules_db as $activity_schedule) {
+          $activity = new Activity($activity_schedule["id_activity"],
+          $activity_schedule["id_user"], $activity_schedule["name"],
+          $activity_schedule["description"], $activity_schedule["place"],
+          $activity_schedule["type"], $activity_schedule["seats"]);
+
+          $a_s = new Activity_schedule($activity_schedule["idA_S"],
+          $activity,
+          $activity_schedule["date"],
+          $activity_schedule["start_hour"],
+          $activity_schedule["end_hour"]
+        );
+        array_push($activity_schedules, $a_s);
+      }
+
+      return $activity_schedules;
+    }
+
+    /* Retrieves activity_schedules
+    *
+    *
+    * @throws PDOException if a database error occurs
+    * @return mixed Array of activity_schedule instances
+    */
+    public function findActivityByCurrentWeek($idactivity) {
+      $stmt = $this->db->prepare("SELECT A_S.id as idA_S, A.id as idA, A_S.*, A.*
+                                FROM activity_schedule A_S
+                                LEFT JOIN activity A ON A_S.id_activity=A.id
+                                WHERE WEEKOFYEAR(date)=WEEKOFYEAR(NOW())AND
+                                id_activity LIKE ?
+                                ORDER BY date ASC");
+        $stmt->execute(array($idactivity));
+        $activity_schedules_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      $activity_schedules = array();
+
+        foreach ($activity_schedules_db as $activity_schedule) {
+          $activity = new Activity($activity_schedule["id_activity"],
+          $activity_schedule["id_user"], $activity_schedule["name"],
+          $activity_schedule["description"], $activity_schedule["place"],
+          $activity_schedule["type"], $activity_schedule["seats"]);
+
+          $a_s = new Activity_schedule($activity_schedule["idA_S"],
+          $activity,
+          $activity_schedule["date"],
+          $activity_schedule["start_hour"],
+          $activity_schedule["end_hour"]
+        );
+        array_push($activity_schedules, $a_s);
+      }
+
+      return $activity_schedules;
+    }
+
+
+    /**
+    * Retrieves activity_schedules
+    *
+    *
+    * @throws PDOException if a database error occurs
+    * @return mixed Array of activity_schedule instances
+    */
     public function searchAll($value) {
       $stmt = $this->db->prepare("SELECT A_S.id as idA_S, A.id as idA, A_S.*, A.*  FROM activity_schedule A_S LEFT JOIN activity A ON A_S.id_activity=A.id WHERE id_activity=:search");
       //$stmt = $this->db->query("SELECT * FROM activity_schedule");

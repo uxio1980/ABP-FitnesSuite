@@ -74,17 +74,11 @@
                     <?php endif ?>
                 </p>
                 <p class="article-detail"> <?= i18n("Place")?>: <?= $place->getName() ?></p>
+                <p class="article-detail"> <a href="index.php?controller=schedule&action=index&idactivity=<?= $activity->getIdActivity()?>"><?= i18n("You can see the hours of this activity here")?> </a></p>
                         <div class="social-network-icon">
                             <a href="#"><img src="resources/icons/facebook-icon.svg" alt="Facebook icon"></a>
                             <a href="#"><img src="resources/icons/google-plus-icon.svg" alt="Google plus icon"></a>
                             <a href="#"><img src="resources/icons/twitter-icon.svg" alt="Twitter icon"></a>
-                            <div class="commercial-description">
-                                <div id="content-list">
-                                    <div class="content-title center">
-                                        Número de plazas disponibles: <?= $plazasDisponibles ?>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="commercial-description">
                               <div id="content-list">
                                 <div class="content-title center">
@@ -101,6 +95,13 @@
                                     <?php else:?>
                                         <a href="index.php?controller=user_activity&amp;action=delete&amp;id_activity=<?= $activity->getIdactivity();?>"><input id="no_margin" type='button' value="<?= i18n("Cancel Reservation")?>" /></a>
                                     <?php endif; ?>
+                                </div>
+                                <div class="commercial-description">
+                                    <div id="content-list">
+                                        <div class="content-title center">
+                                            <?= i18n("Number of places available")?>: <?= $plazasDisponibles ?>
+                                        </div>
+                                    </div>
                                 </div>
                               </div>
                             </div>
