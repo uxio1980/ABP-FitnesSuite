@@ -243,7 +243,7 @@ class Notifications_UserController extends BaseController {
         // Delete the notification_user object from the database
         $this->notification_userMapper->delete($notification_user);
 
-        $this->view->setFlash(sprintf(i18n("notification user  \"%s\" with name \"%s\" successfully deleted."),
+        $this->view->setFlash(sprintf(i18n("notification") . " " . i18n("successfully deleted."),
                                             $notification_user->getId(),$notification_user->getUser_receiver()->getName()));
 
         $this->view->redirect("notification", "edit", "id_notification= " . $notification_user->getNotification()->getId());

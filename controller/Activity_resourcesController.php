@@ -185,7 +185,7 @@ class Activity_resourcesController extends BaseController {
     // Delete the user object from the database
     $this->activity_resourceMapper->delete($activity_resource);
 
-    $this->view->setFlash(sprintf(i18n("Resource \"%s\" successfully deleted."),$activity_resource->getId()));
+    $this->view->setFlash(sprintf(i18n("Resource successfully deleted."),$activity_resource->getId()));
 
     $this->view->redirect("activity_resources", "index","idactivity=".$idactivity);
 

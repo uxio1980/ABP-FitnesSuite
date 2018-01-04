@@ -87,7 +87,11 @@ class Workout_tablesController extends BaseController {
         if (!isset($this->currentUser) || $this->currentUser->getUser_type() != usertype::Trainer ) {
             throw new Exception("Not in session. Adding activitys requires login like Trainer");
         }
-        $type = $_GET["type"];
+        $type = "standard";
+        if (isset($_GET["type"])){
+          $type = $_GET["type"];
+        }
+
         $workout_table = new Workout_table();
 
         $exercises = $this->exerciseMapper->findAll();
@@ -211,7 +215,7 @@ class Workout_tablesController extends BaseController {
 
         $this->workout_tableMapper->delete($workout_table);
 
-        $this->view->setFlash(sprintf(i18n("Workout table \"%s\" successfully deleted."),$workout_table->getId()));
+        $this->view->setFlash(sprintf(i18n("Workout table") . " " . i18n("successfully deleted."),$workout_table->getId()));
 
         $this->view->redirect("workout_tables", "index");
 

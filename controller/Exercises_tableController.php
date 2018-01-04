@@ -197,7 +197,7 @@ class Exercises_tableController extends BaseController {
             throw new Exception("no such exercise with id: ".$id);
         }else{
             $this->exercise_tableMapper->delete($exercise_table);
-            $this->view->setFlash(sprintf(i18n("Exercise \"%s\" with name \"%s\" successfully deleted."),
+            $this->view->setFlash(sprintf(i18n("Exercise") . " " . i18n("successfully deleted."),
                 $exercise_table->getExercise()->getId(),$exercise_table->getExercise()->getName()));
         }
 

@@ -392,7 +392,7 @@ class UsersController extends BaseController {
 
       // Delete the user object from the database
       $this->userMapper->delete($user);
-      $this->view->setFlash(sprintf(i18n("User \"%s\" successfully deleted."),$user->getLogin()));
+      $this->view->setFlash(sprintf(i18n("User") . " " . i18n("successfully deleted."),$user->getLogin()));
 
       $this->view->redirect("users", "index");
 
