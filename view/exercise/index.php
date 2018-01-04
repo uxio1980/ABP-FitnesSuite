@@ -24,8 +24,14 @@ $view->setVariable("title", "FitnesSuite");
                     <?php if ($exercise->getImage() == NULL):
                         $pathimage = 'resources/images/_missing-thumbnail.png' ?>
                     <?php else:
-                        $pathimage = json_decode($exercise->getImage())[0] ?>
-                    <?php endif ?>
+                      if (count(json_decode($exercise->getImage()))>0):
+                        $pathimage = file_exists(json_decode($exercise->getImage())[0])  ?
+          				          json_decode($exercise->getImage())[0]
+          				          :'resources/images/_missing-thumbnail.png';
+                      else:
+                        $pathimage = 'resources/images/_missing-thumbnail.png';
+                      endif;
+                    endif ?>
                   <div class="article-box-image-container"> <img src="<?= $pathimage ?>" alt="Image 1"></div>
                 </a>
                 <div class="article-footer">
