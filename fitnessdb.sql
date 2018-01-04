@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6deb5
--- https://www.phpmyadmin.net/
+-- version 4.2.9
+-- http://www.phpmyadmin.net
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 03-01-2018 a las 20:45:53
--- Versión del servidor: 5.7.20-0ubuntu0.17.10.1
--- Versión de PHP: 7.1.11-0ubuntu0.17.10.1
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jan 04, 2018 at 01:07 AM
+-- Server version: 5.5.39
+-- PHP Version: 5.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,10 +14,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Base de datos: `fitnessdb`
+-- Database: `fitnessdb`
 --
 CREATE DATABASE IF NOT EXISTS `fitnessdb` DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci;
 USE `fitnessdb`;
@@ -25,56 +25,50 @@ USE `fitnessdb`;
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `activity`
+-- Table structure for table `activity`
 --
 
 DROP TABLE IF EXISTS `activity`;
 CREATE TABLE IF NOT EXISTS `activity` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `name` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
   `type` int(11) NOT NULL,
   `place` int(11) DEFAULT NULL,
   `seats` int(11) NOT NULL,
-  `image` mediumtext COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`id`),
-  KEY `id_user` (`id_user`),
-  KEY `activity_ibfk_2` (`place`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `image` mediumtext COLLATE utf8_spanish_ci
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `activity`
+-- Dumping data for table `activity`
 --
 
 INSERT INTO `activity` (`id`, `id_user`, `name`, `description`, `type`, `place`, `seats`, `image`) VALUES
-(1, 2, 'Atletismo', 'O Campus de Ourense conta cunha pista de atletismo onde se poderán practicar as actividades atléticas de carreiras e saltos.', 1, 2, 20, '[\"resources\\/images\\/21-11-2017-18-59-39-atletismo.jpg\"]'),
-(2, 2, 'Bailes', '1.- Destinatarias:Persoas con abono Muver, abono ponte en Forma ou cunha entrada multideporte.', 2, 4, 1, '[\"resources\\/images\\/21-11-2017-19-02-03-pic10.jpg\"]'),
-(3, 3, 'Ciclo', 'Horario e duración da actividade:\\r\\nImpartiranse catro clases semanais desta actividade dende o 2 de novembro ao 31 de maio (agás periodos non lectivos) nos seguintes horarios:\\r\\n- Luns, martes, mércores e xoves de 21:15 a 22:15 h.', 2, 6, 24, '[\"resources\\/images\\/21-11-2017-19-03-45-pic3.jpg\"]'),
+(1, 2, 'Atletismo', 'O Campus de Ourense conta cunha pista de atletismo onde se poderán practicar as actividades atléticas de carreiras e saltos.', 1, 2, 20, '["resources\\/images\\/21-11-2017-18-59-39-atletismo.jpg"]'),
+(2, 2, 'Bailes', '1.- Destinatarias:Persoas con abono Muver, abono ponte en Forma ou cunha entrada multideporte.', 2, 4, 1, '["resources\\/images\\/21-11-2017-19-02-03-pic10.jpg"]'),
+(3, 3, 'Ciclo', 'Horario e duración da actividade:\\r\\nImpartiranse catro clases semanais desta actividade dende o 2 de novembro ao 31 de maio (agás periodos non lectivos) nos seguintes horarios:\\r\\n- Luns, martes, mércores e xoves de 21:15 a 22:15 h.', 2, 6, 24, '["resources\\/images\\/21-11-2017-19-03-45-pic3.jpg"]'),
 (4, 2, 'Circuit Fit', 'Horario e duración da actividade:Impartiranse dúas clases semanais desta actividade dende o 2 de outubro ao 31 de maio (agás nos periodos non lectivos) no seguinte horario:\\r\\n- Luns e mércores de 19:15 a 20:15 h', 2, 4, 30, NULL),
-(5, 3, 'Voleibol', '1. Descrición da actividade:Iniciación o deporte de volei pista. ', 2, 3, 30, '[\"resources\\/images\\/21-11-2017-19-05-36-voleibol.jpg\"]'),
-(6, 3, 'Zumba', ' Horario e duración da actividade:Impartirase dúas clases semanais desta actividade dende o 23 de outubro e o 31 de maio (agás nos periodos non lectivos) no seguinte horario:\\r\\n- Martes e xoves de 20:15 a 21:15 h.', 2, 4, 30, '[\"resources\\/images\\/21-11-2017-19-14-00-zumba2.jpg\"]'),
-(7, 2, 'Gimnasio', 'O Campus de Ourense conta, no interior do pavillón universitario, cunha sala cardio-fitness completamente equipada para o desenvolvemento de diferentes actividades de fitness.', 1, 4, 60, '[\"resources\\/images\\/21-11-2017-19-06-55-pic9.jpg\",\"resources\\/images\\/21-11-2017-19-06-55-pic16.jpg\",\"resources\\/images\\/21-11-2017-19-06-55-single_class.jpg\"]');
+(5, 3, 'Voleibol', '1. Descrición da actividade:Iniciación o deporte de volei pista. ', 2, 3, 30, '["resources\\/images\\/21-11-2017-19-05-36-voleibol.jpg"]'),
+(6, 3, 'Zumba', ' Horario e duración da actividade:Impartirase dúas clases semanais desta actividade dende o 23 de outubro e o 31 de maio (agás nos periodos non lectivos) no seguinte horario:\\r\\n- Martes e xoves de 20:15 a 21:15 h.', 2, 4, 30, '["resources\\/images\\/21-11-2017-19-14-00-zumba2.jpg"]'),
+(7, 2, 'Gimnasio', 'O Campus de Ourense conta, no interior do pavillón universitario, cunha sala cardio-fitness completamente equipada para o desenvolvemento de diferentes actividades de fitness.', 1, 4, 60, '["resources\\/images\\/21-11-2017-19-06-55-pic9.jpg","resources\\/images\\/21-11-2017-19-06-55-pic16.jpg","resources\\/images\\/21-11-2017-19-06-55-single_class.jpg"]');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `activity_resource`
+-- Table structure for table `activity_resource`
 --
 
 DROP TABLE IF EXISTS `activity_resource`;
 CREATE TABLE IF NOT EXISTS `activity_resource` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `id_activity` int(11) DEFAULT NULL,
   `id_resource` int(11) DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_activity` (`id_activity`),
-  KEY `id_resource` (`id_resource`)
+  `quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `activity_resource`
+-- Dumping data for table `activity_resource`
 --
 
 INSERT INTO `activity_resource` (`id`, `id_activity`, `id_resource`, `quantity`) VALUES
@@ -86,22 +80,20 @@ INSERT INTO `activity_resource` (`id`, `id_activity`, `id_resource`, `quantity`)
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `activity_schedule`
+-- Table structure for table `activity_schedule`
 --
 
 DROP TABLE IF EXISTS `activity_schedule`;
 CREATE TABLE IF NOT EXISTS `activity_schedule` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `id_activity` int(11) DEFAULT NULL,
   `date` date NOT NULL,
   `start_hour` time NOT NULL,
-  `end_hour` time NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_activity` (`id_activity`)
+  `end_hour` time NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `activity_schedule`
+-- Dumping data for table `activity_schedule`
 --
 
 INSERT INTO `activity_schedule` (`id`, `id_activity`, `date`, `start_hour`, `end_hour`) VALUES
@@ -169,74 +161,67 @@ INSERT INTO `activity_schedule` (`id`, `id_activity`, `date`, `start_hour`, `end
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `assistance`
+-- Table structure for table `assistance`
 --
 
 DROP TABLE IF EXISTS `assistance`;
 CREATE TABLE IF NOT EXISTS `assistance` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `id_userActivity` int(11) DEFAULT NULL,
   `date` datetime NOT NULL,
-  `assist` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_userActivity` (`id_userActivity`)
+  `assist` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `exercise`
+-- Table structure for table `exercise`
 --
 
 DROP TABLE IF EXISTS `exercise`;
 CREATE TABLE IF NOT EXISTS `exercise` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `name` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(1000) COLLATE utf8_spanish_ci NOT NULL,
   `type` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `image` mediumtext COLLATE utf8_spanish_ci,
-  `video` mediumtext COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`id`),
-  KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `video` mediumtext COLLATE utf8_spanish_ci
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `exercise`
+-- Dumping data for table `exercise`
 --
 
 INSERT INTO `exercise` (`id`, `id_user`, `name`, `description`, `type`, `image`, `video`) VALUES
-(1, 1, 'Mountain Climbers', 'Para realizar los mountain climbers de manera perfecta, debemos seguir estos pasos al pie de la letra.\r\n\r\nColócate en posición de puente, como si fueses a realizar una flexión o largatija. Para ello apoya las palmas de la mano sobre el suelo al igual que las puntas de los pies. Con esta posición, el cuerpo debe simular una tabla, por lo que la espalda debe mantenerse recta en todo momento.\r\nA continuación, empezaremos a realizar las elevaciones de rodillas, procurando que estas lleguen a la altura del pecho. Haremos un levantamiento por lado, lo que cuenta como una repetición.', 'Cardiovascular', '[\"resources\\/images\\/21-11-2017-19-09-03-ejer1.jpg\"]', 'https://www.youtube.com/watch?time_continue=1&v=lD_gfTofg4A'),
-(2, 1, 'Aperturas con mancuerna en banco inclinado', 'Siéntate en un banco inclinado con las mancuernas a la altura del pecho.\r\n\r\nAgarra las mancuernas de modo a que las palmas de las manos queden giradas hacia adentro.\r\n\r\nLevanta las dos mancuernas, intentando juntarlas pero sin llegar a tocar cuando los brazos estén completamente extendidos. Regresa lentamente a la posición inicial.', 'Cardiovascular', '[\"resources\\/images\\/21-11-2017-19-09-45-ejer2.jpg\"]', ''),
-(3, 1, 'Press con barra en banco inclinado', 'Acostados sobre un banco inclinado en ángulo aproximado de 30 a 45°. Separad las piernas ligeramente apoyando los pies sobre el suelo. Las caderas, hombros y cabeza deben reposar sobre el banco.\r\n\r\nAgarrad una barra con agarre prono. Las manos deben estar algo más abiertas que la anchura de vuestros hombros.\r\n\r\nBajad la barra a la parte superior del pecho, tomad aire y retened el aliento cuando subáis el peso hacia el punto de partida. Dirigid los codos hacia los lados y mantenedlos así.\r\n\r\nExpulsad a medida que superéis la parte más difícil de la subida o al extender los brazos.\r\n\r\nDeteneos en la posición final con los brazos extendidos y verticales.\r\n\r\nTomad aire y retened el aliento a medida que bajéis el peso bajo control hasta la parte alta del pecho.\r\n\r\nSi preferís deteneos un instante abajo, expulsad el aire después de llegar allí, tomadlo luego y retened la respiración cuando subáis la barra.\r\n\r\nUtilizad una velocidad moderada, manteniendo siempre el peso bajo control.', 'Cardiovascular', '[\"resources\\/images\\/21-11-2017-19-09-56-ejer3.jpg\"]', ''),
-(4, 1, 'Curl con barra', 'El curl con barra es un ejercicio muy adecuado para el inicio del entrenamiento.\r\n\r\nInicio: De pie, sujetando una barra con el agarre a la anchura de los hombros y los brazos extendidos hacia abajo. Mantener las rodillas ligeramente flexionadas.\r\n\r\nManteniendo el tronco erguido (no inclinarse hacia atrás al levantar el peso), contraer los bíceps para elevar la barra. Hay que asegurarse de que los codos permanecen pegados a los costados e impedir que se desplacen hacia fuera o que se eleven. Lentamente, bajar el peso a la posición de inicio.\r\n\r\nVariaciones: Utilizar tanto una barra recta como una barra EZ para realizar este ejercicio. Algunos encuentran que ésta resta presión a las muñecas ya que las dirige\r\nen una posición neutra.', 'Cardiovascular', '[\"resources\\/images\\/21-11-2017-19-10-06-ejer4.jpg\"]', ''),
-(5, 1, 'Extensiones en máquina', 'La máquina de extensión de cuadriceps nos permite trabajar el músculo cuadriceps de forma aislada y analítica.\r\n\r\nLa posición sentada permite manejar cargas elevadas sin ningún riesgo de sobrecarga en otras articulaciones.\r\n\r\nUna vez estemos sentado en la máquina debes ajustar los apoyos: el final del asiento debe coincidir con el hueco poplíteo (detrás de la rodilla) y la zona lumbar en contacto con el respaldo, finalmente regula el rodillo del brazo de palanca colocándolo al final de la tibia, en la articulación del tobillo.\r\n\r\nInicia el movimiento de extensión desde una flexión de La rodilla de 90°, no menos y realiza la extensión de la pierna hasta llegar de forma controlada a la extensión completa de la rodilla.\r\n\r\nIntenta que en este movimiento de extensión las dos piernas trabajen por igual, normalmente se tiende a realizar mas esfuerzo con la pierna dominante.', 'Cardiovascular', '[\"resources\\/images\\/21-11-2017-19-10-18-ejer5.jpg\"]', ''),
-(6, 1, 'Prensa Inclinada', 'Coloque los pies en la máquina, con las rodillas separadas a la anchura de os hombros y la punta de los pies rectas o ligeramente giradas hacia fuera. Mantenga la zona baja y media de la espalda plana contra el almohadillado del respaldo y la cabeza en posición neutra.\r\n\r\nExtienda los tobillos, rodillas y caderas. Presione con la parte media de los pies sobre la plataforma de la máquina, usando la misma presión de empuje en ambos. Detenga el movimiento justo antes de bloquear las rodillas.\r\n\r\nRegrese lentamente a la posición inicial mediante la flexión de los tobillos, rodillas y caderas.', 'Cardiovascular', '[\"resources\\/images\\/21-11-2017-19-10-32-ejer6.jpg\"]', ''),
-(7, 1, 'Buenos días con barra y piernas separadas', 'Colocad la barra sobre los soportes de sentadilla, a nivel de los hombros, y agarradla con agarre prono, separando las manos algo más que la anchura de los hombros.\r\n\r\nAgachaos para que la barra se coloque encima de los trapecios, y luego dad dos pasos atrás, lenta y cuidadosamente.\r\n\r\nSeparad las piernas hasta empezar a sentir una ligera tirantez en los aductores y los femorales, y estirad después las piernas.\r\n\r\nElevad el pecho, tomad aire y apretad los abdominales. Mantened las rodillas ligeramente dobladas.\r\n\r\nMantened un arco natural en la espalda baja, e inclinaos lentamente hacia delante. Bajad lo posible al tiempo que mantenéis la espalda baja en su posición. (Para los que tengan los femorales rígidos puede que solo sea unos centímetros)\r\n\r\nDeteneos un instante, con traed con fuerza los femorales y volved luego al punto de partida.', 'Cardiovascular', '[\"resources\\/images\\/21-11-2017-19-10-42-ejer7.jpg\"]', ''),
+(1, 1, 'Mountain Climbers', 'Para realizar los mountain climbers de manera perfecta, debemos seguir estos pasos al pie de la letra.\r\n\r\nColócate en posición de puente, como si fueses a realizar una flexión o largatija. Para ello apoya las palmas de la mano sobre el suelo al igual que las puntas de los pies. Con esta posición, el cuerpo debe simular una tabla, por lo que la espalda debe mantenerse recta en todo momento.\r\nA continuación, empezaremos a realizar las elevaciones de rodillas, procurando que estas lleguen a la altura del pecho. Haremos un levantamiento por lado, lo que cuenta como una repetición.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-09-03-ejer1.jpg"]', 'https://www.youtube.com/embed/lD_gfTofg4A'),
+(2, 1, 'Aperturas con mancuerna en banco inclinado', 'Siéntate en un banco inclinado con las mancuernas a la altura del pecho.\r\n\r\nAgarra las mancuernas de modo a que las palmas de las manos queden giradas hacia adentro.\r\n\r\nLevanta las dos mancuernas, intentando juntarlas pero sin llegar a tocar cuando los brazos estén completamente extendidos. Regresa lentamente a la posición inicial.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-09-45-ejer2.jpg"]', ''),
+(3, 1, 'Press con barra en banco inclinado', 'Acostados sobre un banco inclinado en ángulo aproximado de 30 a 45°. Separad las piernas ligeramente apoyando los pies sobre el suelo. Las caderas, hombros y cabeza deben reposar sobre el banco.\r\n\r\nAgarrad una barra con agarre prono. Las manos deben estar algo más abiertas que la anchura de vuestros hombros.\r\n\r\nBajad la barra a la parte superior del pecho, tomad aire y retened el aliento cuando subáis el peso hacia el punto de partida. Dirigid los codos hacia los lados y mantenedlos así.\r\n\r\nExpulsad a medida que superéis la parte más difícil de la subida o al extender los brazos.\r\n\r\nDeteneos en la posición final con los brazos extendidos y verticales.\r\n\r\nTomad aire y retened el aliento a medida que bajéis el peso bajo control hasta la parte alta del pecho.\r\n\r\nSi preferís deteneos un instante abajo, expulsad el aire después de llegar allí, tomadlo luego y retened la respiración cuando subáis la barra.\r\n\r\nUtilizad una velocidad moderada, manteniendo siempre el peso bajo control.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-09-56-ejer3.jpg"]', ''),
+(4, 1, 'Curl con barra', 'El curl con barra es un ejercicio muy adecuado para el inicio del entrenamiento.\r\n\r\nInicio: De pie, sujetando una barra con el agarre a la anchura de los hombros y los brazos extendidos hacia abajo. Mantener las rodillas ligeramente flexionadas.\r\n\r\nManteniendo el tronco erguido (no inclinarse hacia atrás al levantar el peso), contraer los bíceps para elevar la barra. Hay que asegurarse de que los codos permanecen pegados a los costados e impedir que se desplacen hacia fuera o que se eleven. Lentamente, bajar el peso a la posición de inicio.\r\n\r\nVariaciones: Utilizar tanto una barra recta como una barra EZ para realizar este ejercicio. Algunos encuentran que ésta resta presión a las muñecas ya que las dirige\r\nen una posición neutra.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-10-06-ejer4.jpg"]', ''),
+(5, 3, 'Extensiones en máquina', 'La máquina de extensión de cuadriceps nos permite trabajar el músculo cuadriceps de forma aislada y analítica.\r\n\r\nLa posición sentada permite manejar cargas elevadas sin ningún riesgo de sobrecarga en otras articulaciones.\r\n\r\nUna vez estemos sentado en la máquina debes ajustar los apoyos: el final del asiento debe coincidir con el hueco poplíteo (detrás de la rodilla) y la zona lumbar en contacto con el respaldo, finalmente regula el rodillo del brazo de palanca colocándolo al final de la tibia, en la articulación del tobillo.\r\n\r\nInicia el movimiento de extensión desde una flexión de La rodilla de 90°, no menos y realiza la extensión de la pierna hasta llegar de forma controlada a la extensión completa de la rodilla.\r\n\r\nIntenta que en este movimiento de extensión las dos piernas trabajen por igual, normalmente se tiende a realizar mas esfuerzo con la pierna dominante.', 'Estiramiento', '["resources\\/images\\/21-11-2017-19-10-18-ejer5.jpg"]', ''),
+(6, 1, 'Prensa Inclinada', 'Coloque los pies en la máquina, con las rodillas separadas a la anchura de os hombros y la punta de los pies rectas o ligeramente giradas hacia fuera. Mantenga la zona baja y media de la espalda plana contra el almohadillado del respaldo y la cabeza en posición neutra.\r\n\r\nExtienda los tobillos, rodillas y caderas. Presione con la parte media de los pies sobre la plataforma de la máquina, usando la misma presión de empuje en ambos. Detenga el movimiento justo antes de bloquear las rodillas.\r\n\r\nRegrese lentamente a la posición inicial mediante la flexión de los tobillos, rodillas y caderas.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-10-32-ejer6.jpg"]', ''),
+(7, 1, 'Buenos días con barra y piernas separadas', 'Colocad la barra sobre los soportes de sentadilla, a nivel de los hombros, y agarradla con agarre prono, separando las manos algo más que la anchura de los hombros.\r\n\r\nAgachaos para que la barra se coloque encima de los trapecios, y luego dad dos pasos atrás, lenta y cuidadosamente.\r\n\r\nSeparad las piernas hasta empezar a sentir una ligera tirantez en los aductores y los femorales, y estirad después las piernas.\r\n\r\nElevad el pecho, tomad aire y apretad los abdominales. Mantened las rodillas ligeramente dobladas.\r\n\r\nMantened un arco natural en la espalda baja, e inclinaos lentamente hacia delante. Bajad lo posible al tiempo que mantenéis la espalda baja en su posición. (Para los que tengan los femorales rígidos puede que solo sea unos centímetros)\r\n\r\nDeteneos un instante, con traed con fuerza los femorales y volved luego al punto de partida.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-10-42-ejer7.jpg"]', ''),
 (8, 3, 'Curl de Biceps con barra editado', 'edit flexión', 'Cardiovascular', '[]', ''),
 (9, 3, 'Ejercicio estiramiento pierna', 'descripción 2', 'Muscular', '[]', '');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `exercise_table`
+-- Table structure for table `exercise_table`
 --
 
 DROP TABLE IF EXISTS `exercise_table`;
 CREATE TABLE IF NOT EXISTS `exercise_table` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `id_exercise` int(11) DEFAULT NULL,
   `id_workout` int(11) DEFAULT NULL,
   `series` int(11) DEFAULT NULL,
   `repetitions` int(11) DEFAULT NULL,
-  `duration` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_exercise` (`id_exercise`),
-  KEY `id_workout` (`id_workout`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `duration` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `exercise_table`
+-- Dumping data for table `exercise_table`
 --
 
 INSERT INTO `exercise_table` (`id`, `id_exercise`, `id_workout`, `series`, `repetitions`, `duration`) VALUES
@@ -251,22 +236,20 @@ INSERT INTO `exercise_table` (`id`, `id_exercise`, `id_workout`, `series`, `repe
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `notification`
+-- Table structure for table `notification`
 --
 
 DROP TABLE IF EXISTS `notification`;
 CREATE TABLE IF NOT EXISTS `notification` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `date` datetime NOT NULL,
   `title` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `content` mediumtext COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_user` (`id_user`)
+  `content` mediumtext COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `notification`
+-- Dumping data for table `notification`
 --
 
 INSERT INTO `notification` (`id`, `id_user`, `date`, `title`, `content`) VALUES
@@ -276,22 +259,19 @@ INSERT INTO `notification` (`id`, `id_user`, `date`, `title`, `content`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `notification_user`
+-- Table structure for table `notification_user`
 --
 
 DROP TABLE IF EXISTS `notification_user`;
 CREATE TABLE IF NOT EXISTS `notification_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `id_notification` int(11) DEFAULT NULL,
-  `viewed` date DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_user` (`id_user`),
-  KEY `id_notification` (`id_notification`)
+  `viewed` date DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `notification_user`
+-- Dumping data for table `notification_user`
 --
 
 INSERT INTO `notification_user` (`id`, `id_user`, `id_notification`, `viewed`) VALUES
@@ -300,20 +280,19 @@ INSERT INTO `notification_user` (`id`, `id_user`, `id_notification`, `viewed`) V
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `public_info`
+-- Table structure for table `public_info`
 --
 
 DROP TABLE IF EXISTS `public_info`;
 CREATE TABLE IF NOT EXISTS `public_info` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `phone` int(11) DEFAULT NULL,
   `email` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `address` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `address` varchar(100) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `public_info`
+-- Dumping data for table `public_info`
 --
 
 INSERT INTO `public_info` (`id`, `phone`, `email`, `address`) VALUES
@@ -322,21 +301,20 @@ INSERT INTO `public_info` (`id`, `phone`, `email`, `address`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `resource`
+-- Table structure for table `resource`
 --
 
 DROP TABLE IF EXISTS `resource`;
 CREATE TABLE IF NOT EXISTS `resource` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `name` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `description` varchar(1000) COLLATE utf8_spanish_ci NOT NULL,
   `quantity` int(11) NOT NULL,
-  `type` tinyint(4) NOT NULL,
-  PRIMARY KEY (`id`)
+  `type` tinyint(4) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `resource`
+-- Dumping data for table `resource`
 --
 
 INSERT INTO `resource` (`id`, `name`, `description`, `quantity`, `type`) VALUES
@@ -353,24 +331,21 @@ INSERT INTO `resource` (`id`, `name`, `description`, `quantity`, `type`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `session`
+-- Table structure for table `session`
 --
 
 DROP TABLE IF EXISTS `session`;
 CREATE TABLE IF NOT EXISTS `session` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `id_table` int(11) DEFAULT NULL,
   `date` datetime NOT NULL,
   `duration` time NOT NULL,
-  `comment` mediumtext COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`id`),
-  KEY `id_user` (`id_user`),
-  KEY `id_table` (`id_table`)
+  `comment` mediumtext COLLATE utf8_spanish_ci
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `session`
+-- Dumping data for table `session`
 --
 
 INSERT INTO `session` (`id`, `id_user`, `id_table`, `date`, `duration`, `comment`) VALUES
@@ -380,12 +355,12 @@ INSERT INTO `session` (`id`, `id_user`, `id_table`, `date`, `duration`, `comment
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `user`
+-- Table structure for table `user`
 --
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `login` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `name` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
@@ -395,12 +370,11 @@ CREATE TABLE IF NOT EXISTS `user` (
   `dni` varchar(9) COLLATE utf8_spanish_ci DEFAULT NULL,
   `description` varchar(1000) COLLATE utf8_spanish_ci DEFAULT NULL,
   `profile_image` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `user_type` tinyint(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `user_type` tinyint(11) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `login`, `password`, `name`, `surname`, `email`, `phone`, `dni`, `description`, `profile_image`, `user_type`) VALUES
@@ -413,21 +387,18 @@ INSERT INTO `user` (`id`, `login`, `password`, `name`, `surname`, `email`, `phon
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `user_activity`
+-- Table structure for table `user_activity`
 --
 
 DROP TABLE IF EXISTS `user_activity`;
 CREATE TABLE IF NOT EXISTS `user_activity` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
-  `id_activity` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_user` (`id_user`),
-  KEY `id_activity` (`id_activity`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `id_activity` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `user_activity`
+-- Dumping data for table `user_activity`
 --
 
 INSERT INTO `user_activity` (`id`, `id_user`, `id_activity`) VALUES
@@ -440,21 +411,18 @@ INSERT INTO `user_activity` (`id`, `id_user`, `id_activity`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `user_table`
+-- Table structure for table `user_table`
 --
 
 DROP TABLE IF EXISTS `user_table`;
 CREATE TABLE IF NOT EXISTS `user_table` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `id_workout` int(11) DEFAULT NULL,
-  `id_user` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_user` (`id_user`),
-  KEY `id_workout` (`id_workout`)
+  `id_user` int(11) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `user_table`
+-- Dumping data for table `user_table`
 --
 
 INSERT INTO `user_table` (`id`, `id_workout`, `id_user`) VALUES
@@ -464,22 +432,20 @@ INSERT INTO `user_table` (`id`, `id_workout`, `id_user`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `workout_table`
+-- Table structure for table `workout_table`
 --
 
 DROP TABLE IF EXISTS `workout_table`;
 CREATE TABLE IF NOT EXISTS `workout_table` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `name` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `type` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
-  `description` mediumtext COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+  `description` mediumtext COLLATE utf8_spanish_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `workout_table`
+-- Dumping data for table `workout_table`
 --
 
 INSERT INTO `workout_table` (`id`, `id_user`, `name`, `type`, `description`) VALUES
@@ -488,87 +454,260 @@ INSERT INTO `workout_table` (`id`, `id_user`, `name`, `type`, `description`) VAL
 (3, 3, 'Tabla de ejercicios muscular standard', 'standard', '  Tabla de ejercicios nueva modificada');
 
 --
--- Restricciones para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Filtros para la tabla `activity`
+-- Indexes for table `activity`
 --
 ALTER TABLE `activity`
-  ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `activity_ibfk_2` FOREIGN KEY (`place`) REFERENCES `resource` (`id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`), ADD KEY `activity_ibfk_2` (`place`);
 
 --
--- Filtros para la tabla `activity_resource`
+-- Indexes for table `activity_resource`
 --
 ALTER TABLE `activity_resource`
-  ADD CONSTRAINT `activity_resource_ibfk_1` FOREIGN KEY (`id_activity`) REFERENCES `activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `activity_resource_ibfk_2` FOREIGN KEY (`id_resource`) REFERENCES `resource` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ ADD PRIMARY KEY (`id`), ADD KEY `id_activity` (`id_activity`), ADD KEY `id_resource` (`id_resource`);
 
 --
--- Filtros para la tabla `activity_schedule`
+-- Indexes for table `activity_schedule`
 --
 ALTER TABLE `activity_schedule`
-  ADD CONSTRAINT `activity_schedule_ibfk_1` FOREIGN KEY (`id_activity`) REFERENCES `activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ ADD PRIMARY KEY (`id`), ADD KEY `id_activity` (`id_activity`);
 
 --
--- Filtros para la tabla `assistance`
+-- Indexes for table `assistance`
 --
 ALTER TABLE `assistance`
-  ADD CONSTRAINT `assistance_ibfk_1` FOREIGN KEY (`id_userActivity`) REFERENCES `user_activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ ADD PRIMARY KEY (`id`), ADD KEY `id_userActivity` (`id_userActivity`);
 
 --
--- Filtros para la tabla `exercise`
+-- Indexes for table `exercise`
 --
 ALTER TABLE `exercise`
-  ADD CONSTRAINT `exercise_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`);
 
 --
--- Filtros para la tabla `exercise_table`
+-- Indexes for table `exercise_table`
 --
 ALTER TABLE `exercise_table`
-  ADD CONSTRAINT `exercise_table_ibfk_1` FOREIGN KEY (`id_exercise`) REFERENCES `exercise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `exercise_table_ibfk_2` FOREIGN KEY (`id_workout`) REFERENCES `workout_table` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ ADD PRIMARY KEY (`id`), ADD KEY `id_exercise` (`id_exercise`), ADD KEY `id_workout` (`id_workout`);
 
 --
--- Filtros para la tabla `notification`
+-- Indexes for table `notification`
 --
 ALTER TABLE `notification`
-  ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`);
 
 --
--- Filtros para la tabla `notification_user`
+-- Indexes for table `notification_user`
 --
 ALTER TABLE `notification_user`
-  ADD CONSTRAINT `notification_user_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `notification_user_ibfk_2` FOREIGN KEY (`id_notification`) REFERENCES `notification` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`), ADD KEY `id_notification` (`id_notification`);
 
 --
--- Filtros para la tabla `session`
+-- Indexes for table `public_info`
+--
+ALTER TABLE `public_info`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `resource`
+--
+ALTER TABLE `resource`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `session`
 --
 ALTER TABLE `session`
-  ADD CONSTRAINT `session_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `session_ibfk_2` FOREIGN KEY (`id_table`) REFERENCES `user_table` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`), ADD KEY `id_table` (`id_table`);
 
 --
--- Filtros para la tabla `user_activity`
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_activity`
 --
 ALTER TABLE `user_activity`
-  ADD CONSTRAINT `user_activity_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_activity_ibfk_2` FOREIGN KEY (`id_activity`) REFERENCES `activity_schedule` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`), ADD KEY `id_activity` (`id_activity`);
 
 --
--- Filtros para la tabla `user_table`
+-- Indexes for table `user_table`
 --
 ALTER TABLE `user_table`
-  ADD CONSTRAINT `user_table_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  ADD CONSTRAINT `user_table_ibfk_2` FOREIGN KEY (`id_workout`) REFERENCES `workout_table` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`), ADD KEY `id_workout` (`id_workout`);
 
 --
--- Filtros para la tabla `workout_table`
+-- Indexes for table `workout_table`
 --
 ALTER TABLE `workout_table`
-  ADD CONSTRAINT `workout_table_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ ADD PRIMARY KEY (`id`), ADD KEY `id_user` (`id_user`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `activity`
+--
+ALTER TABLE `activity`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `activity_resource`
+--
+ALTER TABLE `activity_resource`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `activity_schedule`
+--
+ALTER TABLE `activity_schedule`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=61;
+--
+-- AUTO_INCREMENT for table `assistance`
+--
+ALTER TABLE `assistance`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `exercise`
+--
+ALTER TABLE `exercise`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `exercise_table`
+--
+ALTER TABLE `exercise_table`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=67;
+--
+-- AUTO_INCREMENT for table `notification`
+--
+ALTER TABLE `notification`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `notification_user`
+--
+ALTER TABLE `notification_user`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `public_info`
+--
+ALTER TABLE `public_info`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `resource`
+--
+ALTER TABLE `resource`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `session`
+--
+ALTER TABLE `session`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `user_activity`
+--
+ALTER TABLE `user_activity`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `user_table`
+--
+ALTER TABLE `user_table`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `workout_table`
+--
+ALTER TABLE `workout_table`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `activity`
+--
+ALTER TABLE `activity`
+ADD CONSTRAINT `activity_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+ADD CONSTRAINT `activity_ibfk_2` FOREIGN KEY (`place`) REFERENCES `resource` (`id`);
+
+--
+-- Constraints for table `activity_resource`
+--
+ALTER TABLE `activity_resource`
+ADD CONSTRAINT `activity_resource_ibfk_1` FOREIGN KEY (`id_activity`) REFERENCES `activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `activity_resource_ibfk_2` FOREIGN KEY (`id_resource`) REFERENCES `resource` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `activity_schedule`
+--
+ALTER TABLE `activity_schedule`
+ADD CONSTRAINT `activity_schedule_ibfk_1` FOREIGN KEY (`id_activity`) REFERENCES `activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `assistance`
+--
+ALTER TABLE `assistance`
+ADD CONSTRAINT `assistance_ibfk_1` FOREIGN KEY (`id_userActivity`) REFERENCES `user_activity` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `exercise`
+--
+ALTER TABLE `exercise`
+ADD CONSTRAINT `exercise_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `exercise_table`
+--
+ALTER TABLE `exercise_table`
+ADD CONSTRAINT `exercise_table_ibfk_1` FOREIGN KEY (`id_exercise`) REFERENCES `exercise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `exercise_table_ibfk_2` FOREIGN KEY (`id_workout`) REFERENCES `workout_table` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `notification`
+--
+ALTER TABLE `notification`
+ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `notification_user`
+--
+ALTER TABLE `notification_user`
+ADD CONSTRAINT `notification_user_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `notification_user_ibfk_2` FOREIGN KEY (`id_notification`) REFERENCES `notification` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `session`
+--
+ALTER TABLE `session`
+ADD CONSTRAINT `session_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+ADD CONSTRAINT `session_ibfk_2` FOREIGN KEY (`id_table`) REFERENCES `user_table` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_activity`
+--
+ALTER TABLE `user_activity`
+ADD CONSTRAINT `user_activity_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `user_activity_ibfk_2` FOREIGN KEY (`id_activity`) REFERENCES `activity_schedule` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_table`
+--
+ALTER TABLE `user_table`
+ADD CONSTRAINT `user_table_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
+ADD CONSTRAINT `user_table_ibfk_2` FOREIGN KEY (`id_workout`) REFERENCES `workout_table` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `workout_table`
+--
+ALTER TABLE `workout_table`
+ADD CONSTRAINT `workout_table_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
