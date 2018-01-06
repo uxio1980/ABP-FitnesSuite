@@ -22,7 +22,6 @@ $filterby = $view->getVariable("filterby");
               <input id="filter1" class="radio-button" type="radio" name="filterby" value="pending" <?= ($filterby == 'pending') ? "checked='checked'" : "";?>><?= i18n("Pending")?>
               <input id="filter2" class="radio-button" type="radio" name="filterby" value="all" <?= ($filterby == 'all') ? "checked='checked'" : "";?>><?= i18n("All")?>
           </form>
-
       </div>
     <table id="table-content">
       <tr class="table-row-content">
