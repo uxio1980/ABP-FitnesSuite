@@ -210,12 +210,6 @@ $language = $i18n->getLanguage();
               </a>
             </li>
           <?php else: ?>
-            <li class="nav-item">
-              <a href="index.php?controller=statistics&amp;action=index">
-                <img src="resources/icons/weight.svg" alt="Trainer icon"/>
-                <div class="text-item"><?= i18n("Statistics")?></div>
-              </a>
-            </li>
               <?php if (($typeuser)==usertype::AthleteTDU || ($typeuser)==usertype::AthletePEF ):?>
                 <li class="nav-item">
                   <a href="index.php?controller=activities&amp;action=index">
@@ -307,6 +301,12 @@ $language = $i18n->getLanguage();
                     </a>
                   </li>
                 <?php endif ?>
+                <li class="nav-item">
+                  <a href="index.php?controller=statistics&amp;action=index">
+                    <img src="resources/icons/weight.svg" alt="Trainer icon"/>
+                    <div class="text-item"><?= i18n("Statistics")?></div>
+                  </a>
+                </li>
                 <div class="customHr">.</div>
               <?php endif ?>
             </ul>

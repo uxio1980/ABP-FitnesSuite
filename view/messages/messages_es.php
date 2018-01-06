@@ -240,6 +240,13 @@
 		"Add customized workout table" => "Añadir tabla de entrenamiento personalizada",
 		"Stretch" => "Estiramiento",
       "Cancel Reservation" => "Cancelar Reserva",
-			"Complete activity" => "Aforo Completo"
+      "Complete activity" => "Aforo Completo",
+    "Statistics" => "Estadísticas",
+    "Registered athletes" => "Deportistas registrados",
+    "Athletes by activity" => "Deportistas por actividad",
+    "Assistance by date" => "Asistencia por fecha",
+    "Sessions duration by date (minutes)" => "Duración de sesiones por fecha (minutos)",
+    "Asigned athletes" => "Deportistas asignados",
+    "Exercises by type" => "Ejercicios por tipo",
   )
 ?>

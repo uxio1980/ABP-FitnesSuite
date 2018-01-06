@@ -19,11 +19,9 @@
       <strong><?= i18n("Statistics")?></strong><br>
     </div>
     <?php if($assistance->getXaxis() != null): ?>
-        Asistencia:
         <div id="assistance"></div>
     <?php endif ?>
     <?php if($sessions != null): ?>
-        Sesiones:
         <div id="sessions"></div>
     <?php endif ?>
   </div>
@@ -35,7 +33,7 @@
     var numbers = [<?php echo '"'.implode('","', $assistance->getYaxis()).'"' ?>];
     var dates = [<?php echo '"'.implode('","', $assistance->getXaxis()).'"' ?>];
     
-    var WIDTH_IN_PERCENT_OF_PARENT = 60,
+    var WIDTH_IN_PERCENT_OF_PARENT = 80,
         HEIGHT_IN_PERCENT_OF_PARENT = 80;
     
     var gd3 = d3.select("div[id='assistance']")
@@ -60,7 +58,7 @@
             }
         }
     }], {
-        title: 'Asistencia por fecha',
+        title: '<?= i18n("Assistance by date")?>',
         font: {
             size: 16
         }
@@ -75,7 +73,7 @@
 (function() {
     var d3 = Plotly.d3;
     
-    var WIDTH_IN_PERCENT_OF_PARENT = 100,
+    var WIDTH_IN_PERCENT_OF_PARENT = 80,
         HEIGHT_IN_PERCENT_OF_PARENT = 80;
     
     var gd3 = d3.select("div[id='sessions']")
@@ -104,7 +102,7 @@
     <?php } ?>
     console.log(data);
     Plotly.plot(gd, data, {
-        title: 'Duración de sesiones por fecha (en minutos)',
+        title: '<?= i18n("Sessions duration by date (minutes)")?>',
         font: {
             size: 16
         }

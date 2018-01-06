@@ -19,24 +19,28 @@
   <div id="content-list">
     <div class="content-title">
       <strong><?= i18n("Statistics")?></strong><br>
-    </div>   
+    </div>  
         <div>
-        Deportistas a cargo: <?= $athletes->getYaxis() ?>
+            <h3><?= i18n("Asigned athletes")?>: <?= $athletes->getYaxis() ?></h3>  
         </div>
-        <div class="filter-box-notifications">
-          <form id="form-filterby" action="index.php?controller=statistics&amp;action=index" method="POST">
-            <select name="userid">
-            <?php foreach($athletes->getXaxis() as $user): ?>
-                <option <?=($id==$user->getId())?'selected="selected"':''?>
-                value="<?= $user->getId() ?>"><?= $user->getName()." ".$user->getSurname() ?></option>
-            <?php endforeach; ?>
-            </select> 
-          </form>
-      </div>
+        <?php if($sessions != null): ?> 
+            <div class="filter-box-notifications">
+            <form id="form-filterby" action="index.php?controller=statistics&amp;action=index" method="POST">
+                <select name="userid">
+                <?php foreach($athletes->getXaxis() as $user): ?>
+                    <option <?=($id==$user->getId())?'selected="selected"':''?>
+                    value="<?= $user->getId() ?>"><?= $user->getName()." ".$user->getSurname() ?></option>
+                <?php endforeach; ?>
+                </select> 
+            </form>      
+        </div>
+        <?php endif ?>
     <?php if($sessions != null): ?>
         <div id="sessions"></div>
     <?php endif ?>
-    <div id="exercises"></div>
+    <?php if($exercises_type != null): ?>
+        <div id="exercises"></div>
+    <?php endif ?>
   </div>
 </main>
 
@@ -45,7 +49,7 @@
     var d3 = Plotly.d3;
     var exercises = [<?php echo '"'.implode('","', $exercises_type->getYaxis()).'"' ?>];
     
-    var WIDTH_IN_PERCENT_OF_PARENT = 60,
+    var WIDTH_IN_PERCENT_OF_PARENT = 80,
         HEIGHT_IN_PERCENT_OF_PARENT = 80;
     
     var gd3 = d3.select("div[id='exercises']")
@@ -70,7 +74,7 @@
             }
         }
     }], {
-        title: 'Ejercicios por tipo',
+        title: '<?= i18n("Exercises by type")?>',
         font: {
             size: 16
         }
@@ -86,7 +90,7 @@
 (function() {
     var d3 = Plotly.d3;
     
-    var WIDTH_IN_PERCENT_OF_PARENT = 100,
+    var WIDTH_IN_PERCENT_OF_PARENT = 80,
         HEIGHT_IN_PERCENT_OF_PARENT = 80;
     
     var gd3 = d3.select("div[id='sessions']")
@@ -100,7 +104,6 @@
     
     var gd = gd3.node();
     var data = new Array();
-   
     
     <?php foreach($sessions as $session){ ?>
         var tab = "<?php echo $session->extra()[0] ?>";
@@ -115,7 +118,7 @@
     <?php } ?>
     console.log(data);
     Plotly.plot(gd, data, {
-        title: 'Duración de sesiones por fecha (en minutos)',
+        title: '<?= i18n("Sessions duration by date (minutes)")?>',
         font: {
             size: 16
         }

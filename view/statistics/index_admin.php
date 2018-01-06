@@ -19,8 +19,10 @@
     <div class="content-title">
       <strong><?= i18n("Statistics")?></strong><br>
     </div>
-    Deportistas registrados: <?= $number_users->getXaxis() ?>
-    <div id="activities"></div>
+    <h3><?= i18n("Registered athletes")?>: <?= $number_users->getXaxis() ?></h3>
+    <?php if($athletes_activity != null): ?>
+        <div id="activities"></div>
+    <?php endif ?>
   </div>
 </main>
 
@@ -30,7 +32,7 @@
     var activities = [<?php echo '"'.implode('","', $athletes_activity->getXaxis()).'"' ?>];
     var athletes = [<?php echo '"'.implode('","', $athletes_activity->getYaxis()).'"' ?>];
     
-    var WIDTH_IN_PERCENT_OF_PARENT = 60,
+    var WIDTH_IN_PERCENT_OF_PARENT = 80,
         HEIGHT_IN_PERCENT_OF_PARENT = 80;
     
     var gd3 = d3.select("div[id='activities']")
@@ -55,7 +57,7 @@
             }
         }
     }], {
-        title: 'Deportistas por actividad',
+        title: '<?= i18n("Athletes by activity")?>',
         font: {
             size: 16
         }
