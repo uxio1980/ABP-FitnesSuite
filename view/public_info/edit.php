@@ -15,7 +15,7 @@ $view->setVariable("title", "FitnesSuite");
       <input type="hidden" name="id" value="<?= $public_info->getId() ?>"/>
 
       <label for="login-field"><?= i18n("Phone")?></label>
-      <input type="tel" name="phone" value="<?= $public_info->getPhone() ?>" />
+      <input type="tel" name="phone" value="<?= $public_info->getPhone() ?>" pattern='\d{9}' />
       <?= isset($errors["phone"])?$errors["phone"]:"" ?>
 
       <label for="login-field"><?= i18n("E-mail")?></label>

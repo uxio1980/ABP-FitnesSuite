@@ -194,7 +194,7 @@ class Activity_scheduleController extends BaseController {
 
         // save the activity schedule object into the database
         while ($activity_schedule->getDate() < $activity_schedule->getDuration()){
-          var_dump($activity_schedule->getDate());
+          //var_dump($activity_schedule->getDate());
           $this->activity_scheduleMapper->save($activity_schedule);
           $date = $activity_schedule->getDate();
           $date = strtotime($date);
@@ -380,5 +380,4 @@ class Activity_scheduleController extends BaseController {
 
 
   }
-
 }

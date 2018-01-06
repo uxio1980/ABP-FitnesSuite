@@ -131,7 +131,7 @@ class User_tablesController extends BaseController {
             throw new Exception("no such user table with id: ".$id);
         }else{
             $this->user_tableMapper->delete($user_table);
-            //$this->view->setFlash(sprintf(i18n("Table \"%s\" of user \"%s\" successfully deleted."),
+            $this->view->setFlash(sprintf(i18n("Table successfully deleted."),
             //  $user_table->getWorkout_table()->getName(),$user_table->getUser()->getName()));
         }
 

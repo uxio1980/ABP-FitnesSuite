@@ -14,7 +14,7 @@ $view->setVariable("title", "Add User");
         <form action="index.php?controller=users&amp;action=register" method="POST"
               enctype="multipart/form-data">
 
-            <strong><?= i18n("Add User") ?></strong>
+            <strong><?= i18n("Add user") ?></strong>
 
             <?= isset($loginerr["general"])?$loginerr["general"]:"" ?>
 

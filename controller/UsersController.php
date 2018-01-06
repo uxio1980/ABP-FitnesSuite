@@ -76,10 +76,25 @@ class UsersController extends BaseController {
                   $users = $this->userMapper->findPending();
               }elseif ($filterby =="all"){
                   $users = $this->userMapper->findAll();
+              }elseif ($filterby == "trainers"){
+                  $users = $this->userMapper->findAllTrainers();
+              }elseif ($filterby =="athlets"){
+                  $users = $this->userMapper->findAllAthlets();
               }
 
           } else {
-              $users = $this->userMapper->findAllAthlets();
+              if (isset($_POST["filterby"])) {
+                  $filterby = $_POST['filterby'];
+              }else{
+                  $filterby = "all";
+              }
+              if ($filterby =="myathlets") {
+                  $users = $this->userMapper->findMyAthlets($this->currentUser->getId());
+              }elseif ($filterby =="all"){
+                  $users = $this->userMapper->findAllAthletsT($this->currentUser->getId());
+              }elseif ($filterby=="athletsTDU"){
+                  $users = $this->userMapper->findAllAthletsTDU();
+              }
           }
       }
 
@@ -91,6 +106,7 @@ class UsersController extends BaseController {
             $this->view->setVariable("filterby", $filterby);
             $this->view->render("users", "index");
         } else {
+            $this->view->setVariable("filterby", $filterby);
             $this->view->render("users", "index_trainer");
         }
     }
@@ -181,7 +197,9 @@ class UsersController extends BaseController {
             $user->setEmail($_POST["email"]);
             if(isset($_POST["user_type"]) && $_POST["user_type"] != 0){
                 $user->setUser_type($_POST["user_type"]);
-
+            }
+            if(isset($_POST["trainer"]) && $_POST["trainer"] != 0){
+                $user->setTrainer($_POST["trainer"]);
             }
             try{
                 $user->checkIsValidForRegister(); // if it fails, ValidationException
@@ -219,8 +237,8 @@ class UsersController extends BaseController {
                             $mail->AltBody = 'Su usuario ha sido confirmado. Ya puedes iniciar sesión';
                             if (!$mail->send()) {
                                 echo "Mailer Error: " . $mail->ErrorInfo;
-                                var_dump($mail->ErrorInfo);
-                                exit;
+                                /*var_dump($mail->ErrorInfo);
+                                exit;*/
                             } else {
                                 echo "Message sent!";
                                 $user->setUser_type($_POST["user_type"]);
@@ -254,6 +272,7 @@ class UsersController extends BaseController {
                 }
             }
         }
+        $this->view->setVariable("trainers",$this->userMapper->findAllTrainers());
         // Put the User object visible to the view
         $this->view->setVariable("user", $user);
         if(isset($this->currentUser)) {
@@ -298,6 +317,7 @@ class UsersController extends BaseController {
         $user->setSurname($_POST["surname"]);
         $user->setPhone($_POST["phone"]);
         $user->setDni($_POST["dni"]);
+        $user->setTrainer($_POST["trainer"]);
         if($user->getUser_type() != $_POST["user_type"] && $user->getUser_type() == null){
             $mail = new PHPMailer();
             $mail->isSMTP();
@@ -316,8 +336,8 @@ class UsersController extends BaseController {
             $mail->AltBody = 'Su usuario ha sido confirmado. Ya puedes iniciar sesión';
             if (!$mail->send()) {
                 echo "Mailer Error: " . $mail->ErrorInfo;
-                var_dump($mail->ErrorInfo);
-                exit;
+                /*var_dump($mail->ErrorInfo);
+                exit;*/
             } else {
                 echo "Message sent!";
                 $user->setUser_type($_POST["user_type"]);
@@ -349,6 +369,7 @@ class UsersController extends BaseController {
           $this->view->setVariable("errors", $errors);
         }
       }
+        $this->view->setVariable("trainers",$this->userMapper->findAllTrainers());
       // Put the User object visible to the view
       $this->view->setVariable("profileUser", $user);
 
@@ -388,7 +409,7 @@ class UsersController extends BaseController {
 
       // Delete the user object from the database
       $this->userMapper->delete($user);
-      $this->view->setFlash(sprintf(i18n("User \"%s\" successfully deleted."),$user->getLogin()));
+      $this->view->setFlash(sprintf(i18n("User") . " " . i18n("successfully deleted."),$user->getLogin()));
 
       $this->view->redirect("users", "index");
 

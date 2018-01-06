@@ -26,7 +26,7 @@ $view->setVariable("title", "FitnesSuite");
             <tr class="table-row-content"
                 data-href="index.php?controller=exercise&amp;action=edit&amp;id_exercise=<?= $exercise->getId() ?>">
                 <td><?= $exercise->getName() ?></td>
-                <td><?= $exercise->getType() ?></td>
+                <td><?= i18n($exercise->getType()) ?></td>
                 <td><a href="index.php?controller=exercise&amp;action=view&amp;id_exercise=<?= $exercise->getId() ?>">
                         <img src="resources/icons/view_icon.svg" alt="View" /></a>
                 </td>

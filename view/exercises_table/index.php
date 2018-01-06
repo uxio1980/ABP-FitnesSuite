@@ -20,13 +20,15 @@
         <td><strong><?= i18n("Exercise")?></strong></td>
         <td><strong><?= i18n("Series")?></strong></td>
         <td><strong><?= i18n("Repetitions")?></strong></td>
+        <td><strong><?= i18n("Duration")?></strong></td>
       <?php if (isset($table_exercises)):
       foreach ($table_exercises as $exercise_table): ?>
         <tr class="table-row-content"
           data-href="index.php?controller=activity_resources&amp;action=edit&amp;id=<?= $exercise_table->getId() ?>">
           <td><?= $exercise_table->getExercise()->getName() ?></td>
-          <td><?= $exercise_table->getSeries() ?></td>
-          <td><?= $exercise_table->getRepetitions() ?></td>
+          <td><?= $exercise_table->getSeries()==0?'':$exercise_table->getSeries() ?></td>
+          <td><?= $exercise_table->getRepetitions()==0?'':$exercise_table->getRepetitions()?></td>
+          <td><?= $exercise_table->getDuration()==0?'':$exercise_table->getDuration() ?></td>
           <td><a href="index.php?controller=exercises_table&amp;action=edit&amp;id=<?= $exercise_table->getId() ?>">
             <img src="resources/icons/edit_icon.svg" alt="Edit" /></a>
           </td>

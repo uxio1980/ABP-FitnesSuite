@@ -59,22 +59,22 @@ class Activity_resourcesController extends BaseController {
         throw new Exception("Not in session. Editing activitys requires login");
     }
     $idactivity = $_REQUEST["idactivity"];
-    $activity_resources = $this->activity_resourceMapper->findAll($idactivity);
+    $activity_resources = $this->activity_resourceMapper->findByIdActivity($idactivity);
 
     $this->view->setVariable("idactivity", $idactivity);
     $this->view->setVariable("activity_resources", $activity_resources);
     if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
       $this->view->render("activity_resources", "index");
-    }  
+    }
   }
 
   public function add() {
     if (!isset($this->currentUser)) {
         throw new Exception("Not in session. Adding activities requires login");
-    } 
+    }
     if (!isset($_REQUEST["idactivity"])) {
         throw new Exception("An Activity id is required");
-    }  
+    }
     $idactivity = $_REQUEST["idactivity"];
     $resources = $this->activity_resourceMapper->findResourcesActivity($idactivity);
 
@@ -101,7 +101,7 @@ class Activity_resourcesController extends BaseController {
         // And put it to the view as "errors" variable
         $this->view->setVariable("errors", $errors);
       }
-    } 
+    }
     // Put the Activity object visible to the view
     $this->view->setVariable("idactivity", $idactivity);
     $this->view->setVariable("resources", $resources);
@@ -125,7 +125,7 @@ class Activity_resourcesController extends BaseController {
     $resource = $this->resourceMapper->findById($activity_resource->getIdresource());
     $resources = $this->activity_resourceMapper->findResourcesActivity($activity_resource->getIdactivity());
 
-    if (isset($_POST["submit"])) { 
+    if (isset($_POST["submit"])) {
         // Get the activity object from the database
         $activity_resource->setIdactivity($_POST["idactivity"]);
         $activity_resource->setIdresource($_POST["idresource"]);
@@ -185,7 +185,7 @@ class Activity_resourcesController extends BaseController {
     // Delete the user object from the database
     $this->activity_resourceMapper->delete($activity_resource);
 
-    $this->view->setFlash(sprintf(i18n("Resource \"%s\" successfully deleted."),$activity_resource->getId()));
+    $this->view->setFlash(sprintf(i18n("Resource successfully deleted."),$activity_resource->getId()));
 
     $this->view->redirect("activity_resources", "index","idactivity=".$idactivity);
 

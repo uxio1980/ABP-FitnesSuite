@@ -56,7 +56,7 @@ class Notification_user {
   *
   * @return void
   */
-  public function checkIsValidForRegister() {
+  public function checkIsValidForCreate() {
     $errors = array();
     /*if (strlen($this->email) < 5) {
       $errors["register-email"] = "You must write your email";

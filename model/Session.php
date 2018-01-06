@@ -76,6 +76,15 @@ class Session {
   */
   public function checkIsValidForCreate() {
     $errors = array();
+
+    if (strlen(trim($this->date)) == 0 ) {
+      $errors["date"] = i18n("Date") . " " . i18n("is mandatory");
+    }
+    $currentDate = date('Y-m-d H:i:s');
+
+    if (strlen(trim($this->date)) == 0 ) {
+      $errors["date"] = i18n("Date") . " " . i18n("is mandatory");
+    }
     if (sizeof($errors)>0){
       throw new ValidationException($errors, "user is not valid");
     }

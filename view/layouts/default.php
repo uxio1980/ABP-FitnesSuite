@@ -7,7 +7,8 @@ $view = ViewManager::getInstance();
 $currentuser = $view->getVariable("currentusername");
 $typeuser = $view->getVariable("typeuser");
 $imageUser = $view->getVariable("imageUser");
-$notification = $view->getVariable("notification");
+$numberOfNotifications = $view->getVariable("numberOfNotifications");
+$default_notifications_user = $view->getVariable("default_notifications_user");
 $loginerrors = $view->getVariable("loginerrors");
 $registererrors = $view->getVariable("register");
 $i18n = I18n::getInstance();
@@ -23,7 +24,7 @@ $language = $i18n->getLanguage();
   <meta name="author" content="Jose Eugenio González, Andrés Fernández, Iago Fernández, Sandra Pastoriza">
 
   <link rel="stylesheet" href="style.css" type="text/css">
-
+  <link rel="shortcut icon" type="image/png" href="favicon.ico"/>
   <script src="index.php?controller=language&amp;action=i18njs"></script>
   <title><?= $view->getVariable("title", "no title") ?></title>
   <?= $view->getFragment("css") ?>
@@ -41,6 +42,7 @@ $language = $i18n->getLanguage();
       </a>
         <img id="end-logo" src="resources/icons/end-logo.png" alt="Menu icon"/>
     </div>
+
     <div id="header-search">
       <form id="form-search" action="index.php?controller=articles&amp;action=search" method="GET">
         <input id="input-search"  type="text" name="search"
@@ -72,7 +74,7 @@ $language = $i18n->getLanguage();
         <!-- ******* Profile ALERT BUTTON  ************************  -->
         <button id="alert-button">
           <div class="container-user-circle">
-            <?php if (isset($notification) && $notification>0):?>
+            <?php if (isset($numberOfNotifications) && $numberOfNotifications>0):?>
                 <div class="circle kitten notificationYes" style="background-image: url('resources/icons/ic_notifications_black_24px.svg');">
                   <div class="aligner">
                     <!-- text inside the icon -->
@@ -80,15 +82,13 @@ $language = $i18n->getLanguage();
             <?php else:?>
                 <div class="circle kitten" style="background-image: url('resources/icons/ic_notifications_none_black_24px.svg');">
             <?php endif ?>
-
             </div>
           </div>
         </button>
-        <?php if (isset($notification) && $notification>0):?>
+        <?php if (isset($numberOfNotifications) && $numberOfNotifications>0):?>
         <div id="dropdown-notification-content" class="dropdown-content" style="display:none">
           <div >
             <?php include(__DIR__."/notification_select_element.php");?>
-
           </div>
         </div>
         <?php endif ?>
@@ -125,7 +125,7 @@ $language = $i18n->getLanguage();
               <li class="nav-item">
                 <a href="index.php?controller=users&amp;action=profile&amp;login=<?= $currentuser ?>" method="POST">
                   <img src="resources/icons/profile_icon.svg" alt="Profile icon"/>
-                  <div class="text-item"><?= i18n("Profile")?></div></a>
+                  <div class="text-item"><?= i18n("My profile")?></div></a>
                 </li>
                 <li class="nav-item">
                   <a href="index.php?controller=users&amp;action=logout">
@@ -186,8 +186,14 @@ $language = $i18n->getLanguage();
               </a>
             </li>
             <li class="nav-item">
+            <a href="index.php?controller=schedule&amp;action=index">
+                <img src="resources/icons/ic_dashboard_black_24px.svg" alt="Schedule icon"/>
+                <div class="text-item"><?= i18n("Schedules")?></div>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="index.php?controller=exercise&amp;action=index">
-                  <img src="resources/icons/ic_exercices_table.svg"  width="24" height="24" alt="Exercise icon"/>
+                  <img src="resources/icons/ic_exercices_table.svg" alt="Exercise icon"/>
                   <div class="text-item"><?= i18n("Exercises")?></div>
               </a>
             </li>
@@ -204,28 +210,29 @@ $language = $i18n->getLanguage();
               </a>
             </li>
           <?php else: ?>
-            <li class="nav-item">
-              <a href="index.php?controller=statistics&amp;action=index">
-                <img src="resources/icons/weight.svg" alt="Trainer icon"/>
-                <div class="text-item"><?= i18n("Statistics")?></div>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="index.php?controller=users&amp;action=profile&amp;login=<?= $currentuser ?>" method="POST">
-                <img src="resources/icons/profile_icon.svg" alt="Profile icon"/>
-                <div class="text-item"><?= i18n("My profile")?></div></a>
-              </li>
               <?php if (($typeuser)==usertype::AthleteTDU || ($typeuser)==usertype::AthletePEF ):?>
+                <li class="nav-item">
+                  <a href="index.php?controller=activities&amp;action=index">
+                    <img src="resources/icons/activities.svg" alt="Activities icon"/>
+                    <div class="text-item"><?= i18n("Activities")?></div>
+                  </a>
+                </li>
                 <li class="nav-item">
                     <a href="index.php?controller=workout_tables&amp;action=index">
                         <img src="resources/icons/workout_table_icon.svg"  width="24" height="24" alt="Exercise icon"/>
-                        <div class="text-item"><?= i18n("Wourkout tables")?></div>
+                        <div class="text-item"><?= i18n("Workout tables")?></div>
                     </a>
                 </li>
                   <li class="nav-item">
                     <a href="index.php?controller=sessions&amp;action=index">
                       <img src="resources/icons/sessions_icon.svg" alt="Session icon"/>
                       <div class="text-item"><?= i18n("Sessions")?></div>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="index.php?controller=notifications_user&amp;action=index">
+                      <img src="resources/icons/ic_notifications_black_24px.svg" alt="Activities icon"/>
+                      <div class="text-item"><?= i18n("Notifications")?></div>
                     </a>
                   </li>
                 <?php endif ?>
@@ -242,6 +249,18 @@ $language = $i18n->getLanguage();
                           <div class="text-item"><?= i18n("Workout tables")?></div>
                       </a>
                   </li>
+                  <li class="nav-item">
+                      <a href="index.php?controller=exercise&amp;action=index">
+                          <img src="resources/icons/ic_exercices_table.svg"  width="24" height="24" alt="Exercise icon"/>
+                          <div class="text-item"><?= i18n("Exercises")?></div>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="index.php?controller=notification&amp;action=index">
+                      <img src="resources/icons/ic_notifications_black_24px.svg" alt="Activities icon"/>
+                      <div class="text-item"><?= i18n("Notifications")?></div>
+                    </a>
+                  </li>
                 <?php endif ?>
                 <?php if (($typeuser)==usertype::Administrator):?>
                 <div class="customHr">.</div>
@@ -253,7 +272,7 @@ $language = $i18n->getLanguage();
                 </li>
                 <li class="nav-item">
                     <a href="index.php?controller=resources&amp;action=index">
-                      <img src="resources/icons/ic_group_black_24px.svg" alt="MyStatistics icon"/>
+                      <img src="resources/icons/resources.svg" alt="MyStatistics icon"/>
                       <div class="text-item"><?= i18n("Resources")?></div>
                     </a>
                   </li>
@@ -282,12 +301,37 @@ $language = $i18n->getLanguage();
                     </a>
                   </li>
                 <?php endif ?>
+                <li class="nav-item">
+                  <a href="index.php?controller=statistics&amp;action=index">
+                    <img src="resources/icons/weight.svg" alt="Trainer icon"/>
+                    <div class="text-item"><?= i18n("Statistics")?></div>
+                  </a>
+                </li>
                 <div class="customHr">.</div>
               <?php endif ?>
             </ul>
           </nav>
           <div id="flash">
-            <?= $view->popFlash() ?>
+            <?php $message = $view->popFlash(); ?>
+            <?php if($message != ""): ?>
+              <div id="notification" style="display: none; font-size:20px">
+                <span class="dismiss" onclick="closeNotification()"><a title="dismiss this notification">X</a></span>
+              </div>
+              <script >
+              var mensajeFlash = '<?php echo $message ?>';
+              function closeNotification(){
+                     $("#notification").fadeOut("slow");
+              }
+
+              function notification(mensaje){
+                document.getElementById("notification").style.display = "none";
+                $("#notification").fadeIn("slow").append(mensaje);
+                setTimeout(closeNotification, 2500);
+              }
+              notification(mensajeFlash);
+              </script>
+
+            <?php endif;?>
           </div>
 
           <?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>

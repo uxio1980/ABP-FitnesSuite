@@ -26,7 +26,8 @@
       <?php foreach ($activities as $activity): ?>
         <tr class="table-row-content"
           data-href="index.php?controller=activities&amp;action=edit&amp;idactivity=<?= $activity->getIdactivity() ?>">
-          <td><?= $activity->getName() ?></td>
+          <td id="id_row" class="ocultable"><span class="field_id"><?= $activity->getIdactivity() ?></span></td>
+          <td><span class="field_name"><?= $activity->getName() ?></span></td>
           <td><a href="index.php?controller=activities&amp;action=view&amp;idactivity=<?= $activity->getIdactivity() ?>">
             <img src="resources/icons/ic_visibility_black_24px.svg" alt="View" /></a>
           </td>
@@ -39,7 +40,7 @@
           <td><a href="index.php?controller=activity_schedule&amp;action=index&amp;idactivity=<?= $activity->getIdactivity() ?>">
             <img src="resources/icons/ic_schedule_24px.svg" alt="Schedules" /></a>
           </td>
-          <td><a class="notify" href="index.php?controller=activity_schedule&amp;action=index&amp;idactivity=<?= $activity->getIdactivity() ?>">
+          <td class="notify"><a href="index.php?controller=notification&amp;action=addByGroup&amp;idactivity=<?= $activity->getIdactivity() ?>">
             <img src="resources/icons/ic_add_notification_24px.svg" alt="Notify" /></a>
           </td>
           <td><a class="confirmation" href="index.php?controller=activities&amp;action=delete&amp;idactivity=<?= $activity->getIdactivity() ?>">
@@ -52,19 +53,48 @@
 </main>
 
 <script type="text/javascript">
+  //Función para envíar mensaje a un grupo de usuarios
+  /*
   $('.notify').on('click', function () {
-    var message =  prompt(ji18n('Please enter your message to notify at group:'),"");
+    var message =  prompt(ji18n('Please enter your message to notify at group')+":","");
+    var id_activity, name_activity;
     if (message == null || message == "") {
-      history.back();
+      window.location.href = "index.php?controller=activities&action=index";
     } else {
-      //txt = "Your message: " + message;
-      //alert(window.location.pathname);
-      //window.location.href = "index.php";
-    }
-  });
-</script>
+      txt = "Mensaje: " + message;
+      //var id_activity = document.getElementById("id_row").innerText;
+      //var id_activity = $(this).closest('tr').index();
+      $(this).closest('tr').find('span').each(function(){
+        if ($(this).attr("class")=="field_id") id_activity= ($(this).text());//id_activity = $(this).innerHTML;
+        if ($(this).attr("class")=="field_name") name_activity= ($(this).text());//id_activity = $(this).innerHTML;
+      });
+      window.location.href = "index.php?controller=notification&action=addByGroup&activity=" + id_activity ;
+    };
+    var form = document.createElement('form');
+    form.setAttribute('method', 'POST');
+    form.setAttribute('action', 'index.php?controller=notification&action=addByGroup');
+    form.style.display = 'hidden';
+    var input = document.createElement("input");
+    input.type = "text";
+    input.name = "id_activity";
+    input.value = id_activity;
+    form.appendChild(input);
+    var input2 = document.createElement("input");
+    input2.type = "text";
+    input2.name = "name_activity";
+    input2.value = name_activity;
+    form.appendChild(input2);
+    var input3 = document.createElement("input");
+    input3.type = "text";
+    input3.name = "message";
+    input3.value = message;
+    form.appendChild(input3);
+            alert(">>");
+    document.body.appendChild(form);
+    form.submit();
+  });*/
 
-<script type="text/javascript">
+  //Función para confirmar borrado
     $('.confirmation').on('click', function () {
         return confirm(ji18n('Are you sure?'));
     });

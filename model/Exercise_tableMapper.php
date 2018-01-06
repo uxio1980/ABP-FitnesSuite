@@ -42,7 +42,9 @@ class Exercise_tableMapper {
 
                 $exercise = $exerciseMapper->findById($id_exercise);
 
-                $exercise_table_final = new Exercise_table($exercise_table["id"],$exercise, $exercise_table["id_workout"],$exercise_table["series"],$exercise_table["repetitions"]);
+                $exercise_table_final = new Exercise_table($exercise_table["id"],
+                $exercise, $exercise_table["id_workout"],$exercise_table["series"],
+                $exercise_table["repetitions"],$exercise_table["duration"]);
 
                 array_push($exercises, $exercise_table_final);
             }
@@ -62,24 +64,28 @@ class Exercise_tableMapper {
             $exercise_db = $exerciseMapper->findById($exercise_table["id_exercise"]);
 
             return new Exercise_table($exercise_table["id"],$exercise_db,
-                $exercise_table["id_workout"],$exercise_table["series"],$exercise_table["repetitions"]);
+                $exercise_table["id_workout"],$exercise_table["series"],
+                $exercise_table["repetitions"],$exercise_table["duration"]);
         } else {
             return NULL;
         }
     }
 
     public function save($exercise_table) {
-        $stmt = $this->db->prepare("INSERT INTO exercise_table (id, id_exercise, id_workout, series, repetitions)
-            values (0,?,?,?,?)");
-        $stmt->execute(array($exercise_table->getExercise()->getId(),$exercise_table->getWorkout(),$exercise_table->getSeries(),$exercise_table->getRepetitions()));
+        $stmt = $this->db->prepare("INSERT INTO exercise_table (id, id_exercise, id_workout, series, repetitions, duration)
+            values (0,?,?,?,?,?)");
+        $stmt->execute(array($exercise_table->getExercise()->getId(),
+        $exercise_table->getWorkout(),$exercise_table->getSeries(),
+        $exercise_table->getRepetitions(), $exercise_table->getDuration()));
     }
 
     public function update($exercise_table) {
         $stmt = $this->db->prepare("UPDATE exercise_table set id_exercise=?,
-            id_workout=?, series=?, repetitions=? where id=?");
+            id_workout=?, series=?, repetitions=?, duration=? where id=?");
         $stmt->execute(array($exercise_table->getExercise()->getId(),
             $exercise_table->getWorkout(),$exercise_table->getSeries(),
-            $exercise_table->getRepetitions(), $exercise_table->getId()));
+            $exercise_table->getRepetitions(), $exercise_table->getDuration(),
+            $exercise_table->getId()));
     }
 
     public function delete($exercise_table) {

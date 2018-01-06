@@ -42,8 +42,10 @@ class StatisticsController extends BaseController {
         $this->view->setVariable("athletes", $athletes);
 
         if (!isset($_POST["userid"])) {
-          $sessions = $this->findSessions($athletes->getXaxis()[0]->getId());
-          $this->view->setVariable("sessions", $sessions);
+          if(!empty($athletes->getXaxis())){
+            $sessions = $this->findSessions($athletes->getXaxis()[0]->getId());
+            $this->view->setVariable("sessions", $sessions);
+          }
         } else {
           $sessions = $this->findSessions($_POST["userid"]);
           $this->view->setVariable("sessions", $sessions);

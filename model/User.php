@@ -49,10 +49,11 @@ class User {
   private $description;
   private $profileImage;
   private $user_type;
+  private $trainer;
 
   public function __construct($id=NULL, $login=NULL, $name= NULL,$password=NULL,
   $email=NULL, $description=NULL,$profileImage=NULL, $surname=NULL, $phone=NULL,
-  $dni=NULL, $user_type=NULL) {
+  $dni=NULL, $user_type=NULL,$trainer=NULL) {
     $this->id = $id;
     $this->login = $login;
     $this->name = $name;
@@ -64,6 +65,7 @@ class User {
     $this->phone = $phone;
     $this->dni = $dni;
     $this->user_type = $user_type;
+    $this->trainer =$trainer;
   }
 
   public function getId() {
@@ -108,6 +110,10 @@ class User {
 
   public function getUser_type() {
     return $this->user_type;
+  }
+
+  public function getTrainer(){
+      return $this->trainer;
   }
 
   public function setId($id) {
@@ -155,6 +161,9 @@ class User {
     $this->user_type = $user_type;
   }
 
+  public function setTrainer($trainer){
+      $this->trainer = $trainer;
+  }
   /**
   * Checks if the current user instance is valid
   * for being registered in the database
