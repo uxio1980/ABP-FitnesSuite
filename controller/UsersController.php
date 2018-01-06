@@ -143,7 +143,7 @@ class UsersController extends BaseController {
     public function login() {
         if (isset($_POST["login"])){ // reaching via HTTP Post...
             //process login form
-            if ($this->userMapper->isValidUser($_POST["login"],$_POST["password"])) {
+            if ($this->userMapper->isValidUser($_POST["login"],md5($_POST["password"]))) {
                 $_SESSION["currentuser"]=$_POST["login"];
                 // send user to the restricted area (HTTP 302 code)
                 $this->view->redirect("main", "index");
@@ -193,7 +193,8 @@ class UsersController extends BaseController {
             // populate the User object with data form the form
             $user->setLogin($_POST["login"]);
             $user->setName($_POST["name"]);
-            $user->setPassword($_POST["password"]);
+            $pass = md5($_POST["password"]);
+            $user->setPassword($pass);
             $user->setEmail($_POST["email"]);
             if(isset($_POST["user_type"]) && $_POST["user_type"] != 0){
                 $user->setUser_type($_POST["user_type"]);
@@ -313,7 +314,8 @@ class UsersController extends BaseController {
         $user->setName($_POST["name"]);
         $user->setEmail($_POST["email"]);
         $user->setDescription($_POST["description"]);
-        $user->setPassword($_POST["password"]);
+        $pass = md5($_POST["password"]);
+        $user->setPassword($pass);
         $user->setSurname($_POST["surname"]);
         $user->setPhone($_POST["phone"]);
         $user->setDni($_POST["dni"]);
