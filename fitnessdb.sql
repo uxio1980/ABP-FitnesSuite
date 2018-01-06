@@ -370,19 +370,20 @@ CREATE TABLE IF NOT EXISTS `user` (
   `dni` varchar(9) COLLATE utf8_spanish_ci DEFAULT NULL,
   `description` varchar(1000) COLLATE utf8_spanish_ci DEFAULT NULL,
   `profile_image` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `user_type` tinyint(11) DEFAULT NULL
+  `user_type` tinyint(11) DEFAULT NULL,
+  `trainer` int(11) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `login`, `password`, `name`, `surname`, `email`, `phone`, `dni`, `description`, `profile_image`, `user_type`) VALUES
-(1, 'admin', 'admin', 'Administrador', 'Administrador', 'asc-ou@uvigo.es', 988387102, NULL, 'Usuario Administrador de FitnesSuite.', 'profile-default.png', 1),
-(2, 'afsobrino', 'afsobrino', 'Andrés', 'Fernández Sobrino', 'afsobrino@esei.uvigo.es', 698457129, '56987418K', '', '1511286585_andres.jpg', 2),
-(3, 'uxiogf', 'uxiogf', 'Uxio', 'González', 'uxio.gf@gmail.com', 654124789, '32145689D', 'Adesttrador de FitnesSuite.', '1511286706_Entrenador2.jpg', 2),
-(4, 'iagofer', 'iagofer', 'Iago', 'Fernández', 'iago.fernandez.92@gmail.com', 654927816, '45786129R', 'Atleta TDU: con tarjeta deportiva universitaria.', '1511286808_atleta1.jpg', 3),
-(5, 'spgiraldez', 'spgiraldez', 'Sandra', 'Pastoriza', 'sandracangas@gmail.com', 649800066, '39468127N', 'Atleta PEF: UTILIZAN PONTE EN FORMA', '1511286893_atleta2.jpg', 4);
+INSERT INTO `user` (`id`, `login`, `password`, `name`, `surname`, `email`, `phone`, `dni`, `description`, `profile_image`, `user_type`, `trainer`) VALUES
+(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 'Administrador', 'Administrador', 'asc-ou@uvigo.es', 988387102, NULL, 'Usuario Administrador de FitnesSuite.', 'profile-default.png', 1, NULL),
+(2, 'afsobrino', '7bbc79e35574de3c8babe4616d9de940', 'Andrés', 'Fernández Sobrino', 'afsobrino@esei.uvigo.es', 698457129, '56987418K', 'Adestrador de FitnesSuite.', '1511286585_andres.jpg', 2, NULL),
+(3, 'uxiogf', 'd1e6b388dde8639b8b8a554c42567029', 'Uxio', 'González', 'uxio.gf@gmail.com', 654124789, '32145689D', 'Adestrador de FitnesSuite.', '1511286706_Entrenador2.jpg', 2, NULL),
+(4, 'iagofer', 'bceb88388a0d59cfe91791e210c106ab', 'Iago', 'Fernández', 'iago.fernandez.92@gmail.com', 654927816, '45786129R', 'Atleta TDU: con tarjeta deportiva universitaria.', '1511286808_atleta1.jpg', 3, NULL),
+(5, 'spgiraldez', '8072295b39009724d108047160289130', 'Sandra', 'Pastoriza', 'sandracangas@gmail.com', 649800066, '39468127N', 'Atleta PEF: UTILIZAN PONTE EN FORMA', '1511286893_atleta2.jpg', 4, 2);
 
 -- --------------------------------------------------------
 
