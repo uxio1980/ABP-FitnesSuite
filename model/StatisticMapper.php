@@ -36,8 +36,6 @@ class StatisticMapper {
             array_push($xaxis, $athletes['name']);
         }
         return new Statistic($xaxis, $yaxis);
-        
-        // Falta return
     } 
 
     public function exercisesByType(){
@@ -55,7 +53,19 @@ class StatisticMapper {
 
     // Para deportista/entrenador:
     public function athletesTrainer($trainerid){
-        // Necesario corregir tablas.
+        $stmt = $this->db->prepare("SELECT count(*) as num FROM user WHERE trainer=?");
+        $stmt->execute(array($trainerid));
+        $num_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt2 = $this->db->prepare("SELECT * FROM user WHERE trainer=?");
+        $stmt2->execute(array($trainerid));
+        $athletes_db = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+        $xaxis = array();
+        
+        foreach ($athletes_db as $athlete) {
+            array_push($xaxis, new User($athlete["id"], $athlete["login"], $athlete["name"], NULL, NULL, 
+                NULL, NULL, $athlete["surname"], NULL, NULL, $athlete["user_type"],$athlete["trainer"]));
+        }
+        return new Statistic($xaxis, $num_db[0]['num']);
     }
 
     public function athleteAssistance($userid){
@@ -81,7 +91,14 @@ class StatisticMapper {
         $stmt->execute(array($userid,$activityid));
         $assistance_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Falta return
+        $xaxis = array();
+        $yaxis = array();
+
+        foreach ($assistance_db as $assistance) {
+            array_push($yaxis, $assistance['num']);
+            array_push($xaxis, date('Y-m-d', strtotime($assistance['date'])));
+        }
+        return new Statistic($xaxis, $yaxis);
     }
 
     public function athleteSessions($userid){
@@ -90,18 +107,38 @@ class StatisticMapper {
             ORDER BY S.id_user,S.id_table,S.date");
         $stmt->execute(array($userid));
         $sessions_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $xaxis = array();
+        $yaxis = array();
+        $tables = array();
 
-        // Falta return
+        foreach ($sessions_db as $sessions) {
+            $hours = date('H', strtotime($sessions['duration']))*60;
+            $mins = date('i', strtotime($sessions['duration']))*1;
+            array_push($yaxis, $hours+$mins);
+            array_push($xaxis, date('Y-m-d', strtotime($sessions['date'])));
+            array_push($tables, $sessions["name"]);
+        }
+        return new Statistic($xaxis, $yaxis, $tables);
     }
 
     public function athleteSessionsTable($userid,$tableid){
         $stmt = $this->db->prepare("SELECT W.name,S.date,S.duration FROM session S,user_table U,workout_table W 
-            WHERE S.id_user=? AND S.id_table=? AND S.id_table=U.id AND U.id_workout=W.id 
+            WHERE S.id_user=? AND W.id=? AND S.id_table=U.id AND U.id_workout=W.id 
             ORDER BY S.id_user,S.id_table,S.date");
         $stmt->execute(array($userid,$tableid));
         $sessions_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $xaxis = array();
+        $yaxis = array();
+        $tables = array();
 
-        // Falta return
+        foreach ($sessions_db as $sessions) {
+            $hours = date('H', strtotime($sessions['duration']))*60;
+            $mins = date('i', strtotime($sessions['duration']))*1;
+            array_push($yaxis, $hours+$mins);
+            array_push($xaxis, date('Y-m-d', strtotime($sessions['date'])));
+            array_push($tables, $sessions["name"]);
+        }
+        return new Statistic($xaxis, $yaxis, $tables);
     }
 
 }
