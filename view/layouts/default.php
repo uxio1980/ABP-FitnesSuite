@@ -42,6 +42,7 @@ $language = $i18n->getLanguage();
       </a>
         <img id="end-logo" src="resources/icons/end-logo.png" alt="Menu icon"/>
     </div>
+
     <div id="header-search">
       <form id="form-search" action="index.php?controller=articles&amp;action=search" method="GET">
         <input id="input-search"  type="text" name="search"
@@ -185,8 +186,14 @@ $language = $i18n->getLanguage();
               </a>
             </li>
             <li class="nav-item">
+            <a href="index.php?controller=schedule&amp;action=index">
+                <img src="resources/icons/ic_dashboard_black_24px.svg" alt="Schedule icon"/>
+                <div class="text-item"><?= i18n("Schedules")?></div>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="index.php?controller=exercise&amp;action=index">
-                  <img src="resources/icons/ic_exercices_table.svg"  width="24" height="24" alt="Exercise icon"/>
+                  <img src="resources/icons/ic_exercices_table.svg" alt="Exercise icon"/>
                   <div class="text-item"><?= i18n("Exercises")?></div>
               </a>
             </li>
@@ -294,12 +301,37 @@ $language = $i18n->getLanguage();
                     </a>
                   </li>
                 <?php endif ?>
+                <li class="nav-item">
+                  <a href="index.php?controller=statistics&amp;action=index">
+                    <img src="resources/icons/weight.svg" alt="Trainer icon"/>
+                    <div class="text-item"><?= i18n("Statistics")?></div>
+                  </a>
+                </li>
                 <div class="customHr">.</div>
               <?php endif ?>
             </ul>
           </nav>
           <div id="flash">
-            <?= $view->popFlash() ?>
+            <?php $message = $view->popFlash(); ?>
+            <?php if($message != ""): ?>
+              <div id="notification" style="display: none; font-size:20px">
+                <span class="dismiss" onclick="closeNotification()"><a title="dismiss this notification">X</a></span>
+              </div>
+              <script >
+              var mensajeFlash = '<?php echo $message ?>';
+              function closeNotification(){
+                     $("#notification").fadeOut("slow");
+              }
+
+              function notification(mensaje){
+                document.getElementById("notification").style.display = "none";
+                $("#notification").fadeIn("slow").append(mensaje);
+                setTimeout(closeNotification, 2500);
+              }
+              notification(mensajeFlash);
+              </script>
+
+            <?php endif;?>
           </div>
 
           <?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>

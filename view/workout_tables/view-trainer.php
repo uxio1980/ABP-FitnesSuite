@@ -13,7 +13,6 @@ $view->setVariable("title", "FitnesSuite");
     <div id="content-list">
         <div class="content-title">
             <strong><?= i18n("Workout table")." ".i18n("for")." ".$table->getName()?></strong><br>
-            <a href=""><input type='button' value=<?= i18n("Print")?> /></a>
         </div>
         <table id="table-content" style="text-align: center;">
             <tr class="table-row-content">

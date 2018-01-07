@@ -36,10 +36,6 @@ $user_table = $view->getVariable("user_table");
             <?php endforeach; ?>
 
         </table>
-        <spam class="content-title">
-            <strong><?= i18n("Workout table ").$table->getName()?></strong><br>
-            <a href=""><input type='button' value=<?= i18n("Print workout table")?> /></a>
-        </spam>
     </div>
 </main>
 

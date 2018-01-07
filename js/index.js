@@ -148,3 +148,15 @@ function showDivs(n) {
   x[slideIndex-1].style.display = "flex";
   dots[slideIndex-1].className += " active";
 }
+
+function notification(mensaje){
+  alert("sdf");
+  $("#notification").fadeIn("slow").append(mensaje);
+  setTimeout(closeNotification, 2500);
+
+}
+
+function closeNotification(){
+       $("#notification").fadeOut("slow");
+      // $('#notification').css('display', 'none');
+}

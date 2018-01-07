@@ -113,9 +113,9 @@ class ExerciseController extends BaseController {
                 }
                 $exercise->setImage(json_encode($images));
             }
-
-            $exercise->setVideo($_POST["videos"]);
-
+            if (isset($_POST["videos"])){
+              $exercise->setVideo($_POST["videos"]);
+            }
             try {
                 // validate exercise object
                 $exercise->checkIsValidForCreate(); // if it fails, ValidationException
@@ -264,7 +264,7 @@ class ExerciseController extends BaseController {
             }
         }
 
-        $this->view->setFlash(sprintf(i18n("Exercise \"%s\" with name \"%s\" successfully deleted."),
+        $this->view->setFlash(sprintf(i18n("Exercise") . " " . i18n("successfully deleted."),
                                             $exercise->getId(),$exercise->getName()));
 
         $this->view->redirect("exercise", "index");

@@ -24,7 +24,6 @@ $filterby = $view->getVariable("filterby");
               <input id="filter3" class="radio-button" type="radio" name="filterby" value="athlets" <?= ($filterby == 'athlets') ? "checked='checked'" : "";?>><?= i18n("Athlets")?>
               <input id="filter4" class="radio-button" type="radio" name="filterby" value="trainers" <?= ($filterby == 'trainers') ? "checked='checked'" : "";?>><?= i18n("Trainers")?>
           </form>
-
       </div>
     <table id="table-content">
       <tr class="table-row-content">
