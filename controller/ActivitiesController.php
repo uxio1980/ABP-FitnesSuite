@@ -61,8 +61,12 @@ class ActivitiesController extends BaseController {
 
     // put the array containing Activity object to the view
     $this->view->setVariable("activities", $activities);
-    if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator){
-      $this->view->render("activities", "index_admin");
+    if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Administrator) {
+        $this->view->render("activities", "index_admin");
+    }elseif (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Trainer){
+        $activities = $this->activityMapper->findMyActivities($this->currentUser->getId());
+        $this->view->setVariable("activities", $activities);
+        $this->view->render("activities", "index_trainer");
     } else {
       $this->view->render("activities", "index");
     }

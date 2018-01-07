@@ -288,4 +288,16 @@ class UserMapper {
         }
         return $users;
     }
+
+    public function countTimes($trainer){
+        $stmt = $this->db->prepare("SELECT count(*) from user where trainer = ?");
+        $stmt->execute(array($trainer->getId()));
+        $times= $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($times != null) {
+            return $times["count(*)"];
+        } else {
+            return 0;
+        }
+    }
 }
