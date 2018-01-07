@@ -6,6 +6,7 @@ $view = ViewManager::getInstance();
 $errors = $view->getVariable("errors");
 $user = $view->getVariable("profileUser");
 $typeuser = $view->getVariable("typeuser");
+$trainers = $view->getVariable("trainers");
 $view->setVariable("title", "FitnesSuite");
 ?>
 
@@ -57,6 +58,16 @@ $view->setVariable("title", "FitnesSuite");
           <option <?=($user->getUser_type()==usertype::AthletePEF)?'selected="selected"':''?> value=<?= usertype::AthletePEF?>><?= i18n("Athlete PEF")?></option>
         </select>
         <?= isset($errors["user_type"])?$errors["user_type"]:"" ?>
+
+        <?php if($user->getUser_type() == usertype::AthletePEF): ?>
+          <label for="login-field"><?= i18n("Trainer")?></label>
+          <select name="trainer">
+              <?php foreach ($trainers as $trainer): ?>
+              <option <?=($user->getTrainer()==$trainer->getId())?'selected="selected"':''?> value=<?= $trainer->getId() ?>><?= $trainer->getName() ?></option>
+              <?php endforeach; ?>
+          </select>
+          <?= isset($errors["trainer"])?$errors["trainer"]:"" ?>
+          <?php endif ?>
       <?php else: ?>
           <input type="hidden" name="user_type" value="<?= $user->getUser_type() ?>"/>
       <?php endif ?>

@@ -198,8 +198,22 @@ class UsersController extends BaseController {
             if(isset($_POST["user_type"]) && $_POST["user_type"] != 0){
                 $user->setUser_type($_POST["user_type"]);
             }
-            if(isset($_POST["trainer"]) && $_POST["trainer"] != 0){
-                $user->setTrainer($_POST["trainer"]);
+            if(isset($_POST["surname"])){
+                $user->setSurname($_POST["surname"]);
+            }
+            if( $user->getUser_type() == usertype::AthletePEF) {
+                    $trainers = $this->userMapper->findAllTrainers();
+                    $trainerfree = new User();
+                    $times=500000000000000000000;
+                    foreach ($trainers as $trainer) {
+                        $t =(int) $this->userMapper->countTimes($trainer);
+                        if ($times >= $t) {
+                            $trainerfree = $trainer;
+                            $times = $t;
+                        }
+
+                    }
+                    $user->setTrainer($trainerfree->getId());
             }
             try{
                 $user->checkIsValidForRegister(); // if it fails, ValidationException
@@ -219,7 +233,7 @@ class UsersController extends BaseController {
                         $this->view->redirectToReferer();
                     } else{
                         $this->userMapper->save($user);
-                        if($_POST["user_type"] != 0){
+                        /*if($_POST["user_type"] != 0){
                             $mail = new PHPMailer();
                             $mail->isSMTP();
                             $mail->SMTPDebug = 4;
@@ -237,13 +251,11 @@ class UsersController extends BaseController {
                             $mail->AltBody = 'Su usuario ha sido confirmado. Ya puedes iniciar sesión';
                             if (!$mail->send()) {
                                 echo "Mailer Error: " . $mail->ErrorInfo;
-                                /*var_dump($mail->ErrorInfo);
-                                exit;*/
                             } else {
                                 echo "Message sent!";
                                 $user->setUser_type($_POST["user_type"]);
                             }
-                        }
+                        }*/
                         $this->view->setFlash("Login " . $user->getLogin() . " successfully added.");
                         $this->view->redirect("users", "index");
                     }
