@@ -61,12 +61,24 @@ class SessionsController extends BaseController {
         $public_infos = $this->public_infoMapper->findAll();
       }
       */
-      $user_tables = $this->user_tableMapper->searchAll($this->currentUser->getId());
+      if(!isset($_REQUEST["id"])) {
+          $user_tables = $this->user_tableMapper->searchAll($this->currentUser->getId());
+      }
+      else {
+          $id = $_REQUEST["id"];
+          $user_tables = $this->user_tableMapper->searchAll($id);
+      }
       $numUser_tables = sizeof($user_tables);
       if (!($numUser_tables)){
         throw new Exception("This user not has user_tables assigned");
       }
-      $sessions = $this->sessionMapper->searchAll($this->currentUser->getId());
+      if(!isset($_REQUEST["id"])) {
+          $sessions = $this->sessionMapper->searchAll($this->currentUser->getId());
+      }
+      else {
+          $id = $_REQUEST["id"];
+          $sessions = $this->sessionMapper->searchAll($id);
+      }
       // put the array containing session objects to the view
       $this->view->setVariable("sessions", $sessions);
       $this->view->setVariable("numUser_tables", $numUser_tables);
@@ -74,6 +86,8 @@ class SessionsController extends BaseController {
       // render the view (/view/sessions/index.php)
       $this->view->render("sessions", "index");
     }
+
+
 
     /**
     * Action to edit a session
