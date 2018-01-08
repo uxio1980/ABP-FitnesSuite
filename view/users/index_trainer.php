@@ -33,9 +33,6 @@ $filterby = $view->getVariable("filterby");
                 <td><strong><?= i18n("Phone")?></strong></td>
                 <td><strong><?= i18n("Asign Table")?></strong></td>
                 <td><strong><?= i18n("View Tables")?></strong></td>
-                <?php if($filterby == 'myathlets'): ?>
-                    <td><strong><?= i18n("View Sessions")?></strong></td>
-                <?php endif ?>
                 <?php foreach ($users as $user): ?>
             <tr class="table-row-content"
                 data-href="index.php?controller=users&amp;action=edit&amp;login=<?= $user->getLogin() ?>">
@@ -50,11 +47,6 @@ $filterby = $view->getVariable("filterby");
                 <td><a href="index.php?controller=user_tables&amp;action=index&amp;login=<?= $user->getId() ?>">
                         <img src="resources/icons/ic_visibility_black_24px.svg" alt="View Table"/></a>
                 </td>
-                <?php if($filterby == 'myathlets'): ?>
-                    <td><a href="index.php?controller=sessions&amp;action=index&amp;id=<?= $user->getId() ?>">
-                            <img src="resources/icons/sessions_icon.svg" alt="View Table"/></a>
-                    </td>
-                <?php endif ?>
             </tr>
             <?php endforeach; ?>
         </table>
