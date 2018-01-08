@@ -248,5 +248,11 @@
     "Sessions duration by date (minutes)" => "Duración de sesiones por fecha (minutos)",
     "Asigned athletes" => "Deportistas asignados",
     "Exercises by type" => "Ejercicios por tipo",
+	  "Assistance" => "Asistencia",
+	  "Assistance this week: " => "Asistencia esta semana: ",
+	  "All Athlets" => "Todos Deportistas",
+      "My Athlets" => "Mis Deportistas",
+      "TDU Athlets" => "Deportistas TDU",
+	  "View Sessions" => "Ver sesiones"
   )
 ?>
