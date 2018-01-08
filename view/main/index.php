@@ -160,12 +160,12 @@ $view->setVariable("title", "FitnesSuite");
       <p class="commercial-title2 main-color uppercase"><?= i18n("Opening hours")?></p>
       <li class="article-box membershipprices-box background-color1">
         <ul class="times">
-        			 	<li class="second-color"><?= i18n("Monday")?><div class="hours second-color">h.8:00-h.22:00</div>  </li>
-        			 	<li class="second-color"><?= i18n("Tuesday")?><div class="hours second-color">h.8:00-h.22:00</div>  </li>
-        			 	<li class="second-color"><?= i18n("Wednesday")?><div class="hours second-color">h.8:00-h.22:00</div> </li>
-        			 	<li class="second-color"><?= i18n("Thursday")?><div class="hours second-color">h.8:00-h.22:00</div> </li>
-        			 	<li class="second-color"><?= i18n("Friday")?><div class="hours second-color">h.8:00-h.22:00</div>  </li>
-        			 	<li class="second-color"><?= i18n("Saturday")?><div class="hours second-color">h.8:00-h.22:00</div>  </li>
+        			 	<li class="second-color"><?= i18n("Monday")?><div class="hours second-color">h.8:00-h.20:00</div>  </li>
+        			 	<li class="second-color"><?= i18n("Tuesday")?><div class="hours second-color">h.8:00-h.20:00</div>  </li>
+        			 	<li class="second-color"><?= i18n("Wednesday")?><div class="hours second-color">h.8:00-h.20:00</div> </li>
+        			 	<li class="second-color"><?= i18n("Thursday")?><div class="hours second-color">h.8:00-h.20:00</div> </li>
+        			 	<li class="second-color"><?= i18n("Friday")?><div class="hours second-color">h.8:00-h.20:00</div>  </li>
+        			 	<li class="second-color"><?= i18n("Saturday")?><div class="hours second-color">h.8:00-h.20:00</div>  </li>
         			 	<li class="second-color"><?= i18n("Sunday")?><div class="hours second-color">h.10:00-h.14:00</div>  </li>
         			 	<h4><?= i18n("Enjoy it!")?></h4>
         			 </ul>
