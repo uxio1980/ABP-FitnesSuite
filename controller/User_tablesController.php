@@ -132,7 +132,7 @@ class User_tablesController extends BaseController {
         }else{
             $this->user_tableMapper->delete($user_table);
             $this->view->setFlash(sprintf(i18n("Table successfully deleted."),
-            //  $user_table->getWorkout_table()->getName(),$user_table->getUser()->getName()));
+            $user_table->getWorkout_table()->getName(),$user_table->getUser()->getName()));
         }
 
         //$this->view->redirect("user_tables", "index");

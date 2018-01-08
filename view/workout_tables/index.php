@@ -24,8 +24,7 @@ $view->setVariable("title", "FitnesSuite");
         <div class="tittle-edit">
          <p class="article-box-title"><?= $table->getName() ?></p>
         </div>
-        <p class="article-box-title"><?= $table->getType() ?></p>
-        <p class="article-box-title"><?= $table->getDescription() ?></p>
+        <p class="article-box-title"><?= i18n($table->getType()) ?></p>
        </div>
       </li>
      <?php endforeach; ?>

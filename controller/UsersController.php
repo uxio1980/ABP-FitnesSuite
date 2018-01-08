@@ -225,8 +225,8 @@ class UsersController extends BaseController {
                         // save the User object into the database
                         $admin = $this->userMapper->findAdmin();
                         $notdate = $this->date->modify( '+1 day' )->format('Y-m-d H:i:s');
-                        $this->notificationMapper->save(new Notification(NULL, new User(), $notdate, "Confirm User",
-                            "New user added to the app, please, confirm."));
+                        $this->notificationMapper->save(new Notification(NULL, new User(), $notdate, i18n("Confirm User"),
+                            i18n("New user added to the app, please, confirm.")));
                         $not = $this->notificationMapper->findLastId();
                         $this->notificationUserMapper->save(new Notification_user(NULL, $admin, $not, NULL));
                         $this->userMapper->save($user);
