@@ -52,7 +52,7 @@ $filterby = $view->getVariable("filterby");
                 </td>
                 <?php if($filterby == 'myathlets'): ?>
                     <td><a href="index.php?controller=sessions&amp;action=index&amp;id=<?= $user->getId() ?>">
-                            <img src="resources/icons/sessions_icon.svg" alt="View Table"/></a>
+                            <img src="resources/icons/sessions_icon.svg" alt="View Sessions"/></a>
                     </td>
                 <?php endif ?>
             </tr>
