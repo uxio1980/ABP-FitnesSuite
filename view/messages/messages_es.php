@@ -252,6 +252,7 @@
 	  "Assistance this week: " => "Asistencia esta semana: ",
 	  "All Athlets" => "Todos Deportistas",
       "My Athlets" => "Mis Deportistas",
-      "TDU Athlets" => "Deportistas TDU"
+      "TDU Athlets" => "Deportistas TDU",
+	  "View Sessions" => "Ver sesiones"
   )
 ?>

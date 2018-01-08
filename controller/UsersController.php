@@ -251,7 +251,7 @@ class UsersController extends BaseController {
                             $mail->Body = $user->getName().', '.$user->getSurname().'. Su usuario '.$user->getLogin().' ha sido confirmado. Ya puede iniciar sesión en la app!.';
                             $mail->AltBody = 'Su usuario ha sido confirmado. Ya puedes iniciar sesión';
                             if (!$mail->send()) {
-                                echo "Mailer Error: " . $mail->ErrorInfo;
+                                echo "Mailer Error: ";
                             } else {
                                 echo "Message sent!";
                                 $user->setUser_type($_POST["user_type"]);
@@ -349,9 +349,7 @@ class UsersController extends BaseController {
             $mail->Body = $user->getName().', '.$user->getSurname().'. Su usuario '.$user->getLogin().' ha sido confirmado. Ya puede iniciar sesión en la app!.';
             $mail->AltBody = 'Su usuario ha sido confirmado. Ya puedes iniciar sesión';
             if (!$mail->send()) {
-                echo "Mailer Error: " . $mail->ErrorInfo;
-                /*var_dump($mail->ErrorInfo);
-                exit;*/
+                echo "Mailer Error: ";
             } else {
                 echo "Message sent!";
                 $user->setUser_type($_POST["user_type"]);

@@ -1,5 +1,10 @@
 <?php
 //file: controller/MainController.php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require_once(__DIR__."/../mail/PHPMailer.php");
+require_once(__DIR__."/../mail/Exception.php");
+require_once(__DIR__."/../mail/SMTP.php");
 
 require_once(__DIR__."/../core/ViewManager.php");
 require_once(__DIR__."/../controller/BaseController.php");
@@ -139,7 +144,7 @@ public function sendmail() {
     $subject = $_POST["subject"];
     $message = $_POST["message"];
     try {
-      $headers = "From: " . $from ;
+      /*$headers = "From: " . $from ;
       $to = $public_info->getEmail();
 
       $bool = mail($to,$subject,$message,$headers);
@@ -150,7 +155,41 @@ public function sendmail() {
       } else {
         $this->view->setFlash(sprintf(i18n("Error sending mail.")));
         $this->view->redirect("main", "contact");
-      }
+      }*/
+
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->SMTPDebug = 4;
+        $mail->Host = 'tls://smtp.gmail.com';
+        $mail->Port = 587;
+        $mail->SMTPSecure = 'tls';
+        $mail->SMTPAuth = true;
+        $mail->AuthType = 'LOGIN';
+        $mail->Username = 'giraldezcastro@gmail.com';
+        $mail->Password = 'giraldezcastro1';
+        $mail->setFrom('giraldezcastro@gmail.com', 'Admin');
+        $mail->addAddress('sandracangas@gmail.com', 'Admin');
+        if ($mail->addReplyTo($from, $name)) {
+            $mail->Subject = 'PHPMailer contact form';
+            //Keep it simple - don't use HTML
+            $mail->isHTML(false);
+            //Build a simple message body
+            $mail->Body = <<<EOT
+Email: {$from}
+Name: {$name}
+Message: {$message}
+EOT;
+        }
+        $mail->Subject = $subject;
+        $mail->AltBody = $message;
+        if (!$mail->send()) {
+            echo "Mailer Error: " ;
+        } else {
+            echo "Message sent!";
+        }
+
+        $this->view->redirect("main", "contact");
+
     }catch(Exception $ex) {
       throw new Exception("Error sending mail");
       // Get the errors array inside the exepction...
@@ -158,6 +197,7 @@ public function sendmail() {
       // And put it to the view as "errors" variable
       $this->view->setVariable("errors", $errors);
     }
+
   }
 }
 }
