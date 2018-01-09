@@ -150,7 +150,7 @@ class UsersController extends BaseController {
                 $this->view->redirect("main", "index");
             } else {
                 $errors = array();
-                $errors["general"] = "Login is not valid";
+                $errors["general"] = i18n("Login is not valid");
                 //$this->view->setVariable("errors", $errors);
                 $this->view->setVariable("loginerrors", $errors, true);
                 $this->view->redirectToReferer();
@@ -231,7 +231,8 @@ class UsersController extends BaseController {
                         $not = $this->notificationMapper->findLastId();
                         $this->notificationUserMapper->save(new Notification_user(NULL, $admin, $not, NULL));
                         $this->userMapper->save($user);
-                        $this->view->setFlash("Login " . $user->getLogin() . " successfully added. Please, wait to confirm login.");
+                        $this->view->setFlash( i18n("Login " . $user->getLogin() . " successfully added. Please, wait to confirm login."));
+
                         $this->view->redirectToReferer();
                     } else{
                         $this->userMapper->save($user);
@@ -258,13 +259,13 @@ class UsersController extends BaseController {
                                 $user->setUser_type($_POST["user_type"]);
                             }
                         }*/
-                        $this->view->setFlash("Login " . $user->getLogin() . " successfully added.");
+                        $this->view->setFlash(i18n("Login " . $user->getLogin() . " successfully added."));
                         $this->view->redirect("users", "index");
                     }
 
                 } else {
                   $errors = array();
-                  $errors["general"] = "Login already exist";
+                  $errors["general"] = i18n("Login already exist");
                   //$this->view->setVariable("errors", $errors);
                   $this->view->setVariable("loginerrors", $errors, true);
                     $this->view->setVariable("user", $user);

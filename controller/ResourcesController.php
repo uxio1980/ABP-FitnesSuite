@@ -80,6 +80,7 @@ class ResourcesController extends BaseController {
 
         // save the resource object into the database
         $this->resourceMapper->save($resource);
+        $this->view->setFlash(sprintf(i18n("Resource"). " " .i18n("successfully added."),$resource->getIdresource()));
         $this->view->redirect("resources", "index");
 
       }catch(ValidationException $ex) {
@@ -117,6 +118,7 @@ class ResourcesController extends BaseController {
 
         // save the resource object into the database
         $this->resourceMapper->save($resource);
+        $this->view->setFlash(sprintf(i18n("Resource"). " " .i18n("successfully added."),$resource->getIdresource()));
         $this->view->redirect("resources", "index");
 
       }catch(ValidationException $ex) {
@@ -166,6 +168,7 @@ class ResourcesController extends BaseController {
         // update the Post object in the database
         $this->resourceMapper->update($resource);
 
+        $this->view->setFlash(sprintf(i18n("Resource"). " " .i18n("successfully modified."),$resource->getIdresource()));
         // POST-REDIRECT-GET
         // Everything OK, we will redirect the user to the list of posts
         // perform the redirection. More or less:

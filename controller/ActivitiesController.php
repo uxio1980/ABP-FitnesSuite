@@ -242,6 +242,7 @@ class ActivitiesController extends BaseController {
         // perform the redirection. More or less:
         // header("Location: index.php?controller=activitys&action=index")
         // die();
+        $this->view->setFlash(sprintf(i18n("Activity successfully added.")));
         $this->view->redirect("activities", "index");
 
       }catch(ValidationException $ex) {
@@ -369,6 +370,7 @@ class ActivitiesController extends BaseController {
         // perform the redirection. More or less:
         // header("Location: index.php?controller=posts&action=index")
         // die();
+        $this->view->setFlash(sprintf(i18n("Activity successfully updated.")));
         $this->view->redirect("activities", "index");
 
       }catch(ValidationException $ex) {

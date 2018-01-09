@@ -3,7 +3,7 @@
 Primary style
 
 -------------------------------- */
-*, *::after, *::before {
+.cd-schedule *,.cd-schedule::after, .cd-schedule::before {
   box-sizing: border-box;
 }
 
@@ -14,7 +14,7 @@ html {
 body {
   font-size: 1.6rem;
   font-family: "Source Sans Pro", sans-serif;
-  color: #222222;
+  /*color: #222222;*/
   background-color: white;
 }
 

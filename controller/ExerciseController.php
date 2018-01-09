@@ -135,7 +135,7 @@ class ExerciseController extends BaseController {
                         move_uploaded_file($img_tmp[$i], $Imgfiles[$i]);
                     }
                 }
-
+                $this->view->setFlash(sprintf(i18n("Exercise") . " " . i18n("successfully added.")));
                 $this->view->redirect("exercise", "index");
 
             } catch (ValidationException $ex) {
@@ -224,7 +224,7 @@ class ExerciseController extends BaseController {
                         move_uploaded_file($tmp[$i], $files[$i]);
                     }
                 }
-
+                $this->view->setFlash(sprintf(i18n("Exercise") . " " . i18n("successfully modified.")));
                 $this->view->redirect("exercise", "index");
 
             }catch(ValidationException $ex) {
