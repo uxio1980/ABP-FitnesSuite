@@ -231,7 +231,8 @@ class UsersController extends BaseController {
                         $not = $this->notificationMapper->findLastId();
                         $this->notificationUserMapper->save(new Notification_user(NULL, $admin, $not, NULL));
                         $this->userMapper->save($user);
-                        $this->view->setFlash( i18n("Login " . $user->getLogin() . " successfully added. Please, wait to confirm login."));
+
+                        $this->view->setFlash( i18n("Login") . " ". $user->getLogin() . " " . i18n("successfully added. Please, wait to confirm login."));
 
                         $this->view->redirectToReferer();
                     } else{
@@ -259,7 +260,7 @@ class UsersController extends BaseController {
                                 $user->setUser_type($_POST["user_type"]);
                             }
                         }*/
-                        $this->view->setFlash(i18n("Login " . $user->getLogin() . " successfully added."));
+                        $this->view->setFlash(i18n("Login") . " " . $user->getLogin() . " " . i18n("successfully added."));
                         $this->view->redirect("users", "index");
                     }
 
@@ -331,7 +332,7 @@ class UsersController extends BaseController {
         $pass = md5($_POST["password"]);
         $user->setPassword($pass);
         $user->setSurname($_POST["surname"]);
-        $user->setPhone($_POST["phone"]);
+        $user->setPhone((int)$_POST["phone"]);
         $user->setDni($_POST["dni"]);
         $user->setTrainer($_POST["trainer"]);
         if($user->getUser_type() != $_POST["user_type"] && $user->getUser_type() == null){
@@ -372,6 +373,7 @@ class UsersController extends BaseController {
           $user->checkIsValidForUpdate(); // if it fails, ValidationException
 
           // update the User object in the database
+
           $this->userMapper->update($user);
 
           $this->view->redirect("users", "profile", "login=".$user->getLogin());

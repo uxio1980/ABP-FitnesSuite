@@ -30,8 +30,9 @@ $filterby = $view->getVariable("filterby");
                 <td><strong><?= i18n("Login")?></strong></td>
                 <td><strong><?= i18n("Name")?></strong></td>
                 <td><strong><?= i18n("Surname")?></strong></td>
-                <td><strong><?= i18n("Email")?></strong></td>
-                <td><strong><?= i18n("Phone")?></strong></td>
+                <?php if($filterby == "myathlets"): ?>
+                <td><strong><?= i18n("Create Table")?></strong></td>
+              <?php endif; ?>
                 <td><strong><?= i18n("Asign Table")?></strong></td>
                 <td><strong><?= i18n("View Tables")?></strong></td>
                 <?php if($filterby == 'myathlets'): ?>
@@ -57,8 +58,11 @@ $filterby = $view->getVariable("filterby");
                 <td><?= $user->getLogin() ?></td>
                 <td><?= $user->getName() ?></td>
                 <td><?= $user->getSurname() ?></td>
-                <td><?= $user->getEmail() ?></td>
-                <td><?= $user->getPhone() ?></td>
+                <?php if($filterby == "myathlets"): ?>
+                <td><a href="index.php?controller=workout_tables&amp;action=add&amp;login=<?= $user->getId() ?>">
+                        <img src="resources/icons/createTable_icon.svg" alt="View Table"/></a>
+                </td>
+              <?php endif; ?>
                 <td><a href="index.php?controller=user_tables&amp;action=add&amp;login=<?= $user->getId() ?>">
                         <img src="resources/icons/ic_exercices_table.png" alt="Add table" /></a>
                 </td>

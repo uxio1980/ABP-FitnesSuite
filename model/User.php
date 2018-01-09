@@ -176,19 +176,19 @@ class User {
   public function checkIsValidForRegister() {
     $errors = array();
     if (strlen($this->login) < 3) {
-      $errors["register-login"] = "Login must be at least 5 characters length";
+      $errors["register-login"] = i18n("Login must be at least 5 characters length");
     }
     if (strlen($this->password) < 5) {
-      $errors["register-password"] = "Password must be at least 5 characters length";
+      $errors["register-password"] = i18n("Password must be at least 5 characters length");
     }
     if (strlen($this->name) == 0) {
-      $errors["register-name"] = "You must write your name";
+      $errors["register-name"] = i18n("You must write your name");
     }
     if (strlen($this->email) < 5) {
-      $errors["register-email"] = "You must write your email";
+      $errors["register-email"] = i18n("You must write your email");
     }
     if (sizeof($errors)>0){
-      throw new ValidationException($errors, "user is not valid");
+      throw new ValidationException($errors, i18n("user is not valid"));
     }
   }
 

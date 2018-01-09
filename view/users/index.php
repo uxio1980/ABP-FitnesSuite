@@ -34,8 +34,7 @@ $filterby = $view->getVariable("filterby");
         <!--<td><strong><?= i18n("Surname")?></strong></td>-->
         <td><strong><?= i18n("Email")?></strong></td>
         <td><strong><?= i18n("Phone")?></strong></td>
-        <td><strong><?= i18n("Edit")?></strong></td>
-        <td><strong><?= i18n("Delete")?></strong></td>
+
       <?php foreach ($users as $user): ?>
         <tr class="table-row-content"
           data-href="index.php?controller=users&amp;action=edit&amp;login=<?= $user->getLogin() ?>">

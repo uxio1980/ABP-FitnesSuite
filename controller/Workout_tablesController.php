@@ -88,28 +88,38 @@ class Workout_tablesController extends BaseController {
             throw new Exception("Not in session. Adding activitys requires login like Trainer");
         }
         $type = "standard";
-        if (isset($_GET["type"])){
-          $type = $_GET["type"];
-        }
 
         $workout_table = new Workout_table();
 
         $exercises = $this->exerciseMapper->findAll();
 
+        if (isset($_GET["login"])){
+          $this->view->setVariable("id_userPEF", $_GET["login"]);
+        }else{
+          $this->view->setVariable("id_userPEF", NULL);
+        }
         if (isset($_POST["submit"])) { // reaching via HTTP Post...
             $i = 0;
             $workout_table->setUser($this->currentUser);
             $workout_table->setName($_POST["name"]);
-            $workout_table->setType($type);
+            if($_POST["id_userPEF"] == "" ){
+              $workout_table->setType($type);
+            }else{
+              $workout_table->setType("customized");
+            }
             $workout_table->setDescription($_POST["description"]);
             try {
                 // validate activity object
 
                 $workout_table->checkIsValidForCreate(); // if it fails, ValidationException
-
                 // save the activity object into the database
                 $this->workout_tableMapper->save($workout_table);
-                var_dump($workout_table);
+                if($_POST["id_userPEF"] != "" ){
+                  $usuarioPEF = $this->userMapper->findById2($_POST["id_userPEF"]);
+                  $workout_table = $this->workout_tableMapper->findLast();
+                  $user_table = New User_table(0,$workout_table, $usuarioPEF);
+                  $this->user_tableMapper->save($user_table);
+                }
                 $this->view->redirect("workout_tables", "index");
 
             }catch(ValidationException $ex) {

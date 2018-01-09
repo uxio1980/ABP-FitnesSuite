@@ -94,4 +94,12 @@ class Workout_tableMapper {
         $stmt->execute(array($workout_table->getId()));
     }
 
+    public function findLast() {
+        $stmt = $this->db->query("SELECT * FROM workout_table order by id desc LIMIT 1");
+        $table = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $user = new User($table["id_user"]);
+        return new workout_table($table["id"],$user,$table["name"],$table["type"],$table["description"]);
+    }
+
 }
