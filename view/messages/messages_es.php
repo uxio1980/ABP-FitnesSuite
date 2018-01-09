@@ -3,6 +3,7 @@
   $i18n_messages =
   array(
     "title" => "FitnesSuite",
+    "An exception occured!" => "Se ha producido un mal comportamiento!",
     "is mandatory" => "es obligatorio",
     "of" => "de",
     "for" => "para",

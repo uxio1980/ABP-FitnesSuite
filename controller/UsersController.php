@@ -61,8 +61,9 @@ class UsersController extends BaseController {
       }
 
       // obtain the data from the database
-      if (isset($_GET["search"])) {
-        $search = $_GET["search"];
+      if (isset($_POST["search"])) {
+        $search = $_POST["search"];
+        $filterby = "all";
         $users = $this->userMapper->searchAll($search);
       }else
       {
