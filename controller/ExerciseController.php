@@ -32,8 +32,14 @@ class ExerciseController extends BaseController {
     * Action to list All exercise
     */
     public function index() {
+      if (isset($_POST["search"])) {
+        $search = $_POST["search"];
+        $filterby = "all";
+          $exercises = $this->exerciseMapper->searchAll($search);
+      }else{
+          $exercises = $this->exerciseMapper->findAll();
+      }
 
-        $exercises = $this->exerciseMapper->findAll();
         $this->view->setVariable("exercises", $exercises);
 
         if (isset($this->currentUser) && ($this->currentUser->getUser_type() == usertype::Administrator ||

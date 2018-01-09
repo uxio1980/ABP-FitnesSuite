@@ -56,8 +56,15 @@ class ActivitiesController extends BaseController {
   */
   public function index() {
 
+    if (isset($_POST["search"])) {
+      $search = $_POST["search"];
+      $filterby = "all";
+      $activities = $this->activityMapper->searchAll($search);
+    }else{
+      $activities = $this->activityMapper->findAll();
+    }
     // obtain the data from the database
-    $activities = $this->activityMapper->findAll();
+
 
     // put the array containing Activity object to the view
     $this->view->setVariable("activities", $activities);
@@ -134,7 +141,7 @@ class ActivitiesController extends BaseController {
           $isReserved = 0;
       }
     }
-    
+
       $plazasOcupadas = $this->user_activityMapper->countAllByIdActivity($activityid);
       $plazasDisponibles = $activity->getSeats() - $plazasOcupadas;
 
