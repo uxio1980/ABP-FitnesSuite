@@ -21,7 +21,15 @@ $view->setVariable("title", "FitnesSuite");
     </li>
     <?php foreach ($trainers as $trainer): ?>
         <li class="article-box">
-            <img src="resources/profiles/<?= $trainer->getProfileImage() ?>" alt="Image 1"></a>
+          <div class="container-user-circle">
+            <?php if ($trainer->getProfileImage() != NULL): ?>
+              <?php $ruta="resources/profiles/". $trainer->getProfileImage()?>
+            <?php else: ?>
+              <?php $ruta="resources/profiles/profile-default.png"?>
+            <?php endif ?>
+
+            <div class="circle trainer" style="background-image: url('<?=$ruta?>');">
+          </div>
             <div class="article-footer">
                 <div class="tittle-edit">
                     <p class="article-box-title"><?= $trainer->getName() ?></p>

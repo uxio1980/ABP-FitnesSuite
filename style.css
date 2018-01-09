@@ -340,6 +340,16 @@ header{
   color: white;
 }
 
+.circle.trainer {
+  /*background-image: url('http://placekitten.com/g/200/200');*/
+  width: 250px;
+  height: 250px;
+  background-size: cover;
+  background-repeat: none;
+  background-position: center center;
+  color: white;
+}
+
 .circle:hover {
   /*background-color: #008000;
   bo1rder-style: dotted;*/
