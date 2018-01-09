@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 04, 2018 at 01:07 AM
+-- Generation Time: Jan 09, 2018 at 09:07 AM
 -- Server version: 5.5.39
 -- PHP Version: 5.4.33
 
@@ -90,73 +90,77 @@ CREATE TABLE IF NOT EXISTS `activity_schedule` (
   `date` date NOT NULL,
   `start_hour` time NOT NULL,
   `end_hour` time NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Dumping data for table `activity_schedule`
 --
 
 INSERT INTO `activity_schedule` (`id`, `id_activity`, `date`, `start_hour`, `end_hour`) VALUES
-(1, 6, '2017-11-21', '18:30:00', '19:30:00'),
-(2, 6, '2017-11-28', '18:30:00', '19:30:00'),
-(3, 6, '2017-12-05', '18:30:00', '19:30:00'),
-(4, 6, '2017-12-12', '18:30:00', '19:30:00'),
-(5, 6, '2017-12-19', '18:30:00', '19:30:00'),
-(6, 6, '2017-12-26', '18:30:00', '19:30:00'),
-(7, 6, '2018-01-02', '18:30:00', '19:30:00'),
-(8, 6, '2018-01-09', '18:30:00', '19:30:00'),
-(9, 6, '2018-01-16', '18:30:00', '19:30:00'),
-(10, 5, '2017-11-21', '18:30:00', '19:30:00'),
-(11, 5, '2017-11-28', '18:30:00', '19:30:00'),
-(12, 5, '2017-12-05', '18:30:00', '19:30:00'),
-(13, 5, '2017-12-12', '18:30:00', '19:30:00'),
-(14, 5, '2017-12-19', '18:30:00', '19:30:00'),
-(15, 5, '2017-12-26', '18:30:00', '19:30:00'),
-(16, 5, '2018-01-02', '18:30:00', '19:30:00'),
-(17, 5, '2018-01-09', '18:30:00', '19:30:00'),
-(18, 5, '2018-01-16', '18:30:00', '19:30:00'),
-(19, 7, '2017-09-01', '08:30:00', '23:00:00'),
-(20, 7, '2017-09-08', '08:30:00', '23:00:00'),
-(21, 7, '2017-09-15', '08:30:00', '23:00:00'),
-(22, 7, '2017-09-22', '08:30:00', '23:00:00'),
-(23, 7, '2017-09-29', '08:30:00', '23:00:00'),
-(24, 7, '2017-10-06', '08:30:00', '23:00:00'),
-(25, 7, '2017-10-13', '08:30:00', '23:00:00'),
-(26, 7, '2017-10-20', '08:30:00', '23:00:00'),
-(27, 7, '2017-10-27', '08:30:00', '23:00:00'),
-(28, 7, '2017-11-03', '08:30:00', '23:00:00'),
-(29, 7, '2017-11-10', '08:30:00', '23:00:00'),
-(30, 7, '2017-11-17', '08:30:00', '23:00:00'),
-(31, 7, '2017-11-24', '08:30:00', '23:00:00'),
-(32, 7, '2017-12-01', '08:30:00', '23:00:00'),
-(33, 7, '2017-12-08', '08:30:00', '23:00:00'),
-(34, 7, '2017-12-15', '08:30:00', '23:00:00'),
-(35, 7, '2017-12-22', '08:30:00', '23:00:00'),
-(36, 7, '2017-12-29', '08:30:00', '23:00:00'),
-(37, 7, '2018-01-05', '08:30:00', '23:00:00'),
-(38, 7, '2018-01-12', '08:30:00', '23:00:00'),
-(39, 7, '2018-01-19', '08:30:00', '23:00:00'),
-(40, 1, '2017-09-01', '08:30:00', '23:00:00'),
-(41, 1, '2017-09-08', '08:30:00', '23:00:00'),
-(42, 1, '2017-09-15', '08:30:00', '23:00:00'),
-(43, 1, '2017-09-22', '08:30:00', '23:00:00'),
-(44, 1, '2017-09-29', '08:30:00', '23:00:00'),
-(45, 1, '2017-10-06', '08:30:00', '23:00:00'),
-(46, 1, '2017-10-13', '08:30:00', '23:00:00'),
-(47, 1, '2017-10-20', '08:30:00', '23:00:00'),
-(48, 1, '2017-10-27', '08:30:00', '23:00:00'),
-(49, 1, '2017-11-03', '08:30:00', '23:00:00'),
-(50, 1, '2017-11-10', '08:30:00', '23:00:00'),
-(51, 1, '2017-11-17', '08:30:00', '23:00:00'),
-(52, 1, '2017-11-24', '08:30:00', '23:00:00'),
-(53, 1, '2017-12-01', '08:30:00', '23:00:00'),
-(54, 1, '2017-12-08', '08:30:00', '23:00:00'),
-(55, 1, '2017-12-15', '08:30:00', '23:00:00'),
-(56, 1, '2017-12-22', '08:30:00', '23:00:00'),
-(57, 1, '2017-12-29', '08:30:00', '23:00:00'),
-(58, 1, '2018-01-05', '08:30:00', '23:00:00'),
-(59, 1, '2018-01-12', '08:30:00', '23:00:00'),
-(60, 1, '2018-01-19', '08:30:00', '23:00:00');
+(1, 6, '2017-11-21', '10:00:00', '11:00:00'),
+(2, 6, '2017-11-28', '10:00:00', '11:00:00'),
+(3, 6, '2017-12-05', '10:00:00', '11:00:00'),
+(4, 6, '2017-12-12', '10:00:00', '11:00:00'),
+(5, 6, '2017-12-19', '10:00:00', '11:00:00'),
+(6, 6, '2017-12-26', '10:00:00', '11:00:00'),
+(7, 6, '2018-01-02', '10:00:00', '11:00:00'),
+(8, 6, '2018-01-09', '10:00:00', '11:00:00'),
+(9, 6, '2018-01-16', '10:00:00', '11:00:00'),
+(10, 5, '2017-11-21', '15:00:00', '16:00:00'),
+(11, 5, '2017-11-28', '15:00:00', '16:00:00'),
+(12, 5, '2017-12-05', '15:00:00', '16:00:00'),
+(13, 5, '2017-12-12', '15:00:00', '16:00:00'),
+(14, 5, '2017-12-19', '15:00:00', '16:00:00'),
+(15, 5, '2017-12-26', '15:00:00', '16:00:00'),
+(16, 5, '2018-01-02', '15:00:00', '16:00:00'),
+(17, 5, '2018-01-09', '15:00:00', '16:00:00'),
+(18, 5, '2018-01-16', '15:00:00', '16:00:00'),
+(19, 7, '2017-09-01', '14:00:00', '16:00:00'),
+(20, 7, '2017-09-08', '14:00:00', '16:00:00'),
+(21, 7, '2017-09-15', '14:00:00', '16:00:00'),
+(22, 7, '2017-09-22', '14:00:00', '16:00:00'),
+(23, 7, '2017-09-29', '14:00:00', '16:00:00'),
+(24, 7, '2017-10-06', '14:00:00', '16:00:00'),
+(25, 7, '2017-10-13', '14:00:00', '16:00:00'),
+(26, 7, '2017-10-20', '14:00:00', '16:00:00'),
+(27, 7, '2017-10-27', '14:00:00', '16:00:00'),
+(28, 7, '2017-11-03', '14:00:00', '16:00:00'),
+(29, 7, '2017-11-10', '14:00:00', '16:00:00'),
+(30, 7, '2017-11-17', '14:00:00', '16:00:00'),
+(31, 7, '2017-11-24', '14:00:00', '16:00:00'),
+(32, 7, '2017-12-01', '14:00:00', '16:00:00'),
+(33, 7, '2017-12-08', '14:00:00', '16:00:00'),
+(34, 7, '2017-12-15', '14:00:00', '16:00:00'),
+(35, 7, '2017-12-22', '14:00:00', '16:00:00'),
+(36, 7, '2017-12-29', '14:00:00', '16:00:00'),
+(37, 7, '2018-01-05', '14:00:00', '16:00:00'),
+(38, 7, '2018-01-12', '14:00:00', '16:00:00'),
+(39, 7, '2018-01-19', '14:00:00', '16:00:00'),
+(40, 1, '2017-09-01', '09:00:00', '10:30:00'),
+(41, 1, '2017-09-08', '09:00:00', '10:30:00'),
+(42, 1, '2017-09-15', '09:00:00', '10:30:00'),
+(43, 1, '2017-09-22', '09:00:00', '10:30:00'),
+(44, 1, '2017-09-29', '09:00:00', '10:30:00'),
+(45, 1, '2017-10-06', '09:00:00', '10:30:00'),
+(46, 1, '2017-10-13', '09:00:00', '10:30:00'),
+(47, 1, '2017-10-20', '09:00:00', '10:30:00'),
+(48, 1, '2017-10-27', '09:00:00', '10:30:00'),
+(49, 1, '2017-11-03', '09:00:00', '10:30:00'),
+(50, 1, '2017-11-10', '09:00:00', '10:30:00'),
+(51, 1, '2017-11-17', '09:00:00', '10:30:00'),
+(52, 1, '2017-11-24', '09:00:00', '10:30:00'),
+(53, 1, '2017-12-01', '09:00:00', '10:30:00'),
+(54, 1, '2017-12-08', '09:00:00', '10:30:00'),
+(55, 1, '2017-12-15', '09:00:00', '10:30:00'),
+(56, 1, '2017-12-22', '09:00:00', '10:30:00'),
+(57, 1, '2017-12-29', '09:00:00', '10:30:00'),
+(58, 1, '2018-01-05', '09:00:00', '10:30:00'),
+(59, 1, '2018-01-12', '09:00:00', '10:30:00'),
+(60, 1, '2018-01-19', '09:00:00', '10:30:00'),
+(61, 4, '2018-01-08', '09:00:00', '10:30:00'),
+(62, 4, '2018-01-15', '09:00:00', '10:30:00'),
+(63, 4, '2018-01-22', '09:00:00', '10:30:00'),
+(64, 4, '2018-01-29', '09:00:00', '10:30:00');
 
 -- --------------------------------------------------------
 
@@ -195,14 +199,14 @@ CREATE TABLE IF NOT EXISTS `exercise` (
 
 INSERT INTO `exercise` (`id`, `id_user`, `name`, `description`, `type`, `image`, `video`) VALUES
 (1, 1, 'Mountain Climbers', 'Para realizar los mountain climbers de manera perfecta, debemos seguir estos pasos al pie de la letra.\r\n\r\nColócate en posición de puente, como si fueses a realizar una flexión o largatija. Para ello apoya las palmas de la mano sobre el suelo al igual que las puntas de los pies. Con esta posición, el cuerpo debe simular una tabla, por lo que la espalda debe mantenerse recta en todo momento.\r\nA continuación, empezaremos a realizar las elevaciones de rodillas, procurando que estas lleguen a la altura del pecho. Haremos un levantamiento por lado, lo que cuenta como una repetición.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-09-03-ejer1.jpg"]', 'https://www.youtube.com/embed/lD_gfTofg4A'),
-(2, 1, 'Aperturas con mancuerna en banco inclinado', 'Siéntate en un banco inclinado con las mancuernas a la altura del pecho.\r\n\r\nAgarra las mancuernas de modo a que las palmas de las manos queden giradas hacia adentro.\r\n\r\nLevanta las dos mancuernas, intentando juntarlas pero sin llegar a tocar cuando los brazos estén completamente extendidos. Regresa lentamente a la posición inicial.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-09-45-ejer2.jpg"]', ''),
-(3, 1, 'Press con barra en banco inclinado', 'Acostados sobre un banco inclinado en ángulo aproximado de 30 a 45°. Separad las piernas ligeramente apoyando los pies sobre el suelo. Las caderas, hombros y cabeza deben reposar sobre el banco.\r\n\r\nAgarrad una barra con agarre prono. Las manos deben estar algo más abiertas que la anchura de vuestros hombros.\r\n\r\nBajad la barra a la parte superior del pecho, tomad aire y retened el aliento cuando subáis el peso hacia el punto de partida. Dirigid los codos hacia los lados y mantenedlos así.\r\n\r\nExpulsad a medida que superéis la parte más difícil de la subida o al extender los brazos.\r\n\r\nDeteneos en la posición final con los brazos extendidos y verticales.\r\n\r\nTomad aire y retened el aliento a medida que bajéis el peso bajo control hasta la parte alta del pecho.\r\n\r\nSi preferís deteneos un instante abajo, expulsad el aire después de llegar allí, tomadlo luego y retened la respiración cuando subáis la barra.\r\n\r\nUtilizad una velocidad moderada, manteniendo siempre el peso bajo control.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-09-56-ejer3.jpg"]', ''),
-(4, 1, 'Curl con barra', 'El curl con barra es un ejercicio muy adecuado para el inicio del entrenamiento.\r\n\r\nInicio: De pie, sujetando una barra con el agarre a la anchura de los hombros y los brazos extendidos hacia abajo. Mantener las rodillas ligeramente flexionadas.\r\n\r\nManteniendo el tronco erguido (no inclinarse hacia atrás al levantar el peso), contraer los bíceps para elevar la barra. Hay que asegurarse de que los codos permanecen pegados a los costados e impedir que se desplacen hacia fuera o que se eleven. Lentamente, bajar el peso a la posición de inicio.\r\n\r\nVariaciones: Utilizar tanto una barra recta como una barra EZ para realizar este ejercicio. Algunos encuentran que ésta resta presión a las muñecas ya que las dirige\r\nen una posición neutra.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-10-06-ejer4.jpg"]', ''),
-(5, 3, 'Extensiones en máquina', 'La máquina de extensión de cuadriceps nos permite trabajar el músculo cuadriceps de forma aislada y analítica.\r\n\r\nLa posición sentada permite manejar cargas elevadas sin ningún riesgo de sobrecarga en otras articulaciones.\r\n\r\nUna vez estemos sentado en la máquina debes ajustar los apoyos: el final del asiento debe coincidir con el hueco poplíteo (detrás de la rodilla) y la zona lumbar en contacto con el respaldo, finalmente regula el rodillo del brazo de palanca colocándolo al final de la tibia, en la articulación del tobillo.\r\n\r\nInicia el movimiento de extensión desde una flexión de La rodilla de 90°, no menos y realiza la extensión de la pierna hasta llegar de forma controlada a la extensión completa de la rodilla.\r\n\r\nIntenta que en este movimiento de extensión las dos piernas trabajen por igual, normalmente se tiende a realizar mas esfuerzo con la pierna dominante.', 'Estiramiento', '["resources\\/images\\/21-11-2017-19-10-18-ejer5.jpg"]', ''),
-(6, 1, 'Prensa Inclinada', 'Coloque los pies en la máquina, con las rodillas separadas a la anchura de os hombros y la punta de los pies rectas o ligeramente giradas hacia fuera. Mantenga la zona baja y media de la espalda plana contra el almohadillado del respaldo y la cabeza en posición neutra.\r\n\r\nExtienda los tobillos, rodillas y caderas. Presione con la parte media de los pies sobre la plataforma de la máquina, usando la misma presión de empuje en ambos. Detenga el movimiento justo antes de bloquear las rodillas.\r\n\r\nRegrese lentamente a la posición inicial mediante la flexión de los tobillos, rodillas y caderas.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-10-32-ejer6.jpg"]', ''),
-(7, 1, 'Buenos días con barra y piernas separadas', 'Colocad la barra sobre los soportes de sentadilla, a nivel de los hombros, y agarradla con agarre prono, separando las manos algo más que la anchura de los hombros.\r\n\r\nAgachaos para que la barra se coloque encima de los trapecios, y luego dad dos pasos atrás, lenta y cuidadosamente.\r\n\r\nSeparad las piernas hasta empezar a sentir una ligera tirantez en los aductores y los femorales, y estirad después las piernas.\r\n\r\nElevad el pecho, tomad aire y apretad los abdominales. Mantened las rodillas ligeramente dobladas.\r\n\r\nMantened un arco natural en la espalda baja, e inclinaos lentamente hacia delante. Bajad lo posible al tiempo que mantenéis la espalda baja en su posición. (Para los que tengan los femorales rígidos puede que solo sea unos centímetros)\r\n\r\nDeteneos un instante, con traed con fuerza los femorales y volved luego al punto de partida.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-10-42-ejer7.jpg"]', ''),
-(8, 3, 'Curl de Biceps con barra editado', 'edit flexión', 'Cardiovascular', '[]', ''),
-(9, 3, 'Ejercicio estiramiento pierna', 'descripción 2', 'Muscular', '[]', '');
+(2, 1, 'Aperturas con mancuerna en banco inclinado', 'Siéntate en un banco inclinado con las mancuernas a la altura del pecho.\r\n\r\nAgarra las mancuernas de modo a que las palmas de las manos queden giradas hacia adentro.\r\n\r\nLevanta las dos mancuernas, intentando juntarlas pero sin llegar a tocar cuando los brazos estén completamente extendidos. Regresa lentamente a la posición inicial.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-09-45-ejer2.jpg"]', 'https://www.youtube.com/embed/BHRGm0m6xRc'),
+(3, 1, 'Press con barra en banco inclinado', 'Acostados sobre un banco inclinado en ángulo aproximado de 30 a 45°. Separad las piernas ligeramente apoyando los pies sobre el suelo. Las caderas, hombros y cabeza deben reposar sobre el banco.\r\n\r\nAgarrad una barra con agarre prono. Las manos deben estar algo más abiertas que la anchura de vuestros hombros.\r\n\r\nBajad la barra a la parte superior del pecho, tomad aire y retened el aliento cuando subáis el peso hacia el punto de partida. Dirigid los codos hacia los lados y mantenedlos así.\r\n\r\nExpulsad a medida que superéis la parte más difícil de la subida o al extender los brazos.\r\n\r\nDeteneos en la posición final con los brazos extendidos y verticales.\r\n\r\nTomad aire y retened el aliento a medida que bajéis el peso bajo control hasta la parte alta del pecho.\r\n\r\nSi preferís deteneos un instante abajo, expulsad el aire después de llegar allí, tomadlo luego y retened la respiración cuando subáis la barra.\r\n\r\nUtilizad una velocidad moderada, manteniendo siempre el peso bajo control.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-09-56-ejer3.jpg"]', 'https://www.youtube.com/embed/ICaZxO7RmKs'),
+(4, 1, 'Curl con barra', 'El curl con barra es un ejercicio muy adecuado para el inicio del entrenamiento.\r\n\r\nInicio: De pie, sujetando una barra con el agarre a la anchura de los hombros y los brazos extendidos hacia abajo. Mantener las rodillas ligeramente flexionadas.\r\n\r\nManteniendo el tronco erguido (no inclinarse hacia atrás al levantar el peso), contraer los bíceps para elevar la barra. Hay que asegurarse de que los codos permanecen pegados a los costados e impedir que se desplacen hacia fuera o que se eleven. Lentamente, bajar el peso a la posición de inicio.\r\n\r\nVariaciones: Utilizar tanto una barra recta como una barra EZ para realizar este ejercicio. Algunos encuentran que ésta resta presión a las muñecas ya que las dirige\r\nen una posición neutra.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-10-06-ejer4.jpg"]', 'https://www.youtube.com/embed/uP4ug_QCad4'),
+(5, 1, 'Extensiones en máquina', 'La máquina de extensión de cuadriceps nos permite trabajar el músculo cuadriceps de forma aislada y analítica.\r\n\r\nLa posición sentada permite manejar cargas elevadas sin ningún riesgo de sobrecarga en otras articulaciones.\r\n\r\nUna vez estemos sentado en la máquina debes ajustar los apoyos: el final del asiento debe coincidir con el hueco poplíteo (detrás de la rodilla) y la zona lumbar en contacto con el respaldo, finalmente regula el rodillo del brazo de palanca colocándolo al final de la tibia, en la articulación del tobillo.\r\n\r\nInicia el movimiento de extensión desde una flexión de La rodilla de 90°, no menos y realiza la extensión de la pierna hasta llegar de forma controlada a la extensión completa de la rodilla.\r\n\r\nIntenta que en este movimiento de extensión las dos piernas trabajen por igual, normalmente se tiende a realizar mas esfuerzo con la pierna dominante.', 'Estiramiento', '["resources\\/images\\/21-11-2017-19-10-18-ejer5.jpg"]', 'https://www.youtube.com/embed/1H_7SVn3lfU'),
+(6, 1, 'Prensa Inclinada', 'Coloque los pies en la máquina, con las rodillas separadas a la anchura de os hombros y la punta de los pies rectas o ligeramente giradas hacia fuera. Mantenga la zona baja y media de la espalda plana contra el almohadillado del respaldo y la cabeza en posición neutra.\r\n\r\nExtienda los tobillos, rodillas y caderas. Presione con la parte media de los pies sobre la plataforma de la máquina, usando la misma presión de empuje en ambos. Detenga el movimiento justo antes de bloquear las rodillas.\r\n\r\nRegrese lentamente a la posición inicial mediante la flexión de los tobillos, rodillas y caderas.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-10-32-ejer6.jpg"]', 'https://www.youtube.com/embed/VljDsFudTok'),
+(7, 1, 'Buenos días con barra y piernas separadas', 'Colocad la barra sobre los soportes de sentadilla, a nivel de los hombros, y agarradla con agarre prono, separando las manos algo más que la anchura de los hombros.\r\n\r\nAgachaos para que la barra se coloque encima de los trapecios, y luego dad dos pasos atrás, lenta y cuidadosamente.\r\n\r\nSeparad las piernas hasta empezar a sentir una ligera tirantez en los aductores y los femorales, y estirad después las piernas.\r\n\r\nElevad el pecho, tomad aire y apretad los abdominales. Mantened las rodillas ligeramente dobladas.\r\n\r\nMantened un arco natural en la espalda baja, e inclinaos lentamente hacia delante. Bajad lo posible al tiempo que mantenéis la espalda baja en su posición. (Para los que tengan los femorales rígidos puede que solo sea unos centímetros)\r\n\r\nDeteneos un instante, con traed con fuerza los femorales y volved luego al punto de partida.', 'Cardiovascular', '["resources\\/images\\/21-11-2017-19-10-42-ejer7.jpg"]', 'https://www.youtube.com/embed/Ieyn5D84TPU'),
+(8, 1, 'Curl de Biceps con barra editado', 'edit flexión', 'Cardiovascular', '[]', 'https://www.youtube.com/embed/a9hli15uWiA'),
+(9, 1, 'Ejercicio estiramiento pierna', 'descripción 2', 'Muscular', '[]', 'https://www.youtube.com/embed/txsha7BIlDo');
 
 -- --------------------------------------------------------
 
@@ -218,7 +222,7 @@ CREATE TABLE IF NOT EXISTS `exercise_table` (
   `series` int(11) DEFAULT NULL,
   `repetitions` int(11) DEFAULT NULL,
   `duration` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Dumping data for table `exercise_table`
@@ -228,7 +232,7 @@ INSERT INTO `exercise_table` (`id`, `id_exercise`, `id_workout`, `series`, `repe
 (1, 2, 1, 2, 5, NULL),
 (2, 3, 1, 3, 6, NULL),
 (3, 4, 1, 1, 10, NULL),
-(4, 2, 2, 4, 5, NULL),
+(4, 2, 2, 4, 5, 10),
 (5, 5, 2, 2, 7, NULL),
 (6, 6, 2, 2, 5, NULL),
 (7, 7, 2, 2, 6, NULL);
@@ -246,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `notification` (
   `date` datetime NOT NULL,
   `title` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `content` mediumtext COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Dumping data for table `notification`
@@ -254,7 +258,8 @@ CREATE TABLE IF NOT EXISTS `notification` (
 
 INSERT INTO `notification` (`id`, `id_user`, `date`, `title`, `content`) VALUES
 (1, 1, '2017-11-21 00:00:00', 'Clase cancelada', 'La clase de zumba ha sido cancelada'),
-(2, 1, '2017-11-14 00:00:00', 'Confirm User.', 'New user added to the app, please, confirm.');
+(2, 1, '2017-11-14 00:00:00', 'Confirmar Usuario.', 'Nuevo usuario añadido a la aplicación. Por favor, confirme.'),
+(3, 1, '2018-01-31 00:00:00', 'Clase de Zumba (31/01) cancelada ', 'La proxima clase de zumba del día 31 de enero se cancela por motivos personales. Se notificará la nueva fecha. \r\nMuchas gracias y diculpen las molestias.');
 
 -- --------------------------------------------------------
 
@@ -268,14 +273,20 @@ CREATE TABLE IF NOT EXISTS `notification_user` (
   `id_user` int(11) DEFAULT NULL,
   `id_notification` int(11) DEFAULT NULL,
   `viewed` date DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Dumping data for table `notification_user`
 --
 
 INSERT INTO `notification_user` (`id`, `id_user`, `id_notification`, `viewed`) VALUES
-(1, 1, 2, '2017-11-23');
+(1, 1, 2, '2017-11-23'),
+(2, 1, 3, NULL),
+(3, 2, 3, NULL),
+(4, 3, 3, NULL),
+(5, 4, 3, NULL),
+(6, 5, 3, NULL),
+(7, 2, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -296,7 +307,7 @@ CREATE TABLE IF NOT EXISTS `public_info` (
 --
 
 INSERT INTO `public_info` (`id`, `phone`, `email`, `address`) VALUES
-(1, 649555555, 'mail@mail.com', 'descriptuoin');
+(1, 649555555, 'mail@mail.com', 'Polideportivo Universitario, Campus As Lagoas, 4.º piso');
 
 -- --------------------------------------------------------
 
@@ -311,22 +322,22 @@ CREATE TABLE IF NOT EXISTS `resource` (
   `description` varchar(1000) COLLATE utf8_spanish_ci NOT NULL,
   `quantity` int(11) NOT NULL,
   `type` tinyint(4) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Dumping data for table `resource`
 --
 
 INSERT INTO `resource` (`id`, `name`, `description`, `quantity`, `type`) VALUES
-(1, 'Campo de herba sintÃ©tica', 'O Campus de Ourense conta cun campo de herba sintÃ©tica para a prÃ¡ctica do fÃºtbol (7, 8 e 11) e do rugby.', 1, 2),
-(2, 'Pista de atletismo', 'O Campus de Ourense conta cunha pista de atletismo onde se poderÃ¡n practicar as actividades atlÃ©ticas de carreiras e saltos.', 1, 2),
-(3, 'Pista polideportiva', 'O Campus de Ourense conta, no interior do pavillÃ³n universitario, cunha pista polideportiva cuberta para a prÃ¡ctica do baloncesto, o voleibol, o fÃºtbol sala, o balonmÃ¡n e o bÃ¡dminton. Para calquera outro tipo de actividades serÃ¡ necesario solicitalo previamente no correo electrÃ³nico depor-ou@uvigo.es indicando o tipo e caracterÃ­sticas da actividade que se pretende realizar', 1, 2),
-(4, 'Sala cardio-fitness', 'O Campus de Ourense conta, no interior do pavillÃ³n universitario, cunha sala cardio-fitness completamente equipada para o desenvolvemento de diferentes actividades de fitness.\r\nEsta sala divÃ­dese nunha zona de musculaciÃ³n e exercicio cardiovascular e outra onde se imparten actividades dirixidas como zumba, power dumbell, hipopresivos, stretching.', 1, 2),
-(5, 'Sala de fisioterapia', 'A Ãrea de Benestar, SaÃºde e Deporte conta, no pavillÃ³n universitario, cunha clÃ­nica de medicina deportiva e de fisioterapia (nÂº de rexistro C-36-0015554) onde se realizan valoraciÃ³ns funcionais e tratamentos Ã¡s persoas usuarias que asÃ­ o soliciten.', 1, 2),
-(6, 'Zona de ciclo indoor', '1.- Destinatarias:PoderÃ¡n acceder a esta instalaciÃ³n as persoas aboadas ao Servizo de Deportes ou aquelas que dispoÃ±an unha entrada multideporte de acceso Ã¡ sala cardio fitness / pista de atletismo.\r\n2. Reserva de praza para as actividades dirixidas:Poderase reservar praza, cun mÃ¡ximo de 24 horas de antelaciÃ³n, para cada un dos dias nos que se imparta esta actividade en: MiÃ±a Conta / HistÃ³rico / Bonos-Entradas / Nova sesiÃ³n).\r\n3. Uso libre das bicicletas:Cando non se estea impartindo algunha clase dirixida, poderase autorizar o uso libre das bicicletas Ã¡s persoas aboadas Ã¡ Ãrea de Benestar, SaÃºde e Deporte ou a aquelas que dispoÃ±an dunha entrada multideporte de acceso Ã¡ sala cardio fitness / pista de atletismo', 1, 2),
-(7, 'GROUP CYCLE CONNECT', 'Group Cycleâ„¢ Connect es la Ãºnica bicicleta estÃ¡tica del mundo que realiza un seguimiento de la sesiÃ³n deportiva, para que los usuarios puedan mejorar su rendimiento a travÃ©s de una experiencia de pedaleo totalmente realista. Combina diseÃ±o Ãºnico con conectividad de Ãºltima generaciÃ³n, una sensaciÃ³n increÃ­ble y una facilidad de uso inÃ©dita.', 30, 1),
-(8, 'MultiestaciÃ³n Weider Pro 8700', 'La Weider 8700 es un gimnasio compacto por lo que no ocupa toda la habitaciÃ³n pero mantiene las cualidades esenciales para un entrenamiento de calidad. \r\n\r\nTanto las poleas altas como bajas pueden usarse con los accesorios incluidos. La polea alta es perfecta para ejercicios de tracciÃ³n lateral, extensiones de trÃ­ceps y abdominales crunch. La polea baja es mejor para ejercicios de remo sentado y flexiones de bÃ­ceps.', 5, 1),
-(9, 'Press de Pecho Inclinado Evolution Bodytone', 'Las mÃ¡quinas de musculaciÃ³n profesionales Evolution de Bodytone contienen todo lo necesario para equipar tu sala fitness, con mÃ¡s de 20 modelos que agrupan el trabajo de todo el cuerpo, desde los gemelos hasta los hombros.', 5, 1);
+(1, 'Campo de hierba sintética', 'O Campus de Ourense conta cun campo de herba sintética para a práctica do futbol (7, 8 e 11) e do rugby.', 1, 2),
+(2, 'Pista de atletismo', 'O Campus de Ourense conta cunha pista de atletismo onde se poderán practicar as actividades atléticas de carreiras e saltos.', 1, 2),
+(3, 'Pista polideportiva', 'O Campus de Ourense conta, no interior do pavillón universitario, cunha pista polideportiva cuberta para a práctica do baloncesto, o voleibol, o futbol sala, o balonmán e o badminton. Para calquera outro tipo de actividades será necesario solicitalo previamente no correo electrónico depor-ou@uvigo.es indicando o tipo e características da actividade que se pretende realizar', 1, 2),
+(4, 'Sala cardiofitness', 'O Campus de Ourense conta, no interior do pavillón universitario, cunha sala cardio-fitness completamente equipada para o desenvolvemento de diferentes actividades de fitness.\r\nEsta sala divídese nunha zona de musculación e exercicio cardiovascular e outra onde se imparten actividades dirixidas como zumba, power dumbell, hipopresivos, stretching.', 1, 2),
+(5, 'Sala de fisioterapia', 'A área de Benestar, Saúde e Deporte conta, no pavillón universitario, cunha clínica de medicina deportiva e de fisioterapia (nº de rexistro C-36-0015554) onde se realizan valoracións funcionais e tratamentos ás persoas usuarias que así­ o soliciten.', 1, 2),
+(6, 'Zona de ciclo indoor', '1.- Destinatarias:Poderán acceder a esta instalación as persoas aboadas ao Servizo de Deportes ou aquelas que dispoñan dunha entrada multideporte de acceso á sala cardio fitness / pista de atletismo.\r\n2. Reserva de praza para as actividades dirixidas:Poderase reservar praza, cun máximo de 24 horas de antelación, para cada un dos dias nos que se imparta esta actividade en: Miña Conta / Histórico / Bonos-Entradas / Nova sesión).\r\n3. Uso libre das bicicletas:Cando non se estea impartindo algunha clase dirixida, poderase autorizar o uso libre das bicicletas ás persoas aboadas á área de Benestar, Saúde e Deporte ou a aquelas que dispoñan dunha entrada multideporte de acceso á sala cardio fitness / pista de atletismo', 1, 2),
+(7, 'GROUP CYCLE CONNECT', 'Group Cycle Connect es la única bicicleta estática del mundo que realiza un seguimiento de la sesión deportiva, para que los usuarios puedan mejorar su rendimiento a través de una experiencia de pedaleo totalmente realista. Combina diseño único con conectividad de última generación, una sensación increí­ble y una facilidad de uso inédita.', 30, 1),
+(8, 'Multiestación Weider Pro 8700', 'La Weider 8700 es un gimnasio compacto por lo que no ocupa toda la habitación pero mantiene las cualidades esenciales para un entrenamiento de calidad. \r\n\r\nTanto las poleas altas como bajas pueden usarse con los accesorios incluidos. La polea alta es perfecta para ejercicios de tracciÃ³n lateral, extensiones de trÃ­ceps y abdominales crunch. La polea baja es mejor para ejercicios de remo sentado y flexiones de bÃ­ceps.', 5, 1),
+(9, 'Press de Pecho Inclinado Evolution Bodytone', 'Las máquinas de musculación profesionales Evolution de Bodytone contienen todo lo necesario para equipar tu sala fitness, con más de 20 modelos que agrupan el trabajo de todo el cuerpo, desde los gemelos hasta los hombros.', 5, 1);
 
 -- --------------------------------------------------------
 
@@ -396,7 +407,7 @@ CREATE TABLE IF NOT EXISTS `user_activity` (
 `id` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `id_activity` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Dumping data for table `user_activity`
@@ -443,7 +454,7 @@ CREATE TABLE IF NOT EXISTS `workout_table` (
   `name` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `type` varchar(45) COLLATE utf8_spanish_ci NOT NULL,
   `description` mediumtext COLLATE utf8_spanish_ci NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Dumping data for table `workout_table`
@@ -566,7 +577,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `activity_schedule`
 --
 ALTER TABLE `activity_schedule`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=61;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=65;
 --
 -- AUTO_INCREMENT for table `assistance`
 --
@@ -581,17 +592,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 -- AUTO_INCREMENT for table `exercise_table`
 --
 ALTER TABLE `exercise_table`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=67;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `notification_user`
 --
 ALTER TABLE `notification_user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `public_info`
 --
@@ -601,7 +612,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `resource`
 --
 ALTER TABLE `resource`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `session`
 --
@@ -616,7 +627,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `user_activity`
 --
 ALTER TABLE `user_activity`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `user_table`
 --
@@ -626,7 +637,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `workout_table`
 --
 ALTER TABLE `workout_table`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
