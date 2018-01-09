@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 09, 2018 at 09:07 AM
+-- Generation Time: Jan 09, 2018 at 03:23 PM
 -- Server version: 5.5.39
 -- PHP Version: 5.4.33
 
@@ -48,7 +48,7 @@ INSERT INTO `activity` (`id`, `id_user`, `name`, `description`, `type`, `place`,
 (1, 2, 'Atletismo', 'O Campus de Ourense conta cunha pista de atletismo onde se poderán practicar as actividades atléticas de carreiras e saltos.', 1, 2, 20, '["resources\\/images\\/21-11-2017-18-59-39-atletismo.jpg"]'),
 (2, 2, 'Bailes', '1.- Destinatarias:Persoas con abono Muver, abono ponte en Forma ou cunha entrada multideporte.', 2, 4, 1, '["resources\\/images\\/21-11-2017-19-02-03-pic10.jpg"]'),
 (3, 3, 'Ciclo', 'Horario e duración da actividade:\\r\\nImpartiranse catro clases semanais desta actividade dende o 2 de novembro ao 31 de maio (agás periodos non lectivos) nos seguintes horarios:\\r\\n- Luns, martes, mércores e xoves de 21:15 a 22:15 h.', 2, 6, 24, '["resources\\/images\\/21-11-2017-19-03-45-pic3.jpg"]'),
-(4, 2, 'Circuit Fit', 'Horario e duración da actividade:Impartiranse dúas clases semanais desta actividade dende o 2 de outubro ao 31 de maio (agás nos periodos non lectivos) no seguinte horario:\\r\\n- Luns e mércores de 19:15 a 20:15 h', 2, 4, 30, NULL),
+(4, 2, 'Circuit Fit', 'Horario e duración da actividade:Impartiranse dúas clases semanais desta actividade dende o 2 de outubro ao 31 de maio (agás nos periodos non lectivos) no seguinte horario:\\r\\n- Luns e mércores de 19:15 a 20:15 h', 2, 4, 30, '["resources\\/images\\/09-01-2018-14-04-40-1_1509558741_pic2.jpg"]'),
 (5, 3, 'Voleibol', '1. Descrición da actividade:Iniciación o deporte de volei pista. ', 2, 3, 30, '["resources\\/images\\/21-11-2017-19-05-36-voleibol.jpg"]'),
 (6, 3, 'Zumba', ' Horario e duración da actividade:Impartirase dúas clases semanais desta actividade dende o 23 de outubro e o 31 de maio (agás nos periodos non lectivos) no seguinte horario:\\r\\n- Martes e xoves de 20:15 a 21:15 h.', 2, 4, 30, '["resources\\/images\\/21-11-2017-19-14-00-zumba2.jpg"]'),
 (7, 2, 'Gimnasio', 'O Campus de Ourense conta, no interior do pavillón universitario, cunha sala cardio-fitness completamente equipada para o desenvolvemento de diferentes actividades de fitness.', 1, 4, 60, '["resources\\/images\\/21-11-2017-19-06-55-pic9.jpg","resources\\/images\\/21-11-2017-19-06-55-pic16.jpg","resources\\/images\\/21-11-2017-19-06-55-single_class.jpg"]');
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `activity_schedule` (
   `date` date NOT NULL,
   `start_hour` time NOT NULL,
   `end_hour` time NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Dumping data for table `activity_schedule`
@@ -160,7 +160,70 @@ INSERT INTO `activity_schedule` (`id`, `id_activity`, `date`, `start_hour`, `end
 (61, 4, '2018-01-08', '09:00:00', '10:30:00'),
 (62, 4, '2018-01-15', '09:00:00', '10:30:00'),
 (63, 4, '2018-01-22', '09:00:00', '10:30:00'),
-(64, 4, '2018-01-29', '09:00:00', '10:30:00');
+(64, 4, '2018-01-29', '09:00:00', '10:30:00'),
+(65, 2, '2018-01-02', '12:00:00', '13:00:00'),
+(66, 2, '2018-01-09', '12:00:00', '13:00:00'),
+(67, 2, '2018-01-16', '12:00:00', '13:00:00'),
+(68, 2, '2018-01-23', '12:00:00', '13:00:00'),
+(69, 2, '2018-01-30', '12:00:00', '13:00:00'),
+(70, 2, '2018-02-06', '12:00:00', '13:00:00'),
+(71, 2, '2018-02-13', '12:00:00', '13:00:00'),
+(72, 2, '2018-02-20', '12:00:00', '13:00:00'),
+(73, 3, '2018-01-03', '09:00:00', '10:00:00'),
+(74, 3, '2018-01-10', '09:00:00', '10:00:00'),
+(75, 3, '2018-01-17', '09:00:00', '10:00:00'),
+(76, 3, '2018-01-24', '09:00:00', '10:00:00'),
+(77, 3, '2018-01-31', '09:00:00', '10:00:00'),
+(78, 3, '2018-02-07', '09:00:00', '10:00:00'),
+(79, 3, '2018-02-14', '09:00:00', '10:00:00'),
+(80, 3, '2018-02-21', '09:00:00', '10:00:00'),
+(81, 6, '2018-01-04', '10:00:00', '11:00:00'),
+(82, 6, '2018-01-11', '10:00:00', '11:00:00'),
+(83, 6, '2018-01-18', '10:00:00', '11:00:00'),
+(84, 6, '2018-01-25', '10:00:00', '11:00:00'),
+(85, 6, '2018-02-01', '10:00:00', '11:00:00'),
+(87, 6, '2018-02-15', '10:00:00', '11:00:00'),
+(88, 6, '2018-02-22', '10:00:00', '11:00:00'),
+(89, 1, '2018-01-01', '16:00:00', '18:30:00'),
+(90, 1, '2018-01-08', '16:00:00', '18:30:00'),
+(91, 1, '2018-01-15', '16:00:00', '18:30:00'),
+(92, 1, '2018-01-22', '16:00:00', '18:30:00'),
+(93, 1, '2018-01-29', '16:00:00', '18:30:00'),
+(94, 1, '2018-02-05', '16:00:00', '18:30:00'),
+(95, 1, '2018-02-12', '16:00:00', '18:30:00'),
+(96, 1, '2018-02-19', '16:00:00', '18:30:00'),
+(97, 4, '2018-01-05', '11:00:00', '12:30:00'),
+(98, 4, '2018-01-12', '11:00:00', '12:30:00'),
+(99, 4, '2018-01-19', '11:00:00', '12:30:00'),
+(100, 4, '2018-01-26', '11:00:00', '12:30:00'),
+(101, 4, '2018-02-02', '11:00:00', '12:30:00'),
+(102, 4, '2018-02-09', '11:00:00', '12:30:00'),
+(103, 4, '2018-02-16', '11:00:00', '12:30:00'),
+(104, 4, '2018-02-23', '11:00:00', '12:30:00'),
+(105, 4, '2018-01-03', '14:00:00', '15:30:00'),
+(106, 4, '2018-01-10', '14:00:00', '15:30:00'),
+(107, 4, '2018-01-17', '14:00:00', '15:30:00'),
+(108, 4, '2018-01-24', '14:00:00', '15:30:00'),
+(109, 4, '2018-01-31', '14:00:00', '15:30:00'),
+(110, 4, '2018-02-07', '14:00:00', '15:30:00'),
+(111, 4, '2018-02-14', '14:00:00', '15:30:00'),
+(112, 4, '2018-02-21', '14:00:00', '15:30:00'),
+(113, 2, '2018-01-04', '12:00:00', '13:00:00'),
+(114, 2, '2018-01-11', '12:00:00', '13:00:00'),
+(115, 2, '2018-01-18', '12:00:00', '13:00:00'),
+(116, 2, '2018-01-25', '12:00:00', '13:00:00'),
+(117, 2, '2018-02-01', '12:00:00', '13:00:00'),
+(118, 2, '2018-02-08', '12:00:00', '13:00:00'),
+(119, 2, '2018-02-15', '12:00:00', '13:00:00'),
+(120, 2, '2018-02-22', '12:00:00', '13:00:00'),
+(121, 1, '2018-01-04', '16:00:00', '18:30:00'),
+(122, 1, '2018-01-11', '16:00:00', '18:30:00'),
+(123, 1, '2018-01-18', '16:00:00', '18:30:00'),
+(124, 1, '2018-01-25', '16:00:00', '18:30:00'),
+(125, 1, '2018-02-01', '16:00:00', '18:30:00'),
+(126, 1, '2018-02-08', '16:00:00', '18:30:00'),
+(127, 1, '2018-02-15', '16:00:00', '18:30:00'),
+(128, 1, '2018-02-22', '16:00:00', '18:30:00');
 
 -- --------------------------------------------------------
 
@@ -336,7 +399,7 @@ INSERT INTO `resource` (`id`, `name`, `description`, `quantity`, `type`) VALUES
 (5, 'Sala de fisioterapia', 'A área de Benestar, Saúde e Deporte conta, no pavillón universitario, cunha clínica de medicina deportiva e de fisioterapia (nº de rexistro C-36-0015554) onde se realizan valoracións funcionais e tratamentos ás persoas usuarias que así­ o soliciten.', 1, 2),
 (6, 'Zona de ciclo indoor', '1.- Destinatarias:Poderán acceder a esta instalación as persoas aboadas ao Servizo de Deportes ou aquelas que dispoñan dunha entrada multideporte de acceso á sala cardio fitness / pista de atletismo.\r\n2. Reserva de praza para as actividades dirixidas:Poderase reservar praza, cun máximo de 24 horas de antelación, para cada un dos dias nos que se imparta esta actividade en: Miña Conta / Histórico / Bonos-Entradas / Nova sesión).\r\n3. Uso libre das bicicletas:Cando non se estea impartindo algunha clase dirixida, poderase autorizar o uso libre das bicicletas ás persoas aboadas á área de Benestar, Saúde e Deporte ou a aquelas que dispoñan dunha entrada multideporte de acceso á sala cardio fitness / pista de atletismo', 1, 2),
 (7, 'GROUP CYCLE CONNECT', 'Group Cycle Connect es la única bicicleta estática del mundo que realiza un seguimiento de la sesión deportiva, para que los usuarios puedan mejorar su rendimiento a través de una experiencia de pedaleo totalmente realista. Combina diseño único con conectividad de última generación, una sensación increí­ble y una facilidad de uso inédita.', 30, 1),
-(8, 'Multiestación Weider Pro 8700', 'La Weider 8700 es un gimnasio compacto por lo que no ocupa toda la habitación pero mantiene las cualidades esenciales para un entrenamiento de calidad. \r\n\r\nTanto las poleas altas como bajas pueden usarse con los accesorios incluidos. La polea alta es perfecta para ejercicios de tracciÃ³n lateral, extensiones de trÃ­ceps y abdominales crunch. La polea baja es mejor para ejercicios de remo sentado y flexiones de bÃ­ceps.', 5, 1),
+(8, 'Multiestación Weider Pro 8700', 'La Weider 8700 es un gimnasio compacto por lo que no ocupa toda la habitación pero mantiene las cualidades esenciales para un entrenamiento de calidad. \r\n\r\nTanto las poleas altas como bajas pueden usarse con los accesorios incluidos. La polea alta es perfecta para ejercicios de tracción lateral, extensiones de tríceps y abdominales crunch. La polea baja es mejor para ejercicios de remo sentado y flexiones de bíceps.', 5, 1),
 (9, 'Press de Pecho Inclinado Evolution Bodytone', 'Las máquinas de musculación profesionales Evolution de Bodytone contienen todo lo necesario para equipar tu sala fitness, con más de 20 modelos que agrupan el trabajo de todo el cuerpo, desde los gemelos hasta los hombros.', 5, 1);
 
 -- --------------------------------------------------------
@@ -353,7 +416,7 @@ CREATE TABLE IF NOT EXISTS `session` (
   `date` datetime NOT NULL,
   `duration` time NOT NULL,
   `comment` mediumtext COLLATE utf8_spanish_ci
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Dumping data for table `session`
@@ -361,7 +424,12 @@ CREATE TABLE IF NOT EXISTS `session` (
 
 INSERT INTO `session` (`id`, `id_user`, `id_table`, `date`, `duration`, `comment`) VALUES
 (1, 5, 2, '2017-11-22 12:51:00', '01:00:21', 'Productiva'),
-(2, 4, 1, '2017-11-22 12:53:00', '01:01:00', 'Mejorar ejercicio2');
+(2, 4, 1, '2017-11-22 12:53:00', '01:01:00', 'Mejorar ejercicio2'),
+(3, 5, 2, '2017-11-29 09:23:00', '01:30:03', ''),
+(4, 5, 2, '2017-12-06 12:24:00', '01:00:04', ''),
+(5, 5, 2, '2017-12-20 09:25:00', '00:30:01', ''),
+(6, 5, 2, '2017-12-27 09:25:00', '00:45:03', ''),
+(7, 5, 2, '2017-12-30 11:26:00', '01:00:00', 'Ultima del año\r\n');
 
 -- --------------------------------------------------------
 
@@ -577,7 +645,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `activity_schedule`
 --
 ALTER TABLE `activity_schedule`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=65;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=131;
 --
 -- AUTO_INCREMENT for table `assistance`
 --
@@ -617,7 +685,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 -- AUTO_INCREMENT for table `session`
 --
 ALTER TABLE `session`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `user`
 --

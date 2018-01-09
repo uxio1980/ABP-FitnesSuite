@@ -72,7 +72,9 @@ class Activity_scheduleMapper {
       */
       public function findById($id_activity){
 
-        $stmt = $this->db->prepare("SELECT A_S.id as idA_S, A.id as idA, A_S.*, A.*  FROM activity_schedule A_S LEFT JOIN activity A ON A_S.id_activity=A.id WHERE A_S.id=?");
+        $stmt = $this->db->prepare("SELECT A_S.id as idA_S, A.id as idA, A_S.*, A.*
+          FROM activity_schedule A_S
+          LEFT JOIN activity A ON A_S.id_activity=A.id WHERE A_S.id=? ORDER BY A_S.date");
         $stmt->execute(array($id_activity));
         $activity_schedule = $stmt->fetch(PDO::FETCH_ASSOC);
         if($activity_schedule != null) {
@@ -92,7 +94,7 @@ class Activity_scheduleMapper {
        * @return mixed Array of activity_schedule instances
        */
       public function findAll() {
-        $stmt = $this->db->query("SELECT * FROM activity_schedule");
+        $stmt = $this->db->query("SELECT * FROM activity_schedule  ORDER BY A_S.date");
         $activity_schedules_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $activity_schedules = array();
 
@@ -185,7 +187,10 @@ class Activity_scheduleMapper {
     * @return mixed Array of activity_schedule instances
     */
     public function searchAll($value) {
-      $stmt = $this->db->prepare("SELECT A_S.id as idA_S, A.id as idA, A_S.*, A.*  FROM activity_schedule A_S LEFT JOIN activity A ON A_S.id_activity=A.id WHERE id_activity=:search");
+      $stmt = $this->db->prepare("SELECT A_S.id as idA_S, A.id as idA, A_S.*, A.*
+        FROM activity_schedule A_S
+        LEFT JOIN activity A ON A_S.id_activity=A.id
+        WHERE id_activity=:search ORDER BY date");
       //$stmt = $this->db->query("SELECT * FROM activity_schedule");
       $stmt->execute(array($value));
         $activity_schedules_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
