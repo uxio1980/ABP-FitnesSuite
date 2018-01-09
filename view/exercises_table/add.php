@@ -20,7 +20,6 @@
 
 			<label for="form-field"><?= i18n("Exercise") ?></label>
 			<select name="id_exercise" class="select" required onchange="yesnoCheck(this);">
-				<option disabled selected>Seleccione un ejercicio</option>
 				<?php foreach ($exercises as $exercise): ?>
 				<option value="<?= $exercise->getId()?>, <?= $exercise->getType() ?>">
 					<?= $exercise->getName()?></option>

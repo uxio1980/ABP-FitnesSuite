@@ -56,8 +56,15 @@ class ActivitiesController extends BaseController {
   */
   public function index() {
 
+    if (isset($_POST["search"])) {
+      $search = $_POST["search"];
+      $filterby = "all";
+      $activities = $this->activityMapper->searchAll($search);
+    }else{
+      $activities = $this->activityMapper->findAll();
+    }
     // obtain the data from the database
-    $activities = $this->activityMapper->findAll();
+
 
     // put the array containing Activity object to the view
     $this->view->setVariable("activities", $activities);
@@ -134,7 +141,7 @@ class ActivitiesController extends BaseController {
           $isReserved = 0;
       }
     }
-    
+
       $plazasOcupadas = $this->user_activityMapper->countAllByIdActivity($activityid);
       $plazasDisponibles = $activity->getSeats() - $plazasOcupadas;
 
@@ -235,6 +242,7 @@ class ActivitiesController extends BaseController {
         // perform the redirection. More or less:
         // header("Location: index.php?controller=activitys&action=index")
         // die();
+        $this->view->setFlash(sprintf(i18n("Activity successfully added.")));
         $this->view->redirect("activities", "index");
 
       }catch(ValidationException $ex) {
@@ -362,6 +370,7 @@ class ActivitiesController extends BaseController {
         // perform the redirection. More or less:
         // header("Location: index.php?controller=posts&action=index")
         // die();
+        $this->view->setFlash(sprintf(i18n("Activity successfully updated.")));
         $this->view->redirect("activities", "index");
 
       }catch(ValidationException $ex) {

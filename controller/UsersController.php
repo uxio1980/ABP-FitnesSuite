@@ -61,8 +61,9 @@ class UsersController extends BaseController {
       }
 
       // obtain the data from the database
-      if (isset($_GET["search"])) {
-        $search = $_GET["search"];
+      if (isset($_POST["search"])) {
+        $search = $_POST["search"];
+        $filterby = "all";
         $users = $this->userMapper->searchAll($search);
       }else
       {
@@ -149,7 +150,7 @@ class UsersController extends BaseController {
                 $this->view->redirect("main", "index");
             } else {
                 $errors = array();
-                $errors["general"] = "Login is not valid";
+                $errors["general"] = i18n("Login is not valid");
                 //$this->view->setVariable("errors", $errors);
                 $this->view->setVariable("loginerrors", $errors, true);
                 $this->view->redirectToReferer();
@@ -225,12 +226,14 @@ class UsersController extends BaseController {
                         // save the User object into the database
                         $admin = $this->userMapper->findAdmin();
                         $notdate = $this->date->modify( '+1 day' )->format('Y-m-d H:i:s');
-                        $this->notificationMapper->save(new Notification(NULL, new User(), $notdate, "Confirm User",
-                            "New user added to the app, please, confirm."));
+                        $this->notificationMapper->save(new Notification(NULL, new User(), $notdate, i18n("Confirm User"),
+                            i18n("New user added to the app, please, confirm.")));
                         $not = $this->notificationMapper->findLastId();
                         $this->notificationUserMapper->save(new Notification_user(NULL, $admin, $not, NULL));
                         $this->userMapper->save($user);
-                        $this->view->setFlash("Login " . $user->getLogin() . " successfully added. Please, wait to confirm login.");
+
+                        $this->view->setFlash( i18n("Login") . " ". $user->getLogin() . " " . i18n("successfully added. Please, wait to confirm login."));
+
                         $this->view->redirectToReferer();
                     } else{
                         $this->userMapper->save($user);
@@ -257,13 +260,13 @@ class UsersController extends BaseController {
                                 $user->setUser_type($_POST["user_type"]);
                             }
                         }*/
-                        $this->view->setFlash("Login " . $user->getLogin() . " successfully added.");
+                        $this->view->setFlash(i18n("Login") . " " . $user->getLogin() . " " . i18n("successfully added."));
                         $this->view->redirect("users", "index");
                     }
 
                 } else {
                   $errors = array();
-                  $errors["general"] = "Login already exist";
+                  $errors["general"] = i18n("Login already exist");
                   //$this->view->setVariable("errors", $errors);
                   $this->view->setVariable("loginerrors", $errors, true);
                     $this->view->setVariable("user", $user);
@@ -329,7 +332,7 @@ class UsersController extends BaseController {
         $pass = md5($_POST["password"]);
         $user->setPassword($pass);
         $user->setSurname($_POST["surname"]);
-        $user->setPhone($_POST["phone"]);
+        $user->setPhone((int)$_POST["phone"]);
         $user->setDni($_POST["dni"]);
         $user->setTrainer($_POST["trainer"]);
         if($user->getUser_type() != $_POST["user_type"] && $user->getUser_type() == null){
@@ -370,6 +373,7 @@ class UsersController extends BaseController {
           $user->checkIsValidForUpdate(); // if it fails, ValidationException
 
           // update the User object in the database
+
           $this->userMapper->update($user);
 
           $this->view->redirect("users", "profile", "login=".$user->getLogin());

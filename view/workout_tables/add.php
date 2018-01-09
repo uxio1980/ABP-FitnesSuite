@@ -5,6 +5,7 @@
  $view = ViewManager::getInstance();
  $type = $view->getVariable("type");
  $exercises = $view->getVariable("exercises");
+ $id_userPEF = $view->getVariable("id_userPEF");
  $view->setVariable("title", i18n("Add workout table"));
 
 ?>
@@ -23,6 +24,8 @@
 			<?= isset($errors["name"])?$errors["name"]:"" ?>
 			<label for="name-field"><?= i18n("Description") ?></label>
 			<textarea name="description" rows="4" cols="50" required></textarea>
+      <input type="hidden" name="id_userPEF" value="<?= $id_userPEF ?>"/>
+
 			<?= isset($errors["description"])?$errors["description"]:"" ?><br>
 
            <input type="submit" name="submit" value="<?= i18n("Add") ?>"/>

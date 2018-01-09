@@ -58,5 +58,8 @@ class BaseController {
       $this->view->setVariable("typeuser", $userprofile->getUser_type());
       $this->view->setVariable("imageUser", $userprofile->getProfileImage());
     }
+    if (isset($_GET["controller"])){
+        $this->view->setVariable("controller", $_GET["controller"]);
+    }
   }
 }

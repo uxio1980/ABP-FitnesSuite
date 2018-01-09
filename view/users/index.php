@@ -27,17 +27,31 @@ $filterby = $view->getVariable("filterby");
       </div>
     <table id="table-content">
       <tr class="table-row-content">
+        <td></td>
           <td><strong><?= i18n("User type")?></strong></td>
         <td><strong><?= i18n("Login")?></strong></td>
         <td><strong><?= i18n("Name")?></strong></td>
         <!--<td><strong><?= i18n("Surname")?></strong></td>-->
         <td><strong><?= i18n("Email")?></strong></td>
         <td><strong><?= i18n("Phone")?></strong></td>
-        <td><strong><?= i18n("Edit")?></strong></td>
-        <td><strong><?= i18n("Delete")?></strong></td>
+
       <?php foreach ($users as $user): ?>
         <tr class="table-row-content"
           data-href="index.php?controller=users&amp;action=edit&amp;login=<?= $user->getLogin() ?>">
+            <td>
+              <?php if ($user->getProfileImage() != NULL): ?>
+                <?php $ruta="resources/profiles/". $user->getProfileImage()?>
+              <?php else: ?>
+                <?php $ruta="resources/profiles/profile-default.png"?>
+              <?php endif ?>
+              <div class="container-user-circle">
+                <div class="circle kitten" style="background-image: url('<?=$ruta?>');">
+                  <div class="aligner">
+                    <!-- text inside the icon -->
+                  </div>
+                </div>
+              </div>
+            </td>
             <td><?= i18n(usertype::getName($user->getUser_type()))?></td>
           <td><?= $user->getLogin() ?></td>
           <td><?= $user->getName() ?></td>

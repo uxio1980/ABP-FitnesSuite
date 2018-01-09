@@ -87,6 +87,25 @@ class ExerciseMapper {
         return $exercises;
       }
 
+      /**
+       * Retrieves all exercise
+       *
+       * @throws PDOException if a database error occurs
+       * @return mixed Array of public infos instances
+       */
+        public function searchAll($value) {
+        $stmt = $this->db->prepare("SELECT * FROM exercise WHERE UPPER(name) LIKE UPPER(:search)");
+        $stmt->execute(array(':search' => '%' . $value . '%'));
+        $exercise_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $exercises = array();
+
+        foreach ($exercise_db as $exercise) {
+          array_push($exercises, new Exercise($exercise["id"], $exercise["id_user"],
+              $exercise["name"], $exercise["description"], $exercise["type"], $exercise["image"], $exercise["video"]));
+        }
+        return $exercises;
+      }
+
     /**
      * Deletes an exercise from the database
      *

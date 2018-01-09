@@ -65,6 +65,25 @@ class ActivityMapper {
      * @throws PDOException if a database error occurs
      * @return mixed Array of activity instances
      */
+    public function searchAll($value) {
+        $stmt = $this->db->prepare("SELECT * FROM activity WHERE UPPER(name) LIKE UPPER(:search)");
+        $stmt->execute(array(':search' => '%' . $value . '%'));
+        $activities_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $activities = array();
+
+        foreach ($activities_db as $activity) {
+            array_push($activities, new activity($activity["id"],$activity["id_user"],$activity["name"],$activity["description"],
+                $activity["type"],$activity["place"],$activity["seats"],$activity["image"]));
+        }
+        return $activities;
+    }
+
+    /**
+     * Retrieves all activities
+     *
+     * @throws PDOException if a database error occurs
+     * @return mixed Array of activity instances
+     */
     public function findMyActivities($trainer) {
         $stmt = $this->db->prepare("SELECT * FROM activity where id_user=? and type=2");
         $stmt->execute(array($trainer));

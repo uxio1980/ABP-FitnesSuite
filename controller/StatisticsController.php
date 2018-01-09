@@ -23,11 +23,11 @@ class StatisticsController extends BaseController {
   }
 
   public function index() {
-    
+
     if(isset($this->currentUser)){
       if ($this->currentUser->getUser_type() == usertype::Administrator){
         $number_users = $this->statisticMapper->athletesRegistered();
-        
+
         $athletes_activity = $this->statisticMapper->athletesByActivity();
 
         $this->view->setVariable("number_users", $number_users);
@@ -42,7 +42,8 @@ class StatisticsController extends BaseController {
         $this->view->setVariable("athletes", $athletes);
 
         if (!isset($_POST["userid"])) {
-          if(!empty($athletes->getXaxis())){
+          $xaxis = $athletes->getXaxis();
+          if(!empty($xaxis)){
             $sessions = $this->findSessions($athletes->getXaxis()[0]->getId());
             $this->view->setVariable("sessions", $sessions);
           }

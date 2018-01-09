@@ -26,11 +26,13 @@ $filterby = $view->getVariable("filterby");
         </div>
         <table id="table-content">
             <tr class="table-row-content">
+              <td></td>
                 <td><strong><?= i18n("Login")?></strong></td>
                 <td><strong><?= i18n("Name")?></strong></td>
                 <td><strong><?= i18n("Surname")?></strong></td>
-                <td><strong><?= i18n("Email")?></strong></td>
-                <td><strong><?= i18n("Phone")?></strong></td>
+                <?php if($filterby == "myathlets"): ?>
+                <td><strong><?= i18n("Create Table")?></strong></td>
+              <?php endif; ?>
                 <td><strong><?= i18n("Asign Table")?></strong></td>
                 <td><strong><?= i18n("View Tables")?></strong></td>
                 <?php if($filterby == 'myathlets'): ?>
@@ -39,11 +41,28 @@ $filterby = $view->getVariable("filterby");
                 <?php foreach ($users as $user): ?>
             <tr class="table-row-content"
                 data-href="index.php?controller=users&amp;action=edit&amp;login=<?= $user->getLogin() ?>">
+                <td>
+                  <?php if ($user->getProfileImage() != NULL): ?>
+                    <?php $ruta="resources/profiles/". $user->getProfileImage()?>
+                  <?php else: ?>
+                    <?php $ruta="resources/profiles/profile-default.png"?>
+                  <?php endif ?>
+                  <div class="container-user-circle">
+                    <div class="circle kitten" style="background-image: url('<?=$ruta?>');">
+                      <div class="aligner">
+                        <!-- text inside the icon -->
+                      </div>
+                    </div>
+                  </div>
+                </td>
                 <td><?= $user->getLogin() ?></td>
                 <td><?= $user->getName() ?></td>
                 <td><?= $user->getSurname() ?></td>
-                <td><?= $user->getEmail() ?></td>
-                <td><?= $user->getPhone() ?></td>
+                <?php if($filterby == "myathlets"): ?>
+                <td><a href="index.php?controller=workout_tables&amp;action=add&amp;login=<?= $user->getId() ?>">
+                        <img src="resources/icons/createTable_icon.svg" alt="View Table"/></a>
+                </td>
+              <?php endif; ?>
                 <td><a href="index.php?controller=user_tables&amp;action=add&amp;login=<?= $user->getId() ?>">
                         <img src="resources/icons/ic_exercices_table.png" alt="Add table" /></a>
                 </td>

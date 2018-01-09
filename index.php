@@ -35,6 +35,7 @@ define("DEFAULT_ACTION", "index");
 function run() {
   // invoke action!
   try {
+
     if (!isset($_GET["controller"])) {
       $_GET["controller"] = DEFAULT_CONTROLLER;
     }
@@ -56,7 +57,7 @@ function run() {
     $controller->$actionName();
   } catch(Exception $ex) {
     //uniform treatment of exceptions
-    die("An exception occured!!!!!<br>".$ex->getMessage());
+    die(i18n("An exception occured!")."<br>".$ex->getMessage());
   }
 }
 

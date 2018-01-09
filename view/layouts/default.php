@@ -11,6 +11,7 @@ $numberOfNotifications = $view->getVariable("numberOfNotifications");
 $default_notifications_user = $view->getVariable("default_notifications_user");
 $loginerrors = $view->getVariable("loginerrors");
 $registererrors = $view->getVariable("register");
+$controller = $view->getVariable("controller");
 $i18n = I18n::getInstance();
 $language = $i18n->getLanguage();
 ?>
@@ -19,8 +20,8 @@ $language = $i18n->getLanguage();
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Sell and buy secondhand products">
-  <meta name="keywords" content="articles, products, sell, buy, secondhand">
+  <meta name="description" content="Gimnasio FitnesSuite">
+  <meta name="keywords" content="gimnasio, fitnessuite">
   <meta name="author" content="Jose Eugenio González, Andrés Fernández, Iago Fernández, Sandra Pastoriza">
 
   <link rel="stylesheet" href="style.css" type="text/css">
@@ -43,12 +44,13 @@ $language = $i18n->getLanguage();
         <img id="end-logo" src="resources/icons/end-logo.png" alt="Menu icon"/>
     </div>
 
-    <div id="header-search">
-      <form id="form-search" action="index.php?controller=articles&amp;action=search" method="GET">
-        <input id="input-search"  type="text" name="search"
-        placeholder="<?= i18n("Search products")?>"  />
-      </form>
-    </div>
+      <div id="header-search">
+        <form id="form-search" action="index.php?controller=<?= $controller ?>&amp;action=index" method="POST">
+          <input id="input-search"  type="text" name="search"
+          placeholder="<?= i18n("Search products")?>"  />
+      </div>
+    </form>
+
     <div id="header-login">
       <!-- ******* LANGUAGE BUTTON   **************************** -->
       <button id="language-button">
@@ -257,7 +259,7 @@ $language = $i18n->getLanguage();
                   </li>
                   <li class="nav-item">
                       <a href="index.php?controller=exercise&amp;action=index">
-                          <img src="resources/icons/ic_exercices_table.svg"  width="24" height="24" alt="Exercise icon"/>
+                          <img src="resources/icons/ic_exercices_table.svg"  alt="Exercise icon"/>
                           <div class="text-item"><?= i18n("Exercises")?></div>
                       </a>
                   </li>
@@ -290,7 +292,7 @@ $language = $i18n->getLanguage();
                   </li>
                   <li class="nav-item">
                       <a href="index.php?controller=exercise&amp;action=index">
-                          <img src="resources/icons/ic_exercices_table.svg"  width="24" height="24" alt="Exercise icon"/>
+                          <img src="resources/icons/ic_exercices_table.svg" alt="Exercise icon"/>
                           <div class="text-item"><?= i18n("Exercises")?></div>
                       </a>
                   </li>

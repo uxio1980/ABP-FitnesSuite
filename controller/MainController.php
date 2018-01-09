@@ -60,17 +60,16 @@ class MainController extends BaseController {
   */
   public function index() {
     // obtain the data from the database
-    /*  if (isset($_GET["search"])) {
-    $search = $_GET["search"];
-    $articles = $this->articleMapper->searchAll($search);
-  }else
-  {
-  $articles = $this->articleMapper->findAll();
-}
+    if (isset($_POST["search"])) {
+        $search = $_POST["search"];
+        $activities = $this->activityMapper->searchAll($search);
+    }else{
+        $activities = $this->activityMapper->findAll();
+    }
 
-*/
+
 // put the array containing Activities object to the view
-$activities = $this->activityMapper->findAll();
+
 $this->view->setVariable("activities", $activities);
 
 $next_events = $this->activity_scheduleMapper->search2NextEvents();

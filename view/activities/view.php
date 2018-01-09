@@ -34,7 +34,7 @@
                 <button class="next-btn" onclick="plusDivs(1)"><?= i18n("Next ❯")?></button>
           </div>
           <div class="article-gallery">
-      <?php if ($images[0]!= NULL): ?>
+      <?php if (!isset($images) && $images[0]!= NULL): ?>
         <?php $paththumbnail = file_exists($images[0])  ?
                     $images[0]
                     :'./resources/images/_missing-thumbnail.png' ?>

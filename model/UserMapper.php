@@ -270,6 +270,27 @@ class UserMapper {
     }
 
     /**
+     * Retrieves all users
+     *
+     * @throws PDOException if a database error occurs
+     * @return mixed Array of User instances
+     */
+    public function searchAll($value) {
+      $stmt = $this->db->prepare("SELECT * FROM user WHERE UPPER(name) LIKE UPPER(:search)");
+      $stmt->execute(array(':search' => '%' . $value . '%'));
+      $users_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $users = array();
+
+      foreach ($users_db as $user) {
+        array_push($users, new User($user["id"],$user["login"],$user["name"],$user["password"],
+        $user["email"], $user["description"], $user["profile_image"],
+        $user["surname"], $user["phone"], $user["dni"],
+        $user["user_type"], $user["trainer"]));
+      }
+      return $users;
+  }
+
+    /**
      * Retrieves all pending users
      *
      * @throws PDOException if a database error occurs
