@@ -26,8 +26,9 @@ $view->setVariable("title", "FitnesSuite");
                 data-href="index.php?controller=activities&amp;action=edit&amp;idactivity="<?= $activity->getIdactivity() ?>">
 
                 <td><span class="field_name"><?= $user->getName() ?></span></td>
-                <td>
+
                 <?php foreach ($schedule as $day): ?>
+                <td>
                     <?php foreach ($assistance as $assist): ?>
                         <?php if($assist->getIduser() == $user->getId() && $assist->getDate() == $day->getDate()): ?>
 
@@ -48,8 +49,8 @@ $view->setVariable("title", "FitnesSuite");
 
                         <?php endif ?>
                     <?php endforeach; ?>
-                <?php endforeach; ?>
                 </td>
+                <?php endforeach; ?>
             </tr>
             <?php endforeach; ?>
         </table>
