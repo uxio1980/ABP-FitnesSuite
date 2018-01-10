@@ -220,6 +220,12 @@ $language = $i18n->getLanguage();
                   </a>
                 </li>
                 <li class="nav-item">
+                  <a href="index.php?controller=user_activity&amp;action=index">
+                    <img src="resources/icons/ic_content_reservations.svg" alt="Reservations icon"/>
+                    <div class="text-item"><?= i18n("Reservations")?></div>
+                  </a>
+                </li>
+                <li class="nav-item">
                     <a href="index.php?controller=workout_tables&amp;action=index">
                         <img src="resources/icons/workout_table_icon.svg"  width="24" height="24" alt="Exercise icon"/>
                         <div class="text-item"><?= i18n("Workout tables")?></div>

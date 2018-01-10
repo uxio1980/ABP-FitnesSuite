@@ -28,6 +28,30 @@ class User_activityController extends BaseController {
     $this->user_activityMapper = new User_activityMapper();
   }
 
+  /**
+  * Action to list user_activities
+  *
+  * Loads all the user_activities from the database.
+  * No HTTP parameters are needed.
+  *
+  */
+  public function index() {
+    if (!isset($this->currentUser)) {
+        throw new Exception("Not in session. Adding user_activities requires login");
+    }
+    if ($this->currentUser->getUser_type()!=usertype::AthletePEF && $this->currentUser->getUser_type()!=usertype::AthleteTDU ){
+        throw new Exception("Not in session. List user_activity requires login like athlete");
+    }
+    // obtain the data from the database
+    $user_Activities = $this->user_activityMapper->findByIdUser($this->currentUser->getId());
+    $daysOfActivities = $this->user_activityMapper->findDaysActivitiesByIdUser($this->currentUser->getId());
+    // put the array containing Activity object to the view
+    $this->view->setVariable("user_Activities", $user_Activities);
+    $this->view->setVariable("daysOfActivities", $daysOfActivities);
+    // render the view (/view/schedules/index.php)
+    $this->view->render("reservations", "index");
+  }
+
     public function add() {
         if (!isset($this->currentUser)) {
             throw new Exception("Not in session. Adding user_activities requires login");
@@ -82,6 +106,33 @@ class User_activityController extends BaseController {
         //$this->view->redirect("user_tables", "index");
 
         $this->view->redirect("activities", "view","idactivity="  . $id_activity);
+
+    }
+
+    public function deleteFromReservations() {
+        if (!isset($this->currentUser)) {
+            throw new Exception("Not in session. delete user_activity requires login ");
+        }
+        if ($this->currentUser->getUser_type()!=usertype::AthletePEF && $this->currentUser->getUser_type()!=usertype::AthleteTDU ){
+            throw new Exception("Not in session. delete user_activity requires login like athlete");
+        }
+
+        // Get the exercise object from the database
+        $id_activity = $_REQUEST["id_activity"];
+
+        $user_activity = $this->user_activityMapper->findByIdActivityAndIdUser($id_activity, $this->currentUser->getId());
+
+        // Does the exercise exist?
+        if ($user_activity == NULL) {
+            throw new Exception("no such user activity with id activity: ".$id_activity);
+        }else{
+            $this->user_activityMapper->delete($user_activity);
+            $this->view->setFlash(sprintf(i18n("Activity successfully deleted")));
+        }
+
+        //$this->view->redirect("user_tables", "index");
+
+        $this->view->redirect("user_activity", "index");
 
     }
 }
