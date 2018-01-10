@@ -272,6 +272,7 @@
 	  "All Athlets" => "Todos Deportistas",
       "My Athlets" => "Mis Deportistas",
       "TDU Athlets" => "Deportistas TDU",
-	  "View Sessions" => "Ver sesiones"
+	  "View Sessions" => "Ver sesiones",
+      "Sessions of " => "Sesiones de "
   )
 ?>
