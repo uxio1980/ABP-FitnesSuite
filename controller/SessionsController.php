@@ -10,6 +10,9 @@ require_once(__DIR__."/../model/User_tableMapper.php");
 
 require_once(__DIR__."/../model/Workout_table.php");
 
+require_once(__DIR__."/../model/User.php");
+require_once(__DIR__."/../model/UserMapper.php");
+
 require_once(__DIR__."/../controller/BaseController.php");
 /**
 * Class SessionController
@@ -29,6 +32,7 @@ class SessionsController extends BaseController {
     private $user_tableMapper;
     private $date;
     private $currentDate;
+    private $userMapper;
 
     public function __construct() {
         parent::__construct();
@@ -37,6 +41,7 @@ class SessionsController extends BaseController {
         $this->view->setLayout("default");
         $this->date = new DateTime();
         $this->currentDate = $this->date->getTimestamp();
+        $this->userMapper = new UserMapper();
     }
 
     /**
@@ -84,7 +89,13 @@ class SessionsController extends BaseController {
       $this->view->setVariable("numUser_tables", $numUser_tables);
 
       // render the view (/view/sessions/index.php)
-      $this->view->render("sessions", "index");
+        if (isset($this->currentUser) && $this->currentUser->getUser_type() == usertype::Trainer) {
+            $this->view->setVariable("user", $this->userMapper->findById2($_REQUEST["id"])->getName());
+            $this->view->render("sessions", "index_trainer");
+        }
+        else {
+            $this->view->render("sessions", "index");
+        }
     }
 
 
