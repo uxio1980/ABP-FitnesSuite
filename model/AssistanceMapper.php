@@ -21,9 +21,9 @@ class AssistanceMapper
     }
 
     public function update(Assistance $assist) {
-        $stmt = $this->db->prepare("UPDATE assistance set id=?, id_userActivity=?,
+        $stmt = $this->db->prepare("UPDATE assistance set  id_userActivity=?,
             date=?, assist=? where id=?");
-        $stmt->execute(array($assist->getIdactivity(), $assist->getIduserAct(), $assist->getDate(),
+        $stmt->execute(array( $assist->getIduserAct(), $assist->getDate(),
             $assist->getAssist(),$assist->getIdassist()));
     }
 
