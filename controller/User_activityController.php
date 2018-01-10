@@ -77,7 +77,7 @@ class User_activityController extends BaseController {
         $user_activity->setUser($this->currentUser);
         $user_activity->setActivity($currentActivity);
         $this->user_activityMapper->save($user_activity);
-
+        $this->view->setFlash(sprintf(i18n("Reserve successfully added.")));
         $this->view->redirect("activities", "view","idactivity="  . $idactivity);
     }
 
@@ -99,8 +99,7 @@ class User_activityController extends BaseController {
             throw new Exception("no such user activity with id activity: ".$id_activity);
         }else{
             $this->user_activityMapper->delete($user_activity);
-            $this->view->setFlash(sprintf(i18n("Table successfully deleted."),
-              $user_table->getWorkout_table()->getName(),$user_table->getUser()->getName()));
+            $this->view->setFlash(sprintf(i18n("Reserve successfully deleted.")));
         }
 
         //$this->view->redirect("user_tables", "index");

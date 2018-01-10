@@ -36,22 +36,32 @@ class Workout_tablesController extends BaseController {
   * Action to list workout tables
   */
   public function index() {
+    if (isset($this->currentUser) && ($this->currentUser->getUser_type() == usertype::Trainer)){
 
-      if (isset($this->currentUser) && ($this->currentUser->getUser_type() == usertype::Trainer)){
-
-          $tables = $this->workout_tableMapper->findAll();
-
-          $this->view->setVariable("tables", $tables);
-
-          $this->view->render("workout_tables", "index_trainer");
-
-      } else {
-          if (isset($this->currentUser) && ($this->currentUser->getUser_type() != usertype::Trainer)) {
-              $tables_user = $this->user_tableMapper->findByUser($this->currentUser->getId());
-              $this->view->setVariable("tables", $tables_user);
-              $this->view->render("workout_tables", "index");
-          }
+      if (isset($_POST["search"])) {
+        $search = $_POST["search"];
+        $tables = $this->workout_tableMapper->searchAll($search);
+      }else{
+        $tables = $this->workout_tableMapper->findAll();
       }
+
+        $this->view->setVariable("tables", $tables);
+
+        $this->view->render("workout_tables", "index_trainer");
+
+    } else {
+        if (isset($this->currentUser) && ($this->currentUser->getUser_type() != usertype::Trainer)) {
+          if (isset($_POST["search"])) {
+            $search = $_POST["search"];
+            //$tables = $this->workout_tableMapper->searchAll($search);
+            $tables_user = $this->user_tableMapper->searchAllByUser($this->currentUser->getId(), $search);
+          }else{
+            $tables_user = $this->user_tableMapper->findByUser($this->currentUser->getId());
+          }
+            $this->view->setVariable("tables", $tables_user);
+            $this->view->render("workout_tables", "index");
+        }
+    }
   }
 
     public function view(){

@@ -48,6 +48,8 @@
     "Error sending mail." => "Error enviando mail",
     "successfully deleted." => "borrado satisfactoriamente.",
     "Activity successfully deleted" => "Actividad borrada satisfactoriamente.",
+    "Reserve successfully deleted." => "Reserva eliminada satisfactoriamente.",
+    "Reserve successfully added." => "Reserva añadida satisfactoriamente.",
     "Resource successfully deleted." => "Recurso borrado satisfactoriamente.",
     "You must write a duration"=> "Debe introducir una duración",
     "You must write a number of repetitions" => "Debe introducir un número de repeticiones",

@@ -122,6 +122,29 @@ class User_tableMapper {
       return $user_tables;
     }
 
+    public function searchAllByUser($id_user, $search){
+        $stmt = $this->db->prepare("SELECT UT.id as 'user_table.id', WT.id, WT.id_user, WT.name, WT.type, WT.description
+          FROM user_table UT
+           left join workout_table WT ON UT.id_workout= WT.id
+          WHERE UT.id_user=?
+          AND UPPER(WT.name) LIKE UPPER(?)");
+
+        $stmt->execute(array($id_user, '%' . $search . '%'));
+        $tables_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $tables = array();
+
+        foreach ($tables_db as $table) {
+          $user = new User();
+          $user->setId($table["id_user"]);
+            array_push($tables, new Workout_table($table["id"],$user,
+                $table["name"],$table["type"],$table["description"], $table["user_table.id"]));
+
+        }
+
+        return $tables;
+    }
+
     public function findByUser($id_user){
         $stmt = $this->db->prepare("SELECT UT.id as 'user_table.id', WT.id, WT.id_user, WT.name, WT.type, WT.description
           FROM user_table UT
