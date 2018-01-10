@@ -105,7 +105,7 @@ class User_activityMapper {
         daysActivity.nameofday, daysActivity.start_hour, daysActivity.end_hour
         FROM
           	(SELECT DAYNAME(A_S.date) as nameofday, A_S.*
-               FROM `activity_schedule` A_s
+               FROM `activity_schedule` A_S
                LEFT JOIN user_activity U_A ON A_S.id_activity=U_A.id_activity
                WHERE U_A.id_user=?
            	 and date >= NOW()
