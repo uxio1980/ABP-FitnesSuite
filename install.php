@@ -9,7 +9,7 @@ if (isset($_POST["submit"])){
 
     $mysqlUserName = $_POST["user"];
     $mysqlPasswd = $_POST["passwd"];
-    $dbFile = "fitnessdb.sql";
+    $dbFile = "fitnessdb-db.sql";
     $command='mysql -u' .$mysqlUserName .' -p' .$mysqlPasswd . ' < ' .$dbFile;
     exec($command,$output=array(),$worked);
     switch($worked){
