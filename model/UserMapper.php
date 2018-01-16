@@ -50,7 +50,7 @@ class UserMapper {
         $stmt->execute(array($user->getLogin(), $user->getName(), $user->getPassword(),
         $user->getEmail(), $user->getDescription(), $user->getProfileImage(),
         $user->getSurname(), $user->getPhone(), $user->getDni(), $user->getUser_type(),
-        $user->getLogin(), $user->getTrainer()));
+            $user->getTrainer(),$user->getLogin()));
       }
 
       /**
