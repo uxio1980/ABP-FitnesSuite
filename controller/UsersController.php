@@ -329,14 +329,16 @@ class UsersController extends BaseController {
         $user->setName($_POST["name"]);
         $user->setEmail($_POST["email"]);
         $user->setDescription($_POST["description"]);
-        $pass = md5($_POST["password"]);
-        $user->setPassword($pass);
+        if($_POST["password"] != $user->getPassword()) {
+            $pass = md5($_POST["password"]);
+            $user->setPassword($pass);
+        }
         $user->setSurname($_POST["surname"]);
         $user->setPhone((int)$_POST["phone"]);
         $user->setDni($_POST["dni"]);
         $user->setTrainer($_POST["trainer"]);
         if($user->getUser_type() != $_POST["user_type"] && $user->getUser_type() == null){
-            $mail = new PHPMailer();
+            /*$mail = new PHPMailer();
             $mail->isSMTP();
             $mail->SMTPDebug = 4;
             $mail->Host = 'tls://smtp.gmail.com';
@@ -355,9 +357,10 @@ class UsersController extends BaseController {
                 echo "Mailer Error: ";
             } else {
                 echo "Message sent!";
-                $user->setUser_type($_POST["user_type"]);
-            }
+
+            }*/
         }
+          $user->setUser_type($_POST["user_type"]);
 
 
 

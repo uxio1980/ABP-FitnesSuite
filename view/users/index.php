@@ -61,8 +61,11 @@ $filterby = $view->getVariable("filterby");
           <td><a href="index.php?controller=users&amp;action=edit&amp;login=<?= $user->getLogin() ?>">
             <img src="resources/icons/edit_icon.svg" alt="Edit" /></a>
           </td>
-          <td><a class="confirmation" href="index.php?controller=users&amp;action=delete&amp;login=<?= $user->getLogin() ?>">
+          <td>
+              <?php if ($user->getUser_type() != usertype::Administrator): ?>
+              <a class="confirmation" href="index.php?controller=users&amp;action=delete&amp;login=<?= $user->getLogin() ?>">
             <img src="resources/icons/delete_icon.svg" alt="Delete"/></a>
+              <?php endif ?>
           </td>
         </tr>
       <?php endforeach; ?>
