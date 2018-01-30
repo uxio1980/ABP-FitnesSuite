@@ -1,6 +1,6 @@
 # ABP-FitnesSuite
-Proyecto de la asignatura ABP - Universidad de Vigo - Ingeniería Informática
 Aplicación Web MVC para la gestión de un gimnasio.
+Proyecto de la asignatura ABP - Universidad de Vigo - Ingeniería Informática
 Proyecto utilizando las tecnologías:
 FrontEnd: PHP, JavaScript, Flex, HTML5, CSS3
 BackEnd: MySQL, MVC, PHP, APACHE
